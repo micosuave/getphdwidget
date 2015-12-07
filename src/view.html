@@ -1,0 +1,283 @@
+<!-- <div class="alert alert-info" ng-if="notmainured()">Please mainure the WYSIWYG widget</div>
+<div ng-if="mainured()" ng-bind-html="main.content"></div>
+
+<div>
+ -->
+
+<div class="card card-primary card-block btn-glass drop-target" ngf-drop ngf-select ng-model="files" class="drop-box" 
+        ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true" drop-files="handleFiles(files)"
+ style="border: 2px dashed blue;margin: 5px;" >
+ <form id="uploadform" enctype="multipart/form-data" action="http://do.lexlab.io:3000/api/pdf" method="post">
+    <input type="file" name="userPhoto" multiple/>
+    <input type="submit" value="Upload Image" name="submit">
+</form>
+    <button class="row btn btn-glass btn-primary img img-rounded " ng-hide="phd.file" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-around;flex-direction:row;" ng-click="main.remotezip(config.appnum)">
+        <i class="fa fa-download fa-3x">{{config.appnum}}</i>
+        <img src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg" class="pop img img-rounded pull-right" style="" ng-if="!config.appnum" />
+        <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
+    </button>
+    <div class="row" ng-hide="phd.file">
+
+        <div class="alert alert-danger" role="alert" ng-if="main.error"><strong>Uh oh!</strong> {{main.error}}</div>
+        <pre class="alert alert-info" role="alert" ng-if="main.info" style="color:white !important;">{{main.info}}</pre>
+    </div>
+</div>
+<div class="card" style="text-align: left;color: #444;" ng-if="phd.file">
+    <!-- <dir-pagination-controls template-url="components/angular-utils-pagination/dirPagination.tpl.html" pagination-id="cards"></dir-pagination-controls> -->
+
+
+    <tabset>
+        <tab class="ngDialogTab">
+            <tab-heading class="">{{phd.application[0][1]}}</tab-heading>
+            <tabset>
+                <tab class="" ng-repeat="file in phd.file" heading="{{file.label | uppercase}}">
+                    <pre class="card card-block card-fancy" ng-bind="file.file"></pre>
+                </tab>
+            </tabset>
+        </tab>
+        <tab class="ngDialogTab primary" ng-if="phd.application">
+            <!-- <pre ng-bind="main.application | json:4"></pre> -->
+            <tab-heading style="color:white">APPLICATION</tab-heading>
+            <hr/>
+            <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
+
+                <tbody>
+                    <tr ng-repeat="line in phd.application">
+                        <td ng-repeat="value in line">{{value}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </tab>
+        <tab class="ngDialogTab info" ng-if="phd.attorney">
+            <!-- <pre ng-bind="main.attorney | json:4"></pre> -->
+            <tab-heading>ATTORNEY</tab-heading>
+            <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
+
+                <tbody>
+                    <tr ng-repeat="line in phd.attorney">
+                        <td ng-repeat="value in line">{{value}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </tab>
+        <tab class="ngDialogTab success" ng-if="phd.continuity">
+            <!-- <pre ng-bind="main.continuity | json:4"></pre> -->
+            <tab-heading style="color:white;">CONTINUITY</tab-heading>
+            <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th ng-repeat="field in phd.continuity.meta.fields">{{field}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="line in phd.continuity.data">
+                        <td ng-repeat="value in line">{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </tab>
+        <tab class="ngDialogTab warning" ng-if="phd.foreign">
+
+            <!-- <pre ng-bind="main.phd.foreign | json:4"></pre> -->
+            <tab-heading style="color:white">FOREIGN PRIORITY</tab-heading>
+            <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>Country</th>
+                        <th>Priority</th>
+                        <th>Priority Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="p in phd.foreign">
+                        <td ng-bind="p['Country']"></td>
+                        <td ng-bind="p['Priority']"></td>
+                        <td ng-bind="p['Priority Date'] | date"></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </tab>
+        <tab class="ngDialogTab danger" ng-if="phd.transaction">
+            <!-- <pre ng-bind="main.transaction | json:4"></pre> -->
+            <tab-heading style="color:white;">TRANSACTION</tab-heading>
+            <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Transaction Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="trans in phd.transaction">
+                        <td>{{trans['Date']}}</td>
+                        <td>{{trans['Transaction Description']}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </tab>
+        <tab class="ngDialogTab" ng-if="phd.imagefile">
+            <tab-heading>IMAGE FILE WRAPPER</tab-heading>
+            <input type="text" ng-model="main.query" placeholder="search..." class="pull-right">
+
+            <table class="card card-default card-block table table-hover table-condensed table-responsive">
+                <thead>
+
+                    <tr>
+                        <th ng-click="reverse = !reverse" class="fa " ng-class="{'fa-chevron-up': reverse,'fa-chevron-down': !reverse}">#</th>
+                        <th>Mail Room Date</th>
+                        <th>Document Code</th>
+                        <th>Document Description</th>
+                        <th>Document Category</th>
+                        <th>Page Count</th>
+                        <th>Filename</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="roarevent in phd.imagefile |filter: main.query " class="card card-{{roarevent.styleClass}}">
+                        <th class=""> <a ng-click="pdfToPlainText(roarevent['Filename'])" getpdftext><i class="fa fa-link">{{$index}}</i></a></th>
+                        <td ng-bind="roarevent['Mail Room Date']"></td>
+                        <td ng-bind="roarevent['Document Code']"></td>
+                        <td ng-bind="roarevent['Document Description']"></td>
+                        <td ng-bind="roarevent['Document Category']"></td>
+                        <td ng-bind="roarevent['Page Count']"></td>
+                        <td ng-bind="roarevent['Filename']"></td>
+
+
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </tab>
+        <tab class="ngDialogTab {{collection.styleClass}}" ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
+            <tab-heading class="" style="color:white;">{{collection.rid}}</tab-heading>
+            <div style="width: 100%;" class="reventlist">
+                <roar-event ng-repeat="event in collection.roarlist" id="{{event}}" style="width:19.5%;"></roar-event>
+            </div>
+
+        </tab>
+        <tab class="ngDialogTab">
+            <tab-heading>ROAR
+                <label class="label label-info label-pill">{{phd.imagefile.length}}</label>
+            </tab-heading>
+            <div style="width: 100%;min-height: 500px;" class="reventlist">
+
+
+
+                <roar-event roarevent="roarevent" class="info" editable="true" dir-paginate="roarevent in phd.roarmap.roarevents | filter: roarId  | filter: query |filter: issueId  | orderBy: [(sortorder || 'date'),'sortIndex','rid','name'] : dctn | itemsPerPage: 20 "
+                pagination-id="roarmappagination" ng-animate-ref="{{ roarevent.$id }}" id="{{roarevent}}">
+
+
+                </roar-event>
+
+
+
+                <!-- <roar-event my-widget roarevent="roarevent" class="info" editable="true" dir-paginate="roarevent in roarevents | filter: roarId  | filter: query   | orderBy: [(sortorder || 'date'),'sortIndex','rid','name'] : dctn | itemsPerPage: 20 "pagination-id="roarmappagination" ng-animate-ref="{{ roarevent.$id }}" ng-class="{'is-open':($stateParams.eventId == roarevent.$id && $state.includes('eventcard'))}">
+            </roar-event>
+         -->
+
+
+
+            </div>
+            <!--column-->
+
+
+
+
+
+            <!--  <div class="flex-container" style="flex-wrap:wrap;flex-direction:row;align-items:flex-start;align-content:stretch;justify-content:stretch;">
+                <div ng-repeat="roarevent in phd.imagefile" style="max-width:20%;">
+
+                    <div id="{{roarevent.$id}}" my-widget ng-class="{'active': roarevent.selected, 'row pull-left': $state.current.name('roarblog')}" class=" {{animation}} info" data-context-menu="partials/contextmenus/roarcontextmenu.html">
+
+
+
+                        <div class="flex-top-row">
+
+                            <button class="rbutton " ng-class="{'active': roarevent.selected}" ui-sref=".document({eventId: roarevent.$id})" no-drag>{{roarevent.rid}}</button>
+
+                            <h6 class="splash rflag" ng-click="roarevent.selected = !roarevent.selected;roarevents.$save(roarevent);">{{roarevent.name | limitTo: 20}}
+                  <br>{{roarevent.date | date}}</h6>
+
+
+                        </div>
+                        <button class="rlabel {{roarevent.styleClass || 'btn-dark'}}" ui-sref="{{$state.current.name}}.detail({eventId: roarevent.$id})">
+                            <p>{{roarevent.description}}</p>
+                        </button>
+                        <div class="panel r-action" z-index="100000">
+
+                            <!--  <button class="fa fa-plus r-modal r-actionq"    ng-dialog="'modules/roarmap/partial/roarmodal/roarmodal.html'" ng-dialog-data="{{roarevent}}" ng-dialog-class="ngdialog-theme-xl" ng-dialog-controller="InsideCtrl"  ng-dialog-show-close="true" data-toggle="popover" data-placement="left"  data-content="MODAL" data-animation="true" data-trigger="hover"></button> -->
+            <!-- <button id="xldialo" class="btn btn-default fa fa-bars r-modal r-actionq" ng-click="openmodal(roarevent)"   ng-dialog="modules/roarmap/partial/xlDialogId/xlDialogId.html" ng-dialog-data="{{roarevent}}" ng-dialog-class="ngdialog-theme-xl" ng-dialog-controller="xlDialogIdCtrl"  ng-dialog-overlay="false" ng-dialog-show-close="true" ng-dialog-append-to="#templatesuiviewcontent" data-toggle="popover" data-placement="left"  data-content="MODAL" data-animation="true" data-trigger="hover"></button>  -->
+            <!--   <button id="xldialo" class="btn btn-default fa fa-bars  r-modal r-actionq" ng-click="openmodal(roarevent)" data-toggle="popover" data-placement="left" data-content="MODAL" data-animation="true" data-trigger="hover"></button>
+                            <!--   <button id="xldial" class="btn btn-warning fa fa-paw r-actionq"    ng-dialog="xlDialogId" ng-dialog-data="{{roarevent}}" ng-dialog-class="ngdialog-theme-xl" ng-dialog-controller="InsideCtrl"  ng-dialog-overlay="false" ng-dialog-show-close="true" ng-dialog-append-to="#roarmappanelbody" data-toggle="popover" data-placement="left"  data-content="MODAL" data-animation="true" data-trigger="hover"></button>   -->
+
+
+            <!--   <button id="xldialog" class="btn btn-default fa fa-file-o r-modal r-actionq" roarevent="roarevent" popup-controller="'RoarmodalCtrl'" popup-template-url="'modules/roarmap/partial/roarmodal/tabs/tabframe.html'" tooltip-controller="'AnnotationController'"
+                            tooltip-template-url="'modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation-tooltip.tpl.html'" on-popup-show="onPopupShow" on-popup-hide="onPopupHide" popup-offset="50" roar-popover></button>
+
+                            <!-- <button class="btn btn-flat btn-xs fa fa-bars r-modal r-actionq"  ng-dialog="modules/roarmap/partial/roarmodal/roarmodal.html"  ng-dialog-controller="InsideCtrl" ng-dialog-data="{{roarevent}}" ng-dialog-class="ngdialog-theme-card" ng-dialog-show-close="true" ng-click="$state.params({eventId: roarevent.$id})" data-toggle="popover" data-placement="left"  data-content="MODAL" data-animation ="true" data-trigger="hover"></button>-->
+
+            <!-- <button class="btn btn-default btn-xs fa fa-edit r-edit r-actionq"  ui-sref=".roaredit({eventId: roarevent.$id})" data-toggle="popover" data-placement="left"  data-content="EDIT" data-animation="true" data-trigger="hover"></button> -->
+            <!--  <button id="empiretogglebutton" ng-class="{'btn-flat fa-futbol-o': roarevent.lionpad == false,'btn-flat fa-minus': roarevent.lionpad == null, 'btn-success fa-paw': roarevent.lionpad == true}" class="btn  fa  r-doc r-actionq" ng-click="togglelionpad(roarevent)"
+                            data-toggle="popover" data-placement="left" data-content="LIONPAD" data-animation="true" data-trigger="hover"></button>
+
+                            <!--  <button id="arttogglebutton" ng-class="{'btn-flat fa-futbol-o': roarevent.isArt == false,'btn-flat fa-minus': roarevent.isArt == null, 'btn-warning fa-brush': roarevent.isArt == true}" class="btn btn-warning btn-xs fa  r-art r-actionq" ng-click="showGridBottomSheet()" data-toggle="popover" data-placement="left"  data-content="ART" data-animation="true" data-trigger="hover"></button> -->
+
+
+
+            <!--
+                        </div>
+
+
+
+
+
+
+                    </div>
+                    <div class="as-sortable-item-container" as-sortable ng-model="roarsnippets" options="sortableOptions" ng-if="dropzone">
+                    </div>
+                    <div class="roarblog card" ng-if="($state.current.name === 'roarblog')">
+                        <ng-annotate-text class="card" text="roarevent.digest" annotations="annotations[0]" popup-controller="'RoarmodalCtrl'" popup-template-url="'modules/roarmap/partial/roarmodal/tabs/tabframe.html'" tooltip-controller="'AnnotationController'" tooltip-template-url="'modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation-tooltip.tpl.html'"
+                        on-popup-show="onPopupShow" on-popup-hide="onPopupHide" popup-offset="50"></ng-annotate-text>
+
+                    </div>
+                </div>-->
+
+        </tab>
+        <tab class="ngDialogTab" ng-if="phd.pdffiles">
+            <tab-heading>PDFs
+                <label class="label label-pill label-info">{{phd.pdffiles.length}}</label>
+            </tab-heading>
+            <tabset>
+                <tab ng-repeat="pdf in phd.pdffiles">
+                    <tab-heading>{{pdf.name}}</tab-heading>
+                    <section class="card" id="pdf" ng-controller="PDFfilecontroller"></section>
+                </tab>
+            </tabset>
+
+        </tab>
+    </tabset>
+</div>
+<!--
+</div>
+<form>
+    <input type="file" ff-file-select="onFileSelect($files)">
+    <input type="file" ng-file-select="onFileSelect($files)" multiple>
+
+</form>
+<b>Preview:</b>
+<br />
+<i ng-hide="main.imageSrc">No image selected</i>
+<img ng-src="{{main.imageSrc}}" />
+<br/>
+<b>Progress:</b>
+
+
+</div>
+
+
+</div>
+ -->

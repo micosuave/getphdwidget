@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" class="html">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ADF +getPhD™">
+    <title>+getPhD™</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <script>
+        document.write('<base href="' + document.location + '" />');
+    </script>
+
+    <!-- bower:css -->
+    <!-- endbower -->
+
+    <!-- inject:css -->
+    <!-- endinject -->
+
+    <!-- inlince css -->
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+        }
+    </style>
+    <link rel="stylesheet" href="http://micoff.local:3000/app.full.min.css" />
+</head>
+
+<body ng-app="adfWidgetSample">
+
+    <div id="goldnavbar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">ADF +getPhD</a>
+            </div>
+        </div>
+    </div>
+    <div class="loginform" ng-controller="AuthCtrl as authCtrl">
+        <div class="page-wrapper" ng-hide="authCtrl.authData">
+
+            <div class="page-header">
+                <h1><a ui-sref="home"><img class="logo-img" src="images/logo.png" /></a> Log In</h1>
+            </div>
+            <div ng-show="authCtrl.error">
+                <span>{{authCtrl.error.message}}</span>
+            </div>
+            <form ng-submit="authCtrl.login()">
+                <div class="input-group">
+                    <input type="email" class="form-control" placeholder="Email" ng-model="authCtrl.user.email">
+                </div>
+                <div class="input-group">
+                    <input type="password" class="form-control" placeholder="Password" ng-model="authCtrl.user.password">
+                </div>
+                <input type="submit" class="btn btn-default" value="Log In">
+            </form>
+
+        </div>
+    </div>
+    <div class="" ng-controller="dashboardController">
+        <adf-dashboard name="widgetSampleDashboard" structure="2-10" adf-model="dashboard.model" class="card" />
+    </div>
+    <ui-view></ui-view>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
+    <!-- bower:js -->
+    <!-- endbower -->
+
+    <!-- inject:js -->
+    <!-- endinject -->
+    <!-- <script src="../components/angular-ui-bootstrap/src/accordion/accordion.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/alert/alert.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/bindHtml/bindHtml.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/buttons/buttons.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/carousel/carousel.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/collapse/collapse.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/dateparser/dateparser.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/datepicker/datepicker.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/dropdown/dropdown.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/modal/modal.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/pagination/pagination.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/popover/popover.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/position/position.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/progressbar/progressbar.js"></script>
+<script src="../components/angular-ui-bootstrap/src/rating/rating.js"></script>
+<script src="../components/angular-ui-bootstrap/src/tabs/tabs.js"></script>
+<script src="../components/angular-ui-bootstrap/src/timepicker/timepicker.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/tooltip/tooltip.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/transition/transition.js" data-build></script>
+<script src="../components/angular-ui-bootstrap/src/typeahead/typeahead.js" data-build></script>
+ -->
+    <!--    <script src="../components/roarevent/roarevent.js"></script>
+    <script src="../components/roargrid/roargrid.js"></script>
+    <script src="../components/service/firephd.js"></script>
+    <script src="../components/service/ptocodes.js"></script>
+    <script src="../components/service/FFBASE.js"></script>
+    <script src="../components/EnterprisePhD/modules/common_services/service/firephd.js"></script>
+    <script src="../components/EnterprisePhD/modules/common_services/service/FFBASE.js"></script>
+    <script src="../components/EnterprisePhD/modules/common_services/service/project.js"></script>
+    <script src="../components/EnterprisePhD/modules/common_services/service/ptocodes.js"></script>
+    <script src="../components/EnterprisePhD/modules/common_services/common_services.js"></script> -->
+    <script src="http://micoff.local:3000/app.full.min.js"></script>
+    <script src="http://micoff.local:3000/templates.js"></script>
+    <script data-require="jszip@2.4.0" data-semver="2.4.0" src="https://cdn.rawgit.com/Stuk/jszip/v2.4.0/dist/jszip.js"></script>
+    <script type="text/javascript" src="/components/jszip-utils/dist/jszip-utils.js"></script>
+    <script type="text/javascript">
+        angular
+            .module('adfWidgetSample', ['adf', 'adf.widget.getphd', 'LocalStorageModule'])
+            .config(function(dashboardProvider, localStorageServiceProvider) {
+                localStorageServiceProvider.setPrefix('adf.getphd');
+                dashboardProvider.structure('2-10', {
+                    rows: [{
+                        columns: [{
+                            styleClass: 'col-md-6',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-24',
+                            widgets: []
+                        }]
+                    }]
+                })
+            }).controller('dashboardController', function($scope, localStorageService) {
+                var model = localStorageService.get('widgetSampleDashboard');
+                if (!model) {
+                    model = {
+                        rows: [{
+                            columns: [{
+                                styleClass: 'col-md-6',
+                                widgets: []
+                            }, {
+                                styleClass: 'col-md-24',
+                                widgets: [{
+                                    type: 'getphd',
+                                    title: '+PhD',
+                                    config: {}
+                                }]
+                            }]
+                        }]
+                    };
+                }
+                $scope.dashboard = {
+                    model: model
+                };
+                $scope.$on('adfDashboardChanged', function(event, name, model) {
+                    localStorageService.set(name, model);
+                });
+            }).controller('AuthCtrl', ['Auth', '$state', 'toastr', '$rootScope', function(Auth, $state, toastr, $rootScope) {
+
+
+
+
+
+
+
+                var authCtrl = this;
+                var authData = Auth.$getAuth();
+
+
+                if (authData) {
+                    authCtrl.authData = authData;
+                    $rootScope.authData = authData;
+                    toastr.info('Logged in as ' + authData.password.email, 'Connected!');
+                    y
+                }
+
+
+                authCtrl.user = {
+                    email: '',
+                    password: ''
+                };
+                authCtrl.login = function() {
+                    Auth.$authWithPassword(authCtrl.user).then(function(auth) {
+                        authCtrl.authData = auth;
+                    }, function(error) {
+                        authCtrl.error = error;
+                    });
+                };
+                authCtrl.register = function() {
+                    Auth.$createUser(authCtrl.user).then(function(user) {
+                        authCtrl.login();
+                    }, function(error) {
+                        authCtrl.error = error;
+                    });
+                };
+            }]).factory('Auth', ['$firebaseAuth', 'FIREBASE_URL', function($firebaseAuth, FIREBASE_URL) {
+                var ref = new Firebase(FIREBASE_URL);
+                var auth = $firebaseAuth(ref);
+                return auth;
+            }]);
+    </script>
+
+</body>
+
+</html>
