@@ -90,22 +90,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             var phd = Collection(configid);
             phd.$bindTo($scope, 'phd');
 
-            main.post = function(file) {
-
-                var postconfig = {
-                    method: 'POST',
-                    url: 'http://micoff.local:3333/http://micoff.local:3030/api/photo',
-                    data: file,
-                    headers: [{
-                        'Access-Control-Allow-Origin': '*'
-                    }]
-                };
-
-                $http(postconfig).then(function(resp) {
-                    $log.info(resp.message);
-                });
-                return true;
-            };
+           
 
             $scope.configured = function() {
                 return $scope.config.appnum !== '';
