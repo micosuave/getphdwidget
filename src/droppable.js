@@ -70,7 +70,7 @@ angular.module("fa.droppable", [])
                         var file = files[i];
                         if (!file.$error) {
                             Upload.upload({
-                                url: 'http://do.lexlab.io:3000/api/pdf',
+                                url: 'https://lexlab.io/upload',
                                 data: {
                                     username: $rootScope.authData.uid,
                                     file: file
