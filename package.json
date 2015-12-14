@@ -8,7 +8,9 @@
     "adf-widget"
   ],
   "description": "import a patent prosecution history",
-  "dependencies": {},
+  "dependencies": {
+    "papaparse": "^4.1.2"
+  },
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-angular-filesort": "^1.1.1",

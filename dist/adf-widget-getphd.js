@@ -91,22 +91,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             var phd = Collection(configid);
             phd.$bindTo($scope, 'phd');
 
-            main.post = function(file) {
-
-                var postconfig = {
-                    method: 'POST',
-                    url: 'http://micoff.local:3333/http://micoff.local:3030/api/photo',
-                    data: file,
-                    headers: [{
-                        'Access-Control-Allow-Origin': '*'
-                    }]
-                };
-
-                $http(postconfig).then(function(resp) {
-                    $log.info(resp.message);
-                });
-                return true;
-            };
+           
 
             $scope.configured = function() {
                 return $scope.config.appnum !== '';
@@ -344,7 +329,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 angular.module("adf.widget.getphd").run(["$templateCache", function($templateCache) {$templateCache.put("{widgetsPath}/getphd/src/edit.html","<form role=form><div class=form-group><label for=sample>Application #</label> <input type=text class=form-control id=sample ng-model=config.appnum placeholder=\"Enter Application #\"></div></form>");
 $templateCache.put("{widgetsPath}/getphd/src/titleTemplate.html","<div class=panel-heading><button class=\"fa fa-close fa-2x btn-danger button-outline pull-right floatingclosebutton round\" onclick=$(this).parent().parent().remove();></button><h4 class=bs-callout style=color:white;>{{config.title || $parent.config.title}} <span class=pull-right><a title=notes ng-click=\"console.log(\'note\')\"><i class=\"fa fa-pencil\" style=color:white;></i></a> <a title=mail ng-click=$publish(this)><i class=\"fa fa-send\" style=color:white;></i></a> <a title=comment ng-click=\"console.log(\'note\')\"><i class=\"fa fa-comments-o\" style=color:white;></i></a> <a title=\"reload widget content\" ng-click=reload()><i class=\"fa fa-refresh\" style=color:white;></i></a> <a title=\"change widget location\" class=adf-move><i class=\"glyphicon glyphicon-move\" style=color:white;></i></a> <a title=\"collapse widget\" ng-show=\"options.collapsible && !widgetState.isCollapsed\" ng-click=\"widgetState.isCollapsed = !widgetState.isCollapsed\"><i class=\"glyphicon glyphicon-minus\" style=color:white;></i></a> <a title=\"expand widget\" ng-show=\"options.collapsible && widgetState.isCollapsed\" ng-click=\"widgetState.isCollapsed = !widgetState.isCollapsed\"><i class=\"glyphicon glyphicon-plus\" style=color:white;></i></a> <a title=\"edit widget configuration\" ng-click=edit()><i class=\"glyphicon glyphicon-cog\" style=color:white;></i></a> <a title=\"fullscreen widget\" ng-click=openFullScreen() ng-show=\"options.maximizable || true\"><i class=\"glyphicon glyphicon-fullscreen\" style=color:white;></i></a> <a title=\"remove widget\" ng-click=remove() ng-if=editMode><i class=\"glyphicon glyphicon-remove\" style=color:white;></i></a></span></h4></div>");
-$templateCache.put("{widgetsPath}/getphd/src/view.html","<div class=\"card card-primary card-block btn-glass drop-target\" ngf-drop ngf-select ng-model=files ngf-drag-over-class=\"\'dragover\'\" ngf-multiple=true ngf-allow-dir=true drop-files=handleFiles(files) style=\"border: 2px dashed blue;margin: 5px;\"><form id=uploadform enctype=multipart/form-data action=http://do.lexlab.io:3000/api/pdf method=post><input type=file name=userPhoto multiple> <input type=submit value=\"Upload Image\" name=submit></form><button class=\"row btn btn-glass btn-primary img img-rounded\" ng-hide=phd.file style=position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-around;flex-direction:row; ng-click=main.remotezip(config.appnum)><i class=\"fa fa-download fa-3x\">{{config.appnum}}</i> <img src=https://lexlab.firebaseapp.com/img/GoldLogoLong.svg class=\"pop img img-rounded pull-right\" ng-if=!config.appnum></button><div class=row ng-hide=phd.file><div class=\"alert alert-danger\" role=alert ng-if=main.error><strong>Uh oh!</strong> {{main.error}}</div><pre class=\"alert alert-info\" role=alert ng-if=main.info style=\"color:white !important;\">{{main.info}}</pre></div></div><div class=card style=\"text-align: left;color: #444;\" ng-if=phd.file><tabset><tab class=ngDialogTab><tab-heading>{{phd.application[0][1]}}</tab-heading><tabset><tab ng-repeat=\"file in phd.file\" heading=\"{{file.label | uppercase}}\"><pre class=\"card card-block card-fancy\" ng-bind=file.file></pre></tab></tabset></tab><tab class=\"ngDialogTab primary\" ng-if=phd.application><tab-heading style=color:white>APPLICATION</tab-heading><hr><table class=\"card card-default card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"line in phd.application\"><td ng-repeat=\"value in line\">{{value}}</td></tr></tbody></table></tab><tab class=\"ngDialogTab info\" ng-if=phd.attorney><tab-heading>ATTORNEY</tab-heading><table class=\"card card-default card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"line in phd.attorney\"><td ng-repeat=\"value in line\">{{value}}</td></tr></tbody></table></tab><tab class=\"ngDialogTab success\" ng-if=phd.continuity><tab-heading style=color:white;>CONTINUITY</tab-heading><table class=\"card card-default card-block table table-striped table-condensed table-hover table-responsive\"><thead><tr><th ng-repeat=\"field in phd.continuity.meta.fields\">{{field}}</th></tr></thead><tbody><tr ng-repeat=\"line in phd.continuity.data\"><td ng-repeat=\"value in line\">{{value}}</td></tr></tbody></table></tab><tab class=\"ngDialogTab warning\" ng-if=phd.foreign><tab-heading style=color:white>FOREIGN PRIORITY</tab-heading><table class=\"card card-default card-block table table-striped table-condensed table-hover table-responsive\"><thead><tr><th>Country</th><th>Priority</th><th>Priority Date</th></tr></thead><tbody><tr ng-repeat=\"p in phd.foreign\"><td ng-bind=\"p[\'Country\']\"></td><td ng-bind=\"p[\'Priority\']\"></td><td ng-bind=\"p[\'Priority Date\'] | date\"></td></tr></tbody></table></tab><tab class=\"ngDialogTab danger\" ng-if=phd.transaction><tab-heading style=color:white;>TRANSACTION</tab-heading><table class=\"card card-default card-block table table-striped table-hover table-condensed table-responsive\"><thead><tr><th>Date</th><th>Transaction Description</th></tr></thead><tbody><tr ng-repeat=\"trans in phd.transaction\"><td>{{trans[\'Date\']}}</td><td>{{trans[\'Transaction Description\']}}</td></tr></tbody></table></tab><tab class=ngDialogTab ng-if=phd.imagefile><tab-heading>IMAGE FILE WRAPPER</tab-heading><input type=text ng-model=main.query placeholder=search... class=pull-right><table class=\"card card-default card-block table table-hover table-condensed table-responsive\"><thead><tr><th ng-click=\"reverse = !reverse\" class=fa ng-class=\"{\'fa-chevron-up\': reverse,\'fa-chevron-down\': !reverse}\">#</th><th>Mail Room Date</th><th>Document Code</th><th>Document Description</th><th>Document Category</th><th>Page Count</th><th>Filename</th></tr></thead><tbody><tr ng-repeat=\"roarevent in phd.imagefile |filter: main.query\" class=\"card card-{{roarevent.styleClass}}\"><th><a ng-click=\"pdfToPlainText(roarevent[\'Filename\'])\" getpdftext><i class=\"fa fa-link\">{{$index}}</i></a></th><td ng-bind=\"roarevent[\'Mail Room Date\']\"></td><td ng-bind=\"roarevent[\'Document Code\']\"></td><td ng-bind=\"roarevent[\'Document Description\']\"></td><td ng-bind=\"roarevent[\'Document Category\']\"></td><td ng-bind=\"roarevent[\'Page Count\']\"></td><td ng-bind=\"roarevent[\'Filename\']\"></td></tr></tbody></table></tab><tab class=\"ngDialogTab {{collection.styleClass}}\" ng-repeat=\"collection in phd.roarmap.collections\" collection={{collection}}><tab-heading style=color:white;>{{collection.rid}}</tab-heading><div style=\"width: 100%;\" class=reventlist><roar-event ng-repeat=\"event in collection.roarlist\" id={{event}} style=width:19.5%;></roar-event></div></tab><tab class=ngDialogTab><tab-heading>ROAR <label class=\"label label-info label-pill\">{{phd.imagefile.length}}</label></tab-heading><div style=\"width: 100%;min-height: 500px;\" class=reventlist><roar-event roarevent=roarevent class=info editable=true dir-paginate=\"roarevent in phd.roarmap.roarevents | filter: roarId | filter: query |filter: issueId | orderBy: [(sortorder || \'date\'),\'sortIndex\',\'rid\',\'name\'] : dctn | itemsPerPage: 20\" pagination-id=roarmappagination ng-animate-ref=\"{{ roarevent.$id }}\" id={{roarevent}}></roar-event></div></tab><tab class=ngDialogTab ng-if=phd.pdffiles><tab-heading>PDFs <label class=\"label label-pill label-info\">{{phd.pdffiles.length}}</label></tab-heading><tabset><tab ng-repeat=\"pdf in phd.pdffiles\"><tab-heading>{{pdf.name}}</tab-heading><section class=card id=pdf ng-controller=PDFfilecontroller></section></tab></tabset></tab></tabset></div>");}]);
+$templateCache.put("{widgetsPath}/getphd/src/view.html","<div class=\"card card-primary card-block btn-glass drop-target\" drop-files=handleFiles(files) style=\"border: 2px dashed blue;margin: 5px;\"><button class=\"row btn btn-glass btn-primary img img-rounded\" ng-hide=phd.file style=position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-around;flex-direction:row; ng-click=main.remotezip(config.appnum)><i class=\"fa fa-download fa-3x\">{{config.appnum}}</i> <img src=https://lexlab.firebaseapp.com/img/GoldLogoLong.svg class=\"pop img img-rounded pull-right\" ng-if=!config.appnum></button><div class=row ng-hide=phd.file><div class=\"alert alert-danger\" role=alert ng-if=main.error><strong>Uh oh!</strong> {{main.error}}</div><pre class=\"alert alert-info\" role=alert ng-if=main.info style=\"color:white !important;\">{{main.info}}</pre></div></div><div class=card style=\"text-align: left;color: #444;\" ng-if=phd.file><tabset><tab class=ngDialogTab><tab-heading>{{phd.application[0][1]}}</tab-heading><tabset><tab ng-repeat=\"file in phd.file\" heading=\"{{file.label | uppercase}}\"><pre class=\"card card-block card-fancy\" ng-bind=file.file></pre></tab></tabset></tab><tab class=\"ngDialogTab primary\" ng-if=phd.application><tab-heading style=color:white>APPLICATION</tab-heading><hr><table class=\"card card-default card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"line in phd.application\"><td ng-repeat=\"value in line\">{{value}}</td></tr></tbody></table></tab><tab class=\"ngDialogTab info\" ng-if=phd.attorney><tab-heading>ATTORNEY</tab-heading><table class=\"card card-default card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"line in phd.attorney\"><td ng-repeat=\"value in line\">{{value}}</td></tr></tbody></table></tab><tab class=\"ngDialogTab success\" ng-if=phd.continuity><tab-heading style=color:white;>CONTINUITY</tab-heading><table class=\"card card-default card-block table table-striped table-condensed table-hover table-responsive\"><thead><tr><th ng-repeat=\"field in phd.continuity.meta.fields\">{{field}}</th></tr></thead><tbody><tr ng-repeat=\"line in phd.continuity.data\"><td ng-repeat=\"value in line\">{{value}}</td></tr></tbody></table></tab><tab class=\"ngDialogTab warning\" ng-if=phd.foreign><tab-heading style=color:white>FOREIGN PRIORITY</tab-heading><table class=\"card card-default card-block table table-striped table-condensed table-hover table-responsive\"><thead><tr><th>Country</th><th>Priority</th><th>Priority Date</th></tr></thead><tbody><tr ng-repeat=\"p in phd.foreign\"><td ng-bind=\"p[\'Country\']\"></td><td ng-bind=\"p[\'Priority\']\"></td><td ng-bind=\"p[\'Priority Date\'] | date\"></td></tr></tbody></table></tab><tab class=\"ngDialogTab danger\" ng-if=phd.transaction><tab-heading style=color:white;>TRANSACTION</tab-heading><table class=\"card card-default card-block table table-striped table-hover table-condensed table-responsive\"><thead><tr><th>Date</th><th>Transaction Description</th></tr></thead><tbody><tr ng-repeat=\"trans in phd.transaction\"><td>{{trans[\'Date\']}}</td><td>{{trans[\'Transaction Description\']}}</td></tr></tbody></table></tab><tab class=ngDialogTab ng-if=phd.imagefile><tab-heading>IMAGE FILE WRAPPER</tab-heading><input type=text ng-model=main.query placeholder=search... class=pull-right><table class=\"card card-default card-block table table-hover table-condensed table-responsive\"><thead><tr><th ng-click=\"reverse = !reverse\" class=fa ng-class=\"{\'fa-chevron-up\': reverse,\'fa-chevron-down\': !reverse}\">#</th><th>Mail Room Date</th><th>Document Code</th><th>Document Description</th><th>Document Category</th><th>Page Count</th><th>Filename</th></tr></thead><tbody><tr ng-repeat=\"roarevent in phd.imagefile |filter: main.query\" class=\"card card-{{roarevent.styleClass}}\"><th><a ng-click=\"pdfToPlainText(roarevent[\'Filename\'])\" getpdftext><i class=\"fa fa-link\">{{$index}}</i></a></th><td ng-bind=\"roarevent[\'Mail Room Date\']\"></td><td ng-bind=\"roarevent[\'Document Code\']\"></td><td ng-bind=\"roarevent[\'Document Description\']\"></td><td ng-bind=\"roarevent[\'Document Category\']\"></td><td ng-bind=\"roarevent[\'Page Count\']\"></td><td ng-bind=\"roarevent[\'Filename\']\"></td></tr></tbody></table></tab><tab class=\"ngDialogTab {{collection.styleClass}}\" ng-repeat=\"collection in phd.roarmap.collections\" collection={{collection}}><tab-heading style=color:white;>{{collection.rid}}</tab-heading><div style=\"width: 100%;\" class=reventlist><roar-event ng-repeat=\"event in collection.roarlist\" id={{event}} style=width:19.5%;></roar-event></div></tab><tab class=ngDialogTab><tab-heading>ROAR <label class=\"label label-info label-pill\">{{phd.imagefile.length}}</label></tab-heading><div style=\"width: 100%;min-height: 500px;\" class=reventlist><roar-event roarevent=roarevent class=info editable=true dir-paginate=\"roarevent in phd.roarmap.roarevents | filter: roarId | filter: query |filter: issueId | orderBy: [(sortorder || \'date\'),\'sortIndex\',\'rid\',\'name\'] : dctn | itemsPerPage: 20\" pagination-id=roarmappagination ng-animate-ref=\"{{ roarevent.$id }}\" id={{roarevent}}></roar-event></div></tab><tab class=ngDialogTab ng-if=phd.pdffiles><tab-heading>PDFs <label class=\"label label-pill label-info\">{{phd.pdffiles.length}}</label></tab-heading><tabset><tab ng-repeat=\"pdf in phd.pdffiles\"><tab-heading>{{pdf.name}}</tab-heading><section class=card id=pdf ng-controller=PDFfilecontroller></section></tab></tabset></tab></tabset></div>");}]);
 angular.module('textSizeSlider', [])
     .directive('textSizeSlider', ['$document', function($document) {
         return {
@@ -545,7 +530,7 @@ angular.module('textSizeSlider', [])
 
                          //roarevent.mimeType = file.mimeType;
                          //roarevent.description = file.DocumentDescription;
-                         roarevent.media = 'http://do.lexlab.io:3000/documents/web/viewer.html?file=%2Fdocuments/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                         roarevent.media = 'https://lexlab.io/files/public/documents/web/viewer.html?file=%2Fdocuments/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                          roarevent.description = file['Document Description'] || null;
                          roarevent.filename = file['Filename'] || null;
                          roarevent.collections = [];
@@ -1200,7 +1185,9 @@ angular.module("fa.droppable", [])
     .directive("dropFiles", [function () {
         var linkFn = function ($scope, $element, $attrs, ctrl) {
             var extractFiles = function (e) {
-                var files = e.dataTransfer.files;
+                debugger;
+                var files = e.originalEvent.dataTransfer.files;
+                debugger;
                 var filesArray = [];
 
                 for (var i = 0, len = files.length; i < len; i++) {
@@ -1253,44 +1240,44 @@ angular.module("fa.droppable", [])
         };
     }])
 
-    .controller("DropFilesController", ['$controller', 'extract', '$scope', 'Upload', '$timeout', '$rootScope',
-        function ($controller, extract, $scope, Upload, $timeout, $rootScope) {
+    .controller("DropFilesController", ['$controller', 'extract', '$scope',  '$timeout', '$rootScope',
+        function ($controller, extract, $scope, $timeout, $rootScope) {
             var drop = this;
             //var main = $controller('MainCtrl');
             //var main = $scope.main;
-            $scope.log = '';
+            // $scope.log = '';
 
-            drop.upload = function (files) {
-                if (files && files.length) {
-                    for (var i = 0; i < files.length; i++) {
-                        var file = files[i];
-                        if (!file.$error) {
-                            Upload.upload({
-                                url: 'https://lexlab.io/upload',
-                                data: {
-                                    username: $rootScope.authData.uid,
-                                    file: file
-                                }
-                            }).progress(function (evt) {
-                                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                                console.log = 'progress: ' + progressPercentage + '% ' +
-                                evt.config.data.file.name + '\n' + console.log;
-                            }).success(function (data, status, headers, config) {
-                                $timeout(function () {
-                                    console.log = 'file: ' + config.data.file.name + ', Response: ' + JSON.stringify(data) + '\n' + console.log;
-                                });
-                            });
-                        }
-                    }
-                }
-            };
+            // drop.upload = function (files) {
+            //     if (files && files.length) {
+            //         for (var i = 0; i < files.length; i++) {
+            //             var file = files[i];
+            //             if (!file.$error) {
+            //                 Upload.upload({
+            //                     url: 'https://lexlab.io/upload',
+            //                     data: {
+            //                         username: $rootScope.authData.uid,
+            //                         file: file
+            //                     }
+            //                 }).progress(function (evt) {
+            //                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            //                     console.log = 'progress: ' + progressPercentage + '% ' +
+            //                     evt.config.data.file.name + '\n' + console.log;
+            //                 }).success(function (data, status, headers, config) {
+            //                     $timeout(function () {
+            //                         console.log = 'file: ' + config.data.file.name + ', Response: ' + JSON.stringify(data) + '\n' + console.log;
+            //                     });
+            //                 });
+            //             }
+            //         }
+            //     }
+            // };
 
             drop.file = {};
             drop.dropFiles = function (files) {
                 console.log('files.files[0]', files.files[0]);
                 // alertify.log('files.files[0]', files.files[0])
                 $scope.$parent.main.handleFiles(files);
-                drop.upload(files);
+                //drop.upload(files);
                 // var a = extractAndParse(files.files[0]);
                 // console.log('a', a);
                 // //alertify.log('a', a);

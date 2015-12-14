@@ -4,13 +4,15 @@
 <div>
  -->
 
-<div class="card card-primary card-block btn-glass drop-target" ngf-drop ngf-select ng-model="files" class="drop-box" 
+<!--<div class="card card-primary card-block btn-glass drop-target" ngf-drop ngf-select ng-model="files" class="drop-box" 
         ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true" drop-files="handleFiles(files)"
+ style="border: 2px dashed blue;margin: 5px;" >-->
+ <div class="card card-primary card-block btn-glass drop-target"  drop-files="handleFiles(files)"
  style="border: 2px dashed blue;margin: 5px;" >
- <form id="uploadform" enctype="multipart/form-data" action="http://do.lexlab.io:3000/api/pdf" method="post">
+ <!--<form id="uploadform" enctype="multipart/form-data" action="http://do.lexlab.io:3000/api/pdf" method="post">
     <input type="file" name="userPhoto" multiple/>
     <input type="submit" value="Upload Image" name="submit">
-</form>
+</form>-->
     <button class="row btn btn-glass btn-primary img img-rounded " ng-hide="phd.file" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-around;flex-direction:row;" ng-click="main.remotezip(config.appnum)">
         <i class="fa fa-download fa-3x">{{config.appnum}}</i>
         <img src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg" class="pop img img-rounded pull-right" style="" ng-if="!config.appnum" />

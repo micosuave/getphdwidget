@@ -176,7 +176,7 @@
 
                          //roarevent.mimeType = file.mimeType;
                          //roarevent.description = file.DocumentDescription;
-                         roarevent.media = 'http://do.lexlab.io:3000/documents/web/viewer.html?file=%2Fdocuments/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                         roarevent.media = 'https://lexlab.io/files/viewer/web/viewer.html?file=%2Ffiles/public/documents/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                          roarevent.description = file['Document Description'] || null;
                          roarevent.filename = file['Filename'] || null;
                          roarevent.collections = [];

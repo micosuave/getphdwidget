@@ -4,7 +4,9 @@ angular.module("fa.droppable", [])
     .directive("dropFiles", [function () {
         var linkFn = function ($scope, $element, $attrs, ctrl) {
             var extractFiles = function (e) {
-                var files = e.dataTransfer.files;
+                debugger;
+                var files = e.originalEvent.dataTransfer.files;
+                debugger;
                 var filesArray = [];
 
                 for (var i = 0, len = files.length; i < len; i++) {
@@ -57,44 +59,44 @@ angular.module("fa.droppable", [])
         };
     }])
 
-    .controller("DropFilesController", ['$controller', 'extract', '$scope', 'Upload', '$timeout', '$rootScope',
-        function ($controller, extract, $scope, Upload, $timeout, $rootScope) {
+    .controller("DropFilesController", ['$controller', 'extract', '$scope',  '$timeout', '$rootScope',
+        function ($controller, extract, $scope, $timeout, $rootScope) {
             var drop = this;
             //var main = $controller('MainCtrl');
             //var main = $scope.main;
-            $scope.log = '';
+            // $scope.log = '';
 
-            drop.upload = function (files) {
-                if (files && files.length) {
-                    for (var i = 0; i < files.length; i++) {
-                        var file = files[i];
-                        if (!file.$error) {
-                            Upload.upload({
-                                url: 'https://lexlab.io/upload',
-                                data: {
-                                    username: $rootScope.authData.uid,
-                                    file: file
-                                }
-                            }).progress(function (evt) {
-                                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                                console.log = 'progress: ' + progressPercentage + '% ' +
-                                evt.config.data.file.name + '\n' + console.log;
-                            }).success(function (data, status, headers, config) {
-                                $timeout(function () {
-                                    console.log = 'file: ' + config.data.file.name + ', Response: ' + JSON.stringify(data) + '\n' + console.log;
-                                });
-                            });
-                        }
-                    }
-                }
-            };
+            // drop.upload = function (files) {
+            //     if (files && files.length) {
+            //         for (var i = 0; i < files.length; i++) {
+            //             var file = files[i];
+            //             if (!file.$error) {
+            //                 Upload.upload({
+            //                     url: 'https://lexlab.io/upload',
+            //                     data: {
+            //                         username: $rootScope.authData.uid,
+            //                         file: file
+            //                     }
+            //                 }).progress(function (evt) {
+            //                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            //                     console.log = 'progress: ' + progressPercentage + '% ' +
+            //                     evt.config.data.file.name + '\n' + console.log;
+            //                 }).success(function (data, status, headers, config) {
+            //                     $timeout(function () {
+            //                         console.log = 'file: ' + config.data.file.name + ', Response: ' + JSON.stringify(data) + '\n' + console.log;
+            //                     });
+            //                 });
+            //             }
+            //         }
+            //     }
+            // };
 
             drop.file = {};
             drop.dropFiles = function (files) {
                 console.log('files.files[0]', files.files[0]);
                 // alertify.log('files.files[0]', files.files[0])
                 $scope.$parent.main.handleFiles(files);
-                drop.upload(files);
+                //drop.upload(files);
                 // var a = extractAndParse(files.files[0]);
                 // console.log('a', a);
                 // //alertify.log('a', a);
