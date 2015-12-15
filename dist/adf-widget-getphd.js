@@ -372,26 +372,29 @@ angular.module('textSizeSlider', [])
              parse(file);
              return deferred.promise;
              function parse(file){
-               var roarevent = angular.copy(file);
-                         var filename = file.Filename || file.name;
+                 var roarevent = angular.copy(file);
+                 //debugger;
+                         var filename = file.Filename || file.name || file.filename;
+                         //debugger;
                          var appnumsubstring = filename.slice(0, filename.indexOf("-"));
                          var appdatesubstring = filename.slice((filename.indexOf("-") + 1), (filename.indexOf("-") + 11));
                          var doccode = filename.slice((filename.lastIndexOf("-") + 1), (filename.indexOf(".pdf")));
                          roarevent.content_type = 'document';
                          
                          if(file.url){
-                             var partA = file.url.replace('/view?usp','/preview');
-                              roarevent.media = partA.slice(0, partA.indexOf('='));
-                                roarevent.iconUrl = file.iconUrl || null;
+                             roarevent.media = file.url;
+                            //  var partA = file.url.replace('/view?usp', '/preview');
+                            //   roarevent.media = partA.slice(0, partA.indexOf('='));
+                            //     roarevent.iconUrl = file.iconUrl || null;
                                 roarevent.uuid = file.id;
 
-                                roarevent.mimeType = file.mimeType;
+                                roarevent.mimeType = file.mimeType || null;
                          }
                         
                          // 
                          //roarevent.description = file.DocumentDescription;
                          roarevent.description = file['Document Description'] || null;
-                         roarevent.filename = file['Filename'] || file.name;
+                         roarevent.filename = file['Filename'] || file.name || file.filename;
                          roarevent.collections = [];
                          roarevent.application = appnumsubstring || null;
                          roarevent.date = appdatesubstring || null;
@@ -435,12 +438,14 @@ angular.module('textSizeSlider', [])
                              });
                          });
                          var date = new Date();
+                         var d = new Date();
+                        var n = d.getTime();
                          roarevent.dashboard = {
                              model:{
                           rows:[
                               {columns:[
-                                  {cid:date+1,styleClass:'col-sm-14',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:date+5,styleClass:roarevent.styleClass || 'btn-dark'}]},
-                                  {cid:date+10,styleClass:'col-sm-16',widgets:[{config:{draftid:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'testwidget', wid:date+15,styleClass:roarevent.styleClass || 'btn-dark'}]}
+                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
+                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{draftid:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'testwidget', wid:n+15,styleClass:roarevent.styleClass || 'btn-dark'}]}
                               ]}
                           ],
                           structure: "ROAR-DEFAULT",
@@ -530,7 +535,7 @@ angular.module('textSizeSlider', [])
 
                          //roarevent.mimeType = file.mimeType;
                          //roarevent.description = file.DocumentDescription;
-                         roarevent.media = 'https://lexlab.io/files/public/documents/web/viewer.html?file=%2Fdocuments/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                         roarevent.media = 'https://lexlab.io/files/viewer/web/viewer.html?file=%2Ffiles/public/documents/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                          roarevent.description = file['Document Description'] || null;
                          roarevent.filename = file['Filename'] || null;
                          roarevent.collections = [];
@@ -575,12 +580,14 @@ angular.module('textSizeSlider', [])
                                  }
                              });
                          });
+                         var d = new Date();
+                        var n = d.getTime();
                           roarevent.dashboard = {
                              model:{
                           rows:[
                               {columns:[
-                                  {cid:date+1,styleClass:'col-sm-14',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:date+5,styleClass:roarevent.styleClass || 'btn-dark'}]},
-                                  {cid:date+10,styleClass:'col-sm-16',widgets:[{config:{draftid:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'testwidget', wid:date+15,styleClass:roarevent.styleClass || 'btn-dark'}]}
+                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
+                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{draftid:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'testwidget', wid:n+1010,styleClass:roarevent.styleClass || 'btn-dark'}]}
                               ]}
                           ],
                           structure: "ROAR-DEFAULT",
