@@ -2,82 +2,82 @@
 
 
 angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
-        'fa.droppable', 'llp.parsetsv', 'roar', 'textSizeSlider', 'llp.pdf', 'LocalStorageModule', 'llp.extractpdf', 'firebase', 'ui.router', 'commonServices', 'xeditable', 'ui.utils', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'phd', 'toastr', 'mentio', 'lionlawlabs', 'ui', 'diff', 'door3.css', 'checklist-model', 'authentication', 'angular-md5', 'angular.filter', 'admin', 'roarmap','ngFileUpload'
-    ]).config(["dashboardProvider", "localStorageServiceProvider", function(dashboardProvider, localStorageServiceProvider) {
+    'fa.droppable', 'llp.parsetsv', 'roar', 'textSizeSlider', 'llp.pdf', 'LocalStorageModule', 'llp.extractpdf', 'firebase', 'ui.router', 'commonServices', 'xeditable', 'ui.utils', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'phd', 'toastr', 'mentio', 'lionlawlabs', 'ui', 'diff', 'door3.css', 'checklist-model', 'authentication', 'angular-md5', 'angular.filter', 'admin', 'roarmap', 'ngFileUpload'
+]).config(["dashboardProvider", "localStorageServiceProvider", function (dashboardProvider, localStorageServiceProvider) {
 
-        localStorageServiceProvider.setPrefix('adf.getphd');
+    localStorageServiceProvider.setPrefix('adf.getphd');
 
-        dashboardProvider
-            .widget('column', {
-                title: 'ColumnHeader',
-                description: 'Define groupings of widgets',
-                templateUrl: '{widgetsPath}/getphd/src/titleTemplate.html',
-                icon: 'fa-ge',
-                iconurl: 'img/lexlab.svg',
-                styleClass: 'warning panel panel-warning',
-                frameless: true
-            })
-            .widget('getphd', {
-                title: '+PhD',
-                description: 'import a patent prosecution history',
-                templateUrl: '{widgetsPath}/getphd/src/view.html',
+    dashboardProvider
+        .widget('column', {
+            title: 'ColumnHeader',
+            description: 'Define groupings of widgets',
+            templateUrl: '{widgetsPath}/getphd/src/titleTemplate.html',
+            icon: 'fa-ge',
+            iconurl: 'img/lexlab.svg',
+            styleClass: 'warning panel panel-warning',
+            frameless: true
+        })
+        .widget('getphd', {
+            title: '+PhD',
+            description: 'import a patent prosecution history',
+            templateUrl: '{widgetsPath}/getphd/src/view.html',
+            controller: 'MainCtrl',
+            controllerAs: 'main',
+            frameless: true,
+            reload: true,
+            collapsed: true,
+            icon: 'fa-ge',
+            iconurl: 'img/logolong.png',
+            styleClass: 'primary panel panel-primary',
+            //titleTemplateUrl: '{widgetsPath}/getphd/src/titleTemplate.html',
+            edit: {
+                templateUrl: '{widgetsPath}/getphd/src/edit.html',
                 controller: 'MainCtrl',
                 controllerAs: 'main',
-                frameless: true,
+                modalSize: 'lg',
                 reload: true,
-                collapsed: true,
-                icon: 'fa-ge',
-                iconurl: 'img/logolong.png',
-                styleClass: 'primary panel panel-primary',
-                //titleTemplateUrl: '{widgetsPath}/getphd/src/titleTemplate.html',
-                edit: {
-                    templateUrl: '{widgetsPath}/getphd/src/edit.html',
-                    controller: 'MainCtrl',
-                    controllerAs: 'main',
-                    modalSize: 'lg',
-                    reload: true,
-                    immediate: true
-                },
-                resolve: {
-                    config: ["config", "$firebaseArray", "$rootScope", "FIREBASE_URL",
-                        function(config, $firebaseArray, $rootScope, FIREBASE_URL) {
-                            if (config.id) {
-                                return config;
-                            } else {
-                                var a = $firebaseArray(new Firebase(FIREBASE_URL + 'content/'));
-                                var b = {};
-                                a.$add({
-                                    'name': 'curation'
-                                }).then(function(ref) {
-                                    var id = ref.key();
-                                    ref.update({
-                                        id: id,
-                                        //projectid: $rootScope.$stateParams.pId || 'projectid',
-                                        //matterId: $rootScope.$stateParams.matterId || 'matterId',
-                                        //groupId: $rootScope.$stateParams.groupId || 'groupId',
-                                        //author: $rootScope.authData.uid || 'userid',
-                                        ispublished: false,
-                                        content_type: 'curation',
-                                        timestamp: Firebase.ServerValue.TIMESTAMP
-                                    });
-
-                                    config.id = id;
-                                    return config;
+                immediate: true
+            },
+            resolve: {
+                config: ["config", "$firebaseArray", "$rootScope", "FIREBASE_URL",
+                    function (config, $firebaseArray, $rootScope, FIREBASE_URL) {
+                        if (config.id) {
+                            return config;
+                        } else {
+                            var a = $firebaseArray(new Firebase(FIREBASE_URL + 'content/'));
+                            var b = {};
+                            a.$add({
+                                'name': 'curation'
+                            }).then(function (ref) {
+                                var id = ref.key();
+                                ref.update({
+                                    id: id,
+                                    //projectid: $rootScope.$stateParams.pId || 'projectid',
+                                    //matterId: $rootScope.$stateParams.matterId || 'matterId',
+                                    //groupId: $rootScope.$stateParams.groupId || 'groupId',
+                                    //author: $rootScope.authData.uid || 'userid',
+                                    ispublished: false,
+                                    content_type: 'curation',
+                                    timestamp: Firebase.ServerValue.TIMESTAMP
                                 });
+
+                                config.id = id;
                                 return config;
+                            });
+                            return config;
 
 
-                            }
                         }
-                    ]
-                }
+                    }
+                ]
+            }
 
-            });
+        });
 
-    }])
+}])
     .constant('FIREBASE_URL', 'https://lexlab.firebaseio.com/')
-    .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$log',
-        function(Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $log) {
+    .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log',
+        function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log) {
             var main = this;
             main.size = 'lg';
 
@@ -91,13 +91,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             var phd = Collection(configid);
             phd.$bindTo($scope, 'phd');
 
-           
 
-            $scope.configured = function() {
+
+            $scope.configured = function () {
                 return $scope.config.appnum !== '';
             };
 
-            $scope.notConfigured = function() {
+            $scope.notConfigured = function () {
                 return $scope.config.appnum === '';
             };
             var opts = {
@@ -116,30 +116,30 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 label: 'README',
                 value: readme
             }, {
-                label: 'attorney',
-                value: attorney
-            }, {
-                label: 'application',
-                value: application
-            }, {
-                label: 'continuity',
-                value: continuity
-            }, {
-                label: 'foreign',
-                value: foreign
-            }, {
-                label: 'transaction',
-                value: transaction
-            }, {
-                label: 'imagefile',
-                value: imagefile
-            }];
+                    label: 'attorney',
+                    value: attorney
+                }, {
+                    label: 'application',
+                    value: application
+                }, {
+                    label: 'continuity',
+                    value: continuity
+                }, {
+                    label: 'foreign',
+                    value: foreign
+                }, {
+                    label: 'transaction',
+                    value: transaction
+                }, {
+                    label: 'imagefile',
+                    value: imagefile
+                }];
             // var phd = $scope.phd;
 
-            main.parse = function(files) {
+            main.parse = function (files) {
 
                 var deffered = $q.defer();
-                angular.forEach(files, function(file, key) {
+                angular.forEach(files, function (file, key) {
                     try {
                         //main.post(file);
                     } catch (ex) {
@@ -169,7 +169,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             };
 
-            main.getfilehistory = function(appnum) {
+            main.getfilehistory = function (appnum) {
                 main.spinner = true;
                 main.progress = 0;
                 var appnum = appnum;
@@ -183,24 +183,24 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     }
                 };
 
-                $http(request).then(function(resp) {
+                $http(request).then(function (resp) {
                     main.file = resp.data;
                     console.log(resp.data);
                     extract(resp.data, appnum)
-                        .then(function(files) {
+                        .then(function (files) {
                             console.log(files);
                             main.file = files;
-                            main.parse(files).then(function() {
+                            main.parse(files).then(function () {
                                 main.spinner = false;
                             });
-                        }, function(reason) {
+                        }, function (reason) {
                             main.error = reason.message;
                         });
                 });
             };
 
-            main.remotezip = function(appnum) {
-                $http.get('http://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', function(err, data) {
+            main.remotezip = function (appnum) {
+                $http.get('http://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', function (err, data) {
                     if (err) {
                         main.error = err; // or handle err
                     }
@@ -220,51 +220,58 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             main.info = null;
 
-            main.handleFiles = function(file) {
+            main.handleFiles = function (file) {
                 main.error = null;
                 main.success = null;
 
                 extractpdf(file.files[0])
-                    .then(function(files) {
-                            $log.info('Files extracted', files);
-                            $scope.phd.file = files.tsvfiles;
+                    .then(function (files) {
+                        $log.info('Files extracted', files);
+                        $scope.phd.file = files.tsvfiles;
 
-                            main.parse(files.tsvfiles)
+                        main.parse(files.tsvfiles)
 
-                            .then(function(parsedfiles) {
+                            .then(function (parsedfiles) {
                                 $log.info('TSV Parsed', parsedfiles);
-                                $roarmap(parsedfiles, $scope.phd)
-
-                                .then(function(roarmap) {
-                                    $scope.phd.roarmap = roarmap;
-
-                                    localStorageService.set(config.appnum, $scope.phd);
-                                    // try {
-                                    //     //main.pdFF(files.pdffiles);
-                                    // } catch (ex) {
-                                    //     $log.error('pdf extraction failed', ex);
-                                    // } finally {
-                                    //     $log.info('Complete!');
-                                    // }
 
 
+                                $patentsearch($scope.phd.application)
+                                    .then(function (patentobj) {
+                                        $scope.phd.patent = patentobj;
+                                        $roarmap(parsedfiles, $scope.phd)
+                                            .then(function (roarmap) {
+                                                $scope.phd.roarmap = roarmap;
+
+                                                localStorageService.set(config.appnum, $scope.phd);
+
+                                                alertify.alert('Done!');
+                                            });
+                                        // try {
+                                        //     //main.pdFF(files.pdffiles);
+                                        // } catch (ex) {
+                                        //     $log.error('pdf extraction failed', ex);
+                                        // } finally {
+                                        //     $log.info('Complete!');
+                                        // }
 
 
-                                }, function(reason) {
 
-                                    main.error = reason.message;
 
-                                });
+                                    }, function (reason) {
 
-                            }, function(reason) {
+                                        main.error = reason.message;
+
+                                    });
+
+                            }, function (reason) {
 
                                 main.error = reason.messsage;
 
                             });
 
 
-                        },
-                        function(reason) {
+                    },
+                        function (reason) {
 
                             main.error = reason.message;
 
@@ -274,24 +281,24 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             //console.log(fileReader);
 
-            main.getFile = function() {
+            main.getFile = function () {
                 main.progress = 0;
                 fileReader.readAsDataUrl(main.file, main)
-                    .then(function(result) {
+                    .then(function (result) {
                         main.handleFiles(result);
                         main.imageSrc = result;
                     });
             };
 
-            $scope.$on("fileProgress", function(e, progress) {
+            $scope.$on("fileProgress", function (e, progress) {
                 main.progress = progress.loaded / progress.total;
             });
-            main.pdFF = function(filesobj) {
+            main.pdFF = function (filesobj) {
                 var deferred = $q.defer();
-                angular.forEach(filesobj, function(file, key) {
+                angular.forEach(filesobj, function (file, key) {
                     if (file && (file.name.indexOf('.pdf') > -1)) {
 
-                        pdfToPlainText(file).then(function(pdf) {
+                        pdfToPlainText(file).then(function (pdf) {
                             $scope.phd.file.push(pdf);
                         });
                         // pdfToPlainText(file.asArrayBuffer()).then(function(file) {
@@ -306,7 +313,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
 
         }
-    ]).directive("ffFileSelect", [function() {
+    ]).directive("ffFileSelect", [function () {
 
         return {
             restrict: 'A',
@@ -314,9 +321,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             controllerAs: 'main',
             bindToController: true,
             scope: false,
-            link: function($scope, el, attr, ctrl) {
+            link: function ($scope, el, attr, ctrl) {
                 var main = ctrl;
-                el.on("change", function(e) {
+                el.on("change", function (e) {
 
                     main.file = (e.srcElement || e.target).files[0];
                     main.getFile();
@@ -325,11 +332,59 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
 
         };
+    }])
+    .factory('$patentsearch', ['$q', 'filepickerService', function ($q, filepickerService) {
+
+        return function (phdobj) {
+            var deferred = $q.defer();
+            searchforpatent(phdobj);
+            return deferred.promise;
+
+            function searchforpatent(phdobj) {
+
+                var applicationnumber = phdobj[0][1];
+                debugger;
+                var patentnumber = phdobj[16][1].replace(',', '').replace(',', '') || searchnumberresult || null;
+                debugger;
+                var searchnumberresult = '' || null; //Some function returning number;
+                
+                var googlepage = 'https://www.google.com/patents/US' + patentnumber;
+                var pdfstorageuri = 'https://patentimages.storage.googleapis.com/pdfs/US' + patentnumber + '.pdf';
+
+                var imageurlroot = 'https://patentimages.storage.googleapis.com/US' + patentnumber;
+                var thumbnailurlroot = 'https://patentimages.storage.googleapis.com/thumbnails/US' + patentnumber;
+                filepicker.storeUrl(pdfstorageuri.toString(),
+                    { filename: 'US'+patentnumber+'.pdf' },
+                    function (Blob) {
+                        var patentobj = angular.copy(Blob);
+                        patentobj.title = phdobj[19][1];
+                        patentobj.patentnumber = patentnumber;
+                        patentobj.media = Blob.url;
+                        patentobj.srcdoc = googlepage;
+                        filepicker.convert(
+                            Blob,
+                            {format: 'txt'},
+                            function (new_Blob) {
+                                
+                                patentobj.txt = new_Blob.url;
+                                return deferred.resolve(patentobj);
+                            }
+                            );
+                        
+                    }
+                    );
+
+
+
+
+
+            }
+        }
     }]);
 
 angular.module("adf.widget.getphd").run(["$templateCache", function($templateCache) {$templateCache.put("{widgetsPath}/getphd/src/edit.html","<form role=form><div class=form-group><label for=sample>Application #</label> <input type=text class=form-control id=sample ng-model=config.appnum placeholder=\"Enter Application #\"></div></form>");
 $templateCache.put("{widgetsPath}/getphd/src/titleTemplate.html","<div class=panel-heading><button class=\"fa fa-close fa-2x btn-danger button-outline pull-right floatingclosebutton round\" onclick=$(this).parent().parent().remove();></button><h4 class=bs-callout style=color:white;>{{config.title || $parent.config.title}} <span class=pull-right><a title=notes ng-click=\"console.log(\'note\')\"><i class=\"fa fa-pencil\" style=color:white;></i></a> <a title=mail ng-click=$publish(this)><i class=\"fa fa-send\" style=color:white;></i></a> <a title=comment ng-click=\"console.log(\'note\')\"><i class=\"fa fa-comments-o\" style=color:white;></i></a> <a title=\"reload widget content\" ng-click=reload()><i class=\"fa fa-refresh\" style=color:white;></i></a> <a title=\"change widget location\" class=adf-move><i class=\"glyphicon glyphicon-move\" style=color:white;></i></a> <a title=\"collapse widget\" ng-show=\"options.collapsible && !widgetState.isCollapsed\" ng-click=\"widgetState.isCollapsed = !widgetState.isCollapsed\"><i class=\"glyphicon glyphicon-minus\" style=color:white;></i></a> <a title=\"expand widget\" ng-show=\"options.collapsible && widgetState.isCollapsed\" ng-click=\"widgetState.isCollapsed = !widgetState.isCollapsed\"><i class=\"glyphicon glyphicon-plus\" style=color:white;></i></a> <a title=\"edit widget configuration\" ng-click=edit()><i class=\"glyphicon glyphicon-cog\" style=color:white;></i></a> <a title=\"fullscreen widget\" ng-click=openFullScreen() ng-show=\"options.maximizable || true\"><i class=\"glyphicon glyphicon-fullscreen\" style=color:white;></i></a> <a title=\"remove widget\" ng-click=remove() ng-if=editMode><i class=\"glyphicon glyphicon-remove\" style=color:white;></i></a></span></h4></div>");
-$templateCache.put("{widgetsPath}/getphd/src/view.html","<div class=\"card card-primary card-block btn-glass drop-target\" drop-files=handleFiles(files) style=\"border: 2px dashed blue;margin: 5px;\"><button class=\"row btn btn-glass btn-primary img img-rounded\" ng-hide=phd.file style=position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-around;flex-direction:row; ng-click=main.remotezip(config.appnum)><i class=\"fa fa-download fa-3x\">{{config.appnum}}</i> <img src=https://lexlab.firebaseapp.com/img/GoldLogoLong.svg class=\"pop img img-rounded pull-right\" ng-if=!config.appnum></button><div class=row ng-hide=phd.file><div class=\"alert alert-danger\" role=alert ng-if=main.error><strong>Uh oh!</strong> {{main.error}}</div><pre class=\"alert alert-info\" role=alert ng-if=main.info style=\"color:white !important;\">{{main.info}}</pre></div></div><div class=card style=\"text-align: left;color: #444;\" ng-if=phd.file><tabset><tab class=ngDialogTab><tab-heading>{{phd.application[0][1]}}</tab-heading><tabset><tab ng-repeat=\"file in phd.file\" heading=\"{{file.label | uppercase}}\"><pre class=\"card card-block card-fancy\" ng-bind=file.file></pre></tab></tabset></tab><tab class=\"ngDialogTab primary\" ng-if=phd.application><tab-heading style=color:white>APPLICATION</tab-heading><hr><table class=\"card card-default card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"line in phd.application\"><td ng-repeat=\"value in line\">{{value}}</td></tr></tbody></table></tab><tab class=\"ngDialogTab info\" ng-if=phd.attorney><tab-heading>ATTORNEY</tab-heading><table class=\"card card-default card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"line in phd.attorney\"><td ng-repeat=\"value in line\">{{value}}</td></tr></tbody></table></tab><tab class=\"ngDialogTab success\" ng-if=phd.continuity><tab-heading style=color:white;>CONTINUITY</tab-heading><table class=\"card card-default card-block table table-striped table-condensed table-hover table-responsive\"><thead><tr><th ng-repeat=\"field in phd.continuity.meta.fields\">{{field}}</th></tr></thead><tbody><tr ng-repeat=\"line in phd.continuity.data\"><td ng-repeat=\"value in line\">{{value}}</td></tr></tbody></table></tab><tab class=\"ngDialogTab warning\" ng-if=phd.foreign><tab-heading style=color:white>FOREIGN PRIORITY</tab-heading><table class=\"card card-default card-block table table-striped table-condensed table-hover table-responsive\"><thead><tr><th>Country</th><th>Priority</th><th>Priority Date</th></tr></thead><tbody><tr ng-repeat=\"p in phd.foreign\"><td ng-bind=\"p[\'Country\']\"></td><td ng-bind=\"p[\'Priority\']\"></td><td ng-bind=\"p[\'Priority Date\'] | date\"></td></tr></tbody></table></tab><tab class=\"ngDialogTab danger\" ng-if=phd.transaction><tab-heading style=color:white;>TRANSACTION</tab-heading><table class=\"card card-default card-block table table-striped table-hover table-condensed table-responsive\"><thead><tr><th>Date</th><th>Transaction Description</th></tr></thead><tbody><tr ng-repeat=\"trans in phd.transaction\"><td>{{trans[\'Date\']}}</td><td>{{trans[\'Transaction Description\']}}</td></tr></tbody></table></tab><tab class=ngDialogTab ng-if=phd.imagefile><tab-heading>IMAGE FILE WRAPPER</tab-heading><input type=text ng-model=main.query placeholder=search... class=pull-right><table class=\"card card-default card-block table table-hover table-condensed table-responsive\"><thead><tr><th ng-click=\"reverse = !reverse\" class=fa ng-class=\"{\'fa-chevron-up\': reverse,\'fa-chevron-down\': !reverse}\">#</th><th>Mail Room Date</th><th>Document Code</th><th>Document Description</th><th>Document Category</th><th>Page Count</th><th>Filename</th></tr></thead><tbody><tr ng-repeat=\"roarevent in phd.imagefile |filter: main.query\" class=\"card card-{{roarevent.styleClass}}\"><th><a ng-click=\"pdfToPlainText(roarevent[\'Filename\'])\" getpdftext><i class=\"fa fa-link\">{{$index}}</i></a></th><td ng-bind=\"roarevent[\'Mail Room Date\']\"></td><td ng-bind=\"roarevent[\'Document Code\']\"></td><td ng-bind=\"roarevent[\'Document Description\']\"></td><td ng-bind=\"roarevent[\'Document Category\']\"></td><td ng-bind=\"roarevent[\'Page Count\']\"></td><td ng-bind=\"roarevent[\'Filename\']\"></td></tr></tbody></table></tab><tab class=\"ngDialogTab {{collection.styleClass}}\" ng-repeat=\"collection in phd.roarmap.collections\" collection={{collection}}><tab-heading style=color:white;>{{collection.rid}}</tab-heading><div style=\"width: 100%;\" class=reventlist><roar-event ng-repeat=\"event in collection.roarlist\" id={{event}} style=width:19.5%;></roar-event></div></tab><tab class=ngDialogTab><tab-heading>ROAR <label class=\"label label-info label-pill\">{{phd.imagefile.length}}</label></tab-heading><div style=\"width: 100%;min-height: 500px;\" class=reventlist><roar-event roarevent=roarevent class=info editable=true dir-paginate=\"roarevent in phd.roarmap.roarevents | filter: roarId | filter: query |filter: issueId | orderBy: [(sortorder || \'date\'),\'sortIndex\',\'rid\',\'name\'] : dctn | itemsPerPage: 20\" pagination-id=roarmappagination ng-animate-ref=\"{{ roarevent.$id }}\" id={{roarevent}}></roar-event></div></tab><tab class=ngDialogTab ng-if=phd.pdffiles><tab-heading>PDFs <label class=\"label label-pill label-info\">{{phd.pdffiles.length}}</label></tab-heading><tabset><tab ng-repeat=\"pdf in phd.pdffiles\"><tab-heading>{{pdf.name}}</tab-heading><section class=card id=pdf ng-controller=PDFfilecontroller></section></tab></tabset></tab></tabset></div>");}]);
+$templateCache.put("{widgetsPath}/getphd/src/view.html","<div class=\"card card-primary card-block btn-glass drop-target\" drop-files=handleFiles(files) style=\"border: 2px dashed blue;margin: 5px;\" ng-hide=phd.file><button class=\"row btn btn-glass btn-primary img img-rounded\" ng-hide=phd.file style=position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-around;flex-direction:row; ng-click=main.remotezip(config.appnum)><i class=\"fa fa-download fa-3x\">{{config.appnum}}</i> <img src=https://lexlab.firebaseapp.com/img/GoldLogoLong.svg class=\"pop img img-rounded pull-right\" ng-if=!config.appnum></button><div class=row ng-hide=phd.file><div class=\"alert alert-danger\" role=alert ng-if=main.error><strong>Uh oh!</strong> {{main.error}}</div><pre class=\"alert alert-info\" role=alert ng-if=main.info style=\"color:white !important;\">{{main.info}}</pre></div></div><div class=card style=\"text-align: left;color: #444;\" ng-if=phd.file><button class=\"row btn btn-glass btn-primary img img-rounded\" style=position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-around;flex-direction:row; ng-click=main.remotezip(config.appnum)><i class=\"icon icon-xllp fa-2x\">{{config.appnum}}</i> <img src=https://lexlab.firebaseapp.com/img/GoldLogoLong.svg class=\"pop img img-rounded pull-right\"></button><tabset><tab class=ngDialogTab><tab-heading>USSN {{phd.application[0][1]}}</tab-heading><tabset><tab ng-repeat=\"file in phd.file\" heading=\"{{file.label | uppercase}}\"><pre class=\"card card-block card-fancy\" ng-bind=file.file></pre></tab></tabset></tab><tab class=\"ngDialogTab primary\" ng-if=phd.application><tab-heading style=color:white>APPLICATION</tab-heading><hr><table class=\"card card-default card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"line in phd.application\"><td ng-repeat=\"value in line\">{{value}}</td></tr></tbody></table></tab><tab class=\"ngDialogTab info\" ng-if=phd.attorney><tab-heading>ATTORNEY</tab-heading><table class=\"card card-default card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"line in phd.attorney\"><td ng-repeat=\"value in line\">{{value}}</td></tr></tbody></table></tab><tab class=\"ngDialogTab success\" ng-if=phd.continuity><tab-heading style=color:white;>CONTINUITY</tab-heading><table class=\"card card-default card-block table table-striped table-condensed table-hover table-responsive\"><thead><tr><th ng-repeat=\"field in phd.continuity.meta.fields\">{{field}}</th></tr></thead><tbody><tr ng-repeat=\"line in phd.continuity.data\"><td ng-repeat=\"value in line\">{{value}}</td></tr></tbody></table></tab><tab class=\"ngDialogTab warning\" ng-if=phd.foreign><tab-heading style=color:white>FOREIGN PRIORITY</tab-heading><table class=\"card card-default card-block table table-striped table-condensed table-hover table-responsive\"><thead><tr><th>Country</th><th>Priority</th><th>Priority Date</th></tr></thead><tbody><tr ng-repeat=\"p in phd.foreign\"><td ng-bind=\"p[\'Country\']\"></td><td ng-bind=\"p[\'Priority\']\"></td><td ng-bind=\"p[\'Priority Date\'] | date\"></td></tr></tbody></table></tab><tab class=\"ngDialogTab danger\" ng-if=phd.transaction><tab-heading style=color:white;>TRANSACTION</tab-heading><table class=\"card card-default card-block table table-striped table-hover table-condensed table-responsive\"><thead><tr><th>Date</th><th>Transaction Description</th></tr></thead><tbody><tr ng-repeat=\"trans in phd.transaction\"><td>{{trans[\'Date\']}}</td><td>{{trans[\'Transaction Description\']}}</td></tr></tbody></table></tab><tab class=ngDialogTab ng-if=phd.imagefile><tab-heading>I F W</tab-heading><input type=text ng-model=main.query placeholder=search... class=pull-right><table class=\"card card-default card-block table table-hover table-condensed table-responsive\"><thead><tr><th ng-click=\"reverse = !reverse\" class=fa ng-class=\"{\'fa-chevron-up\': reverse,\'fa-chevron-down\': !reverse}\">#</th><th>Mail Room Date</th><th>Document Code</th><th>Document Description</th><th>Document Category</th><th>Page Count</th><th>Filename</th></tr></thead><tbody><tr ng-repeat=\"roarevent in phd.imagefile |filter: main.query\" class=\"card card-{{roarevent.styleClass}}\"><th><a ng-click=\"pdfToPlainText(roarevent[\'Filename\'])\" getpdftext><i class=\"fa fa-file-pdf\">{{$index}}</i></a></th><td ng-bind=\"roarevent[\'Mail Room Date\']\"></td><td ng-bind=\"roarevent[\'Document Code\']\"></td><td ng-bind=\"roarevent[\'Document Description\']\"></td><td ng-bind=\"roarevent[\'Document Category\']\"></td><td ng-bind=\"roarevent[\'Page Count\']\"></td><td ng-bind=\"roarevent[\'Filename\']\"></td></tr></tbody></table></tab><tab class=\"ngDialogTab {{collection.styleClass}}\" ng-repeat=\"collection in phd.roarmap.collections\" collection={{collection}}><tab-heading style=color:white;>{{collection.rid}}</tab-heading><div style=\"width: 100%;\" class=reventlist><roar-event ng-repeat=\"event in collection.roarlist\" id=\"{{event.id || event}}\" style=width:19.5%;></roar-event></div></tab><tab class=ngDialogTab ng-if=phd.pdffiles><tab-heading>PDFs <label class=\"label label-pill label-info\">{{phd.pdffiles.length}}</label></tab-heading><tabset><tab ng-repeat=\"pdf in phd.pdffiles\"><tab-heading>{{pdf.name}}</tab-heading><section class=card id=pdf ng-controller=PDFfilecontroller></section></tab></tabset></tab><tab class=ngDialogTab><tab-heading>US {{phd.application[16][1]}}</tab-heading><tabset><tab heading=.pdf><div filepicker-preview url=phd.patent.media style=\"width:100%; height:500px\"></div></tab><tab heading=text><div filepicker-preview url=\"phd.patent.media | fpConvert: {format: \'txt\';}\" style=\"width:100%; height:500px\"></div></tab><tab heading=.txt><div filepicker-preview url=phd.patent.txt style=\"width:100%; height:500px\"></div></tab></tabset></tab></tabset></div>");}]);
 angular.module('textSizeSlider', [])
     .directive('textSizeSlider', ['$document', function($document) {
         return {
@@ -1192,9 +1247,9 @@ angular.module("fa.droppable", [])
     .directive("dropFiles", [function () {
         var linkFn = function ($scope, $element, $attrs, ctrl) {
             var extractFiles = function (e) {
-                debugger;
+                //debugger;
                 var files = e.originalEvent.dataTransfer.files;
-                debugger;
+                //debugger;
                 var filesArray = [];
 
                 for (var i = 0, len = files.length; i < len; i++) {

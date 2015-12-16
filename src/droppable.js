@@ -4,9 +4,9 @@ angular.module("fa.droppable", [])
     .directive("dropFiles", [function () {
         var linkFn = function ($scope, $element, $attrs, ctrl) {
             var extractFiles = function (e) {
-                debugger;
+                //debugger;
                 var files = e.originalEvent.dataTransfer.files;
-                debugger;
+                //debugger;
                 var filesArray = [];
 
                 for (var i = 0, len = files.length; i < len; i++) {
