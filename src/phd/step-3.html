@@ -1,0 +1,52 @@
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h4 class="splash">+PhD Step 3 - Unzip & Upload the Files</h4>
+    </div>
+    <div class="panel-body">
+        <h6 class="splash">{{ngDialogData[0].PNUM}} - {{ngDialogData[1].APPNUM}}</h6>
+        <span us-spinner ng-show="spinme"></span>
+        <br>
+        <button class="btn btn-info fa fa-arrow-up pull-right" lk-google-picker on-picked="addfilehistory">upload</button>
+        <div ng-hide="files.length == 0">
+            <div class="col-sm-28 col-sm-offset-1 panel sub-independent" style="padding: 1rem;">
+
+                <h4>Add File History</h4>
+                <!-- <label> Name: 
+             <input type="text" ng-model="collection.name" placeholder="collection name" ng-value="{{ngDialogData[0].PNUM}}">
+             </label>
+             <label class="pull-right"> Application #:
+             <input type="text" ng-model="collection.app" placeholder="application #" ng-value="{{ngDialogData[1].APPNUM}}">
+             </label>
+             <br> -->
+                <label> ID#:
+                    <input type="text" ng-model="collection.rid" placeholder="collection id">
+                </label>
+                <label class="pull-right"> Box:
+                    <input type="text" ng-model="collection.box" placeholder="collection box">
+                </label>
+                <br>
+                <small style="color: red;">*All Fields Required</small>
+
+
+                <button class="btn-default pull-right" ng-click="files=[]">cancel</button>
+
+                <button class="btn-info pull-right" ng-click="addfilehistory(files);spinme = true">confirm</button>
+                <br>
+                <small><strong>Note:</strong> This process may take several minutes to complete. Please wait until the process is complete.  When completed, you will be brought to the results automatically. </small>
+                <!-- <div class="well" ng-show="files.length > 0">
+      <a ng-repeat="file in files" class="list-group-item" >
+
+                  <img ng-src="{{file.iconUrl}}" class="pull-left"/>
+                  <h6 class="list-group-item-heading">{{file.$index}} - <small>{{file.name}}</small>
+                    <br>
+                    <small class="list-group-item-text">{{file.url}}<br>{{file.embedUrl}}</small>
+                  </h6>
+                 
+                  </a>
+              </div> -->
+
+
+            </div>
+        </div>
+    </div>
+</div>

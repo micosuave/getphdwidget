@@ -1,4 +1,4 @@
- angular.module('roar', [])
+ angular.module('roar', ['angularFileUpload','pageslide-directive'])
 
  .factory('$mocks', [function() {
          var stateParams = {
@@ -403,4 +403,22 @@
 
              };
          }
-     ]);
+     ]).controller('pageslideCtrl',['$scope',function($scope){
+
+                $scope.checked = false; // This will be binded using the ps-open attribute
+
+                $scope.toggle = function(){
+                    $scope.checked = !$scope.checked
+                }
+                $scope.checked1 = false; // This will be binded using the ps-open attribute
+
+                $scope.toggle1 = function(){
+                    $scope.checked1 = !$scope.checked1
+                }
+                $scope.checked2 = false; // This will be binded using the ps-open attribute
+
+                $scope.toggle2 = function(){
+                    $scope.checked2 = !$scope.checked2
+                }
+
+     }]);

@@ -7,17 +7,26 @@
 <!--<div class="card card-primary card-block btn-glass drop-target" ngf-drop ngf-select ng-model="files" class="drop-box" 
         ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true" drop-files="handleFiles(files)"
  style="border: 2px dashed blue;margin: 5px;" >-->
+
+ 
  <div class="card card-primary card-block btn-glass drop-target"  drop-files="handleFiles(files)"
  style="border: 2px dashed blue;margin: 5px;"ng-hide="phd.file" >
  <!--<form id="uploadform" enctype="multipart/form-data" action="http://do.lexlab.io:3000/api/pdf" method="post">
     <input type="file" name="userPhoto" multiple/>
     <input type="submit" value="Upload Image" name="submit">
 </form>-->
-    <button class="row btn btn-glass btn-primary img img-rounded " ng-hide="phd.file" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-around;flex-direction:row;" ng-click="main.remotezip(config.appnum)">
+    <div ng-controller="pageslideCtrl" >
+                <a class href="" ng-click="toggle()"><button class="row btn btn-glass btn-primary img img-rounded " ng-hide="phd.file" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-around;flex-direction:row;" ng-click="main.remotezip(config.appnum)">
         <i class="fa fa-download fa-3x">{{config.appnum}}</i>
         <img src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg" class="pop img img-rounded pull-right" style="" ng-if="!config.appnum" />
         <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
-    </button>
+    </button></a>
+                
+
+    <div pageslide ps-open="checked" ps-key-listener="true" ps-side="left">
+                    <div ng-include="'/getphdwidget/src/phd/step-1.html'"></div>
+                    <upload-q></upload-q>
+                </div>
     <div class="row" ng-hide="phd.file">
 
         <div class="alert alert-danger" role="alert" ng-if="main.error"><strong>Uh oh!</strong> {{main.error}}</div>
