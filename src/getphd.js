@@ -342,9 +342,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             function searchforpatent(phdobj) {
 
                 var applicationnumber = phdobj[0][1];
-                debugger;
+              
                 var patentnumber = phdobj[16][1].replace(',', '').replace(',', '') || searchnumberresult || null;
-                debugger;
+               
                 var searchnumberresult = '' || null; //Some function returning number;
                 
                 var googlepage = function (patentnumber) { filepicker.storeUrl('https://www.google.com/patents/US' + patentnumber, {}, function (Blob){  googlepagetext(Blob); return Blob.url;}); };
