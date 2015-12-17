@@ -27,14 +27,14 @@
 <div class="card" style="text-align: left;color: #444;" ng-if="phd.file">
     <!-- <dir-pagination-controls template-url="components/angular-utils-pagination/dirPagination.tpl.html" pagination-id="cards"></dir-pagination-controls> -->
 <button class="row btn btn-glass btn-primary img img-rounded " style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-around;flex-direction:row;" ng-click="main.remotezip(config.appnum)">
-        <i class="icon icon-xllp fa-2x">{{config.appnum}}</i>
+        <i class="icon icon-xllp fa-2x lead">{{config.appnum}}</i>
         <img src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg" class="pop img img-rounded pull-right" style="" />
         <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
     </button>
 
     <tabset>
         <tab class="ngDialogTab">
-            <tab-heading class="">USSN {{phd.application[0][1]}}</tab-heading>
+            <tab-heading class="lead">USSN {{phd.application[0][1]}}</tab-heading>
             <tabset>
                 <tab class="" ng-repeat="file in phd.file" heading="{{file.label | uppercase}}">
                     <pre class="card card-block card-fancy" ng-bind="file.file"></pre>
@@ -43,7 +43,7 @@
         </tab>
         <tab class="ngDialogTab primary" ng-if="phd.application">
             <!-- <pre ng-bind="main.application | json:4"></pre> -->
-            <tab-heading style="color:white">APPLICATION</tab-heading>
+            <tab-heading style="color:white" ng-style="{'active': (color: blue)}">APPLICATION</tab-heading>
             <hr/>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
 
@@ -57,7 +57,7 @@
         </tab>
         <tab class="ngDialogTab info" ng-if="phd.attorney">
             <!-- <pre ng-bind="main.attorney | json:4"></pre> -->
-            <tab-heading>ATTORNEY</tab-heading>
+            <tab-heading ng-style="{'active': (color: blue)}">ATTORNEY</tab-heading>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
 
                 <tbody>
@@ -70,7 +70,7 @@
         </tab>
         <tab class="ngDialogTab success" ng-if="phd.continuity">
             <!-- <pre ng-bind="main.continuity | json:4"></pre> -->
-            <tab-heading style="color:white;">CONTINUITY</tab-heading>
+            <tab-heading style="color:white;" ng-style="{'active': (color: blue)}">CONTINUITY</tab-heading>
             <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
                     <tr>
@@ -87,7 +87,7 @@
         <tab class="ngDialogTab warning" ng-if="phd.foreign">
 
             <!-- <pre ng-bind="main.phd.foreign | json:4"></pre> -->
-            <tab-heading style="color:white">FOREIGN PRIORITY</tab-heading>
+            <tab-heading style="color:white" ng-style="{'active': (color: blue)}">FOREIGN PRIORITY</tab-heading>
             <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
                     <tr>
@@ -108,7 +108,7 @@
         </tab>
         <tab class="ngDialogTab danger" ng-if="phd.transaction">
             <!-- <pre ng-bind="main.transaction | json:4"></pre> -->
-            <tab-heading style="color:white;">TRANSACTION</tab-heading>
+            <tab-heading style="color:white;" ng-style="{'active': (color: blue)}">TRANSACTION</tab-heading>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
                 <thead>
                     <tr>
@@ -125,7 +125,7 @@
             </table>
         </tab>
         <tab class="ngDialogTab" ng-if="phd.imagefile">
-            <tab-heading>I F W</tab-heading>
+            <tab-heading ng-style="{'active': (color: blue)}">I F W</tab-heading>
             <input type="text" ng-model="main.query" placeholder="search..." class="pull-right">
 
             <table class="card card-default card-block table table-hover table-condensed table-responsive">
@@ -159,7 +159,7 @@
             </table>
         </tab>
         <tab class="ngDialogTab {{collection.styleClass}}" ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
-            <tab-heading class="" style="color:white;">{{collection.rid}}</tab-heading>
+            <tab-heading class="" style="color:white;" ng-style="{'active': (color: blue)}">{{collection.rid}}</tab-heading>
             <div style="width: 100%;" class="reventlist">
                 <roar-event ng-repeat="event in collection.roarlist" id="{{event.id || event}}" style="width:19.5%;"></roar-event>
             </div>
@@ -266,18 +266,21 @@
 
         </tab>
         <tab class="ngDialogTab">
-           <tab-heading>US {{phd.application[16][1]}}
+           <tab-heading class="lead" ng-style="{'active': (color: blue)}">US {{phd.application[16][1]}}
                 <!--<label class="label label-pill label-info">{{phd.pdffiles.length}}</label>-->
             </tab-heading>
             <tabset>
                 <tab heading=".pdf">
-            <div filepicker-preview url="phd.patent.media" style="width:100%; height:500px"></div>
+            <div filepicker-preview url="phd.patent.media" style="width:100%; height:400px"></div>
            </tab>
-           <tab heading="text">
-            <div filepicker-preview url="phd.patent.media | fpConvert: {format: 'txt';}" style="width:100%; height:500px"></div>
+           <tab heading=".html">
+            <div filepicker-preview url="phd.patent.googlepage" style="width:100%; height:400px"></div>
+           </tab>
+           <tab heading="gtxt">
+            <div filepicker-preview url="phd.patent.googlepagetext" style="width:100%; height:400px"></div>
            </tab>
            <tab heading=".txt">
-                <div filepicker-preview url="phd.patent.txt" style="width:100%; height:500px"></div>
+                <div filepicker-preview url="phd.patent.txt" style="width:100%; height:400px"></div>
                </tab>
            </tabset>
            </tab> 

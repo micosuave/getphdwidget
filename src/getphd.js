@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
-    'fa.droppable', 'llp.parsetsv', 'roar', 'textSizeSlider', 'llp.pdf', 'LocalStorageModule', 'llp.extractpdf', 'firebase', 'ui.router', 'commonServices', 'xeditable', 'ui.utils', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'phd', 'toastr', 'mentio', 'lionlawlabs', 'ui', 'diff', 'door3.css', 'checklist-model', 'authentication', 'angular-md5', 'angular.filter', 'admin', 'roarmap', 'ngFileUpload'
+    'fa.droppable', 'llp.parsetsv', 'roar', 'textSizeSlider', 'llp.pdf', 'LocalStorageModule', 'llp.extractpdf', 'firebase', 'ui.router', 'commonServices', 'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'phd', 'toastr', 'mentio', 'lionlawlabs', 'diff', 'door3.css', 'checklist-model', 'authentication', 'angular-md5', 'angular.filter',  'roarmap', 'ngFileUpload'
 ]).config(function (dashboardProvider, localStorageServiceProvider) {
 
     localStorageServiceProvider.setPrefix('adf.getphd');
@@ -347,8 +347,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 debugger;
                 var searchnumberresult = '' || null; //Some function returning number;
                 
-                var googlepage = function (patentnumber) { filepicker.storeUrl('https://www.google.com/patents/US' + patentnumber, {}, function (Blob) {  googlepagetext(Blob); return Blob.url;}); });
-                var googlepagetext = function (Blob) { filepicker.convert(Blob, { format: 'txt' }, function (new_Blob) { patentobj.googletext = new_Blob.url; }); });
+                var googlepage = function (patentnumber) { filepicker.storeUrl('https://www.google.com/patents/US' + patentnumber, {}, function (Blob){  googlepagetext(Blob); return Blob.url;}); };
+                var googlepagetext = function (Blob) { filepicker.convert(Blob, { format: 'txt' }, function (new_Blob) { patentobj.googletext = new_Blob.url; }); };
 
                 var pdfstorageuri = 'https://patentimages.storage.googleapis.com/pdfs/US' + patentnumber + '.pdf';
 
