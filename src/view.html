@@ -10,7 +10,7 @@
 
  
  <div class="card card-primary card-block btn-glass drop-target"  drop-files="handleFiles(files)"
- style="border: 2px dashed blue;margin: 5px;"ng-hide="phd.file" >
+ style="border: 2px dashed blue;margin: 5px;"ng-hide="phd.file">
  <!--<form id="uploadform" enctype="multipart/form-data" action="http://do.lexlab.io:3000/api/pdf" method="post">
     <input type="file" name="userPhoto" multiple/>
     <input type="submit" value="Upload Image" name="submit">
@@ -23,8 +23,9 @@
     </button></a>
                 
 
-    <div pageslide ps-open="checked" ps-key-listener="true" ps-side="left">
+    <div pageslide ps-open="checked" ps-key-listener="true" ps-side="left" ps-class="card">
                     <div ng-include="'/getphdwidget/src/phd/step-1.html'"></div>
+                    <div ng-include="'/getphdwidget/src/phd/step-2.html'"></div>
                     <upload-q></upload-q>
                 </div>
     <div class="row" ng-hide="phd.file">
@@ -32,7 +33,7 @@
         <div class="alert alert-danger" role="alert" ng-if="main.error"><strong>Uh oh!</strong> {{main.error}}</div>
         <pre class="alert alert-info" role="alert" ng-if="main.info" style="color:white !important;">{{main.info}}</pre>
     </div>
-</div>
+</div></div>
 <div class="card" style="text-align: left;color: #444;" ng-if="phd.file">
     <!-- <dir-pagination-controls template-url="components/angular-utils-pagination/dirPagination.tpl.html" pagination-id="cards"></dir-pagination-controls> -->
 <button class="row btn btn-glass btn-primary img img-rounded " style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-around;flex-direction:row;" ng-click="main.remotezip(config.appnum)">
@@ -52,7 +53,7 @@
         </tab>
         <tab class="ngDialogTab primary" ng-if="phd.application">
             <!-- <pre ng-bind="main.application | json:4"></pre> -->
-            <tab-heading style="color:white" ng-style="{'active': (color: blue)}">APPLICATION</tab-heading>
+            <tab-heading style="color:white" ng-style="">APPLICATION</tab-heading>
             <hr/>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
 
@@ -66,7 +67,7 @@
         </tab>
         <tab class="ngDialogTab info" ng-if="phd.attorney">
             <!-- <pre ng-bind="main.attorney | json:4"></pre> -->
-            <tab-heading ng-style="{'active': (color: blue)}">ATTORNEY</tab-heading>
+            <tab-heading ng-style="">ATTORNEY</tab-heading>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
 
                 <tbody>
@@ -79,7 +80,7 @@
         </tab>
         <tab class="ngDialogTab success" ng-if="phd.continuity">
             <!-- <pre ng-bind="main.continuity | json:4"></pre> -->
-            <tab-heading style="color:white;" ng-style="{'active': (color: blue)}">CONTINUITY</tab-heading>
+            <tab-heading style="color:white;" ng-style="">CONTINUITY</tab-heading>
             <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
                     <tr>
@@ -96,7 +97,7 @@
         <tab class="ngDialogTab warning" ng-if="phd.foreign">
 
             <!-- <pre ng-bind="main.phd.foreign | json:4"></pre> -->
-            <tab-heading style="color:white" ng-style="{'active': (color: blue)}">FOREIGN PRIORITY</tab-heading>
+            <tab-heading style="color:white" ng-style="">FOREIGN PRIORITY</tab-heading>
             <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
                     <tr>
@@ -117,7 +118,7 @@
         </tab>
         <tab class="ngDialogTab danger" ng-if="phd.transaction">
             <!-- <pre ng-bind="main.transaction | json:4"></pre> -->
-            <tab-heading style="color:white;" ng-style="{'active': (color: blue)}">TRANSACTION</tab-heading>
+            <tab-heading style="color:white;" ng-style="">TRANSACTION</tab-heading>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
                 <thead>
                     <tr>
@@ -134,7 +135,7 @@
             </table>
         </tab>
         <tab class="ngDialogTab" ng-if="phd.imagefile">
-            <tab-heading ng-style="{'active': (color: blue)}">I F W</tab-heading>
+            <tab-heading ng-style="">I F W</tab-heading>
             <input type="text" ng-model="main.query" placeholder="search..." class="pull-right">
 
             <table class="card card-default card-block table table-hover table-condensed table-responsive">
@@ -168,7 +169,7 @@
             </table>
         </tab>
         <tab class="ngDialogTab {{collection.styleClass}}" ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
-            <tab-heading class="" style="color:white;" ng-style="{'active': (color: blue)}">{{collection.rid}}</tab-heading>
+            <tab-heading class="" style="color:white;" ng-style="">{{collection.rid}}</tab-heading>
             <div style="width: 100%;" class="reventlist">
                 <roar-event ng-repeat="event in collection.roarlist" id="{{event.id || event}}" style="width:19.5%;"></roar-event>
             </div>
@@ -275,7 +276,7 @@
 
         </tab>
         <tab class="ngDialogTab">
-           <tab-heading class="lead" ng-style="{'active': (color: blue)}">US {{phd.application[16][1]}}
+           <tab-heading class="lead" ng-style="">US {{phd.application[16][1]}}
                 <!--<label class="label label-pill label-info">{{phd.pdffiles.length}}</label>-->
             </tab-heading>
             <tabset>

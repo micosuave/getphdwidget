@@ -1,3 +1,4 @@
+'use strict';
 angular.module('textSizeSlider', [])
     .directive('textSizeSlider', ['$document', function($document) {
         return {
@@ -10,12 +11,12 @@ angular.module('textSizeSlider', [])
                 value: '@',
                 step: '@'
             },
-            link: function(scope, element, attr) {
+            link: function (scope, element, attr) {
                 scope.textSize = scope.value;
-                scope.$watch('textSize', function(size) {
+                scope.$watch('textSize', function (size) {
                     $document[0].style.fontSize = size + scope.unit;
-                    $('html').style('font-size', size+scope.unit);
+                    $('html').style('font-size', size + scope.unit);
                 });
             }
-        }
+        };
     }]);

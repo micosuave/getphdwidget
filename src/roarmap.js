@@ -101,7 +101,7 @@
                          };
                return deferred.resolve(roarevent);  
              };
-         }
+         };
      }])
      .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$mocks', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'FIREBASE_URL',
          function($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $mocks, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, FIREBASE_URL) {
@@ -136,7 +136,7 @@
 
                  function hello() {
                      var check = checkforexistingphd();
-                     if (check === true) {
+                     if (check) {
                          getroar();
                      } else {
                          buildroar();
@@ -403,22 +403,22 @@
 
              };
          }
-     ]).controller('pageslideCtrl',['$scope',function($scope){
+     ]).controller('PageslideCtrl',['$scope',function($scope){
 
                 $scope.checked = false; // This will be binded using the ps-open attribute
 
-                $scope.toggle = function(){
-                    $scope.checked = !$scope.checked
-                }
+                $scope.toggle = function () {
+                    $scope.checked = !$scope.checked;
+                };
                 $scope.checked1 = false; // This will be binded using the ps-open attribute
 
-                $scope.toggle1 = function(){
-                    $scope.checked1 = !$scope.checked1
-                }
+                $scope.toggle1 = function () {
+                    $scope.checked1 = !$scope.checked1;
+                };
                 $scope.checked2 = false; // This will be binded using the ps-open attribute
 
-                $scope.toggle2 = function(){
-                    $scope.checked2 = !$scope.checked2
-                }
+                $scope.toggle2 = function () {
+                    $scope.checked2 = !$scope.checked2;
+                };
 
      }]);

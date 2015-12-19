@@ -142,7 +142,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     try {
                         //main.post(file);
                     } catch (ex) {
-                        $log.error(ex)
+                        $log.error(ex);
                     } finally {
                         if (file.label === 'imagefile') {
                             $scope.phd.imagefile = parseTSV(file.file, opts);
@@ -234,16 +234,19 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                 $log.info('TSV Parsed', parsedfiles);
 
 
-                                $patentsearch($scope.phd.application)
-                                    .then(function (patentobj) {
-                                        $scope.phd.patent = patentobj;
+                                
                                         $roarmap(parsedfiles, $scope.phd)
                                             .then(function (roarmap) {
                                                 $scope.phd.roarmap = roarmap;
-
+                                                try{$patentsearch($scope.phd.application)
+                                                .then(function (patentobj) {
+                                                    $scope.phd.patent = patentobj;});}
+                                                catch (ex) { console.log(ex); }
+                                                finally{
                                                 localStorageService.set(config.appnum, $scope.phd);
 
                                                 alertify.alert('Done!');
+                                                }
                                             });
                                         // try {
                                         //     //main.pdFF(files.pdffiles);
@@ -274,9 +277,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                             main.error = reason.message;
 
-                        });
+                        };
 
-            };
+            
 
             //console.log(fileReader);
 
@@ -342,58 +345,60 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             function searchforpatent(phdobj) {
 
                 var applicationnumber = phdobj[0][1];
-              
-                var patentnumber = phdobj[16][1].replace(',', '').replace(',', '') || searchnumberresult || null;
-               
-                var searchnumberresult = '' || null; //Some function returning number;
+                if (phdobj[16][1] == !'-') {
+                    var patentnumber = phdobj[16][1].replace(',', '').replace(',', '') || searchnumberresult || null;
+
+                    var searchnumberresult = '' || null; //Some function returning number;
                 
-                var googlepage = function (patentnumber) { filepicker.storeUrl('https://www.google.com/patents/US' + patentnumber, {}, function (Blob){  googlepagetext(Blob); return Blob.url;}); };
-                var googlepagetext = function (Blob) { filepicker.convert(Blob, { format: 'txt' }, function (new_Blob) { patentobj.googletext = new_Blob.url; }); };
+                    var googlepage = function (patentnumber) { filepicker.storeUrl('https://www.google.com/patents/US' + patentnumber, {}, function (Blob) { googlepagetext(Blob); return Blob.url; }); };
+                    var googlepagetext = function (Blob) { filepicker.convert(Blob, { format: 'txt' }, function (new_Blob) { patentobj.googletext = new_Blob.url; }); };
 
-                var pdfstorageuri = 'https://patentimages.storage.googleapis.com/pdfs/US' + patentnumber + '.pdf';
+                    var pdfstorageuri = 'https://patentimages.storage.googleapis.com/pdfs/US' + patentnumber + '.pdf';
 
-                var imageurlroot = 'https://patentimages.storage.googleapis.com/US' + patentnumber;
-                var thumbnailurlroot = 'https://patentimages.storage.googleapis.com/thumbnails/US' + patentnumber;
-                filepicker.storeUrl(pdfstorageuri.toString(),
-                    { filename: 'US'+patentnumber+'.pdf' },
-                    function (Blob) {
-                        var patentobj = angular.copy(Blob);
-                        patentobj.title = phdobj[19][1];
-                        patentobj.patentnumber = patentnumber;
-                        patentobj.media = Blob.url;
-                        patentobj.srcdoc = googlepage(patentnumber) || null;
-                        filepicker.convert(
-                            Blob,
-                            {format: 'txt'},
-                            function (new_Blob) {
-                                
-                                patentobj.txt = new_Blob.url;
-                                return deferred.resolve(patentobj);
-                            }
-                            );
-                        
-                    }
-                    );
+                    var imageurlroot = 'https://patentimages.storage.googleapis.com/US' + patentnumber;
+                    var thumbnailurlroot = 'https://patentimages.storage.googleapis.com/thumbnails/US' + patentnumber;
+                    filepicker.storeUrl(pdfstorageuri.toString(),
+                        { filename: 'US' + patentnumber + '.pdf' },
+                        function (Blob) {
+                            var patentobj = angular.copy(Blob);
+                            patentobj.title = phdobj[19][1];
+                            patentobj.patentnumber = patentnumber;
+                            patentobj.media = Blob.url;
+                            patentobj.srcdoc = googlepage(patentnumber) || null;
+                            filepicker.convert(
+                                Blob,
+                                { format: 'txt' },
+                                function (new_Blob) {
 
+                                    patentobj.txt = new_Blob.url;
+                                    return deferred.resolve(patentobj);
+                                }
+                                );
+
+                        }
+                        );
+                } else {
+                    return;
+                }
 
 
 
 
             }
-        }
+        };
     }]).directive('uploadQ', ['FileUploader', function (FileUploader) {
-      return {
-          restrict: 'EA',
-          template: '<div class="col-md-9" style="margin-bottom: 40px" > <h3>Upload queue</h3> <p>Queue length: {{ uploader.queue.length }}</p> <table class="table"> <thead> <tr> <th width="50%">Name</th> <th ng-show="uploader.isHTML5">Size</th> <th ng-show="uploader.isHTML5">Progress</th> <th>Status</th> <th>Actions</th> </tr> </thead> <tbody> <tr ng-repeat="item in uploader.queue"> <td><strong>{{ item.file.name }}</strong></td> <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td> <td ng-show="uploader.isHTML5"> <div class="progress" style="margin-bottom: 0;"> <div class="progress-bar" role="progressbar" ng-style="{ \'width\': item.progress + \'%\' }"></div> </div> </td> <td class="text-center"> <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span> <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span> <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span> </td> <td nowrap> <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess"> <span class="glyphicon glyphicon-upload"></span> Upload </button> <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading"> <span class="glyphicon glyphicon-ban-circle"></span> Cancel </button> <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()"> <span class="glyphicon glyphicon-trash"></span> Remove </button> </td> </tr> </tbody> </table> <div> <div> Queue progress: <div class="progress" style=""> <div class="progress-bar" role="progressbar" ng-style="{ \'width\': uploader.progress + \'%\' }"></div> </div> </div> <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length"> <span class="glyphicon glyphicon-upload"></span> Upload all </button> <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading"> <span class="glyphicon glyphicon-ban-circle"></span> Cancel all </button> <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length"> <span class="glyphicon glyphicon-trash"></span> Remove all </button> </div> </div>',
-          controller: 'AppController',
-          controllerAs: 'uploader',
-          bindToController: true,
-          scope:{url: '@' },
-          link: function($scope, $elem, $attr, $ctrl){
-            
-          }
+        return {
+            restrict: 'EA',
+            template: '<div class="card"><input type="file" nv-file-select="" uploader="uploader" multiple /> <h3>Upload queue</h3> <p>Queue length: {{ uploader.queue.length }}</p> <table class="table"> <thead> <tr> <th width="50%">Name</th> <th ng-show="uploader.isHTML5">Size</th> <th ng-show="uploader.isHTML5">Progress</th> <th>Status</th> <th>Actions</th> </tr> </thead> <tbody> <tr ng-repeat="item in uploader.queue"> <td><strong>{{ item.file.name }}</strong></td> <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td> <td ng-show="uploader.isHTML5"> <div class="progress" style="margin-bottom: 0;"> <div class="progress-bar" role="progressbar" ng-style="{ \'width\': item.progress + \'%\' }"></div> </div> </td> <td class="text-center"> <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span> <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span> <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span> </td> <td nowrap> <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess"> <span class="glyphicon glyphicon-upload"></span> Upload </button> <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading"> <span class="glyphicon glyphicon-ban-circle"></span> Cancel </button> <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()"> <span class="glyphicon glyphicon-trash"></span> Remove </button> </td> </tr> </tbody> </table> <div> <div> Queue progress: <div class="progress" style=""> <div class="progress-bar" role="progressbar" ng-style="{ \'width\': uploader.progress + \'%\' }"></div> </div> </div> <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length"> <span class="glyphicon glyphicon-upload"></span> Upload all </button> <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading"> <span class="glyphicon glyphicon-ban-circle"></span> Cancel all </button> <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length"> <span class="glyphicon glyphicon-trash"></span> Remove all </button> </div> </div>',
+            controller: 'AppController',
+            controllerAs: 'uploader',
+            bindToController: true,
+            scope: { url: '@' },
+            link: function ($scope, $elem, $attr, $ctrl) {
 
-      }
+            }
+
+        };
   }]).controller('AppController', ['$scope', 'FileUploader', function($scope, FileUploader) {
         var uploader = $scope.uploader = new FileUploader({
             url: $scope.url || 'https://lexlab.io/upload'

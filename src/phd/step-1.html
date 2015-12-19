@@ -1,12 +1,12 @@
-<div class="panel panel-success">
-    <div class="panel-heading">
-        <h4 class="splash">+PhD Step 1 - Download Patent</h4>
+<div class="card card-success">
+    <div class="card-header">
+        <h4 class="card-title">+PhD Step 1 - Download Patent</h4>
     </div>
-    <div class="panel-body">
+    <div class="card-text">
         <input type="text" placeholder="Patent #" ng-model="$scope.PNUM">
         <a class="btn btn-success fa fa-download" href="http://patentimages.storage.googleapis.com/pdfs/US{{$scope.PNUM}}.pdf" target="_blank" data-toggle="popover" data-placement="bottom" data-content="DOWNLOAD" data-animation="true" data-trigger="hover" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150'); return false;">
         </a>
-        <br>
+        <!--<br>
         <input type="text" placeholder="IPA#" ng-model="$scope.IPANUM" style="width: 10rem;">
         <input type="text" placeholder="YYYY" ng-model="$scope.IPAYEAR" maxlength="4" style="width: 5rem;">
         <a class="btn btn-info" href="http://storage.googleapis.com/patents/appl_full_text/{{$scope.IPAYEAR}}/ipa{{$scope.IPANUM}}.zip" target="_blank" data-toggle="popover" data-placement="bottom" title="DOWNLOAD" data-content="" data-animation="true" data-trigger="hover"
@@ -14,14 +14,14 @@
         <br>
         <!--<button class="btn btn-info fa fa-arrow-right pull-right" ng-dialog="phd-step2.html" ng-dialog-class="ngdialog-theme-inline" ng-dialog-controller="ImagefilewrapperCtrl" ng-dialog-data="{{$scope}}" data-toggle="popover" data-placement="top" data-content="NEXT"
         data-animation="true" data-trigger="hover"></button>-->
-     <div ng-controller="pageslideCtrl" class="">
+     <!--<div ng-controller="pageslideCtrl" class="">
 
         <a class="tiny button" href="" ng-click="toggle1()">Open sidebar</a>
                 <div pageslide ps-open="checked1" ps-key-listener="true" ps-side="left">
                     <div ng-include="'/getphdwidget/src/phd/step-2.html'"></div>
                 
                 </div>
-    </div>
+    </div>-->
 </div>
                 
 </div>

@@ -1,32 +1,32 @@
-<button class="fa fa-close fa-2x btn-danger button-outline pull-right floatingclosebutton round" onclick="$(this).parent().remove();"></button>
-<div class="card-header" style="">
+<button class="fa fa-close fa-2x btn-danger pull-right floatingclosebutton" onclick="$(this).parent().remove();" style="position:absolute;top:0;right:0;z-index:1;"></button>
+<div class="card-header" style="z-index:0;">
     
     <h4 class="bs-callout bs-callout-primary" style="color:steelblue;">
 		<!-- <img src="img/GoldLogoLong.svg" class="img pull-left"> -->
-		{{config.title || $parent.config.title}}
+		{{config.title || roarevent.title}}
 	
 
  <span class="pull-right"> 
 
-<a href title="notes" ng-click="console.log('note')" ><i class="fa fa-pencil" style="color:steelblue;"></i></a>
+<a href title="notes" ng-click="alert('note')" ><i class="fa fa-pencil" style="color:steelblue;"></i></a>
 
 <a href title="mail" ng-click="$publish(this)"><i class="fa fa-send" style="color:steelblue;"></i></a>
 
- <a href title="comment" ng-click="console.log('note')"><i class="fa fa-comments-o" style="color:steelblue;"></i></a>
+ <a href title="comment" ng-click="alert('note')"><i class="fa fa-comments-o" style="color:steelblue;"></i></a>
 
  <a href title="reload widget content"  ng-click="reload()"> <i class="fa fa-refresh" style="color:steelblue;"></i> </a>  
 
- <a href title="change widget location" class="adf-move" > <i class="glyphicon glyphicon-move" style="color:steelblue;"></i> </a>  
+ <a href title="change widget location" class="adf-move" > <i class="fa fa-arrows" style="color:steelblue;"></i> </a>  
 
- <a href title="collapse widget" ng-show="options.collapsible && !widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="glyphicon glyphicon-minus" style="color:steelblue;"></i> </a>  
+ <a href title="collapse widget" ng-show="options.collapsible && !widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-minus" style="color:steelblue;"></i> </a>  
 
- <a href title="expand widget" ng-show="options.collapsible && widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="glyphicon glyphicon-plus" style="color:steelblue;"></i> </a>  
+ <a href title="expand widget" ng-show="options.collapsible && widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-plus" style="color:steelblue;"></i> </a>  
 
- <a href title="edit widget configuration" ng-click="edit()" > <i class="glyphicon glyphicon-cog" style="color:steelblue;"></i> </a> 
+ <a href title="edit widget configuration" ng-click="edit()" > <i class="fa fa-cog" style="color:steelblue;"></i> </a> 
 
- <a href title="fullscreen widget" ng-click="openFullScreen()" ng-show="options.maximizable || true"> <i class="glyphicon glyphicon-fullscreen" style="color:steelblue;"></i> </a>  
+ <a href title="fullscreen widget" ng-click="openFullScreen()" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="color:steelblue;"></i> </a>  
 
- <a href title="remove widget" ng-click="remove()" ng-if="editMode"> <i class="glyphicon glyphicon-remove" style="color:steelblue;"></i> </a> 
+ <a href title="remove widget" ng-click="remove()" ng-if="editMode"> <i class="fa fa-close" style="color:steelblue;"></i> </a> 
 
  </span>
 

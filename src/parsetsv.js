@@ -1,6 +1,6 @@
 angular.module('llp.parsetsv', [])
-    .factory('parseTSV', [function() {
-        return function(file, options, verbose) {
+    .factory('parseTSV', [function () {
+        return function (file, options, verbose) {
             var _file = file;
             var options = options;
 
@@ -9,4 +9,4 @@ angular.module('llp.parsetsv', [])
 
             return verbose ? json : json.data;
         };
-    }])
+    }]);
