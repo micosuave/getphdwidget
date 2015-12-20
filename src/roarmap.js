@@ -129,8 +129,8 @@
                  var p = {
                      filelist: new Array(),
                      meritslist: new Array(),
-                     artlist: new Array(),
-                     ownlist: new Array()
+                     artlist: new Array()
+                     //ownlist: new Array()
                  };
 
 
@@ -284,12 +284,12 @@
                                      $log.info('merits', id);
                                  }
                              });
-                             angular.forEach(OWNERSHIPDOCS, function(code, key) {
-                                 if (roarevent.doccode === code) {
-                                     p.ownlist.push(id);
-                                     $log.info('ownership', id);
-                                 }
-                             });
+                            //  angular.forEach(OWNERSHIPDOCS, function(code, key) {
+                            //      if (roarevent.doccode === code) {
+                            //          p.ownlist.push(id);
+                            //          $log.info('ownership', id);
+                            //      }
+                            //  });
                              angular.forEach(ARTDOCS, function(code, key) {
                                  if (roarevent.doccode === code) {
                                      p.artlist.push(id);
@@ -344,23 +344,23 @@
                          content_type: 'collection',
                          roarlist: p.artlist
                      };
-                     var newown = {
-                         name: 'USSN ' + phd.application[0][1],
-                         title: 'USSN ' + phd.application[0][1],
-                         rid: 'PHD4 - OWNERSHIP',
-                         collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application[0][1],
-                         styleClass: 'primary',
-                         app: phd.application[0][1],
-                         content_type: 'collection',
-                         roarlist: p.ownlist
+                    //  var newown = {
+                    //      name: 'USSN ' + phd.application[0][1],
+                    //      title: 'USSN ' + phd.application[0][1],
+                    //      rid: 'PHD4 - OWNERSHIP',
+                    //      collectiontype: 'source',
+                    //      box: 'PhD for USSN ' + phd.application[0][1],
+                    //      styleClass: 'primary',
+                    //      app: phd.application[0][1],
+                    //      content_type: 'collection',
+                    //      roarlist: p.ownlist
 
-                     };
-
-
-                     var cray = [newcollection, newmerits, newart, newown];
+                    //  };
 
 
+                   //  var cray = [newcollection, newmerits, newart, newown];
+
+                    var cray = [newcollection, newmerits, newart];
 
 
 

@@ -405,7 +405,27 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     number: pnum,
                     media: pdfstorageuri
                 };
-                return deferred.resolve(patent);
+                filepicker.storeUrl(pdfstorageuri.toString(),
+                        { filename: 'US' + patentnumber + '.pdf' },
+                        function (Blob) {
+                            var patentobj = angular.copy(Blob);
+                            patent.title = phdobj[19][1];
+                            patent.number = patentnumber;
+                            patent.media = Blob.url;
+                            //patentobj.srcdoc = googlepage(patentnumber) || null;
+                            filepicker.convert(
+                                Blob,
+                                { format: 'txt' },
+                                function (new_Blob) {
+
+                                    patent.txt = new_Blob.url;
+                                    return deferred.resolve(patentobj);
+                                }
+                                );
+
+                        }
+                     );
+                //return deferred.resolve(patent);
                 // if (pnum == !'-') {
                     
 
@@ -673,8 +693,8 @@ angular.module('textSizeSlider', [])
                  var p = {
                      filelist: new Array(),
                      meritslist: new Array(),
-                     artlist: new Array(),
-                     ownlist: new Array()
+                     artlist: new Array()
+                     //ownlist: new Array()
                  };
 
 
@@ -828,12 +848,12 @@ angular.module('textSizeSlider', [])
                                      $log.info('merits', id);
                                  }
                              });
-                             angular.forEach(OWNERSHIPDOCS, function(code, key) {
-                                 if (roarevent.doccode === code) {
-                                     p.ownlist.push(id);
-                                     $log.info('ownership', id);
-                                 }
-                             });
+                            //  angular.forEach(OWNERSHIPDOCS, function(code, key) {
+                            //      if (roarevent.doccode === code) {
+                            //          p.ownlist.push(id);
+                            //          $log.info('ownership', id);
+                            //      }
+                            //  });
                              angular.forEach(ARTDOCS, function(code, key) {
                                  if (roarevent.doccode === code) {
                                      p.artlist.push(id);
@@ -888,23 +908,23 @@ angular.module('textSizeSlider', [])
                          content_type: 'collection',
                          roarlist: p.artlist
                      };
-                     var newown = {
-                         name: 'USSN ' + phd.application[0][1],
-                         title: 'USSN ' + phd.application[0][1],
-                         rid: 'PHD4 - OWNERSHIP',
-                         collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application[0][1],
-                         styleClass: 'primary',
-                         app: phd.application[0][1],
-                         content_type: 'collection',
-                         roarlist: p.ownlist
+                    //  var newown = {
+                    //      name: 'USSN ' + phd.application[0][1],
+                    //      title: 'USSN ' + phd.application[0][1],
+                    //      rid: 'PHD4 - OWNERSHIP',
+                    //      collectiontype: 'source',
+                    //      box: 'PhD for USSN ' + phd.application[0][1],
+                    //      styleClass: 'primary',
+                    //      app: phd.application[0][1],
+                    //      content_type: 'collection',
+                    //      roarlist: p.ownlist
 
-                     };
-
-
-                     var cray = [newcollection, newmerits, newart, newown];
+                    //  };
 
 
+                   //  var cray = [newcollection, newmerits, newart, newown];
+
+                    var cray = [newcollection, newmerits, newart];
 
 
 

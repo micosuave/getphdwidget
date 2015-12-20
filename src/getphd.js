@@ -404,7 +404,27 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     number: pnum,
                     media: pdfstorageuri
                 };
-                return deferred.resolve(patent);
+                filepicker.storeUrl(pdfstorageuri.toString(),
+                        { filename: 'US' + patentnumber + '.pdf' },
+                        function (Blob) {
+                            var patentobj = angular.copy(Blob);
+                            patent.title = phdobj[19][1];
+                            patent.number = patentnumber;
+                            patent.media = Blob.url;
+                            //patentobj.srcdoc = googlepage(patentnumber) || null;
+                            filepicker.convert(
+                                Blob,
+                                { format: 'txt' },
+                                function (new_Blob) {
+
+                                    patent.txt = new_Blob.url;
+                                    return deferred.resolve(patentobj);
+                                }
+                                );
+
+                        }
+                     );
+                //return deferred.resolve(patent);
                 // if (pnum == !'-') {
                     
 
