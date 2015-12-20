@@ -699,18 +699,20 @@ angular.module('textSizeSlider', [])
                          return snapshot.exists();
                      });
                  };
-
+                 
                  function buildroar() {
 
                      angular.forEach(imagefile, function(file, key) {
 
-                        if (angular.isUndefined(file.Filename)){
-                            return;
-                        }else{
+                         var appnumber = phd.application[0][1].replace('/', '').replace(',', '').replace(',', '');
                          var date = new Date();
                          var roarevent = angular.copy(file);
-
-                         var filename = file.Filename || '00000000-0000-00-00000-NPL.pdf';
+                         var maildate = new Date(file['Mail Room Date']);
+                         var mailyear = maildate.getFullYear();
+                         var mailmonth = maildate.getMonth();
+                         var mailday = maildate.getDate();
+                         
+                         var filename = file.Filename || appnumber + '-' + mailyear + '-' + mailmonth + '-' + mailday + '-00001-NPL.pdf';
                          var appnumsubstring = filename.slice(0, filename.indexOf("-"));
                          var appdatesubstring = filename.slice((filename.indexOf("-") + 1), (filename.indexOf("-") + 11));
                          var doccode = filename.slice((filename.lastIndexOf("-") + 1), (filename.indexOf(".pdf")));
@@ -833,7 +835,7 @@ angular.module('textSizeSlider', [])
                              alertify.log("added record with id " + id);
                          });
 
-                        }
+                        
 
                      });
                      $timeout(function() {
