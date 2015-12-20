@@ -51,7 +51,7 @@
                 </tab>
             </tabset>
         </tab>
-        <tab class="ngDialogTab text-primary" ng-if="phd.application">
+        <tab class="ngDialogTab primary" ng-if="phd.application">
             <!-- <pre ng-bind="main.application | json:4"></pre> -->
             <tab-heading style="" ng-style="">APPLICATION</tab-heading>
             <hr/>
@@ -65,7 +65,7 @@
                 </tbody>
             </table>
         </tab>
-        <tab class="ngDialogTab text-info" ng-if="phd.attorney">
+        <tab class="ngDialogTab info" ng-if="phd.attorney">
             <!-- <pre ng-bind="main.attorney | json:4"></pre> -->
             <tab-heading ng-style="">ATTORNEY</tab-heading>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
@@ -78,7 +78,7 @@
                 </tbody>
             </table>
         </tab>
-        <tab class="ngDialogTab text-success" ng-if="phd.continuity">
+        <tab class="ngDialogTab success" ng-if="phd.continuity">
             <!-- <pre ng-bind="main.continuity | json:4"></pre> -->
             <tab-heading style="" ng-style="">CONTINUITY</tab-heading>
             <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
@@ -102,7 +102,7 @@
                 </tbody>
             </table>
         </tab>
-        <tab class="ngDialogTab text-warning" ng-if="phd.foreign">
+        <tab class="ngDialogTab warning" ng-if="phd.foreign">
 
             <!-- <pre ng-bind="main.phd.foreign | json:4"></pre> -->
             <tab-heading style="" ng-style="">FOREIGN PRIORITY</tab-heading>
@@ -124,7 +124,7 @@
                 </tbody>
             </table>
         </tab>
-        <tab class="ngDialogTab text-danger" ng-if="phd.transaction">
+        <tab class="ngDialogTab danger" ng-if="phd.transaction">
             <!-- <pre ng-bind="main.transaction | json:4"></pre> -->
             <tab-heading style="" ng-style="">TRANSACTION</tab-heading>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
@@ -176,7 +176,7 @@
                 </tbody>
             </table>
         </tab>
-        <tab class="ngDialogTab text-{{collection.styleClass}}" ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
+        <tab class="ngDialogTab {{collection.styleClass}}" ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
             <tab-heading class="" style="" ng-style="">{{collection.rid}}</tab-heading>
             <div style="width: 100%;" class="reventlist">
                 <roar-event ng-repeat="event in collection.roarlist" id="{{event.id || event}}" style="width:19.5%;"></roar-event>
@@ -271,7 +271,7 @@
                 </div>-->
 
         <!--</tab>-->
-        <tab class="ngDialogTab" ng-if="phd.pdffiles">
+        <!--<tab class="ngDialogTab" ng-if="phd.pdffiles">
             <tab-heading>PDFs
                 <label class="label label-pill label-info">{{phd.pdffiles.length}}</label>
             </tab-heading>
@@ -282,12 +282,12 @@
                 </tab>
             </tabset>
 
-        </tab>
+        </tab>-->
         <tab class="ngDialogTab">
-           <tab-heading class="lead" ng-style="">US {{phd.application[16][1]}}
+           <tab-heading class="lead" ng-style="">US {{phd.patent.number}}
                 <!--<label class="label label-pill label-info">{{phd.pdffiles.length}}</label>-->
             </tab-heading>
-            <iframe src="{{phd.patent.media}}" class="card card-fancy" style="min-height:500px;"></iframe>
+            <iframe ng-src="phd.patent.media" class="card card-fancy" style="min-height:500px;width:100%;"></iframe>
             <!--<tabset>
                 <tab heading=".pdf">
             <div filepicker-preview url="phd.patent.media" style="width:100%; height:400px"></div>
