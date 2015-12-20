@@ -166,7 +166,7 @@
 
                      angular.forEach(imagefile, function(file, key) {
                          if (file['Mail Room Date'] === ''){
-                             return true;
+                             return ;
                          }else{
                          var appnumber = phd.application[0][1].replace('/', '').replace(',', '').replace(',', '');
                          var date = new Date();
