@@ -126,7 +126,12 @@
                  var collections = Collections();
 
                  var imagefile = phd.imagefile;
-                
+                 var p = {
+                     filelist: new Array(),
+                     meritslist: new Array(),
+                     artlist: new Array(),
+                     ownlist: new Array()
+                 };
 
 
                  function hello() {
@@ -134,7 +139,7 @@
                      if (check) {
                          getroar();
                      } else {
-                         buildroar().then(function (p) { buildcollections(p) });
+                         buildroar();
                      }
 
 
@@ -158,18 +163,8 @@
                  };
                  
                  function buildroar() {
-                     var deferred = $q.defer();
-                     ang();
-                     return deferred.promise;
 
-                     function ang(){
-                          var p = {
-                     filelist: new Array(),
-                     meritslist: new Array(),
-                     artlist: new Array(),
-                     ownlist: new Array()
-                 };
-                         angular.forEach(imagefile, function (file, key) {
+                     angular.forEach(imagefile, function(file, key) {
                          if (file['Mail Room Date'] === ''){
                              return ;
                          }else{
@@ -306,10 +301,10 @@
 
                          }
 
-                         });
-                     return deferred.resolve(p);
-                     }
-                    
+                     });
+                     $timeout(function() {
+                         buildcollections(p);
+                     }, 5000);
                  };
 
 
