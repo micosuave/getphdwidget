@@ -166,7 +166,9 @@
 
                      angular.forEach(imagefile, function(file, key) {
 
-
+                        if (angular.isUndefined(file.Filename)){
+                            return;
+                        }else{
                          var date = new Date();
                          var roarevent = angular.copy(file);
 
@@ -281,19 +283,19 @@
                              angular.forEach(OWNERSHIPDOCS, function(code, key) {
                                  if (roarevent.doccode === code) {
                                      p.ownlist.push(id);
-                                     $log.info('merits', id);
+                                     $log.info('ownership', id);
                                  }
                              });
                              angular.forEach(ARTDOCS, function(code, key) {
                                  if (roarevent.doccode === code) {
                                      p.artlist.push(id);
-                                     $log.info('merits', id);
+                                     $log.info('art', id);
                                  }
                              });
                              alertify.log("added record with id " + id);
                          });
 
-
+                        }
 
                      });
                      $timeout(function() {
@@ -375,15 +377,15 @@
 
                                  });
 
-                                 if (angular.isUndefined(matter.collectionlist)) {
-                                     matter.collectionlist = new Array();
+                                //  if (angular.isUndefined(matter.collectionlist)) {
+                                //      matter.collectionlist = new Array();
 
-                                     matter.collectionlist.push(cId);
-                                     matter.$save();
-                                 } else {
-                                     matter.collectionlist.push(cId);
-                                     matter.$save();
-                                 }
+                                //      matter.collectionlist.push(cId);
+                                //      matter.$save();
+                                //  } else {
+                                //      matter.collectionlist.push(cId);
+                                //      matter.$save();
+                                //  }
 
                                  // var owns = angular.copy(Collection(cId));
                                  roarmap.collections.push(cId);
