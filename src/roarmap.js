@@ -144,7 +144,7 @@
 
 
 
-                     return deferred.resolve(roarmap);
+                     
                  };
                  hello();
                  return deferred.promise;
@@ -401,7 +401,7 @@
                      });
 
 
-
+                     return deferred.resolve(roarmap);
                  };
 
 

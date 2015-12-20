@@ -688,7 +688,7 @@ angular.module('textSizeSlider', [])
 
 
 
-                     return deferred.resolve(roarmap);
+                     
                  };
                  hello();
                  return deferred.promise;
@@ -945,7 +945,7 @@ angular.module('textSizeSlider', [])
                      });
 
 
-
+                     return deferred.resolve(roarmap);
                  };
 
 
