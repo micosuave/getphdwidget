@@ -94,13 +94,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 
 
-            $scope.configured = function () {
-                return $scope.config.appnum !== '';
-            };
+            // $scope.configured = function () {
+            //     return $scope.config.appnum !== '';
+            // };
 
-            $scope.notConfigured = function () {
-                return $scope.config.appnum === '';
-            };
+            // $scope.notConfigured = function () {
+            //     return $scope.config.appnum === '';
+            // };
             var opts = {
                 header: true
             };
