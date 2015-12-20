@@ -3,8 +3,8 @@
         <h6 class="card-title">+PhD Step 1 - Download Patent</h6>
     </div>
     <div class="card-text">
-        <input type="text" placeholder="Patent #" ng-model="$scope.PNUM">
-        <a class="btn btn-success fa fa-download" href="http://patentimages.storage.googleapis.com/pdfs/US{{$scope.PNUM}}.pdf" target="_blank" data-toggle="popover" data-placement="bottom" data-content="DOWNLOAD" data-animation="true" data-trigger="hover" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150'); return false;">
+        <input type="text" placeholder="Patent #" ng-model="config.PNUM">
+        <a class="btn btn-success fa fa-download" href="http://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM}}.pdf" target="_blank" data-toggle="popover" data-placement="bottom" data-content="DOWNLOAD" data-animation="true" data-trigger="hover" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150'); return false;" style="color:white;">
         </a>
         <!--<br>
         <input type="text" placeholder="IPA#" ng-model="$scope.IPANUM" style="width: 10rem;">

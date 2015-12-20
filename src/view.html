@@ -51,9 +51,9 @@
                 </tab>
             </tabset>
         </tab>
-        <tab class="ngDialogTab primary" ng-if="phd.application">
+        <tab class="ngDialogTab text-primary" ng-if="phd.application">
             <!-- <pre ng-bind="main.application | json:4"></pre> -->
-            <tab-heading style="color:white" ng-style="">APPLICATION</tab-heading>
+            <tab-heading style="" ng-style="">APPLICATION</tab-heading>
             <hr/>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
 
@@ -65,7 +65,7 @@
                 </tbody>
             </table>
         </tab>
-        <tab class="ngDialogTab info" ng-if="phd.attorney">
+        <tab class="ngDialogTab text-info" ng-if="phd.attorney">
             <!-- <pre ng-bind="main.attorney | json:4"></pre> -->
             <tab-heading ng-style="">ATTORNEY</tab-heading>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
@@ -78,26 +78,34 @@
                 </tbody>
             </table>
         </tab>
-        <tab class="ngDialogTab success" ng-if="phd.continuity">
+        <tab class="ngDialogTab text-success" ng-if="phd.continuity">
             <!-- <pre ng-bind="main.continuity | json:4"></pre> -->
-            <tab-heading style="color:white;" ng-style="">CONTINUITY</tab-heading>
+            <tab-heading style="" ng-style="">CONTINUITY</tab-heading>
             <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
                     <tr>
-                        <th ng-repeat="field in phd.continuity.meta.fields">{{field}}</th>
+                        <th>Description</th>
+                        <th>Parent Filing or 371(c) Date</th>
+                        <th>Parent Number</th>
+                        <th>Parent Status</th>
+                        <th>Patent Number</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="line in phd.continuity.data">
-                        <td ng-repeat="value in line">{{value}}</td>
+                    <tr ng-repeat="line in phd.continuity">
+                        <td>{{::line['Description']}}</td>
+                        <td>{{::line['Parent Filing or 371(c) Date']}}
+                        <td>{{::line['Parent Number']}}</td>
+                        <td>{{::line['Parent Status']}}</td>
+                        <td>{{::line['Patent Number']}}</td>
                     </tr>
                 </tbody>
             </table>
         </tab>
-        <tab class="ngDialogTab warning" ng-if="phd.foreign">
+        <tab class="ngDialogTab text-warning" ng-if="phd.foreign">
 
             <!-- <pre ng-bind="main.phd.foreign | json:4"></pre> -->
-            <tab-heading style="color:white" ng-style="">FOREIGN PRIORITY</tab-heading>
+            <tab-heading style="" ng-style="">FOREIGN PRIORITY</tab-heading>
             <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
                     <tr>
@@ -116,9 +124,9 @@
                 </tbody>
             </table>
         </tab>
-        <tab class="ngDialogTab danger" ng-if="phd.transaction">
+        <tab class="ngDialogTab text-danger" ng-if="phd.transaction">
             <!-- <pre ng-bind="main.transaction | json:4"></pre> -->
-            <tab-heading style="color:white;" ng-style="">TRANSACTION</tab-heading>
+            <tab-heading style="" ng-style="">TRANSACTION</tab-heading>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
                 <thead>
                     <tr>
@@ -128,8 +136,8 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="trans in phd.transaction">
-                        <td>{{trans['Date']}}</td>
-                        <td>{{trans['Transaction Description']}}</td>
+                        <td>{{::trans['Date']}}</td>
+                        <td>{{::trans['Transaction Description']}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -142,7 +150,7 @@
                 <thead>
 
                     <tr>
-                        <th ng-click="reverse = !reverse" class="fa " ng-class="{'fa-chevron-up': reverse,'fa-chevron-down': !reverse}">#</th>
+                        <!--<th ng-click="reverse = !reverse" class="fa " ng-class="{'fa-chevron-up': reverse,'fa-chevron-down': !reverse}">#</th>-->
                         <th>Mail Room Date</th>
                         <th>Document Code</th>
                         <th>Document Description</th>
@@ -152,8 +160,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="roarevent in phd.imagefile |filter: main.query " class="card card-{{roarevent.styleClass}}">
-                        <th class=""> <a ng-click="pdfToPlainText(roarevent['Filename'])" getpdftext><i class="fa fa-file-pdf"> {{$index}}</i></a></th>
+                    <tr ng-repeat="roarevent in phd.imagefile |filter: main.query " class="">
+                        <!--<th class=""> <a ng-click="pdfToPlainText(roarevent['Filename'])" getpdftext><i class="fa fa-file-pdf"> {{$index}}</i></a></th>-->
                         <td ng-bind="roarevent['Mail Room Date']"></td>
                         <td ng-bind="roarevent['Document Code']"></td>
                         <td ng-bind="roarevent['Document Description']"></td>
@@ -168,8 +176,8 @@
                 </tbody>
             </table>
         </tab>
-        <tab class="ngDialogTab {{collection.styleClass}}" ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
-            <tab-heading class="" style="color:white;" ng-style="">{{collection.rid}}</tab-heading>
+        <tab class="ngDialogTab text-{{collection.styleClass}}" ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
+            <tab-heading class="" style="" ng-style="">{{collection.rid}}</tab-heading>
             <div style="width: 100%;" class="reventlist">
                 <roar-event ng-repeat="event in collection.roarlist" id="{{event.id || event}}" style="width:19.5%;"></roar-event>
             </div>
@@ -284,7 +292,7 @@
             <div filepicker-preview url="phd.patent.media" style="width:100%; height:400px"></div>
            </tab>
            <tab heading=".html">
-            <div filepicker-preview url="phd.patent.googlepage" style="width:100%; height:400px"></div>
+            <div filepicker-preview url="phd.patent.srcdoc" style="width:100%; height:400px"></div>
            </tab>
            <tab heading="gtxt">
             <div filepicker-preview url="phd.patent.googlepagetext" style="width:100%; height:400px"></div>

@@ -291,7 +291,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                         $roarmap(parsedfiles, $scope.phd)
                                             .then(function (roarmap) {
                                                 $scope.phd.roarmap = roarmap;
-                                                try{$patentsearch($scope.phd.application)
+                                                try{$patentsearch($scope.phd.application, config.PNUM)
                                                 .then(function (patentobj) {
                                                     $scope.phd.patent = patentobj;});}
                                                 catch (ex) { console.log(ex); }
@@ -390,16 +390,16 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     }])
     .factory('$patentsearch', ['$q', 'filepickerService', function ($q, filepickerService) {
 
-        return function (phdobj) {
+        return function (phdobj, pnum) {
             var deferred = $q.defer();
-            searchforpatent(phdobj);
+            searchforpatent(phdobj, pnum);
             return deferred.promise;
 
-            function searchforpatent(phdobj) {
+            function searchforpatent(phdobj, pnum) {
 
                 var applicationnumber = phdobj[0][1];
-                if (phdobj[16][1] == !'-') {
-                    var patentnumber = phdobj[16][1].replace(',', '').replace(',', '') || searchnumberresult || null;
+                if (pnum == !'-') {
+                    var patentnumber = pnum;
 
                     var searchnumberresult = '' || null; //Some function returning number;
                 
