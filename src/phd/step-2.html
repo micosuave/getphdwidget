@@ -1,13 +1,13 @@
 <div class="card card-warning">
     <div class="card-header">
-        <h4 class="card-title">+PhD Step 2 - Download Image File Wrapper</h4>
+        <h6 class="card-title">+PhD Step 2 - Download Image File Wrapper</h6>
     </div>
     <div class="card-text">
         <input type="text" placeholder="Application #" ng-model="$scope.APPNUM">
         <a class="btn btn-warning fa fa-download" href="http://storage.googleapis.com/uspto-pair/applications/{{$scope.APPNUM}}.zip" target="_blank" data-toggle="popover" data-placement="bottom" title="DOWNLOAD FROM GOOGLE" data-content="" data-animation="true"
-        data-trigger="hover" style="width: 17.5rem;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;"> from Google</a>
+        data-trigger="hover" style="width: 17.5rem;color:white;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;"> from Google</a>
         <a class="btn btn-warning fa fa-download" href="http://patents.reedtech.com/downloads/pair/{{$scope.APPNUM}}.zip" target="_blank" data-toggle="popover" data-placement="bottom" title="DOWNLOAD FROM REEDTECH" data-content="" data-animation="true" data-trigger="hover"
-        style="width: 17.5rem;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;"> from ReedTech</a>
+        style="width: 17.5rem;color:white;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;"> from ReedTech</a>
         <!--<br>
         <button class="btn btn-info fa fa-arrow-right pull-right" ng-dialog="phd-step3.html" ng-dialog-class="ngdialog-theme-inline" ng-dialog-controller="ImagefilewrapperCtrl" ng-dialog-data="[{{ngDialogData}},{{$scope}}]" data-toggle="popover" data-placement="top"
         data-content="NEXT" data-animation="true" data-trigger="hover"></button>-->

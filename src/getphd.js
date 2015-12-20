@@ -25,6 +25,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             frameless: true,
             reload: true,
             collapsed: true,
+            immediate: true,
             icon: 'fa-ge',
             iconurl: 'img/logolong.png',
             styleClass: 'primary panel panel-primary',
@@ -401,7 +402,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         };
   }]).controller('AppController', ['$scope', 'FileUploader', function($scope, FileUploader) {
         var uploader = $scope.uploader = new FileUploader({
-            url: $scope.url || 'https://lexlab.io/upload'
+            url: $scope.url || 'https://lexlab.io/upload',
+            autoUpload: true
         });
 
         // FILTERS
