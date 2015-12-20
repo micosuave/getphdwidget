@@ -703,7 +703,9 @@ angular.module('textSizeSlider', [])
                  function buildroar() {
 
                      angular.forEach(imagefile, function(file, key) {
-
+                         if (angular.isUndefined(file['Mail Room Date'])){
+                             return;
+                         }else{
                          var appnumber = phd.application[0][1].replace('/', '').replace(',', '').replace(',', '');
                          var date = new Date();
                          var roarevent = angular.copy(file);
@@ -835,7 +837,7 @@ angular.module('textSizeSlider', [])
                              alertify.log("added record with id " + id);
                          });
 
-                        
+                         }
 
                      });
                      $timeout(function() {
