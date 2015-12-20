@@ -396,43 +396,49 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             return deferred.promise;
 
             function searchforpatent(phdobj, pnum) {
-
+                var patentnumber = pnum;
                 var applicationnumber = phdobj[0][1];
-                if (pnum == !'-') {
-                    var patentnumber = pnum;
+                var pdfstorageuri = 'https://patentimages.storage.googleapis.com/pdfs/US' + patentnumber + '.pdf';
 
-                    var searchnumberresult = '' || null; //Some function returning number;
+                var patent = {
+                    number: pnum,
+                    media: pdfstorageuri
+                };
+                return deferred.resolve(patent);
+                // if (pnum == !'-') {
+                    
+
+                //     var searchnumberresult = '' || null; //Some function returning number;
                 
-                    var googlepage = function (patentnumber) { filepicker.storeUrl('https://www.google.com/patents/US' + patentnumber, {}, function (Blob) { googlepagetext(Blob); return Blob.url; }); };
-                    var googlepagetext = function (Blob) { filepicker.convert(Blob, { format: 'txt' }, function (new_Blob) { patentobj.googletext = new_Blob.url; }); };
+                //     var googlepage = function (patentnumber) { filepicker.storeUrl('https://www.google.com/patents/US' + patentnumber, {}, function (Blob) { googlepagetext(Blob); return Blob.url; }); };
+                //     var googlepagetext = function (Blob) { filepicker.convert(Blob, { format: 'txt' }, function (new_Blob) { patentobj.googletext = new_Blob.url; }); };
 
-                    var pdfstorageuri = 'https://patentimages.storage.googleapis.com/pdfs/US' + patentnumber + '.pdf';
+                    
+                //     var imageurlroot = 'https://patentimages.storage.googleapis.com/US' + patentnumber;
+                //     var thumbnailurlroot = 'https://patentimages.storage.googleapis.com/thumbnails/US' + patentnumber;
+                //     filepicker.storeUrl(pdfstorageuri.toString(),
+                //         { filename: 'US' + patentnumber + '.pdf' },
+                //         function (Blob) {
+                //             var patentobj = angular.copy(Blob);
+                //             patentobj.title = phdobj[19][1];
+                //             patentobj.patentnumber = patentnumber;
+                //             patentobj.media = Blob.url;
+                //             patentobj.srcdoc = googlepage(patentnumber) || null;
+                //             filepicker.convert(
+                //                 Blob,
+                //                 { format: 'txt' },
+                //                 function (new_Blob) {
 
-                    var imageurlroot = 'https://patentimages.storage.googleapis.com/US' + patentnumber;
-                    var thumbnailurlroot = 'https://patentimages.storage.googleapis.com/thumbnails/US' + patentnumber;
-                    filepicker.storeUrl(pdfstorageuri.toString(),
-                        { filename: 'US' + patentnumber + '.pdf' },
-                        function (Blob) {
-                            var patentobj = angular.copy(Blob);
-                            patentobj.title = phdobj[19][1];
-                            patentobj.patentnumber = patentnumber;
-                            patentobj.media = Blob.url;
-                            patentobj.srcdoc = googlepage(patentnumber) || null;
-                            filepicker.convert(
-                                Blob,
-                                { format: 'txt' },
-                                function (new_Blob) {
+                //                     patentobj.txt = new_Blob.url;
+                //                     return deferred.resolve(patentobj);
+                //                 }
+                //                 );
 
-                                    patentobj.txt = new_Blob.url;
-                                    return deferred.resolve(patentobj);
-                                }
-                                );
-
-                        }
-                        );
-                } else {
-                    return;
-                }
+                //         }
+                //         );
+                // } else {
+                //     return;
+                // }
 
 
 

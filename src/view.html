@@ -287,7 +287,8 @@
            <tab-heading class="lead" ng-style="">US {{phd.application[16][1]}}
                 <!--<label class="label label-pill label-info">{{phd.pdffiles.length}}</label>-->
             </tab-heading>
-            <tabset>
+            <iframe ng-src="{{phd.patent.media}}"></iframe>
+            <!--<tabset>
                 <tab heading=".pdf">
             <div filepicker-preview url="phd.patent.media" style="width:100%; height:400px"></div>
            </tab>
@@ -300,7 +301,7 @@
            <tab heading=".txt">
                 <div filepicker-preview url="phd.patent.txt" style="width:100%; height:400px"></div>
                </tab>
-           </tabset>
+           </tabset>-->
            </tab> 
     </tabset>
 </div>
