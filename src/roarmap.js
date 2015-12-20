@@ -126,12 +126,7 @@
                  var collections = Collections();
 
                  var imagefile = phd.imagefile;
-                 var p = {
-                     filelist: new Array(),
-                     meritslist: new Array(),
-                     artlist: new Array(),
-                     ownlist: new Array()
-                 };
+                
 
 
                  function hello() {
@@ -168,7 +163,13 @@
                      return deferred.promise;
 
                      function ang(){
-                     angular.forEach(imagefile, function (file, key) {
+                          var p = {
+                     filelist: new Array(),
+                     meritslist: new Array(),
+                     artlist: new Array(),
+                     ownlist: new Array()
+                 };
+                         angular.forEach(imagefile, function (file, key) {
                          if (file['Mail Room Date'] === ''){
                              return ;
                          }else{

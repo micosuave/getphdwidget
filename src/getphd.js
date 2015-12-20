@@ -60,7 +60,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                     content_type: 'curation',
                                     timestamp: Firebase.ServerValue.TIMESTAMP
                                 });
-
+                                config.appnum = '1001001';
                                 config.id = id;
                                 return config;
                             });
