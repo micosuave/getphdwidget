@@ -200,7 +200,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
 
             main.remotezip = function (appnum) {
-                $http.get('http://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', function (err, data) {
+                $http.get('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', function (err, data) {
                     if (err) {
                         main.error = err; // or handle err
                     }
