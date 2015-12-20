@@ -703,8 +703,8 @@ angular.module('textSizeSlider', [])
                  function buildroar() {
 
                      angular.forEach(imagefile, function(file, key) {
-                         if (angular.isUndefined(file['Mail Room Date'])){
-                             return;
+                         if (file['Mail Room Date'] === ''){
+                             return true;
                          }else{
                          var appnumber = phd.application[0][1].replace('/', '').replace(',', '').replace(',', '');
                          var date = new Date();
