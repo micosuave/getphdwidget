@@ -683,7 +683,7 @@ angular.module('textSizeSlider', [])
                      if (check) {
                          getroar();
                      } else {
-                         buildroar();
+                         buildroar().then(function (p) { buildcollections(p) });
                      }
 
 
@@ -707,8 +707,12 @@ angular.module('textSizeSlider', [])
                  };
                  
                  function buildroar() {
+                     var deferred = $q.defer();
+                     ang();
+                     return deferred.promise;
 
-                     angular.forEach(imagefile, function(file, key) {
+                     function ang(){
+                     angular.forEach(imagefile, function (file, key) {
                          if (file['Mail Room Date'] === ''){
                              return ;
                          }else{
@@ -845,10 +849,10 @@ angular.module('textSizeSlider', [])
 
                          }
 
-                     });
-                     $timeout(function() {
-                         buildcollections(p);
-                     }, 5000);
+                         });
+                     return deferred.resolve(p);
+                     }
+                    
                  };
 
 
