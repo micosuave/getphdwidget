@@ -76,8 +76,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 })
     .constant('FIREBASE_URL', 'https://lexlab.firebaseio.com/')
-    .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log','FileUploader','storeServiceTwo',
-        function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, storeServiceTwo) {
+    .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log','FileUploader','$publish',
+        function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish) {
             var main = this;
             main.size = 'lg';
 
@@ -92,7 +92,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             phd.$bindTo($scope, 'phd');
 
             $scope.publish = function (phd) {
-              storeServiceTwo.post(phd).then(function (url) { alertify.success(url); });
+              $publish(config.id, $scope.phd).then(function (url) { alertify.success('link to post:' + url); });
             };
 
             // $scope.configured = function () {
