@@ -84,16 +84,17 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             main.collapse = function () {
               $scope.collapsereport = !$scope.collapsereport;
             };
-            if (!config.id) {
-                config.id = '';
+            if (angular.isUndefined($scope.phd)) {
+              if (!config.id) {
+                config.id = $scope.phd.id;
+              }
+              main.config = config || $scope.$parent.$parent.config;
+              $scope.definition = $scope.$parent.definition || null;
+
+              var configid = config.id || $scope.phd.id;
+              var phd = Collection(configid);
+              phd.$bindTo($scope, 'phd');
             }
-            main.config = config;
-            $scope.definition = $scope.$parent.definition;
-
-            var configid = config.id;
-            var phd = Collection(configid);
-            phd.$bindTo($scope, 'phd');
-
             $scope.publish = function (phd) {
               $publish(config.id, $scope.phd).then(function (url) { alertify.success('link to post:' + url); });
             };
@@ -412,7 +413,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 filepicker.storeUrl(pdfstorageuri.toString(),
                         { filename: 'US' + patentnumber + '.pdf' },
                         function (Blob) {
-                            var patentobj = angular.copy(Blob);
+                            var patent = angular.copy(Blob);
                             patent.title = phdobj[19][1];
                             patent.number = patentnumber;
                             patent.media = Blob.url;
@@ -423,7 +424,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                 function (new_Blob) {
 
                                     patent.txt = new_Blob.url;
-                                    return deferred.resolve(patentobj);
+                                    return deferred.resolve(patent);
                                 }
                                 );
 
