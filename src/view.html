@@ -190,11 +190,15 @@
             
             
              <tabset>
+               <div class="row flextoprow">
                 <tab  ng-repeat="roarevent in phd.roarmap.roarevents">
-                    <tab-heading class="ngDialogTab"><roar-badge id="{{roarevent.id || roarevent}}"></roar-badge></tab-heading>
+                    <tab-heading class="ngDialogTab {{roarevent.styleClass}}" roar-badge id="{{roarevent || roarevent.$id}}"></tab-heading>
                     <roar-chip id="{{roarevent.id || roarevent}}"></roar-chip>
-                    <iframe src="{{roarevent.media}}" class="card card-block card-fancy"></iframe>
+                    <div class="row">
+                    <iframe src="{{roarevent.media}}" class="card card-block card-fancy" style="width:48%;"></iframe>
+                    <iframe src="{{roarevent.txt}}" class="card card-block card-fancy" style="width: 48%"></iframe>
                 </tab>
+                </div>
             </tabset>
 
 

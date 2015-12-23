@@ -86,7 +86,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
             if (angular.isUndefined($scope.phd)) {
               if (!config.id) {
-                config.id = '';
+                config = $scope.$parent.config;
               }
               main.config = config || $scope.$parent.$parent.config;
               $scope.definition = $scope.$parent.definition || null;
@@ -99,13 +99,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
               $publish(config.id, $scope.phd).then(function (url) { alertify.success('link to post:' + url); });
             };
 
-            // $scope.configured = function () {
-            //     return $scope.config.appnum !== '';
-            // };
+            $scope.configured = function () {
+                return $scope.config.appnum !== '';
+            };
 
-            // $scope.notConfigured = function () {
-            //     return $scope.config.appnum === '';
-            // };
+            $scope.notConfigured = function () {
+                return $scope.config.appnum === '';
+            };
             var opts = {
                 header: true
             };
