@@ -60,7 +60,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                     content_type: 'curation',
                                     timestamp: Firebase.ServerValue.TIMESTAMP
                                 });
-                                config.appnum = '1001001';
+                                config.appnum = '1011111';
                                 config.id = id;
                                 return config;
                             });
@@ -80,7 +80,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish) {
             var main = this;
             main.size = 'lg';
-
+            $scope.collapsereport = false;
+            main.collapse = function () {
+              $scope.collapsereport = !$scope.collapsereport;
+            };
             if (!config.id) {
                 config.id = '';
             }
