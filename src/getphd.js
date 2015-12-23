@@ -86,7 +86,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
             if (angular.isUndefined($scope.phd)) {
               if (!config.id) {
-                config.id = $scope.phd.id;
+                config.id = '';
               }
               main.config = config || $scope.$parent.$parent.config;
               $scope.definition = $scope.$parent.definition || null;
