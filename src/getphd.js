@@ -91,7 +91,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
               main.config = config || $scope.$parent.$parent.config;
               $scope.definition = $scope.$parent.definition || null;
 
-              var configid = config.id || $scope.phd.id;
+              var configid = config.id || main.config.id;
               var phd = Collection(configid);
               phd.$bindTo($scope, 'phd');
             }
