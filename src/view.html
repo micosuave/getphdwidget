@@ -26,25 +26,26 @@
     </div>
 </div></div>
 <div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="phd.file">
-
-<button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);" ng-click="main.collapse()">
-        <div>
-        <i class="icon icon-xllp fa-2x lead">US {{phd.patent.number | number:0}}</i>
-        <br>
-        <i class="icon icon-xllp fa-2x lead">USSN {{phd.application[0][1] || config.appnum}}</i>
+<button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);border-top-right-radius:6rem;border-bottom-right-radius:6rem;border-left:5px ridge black;" ng-click="main.collapse()">
+        <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
+        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;">US {{phd.patent.number | number:0}}</h4>
+        
+        <h5 class="card-subtitle lead ng-binding" style="color:#ddd;">USSN {{phd.application[0][1] || config.appnum}}</h5>
         </div>
         <img src="/llp_core/img/GoldLion.svg" class="img" style="width:75px;height: auto;">
-        <br>
-        <div>
-          <img src="/llp_core/img/GoldLogoLong.svg" class="img" style="height:35px;">
-          <img src="/llp_core/img/GoldPhdLogoLong.svg" class="img" style="height:35px;">
+        
+        <div style="display:flex;flex-direction:column;align-items:flex-start;justify-content:space-around;">
+          <img src="/llp_core/img/GoldLogoLong.svg" class="img" style="height:45px;">
+  
+          <img src="/llp_core/img/GoldPhdLogoLong.svg" class="img" style="height:25px;padding-left:2px;">
         </div>
         
         <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
     </button>
+
 <div collapse="collapsereport">
-  <hr/>
-    <tabset>
+ 
+    <tabset class="card">
         <tab class="ngDialogTab">
             <tab-heading class="lead">USSN {{phd.application[0][1]}}</tab-heading>
             <h4 class="card-title pull-right">PTO Meta-Data TSVFiles</h4>
