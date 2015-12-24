@@ -2,7 +2,7 @@
 <div ng-controller="MainCtrl as main">
 <div class="alert alert-info" ng-if="notconfigured()">Please configure the +getphd widget</div>
 <div ng-if="configured()" ng-bind-html="main.content"></div>
-<button class="button button-icon fa fa-print" ng-click="publish(phd)" style="position:absolute;top:0;right:0;z-index:1000;" ng-if="$state.includes('statusboard')"></button>
+<button class="button button-icon fa fa-print" ng-click="publish(phd)" style="position:absolute;top:0;right:0;z-index:1000;" ></button>
  
  <div class="card card-primary card-block btn-glass drop-target" nv-file-drop uploader="uploader"   drop-files="handleFiles(files)"
  style="border: 2px dashed blue;margin: 5px;" ng-hide="phd.file">
@@ -29,6 +29,10 @@
 
 <button class="alert btn-glass btn-primary img card-rounded" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-around;flex-direction:row;" ng-click="main.collapse()">
         <i class="icon icon-xllp fa-2x lead">USSN {{phd.application[0][1] || config.appnum}}</i>
+        <br>
+        <img src="/llp_core/img/GoldLion.svg" style="width:40px;height: auto;">
+        <br>
+        <i class="icon icon-xllp fa-2x lead">US {{phd.patent.number | number:0}}
         <img src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg" class="pop img img-rounded pull-right" style="" />
         <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
     </button>
@@ -46,7 +50,7 @@
         </tab>
         <tab class="ngDialogTab primary" ng-if="phd.application">
             
-            <tab-heading style="" ng-style="">APPLICATION</tab-heading>
+            <tab-heading style="" ng-style="" style="color:#ddd;">APPLICATION</tab-heading>
             <h5 class="card-title">Application Data</h5>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
 
@@ -60,7 +64,7 @@
         </tab>
         <tab class="ngDialogTab info" ng-if="phd.attorney">
            
-            <tab-heading ng-style="">ATTORNEY</tab-heading>
+            <tab-heading ng-style="" style="color:#ddd;">ATTORNEY</tab-heading>
             <h5 class="card-title">Attorney Data</h5>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
 
@@ -74,7 +78,7 @@
         </tab>
         <tab class="ngDialogTab success" ng-if="phd.continuity">
             
-            <tab-heading style="" ng-style="">CONTINUITY</tab-heading>
+            <tab-heading style="" ng-style="" style="color:#ddd;">CONTINUITY</tab-heading>
             <h5 class="Continuity Data">Continuity Data</h5>
             <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
@@ -100,7 +104,7 @@
         <tab class="ngDialogTab warning" ng-if="phd.foreign">
 
             <!-- <pre ng-bind="main.phd.foreign | json:4"></pre> -->
-            <tab-heading style="" ng-style="">FOREIGN PRIORITY</tab-heading>
+            <tab-heading style="" ng-style="" style="color:#ddd;">FOREIGN PRIORITY</tab-heading>
             <h5 class="card-title">Foreign Priority</h5>
             <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
@@ -122,7 +126,7 @@
         </tab>
         <tab class="ngDialogTab danger" ng-if="phd.transaction">
             <!-- <pre ng-bind="main.transaction | json:4"></pre> -->
-            <tab-heading style="" ng-style="">TRANSACTION</tab-heading>
+            <tab-heading style="" ng-style="" style="color:#ddd;">TRANSACTION</tab-heading>
             <h5 class="card-title">Transaction Data</h5>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
                 <thead>
@@ -175,7 +179,7 @@
             </table>
         </tab>
         <tab class="ngDialogTab {{collection.styleClass}}" ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
-            <tab-heading class="" style="" ng-style=""><span class="fa {{collection.icon}}"></span>{{collection.rid}}</tab-heading>
+            <tab-heading class="" style="" ng-style="" style="color:#ddd;"><i class="fa {{collection.icon}}"></i>{{collection.rid}}</tab-heading>
             <h5 class="card-title fa {{collection.icon}}">{{collection.rid}}</h5>
             <div style="width: 100%;" class="reventlist">
                 <roar-event ng-repeat="event in collection.roarlist" id="{{event.id || event}}" style="width:19.5%;"></roar-event>
@@ -190,8 +194,8 @@
             
             
              <tabset>
-               <div class="row flextoprow">
-                <tab  ng-repeat="roarevent in phd.roarmap.roarevents">
+               <div class="row flextoprow" style="overflow:scroll">
+                <tab  ng-repeat="roarevent in phd.roarmap.roarevents" ng-init="roarevent = roarevent">
                     <tab-heading class="ngDialogTab {{roarevent.styleClass}}" roar-badge id="{{roarevent || roarevent.$id}}"></tab-heading>
                     <roar-chip id="{{roarevent.id || roarevent}}"></roar-chip>
                     <div class="row">
@@ -208,8 +212,9 @@
         </tab>
         
         <tab class="ngDialogTab">
-           <tab-heading class="lead" ng-style="">US {{phd.patent.number}}</tab-heading>
-            <iframe src="{{phd.patent.media}}" class="card card-fancy" style="min-height:500px;width:90%;"></iframe>
+           <tab-heading class="lead" ng-style="">US {{phd.patent.number | number:0}}</tab-heading>
+            <iframe src="{{phd.patent.media}}" class="card card-fancy col-sm-6" style="min-height:500px;"></iframe>
+            <iframe src="{{phd.patent.txt}}" class="card card-fancy col-sm-6" style="min-height:500px;"></iframe>
             <!--<tabset>
                 <tab heading=".pdf">
             <div filepicker-preview url="phd.patent.media" style="width:100%; height:400px"></div>

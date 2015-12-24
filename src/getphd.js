@@ -60,7 +60,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                     content_type: 'curation',
                                     timestamp: Firebase.ServerValue.TIMESTAMP
                                 });
-                                config.appnum = '1011111';
+                                config.appnum = '10000001';
                                 config.id = id;
                                 return config;
                             });
@@ -76,8 +76,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 })
     .constant('FIREBASE_URL', 'https://lexlab.firebaseio.com/')
-    .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log','FileUploader','$publish',
-        function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish) {
+    .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log','FileUploader','$publish','$pdftotxt','$timeout',
+        function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout) {
             var main = this;
             main.size = 'lg';
             $scope.collapsereport = false;
@@ -135,7 +135,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             console.info('onAfterAddingAll', addedFileItems);
         };
         uploader.onBeforeUploadItem = function(item) {
-            console.info('onBeforeUploadItem', item);
+          console.info('onBeforeUploadItem', item);
+            alertify.log('starting upload...')
         };
         uploader.onProgressItem = function(fileItem, progress) {
             console.info('onProgressItem', fileItem, progress);
@@ -156,7 +157,14 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             console.info('onCompleteItem', fileItem, response, status, headers);
         };
         uploader.onCompleteAll = function() {
-            console.info('onCompleteAll');
+          $timeout(function () {
+            try { $pdftotxt($scope.phd); }
+            catch (ex) { console.log(ex); }
+            finally { console.info('onCompleteAll'); }
+
+          }, 10000);
+            
+                                                
         };
 
         console.info('uploader', uploader);
@@ -284,27 +292,29 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                 extractpdf(file.files[0])
                     .then(function (files) {
-                        $log.info('Files extracted', files);
+                      $log.info('Files extracted', files);
+                      alertify.log('Files extracted');
                         $scope.phd.file = files.tsvfiles;
 
                         main.parse(files.tsvfiles)
 
                             .then(function (parsedfiles) {
                                 $log.info('TSV Parsed', parsedfiles);
-
+                                alertify.log('TSV Parsed');
 
                                 
                                         $roarmap(parsedfiles, $scope.phd)
                                             .then(function (roarmap) {
-                                                $scope.phd.roarmap = roarmap;
+                                              $scope.phd.roarmap = roarmap;
+                                                alertify.success('ROARmap built!')
                                                 try{$patentsearch($scope.phd.application, config.PNUM)
                                                 .then(function (patentobj) {
                                                     $scope.phd.patent = patentobj;});}
                                                 catch (ex) { console.log(ex); }
                                                 finally{
-                                                localStorageService.set(config.appnum, $scope.phd);
-
-                                                alertify.alert('Done!');
+                                                  localStorageService.set(config.appnum, $scope.phd);
+                                                  alertify.alert('Done! ')
+                                                
                                                 }
                                             });
                                         // try {
@@ -471,7 +481,43 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             }
         };
-    }]).directive('uploadQ', ['FileUploader', function (FileUploader) {
+    }])
+  .factory('$pdftotxt', ['$q', 'filepickerService', 'Collection', function ($q, filepickerService, Collection) {
+    return function (phd) {
+      var deferred = $q.defer();
+      getxt(phd);
+      return deferred.promise;
+
+      function getxt(phd) {
+        var meritscollectionid = phd.roarmap.collections[1];
+        Collection(meritscollectionid).$loaded().then(function (collection) {
+          var mlist = collection.roarlist;
+          angular.forEach(mlist, function (key, roarevent) {
+            Collection(key).$loaded().then(function (roarevent) {
+              filepicker.storeUrl(roarevent.media,
+                { filename: roarevent.filename },
+                function (Blob) {
+                  filepicker.convert(
+                    Blob,
+                    { format: 'txt' },
+                    function (new_Blob) {
+                      roarevent.txt = new_Blob.url;
+                      roarevent.$save();
+                      alertify.success('text file added for' + roarevent.title);
+                      return deferred.resolve(roarevent);
+                    }
+                    );
+
+                }
+                );
+            });
+          });
+        });
+      }
+    };
+  }])
+
+  .directive('uploadQ', ['FileUploader', function (FileUploader) {
         return {
             restrict: 'EA',
             template: '<div class="card"><input type="file" nv-file-select="" uploader="uploader" multiple /> <h3>Upload queue</h3> <p>Queue length: {{ uploader.queue.length }}</p> <table class="table"> <thead> <tr> <th width="50%">Name</th> <th ng-show="uploader.isHTML5">Size</th> <th ng-show="uploader.isHTML5">Progress</th> <th>Status</th> <th>Actions</th> </tr> </thead> <tbody> <tr ng-repeat="item in uploader.queue"> <td><strong>{{ item.file.name }}</strong></td> <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td> <td ng-show="uploader.isHTML5"> <div class="progress" style="margin-bottom: 0;"> <div class="progress-bar" role="progressbar" ng-style="{ \'width\': item.progress + \'%\' }"></div> </div> </td> <td class="text-center"> <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span> <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span> <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span> </td> <td nowrap> <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess"> <span class="glyphicon glyphicon-upload"></span> Upload </button> <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading"> <span class="glyphicon glyphicon-ban-circle"></span> Cancel </button> <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()"> <span class="glyphicon glyphicon-trash"></span> Remove </button> </td> </tr> </tbody> </table> <div> <div> Queue progress: <div class="progress" style=""> <div class="progress-bar" role="progressbar" ng-style="{ \'width\': uploader.progress + \'%\' }"></div> </div> </div> <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length"> <span class="glyphicon glyphicon-upload"></span> Upload all </button> <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading"> <span class="glyphicon glyphicon-ban-circle"></span> Cancel all </button> <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length"> <span class="glyphicon glyphicon-trash"></span> Remove all </button> </div> </div>',
