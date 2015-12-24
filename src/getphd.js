@@ -492,7 +492,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           var mlist = collection.roarlist;
           angular.forEach(mlist, function (key, roarevent) {
             Collection(key).$loaded().then(function (roarevent) {
-              filepicker.storeUrl(roarevent.media,
+              filepicker.storeUrl(roarevent.selflink,
                 { filename: roarevent.filename },
                 function (Blob) {
                   filepicker.convert(
@@ -502,7 +502,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                       roarevent.txt = new_Blob.url;
                       roarevent.$save();
                       alertify.success('text file added for' + roarevent.title);
-                      return deferred.resolve(roarevent);
+                      
                     }
                     );
 
@@ -511,6 +511,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             });
           });
         });
+        return deferred.resolve(phd);
       }
     };
   }])

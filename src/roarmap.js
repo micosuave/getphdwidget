@@ -187,6 +187,7 @@
 
                          //roarevent.mimeType = file.mimeType;
                          //roarevent.description = file.DocumentDescription;
+                         roarevent.selflink = 'https://lexlab.io/files/public/documents/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                          roarevent.media = 'https://lexlab.io/files/viewer/web/viewer.html?file=%2Ffiles/public/documents/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                          roarevent.description = file['Document Description'] || null;
                          roarevent.filename = file['Filename'] || null;
