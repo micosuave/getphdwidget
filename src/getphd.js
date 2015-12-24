@@ -155,16 +155,16 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         };
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
             console.info('onCompleteItem', fileItem, response, status, headers);
+            alertify.success('File uploaded!')
+            $timeout(function () {
+              try { alertify.log('extracting text'); $pdftotxt($scope.phd).then(function (phd) { $scope.phd = phd; alertify.alert('history for US' + $scope.phd.patent.number + 'has been processed and delivered to your account'); }); }
+              catch (ex) { console.log(ex); alertify.error('Im sorry... something went wrong with the extraction... please try again...');}
+              finally { return; }
+
+                    }, 5000);
         };
         uploader.onCompleteAll = function() {
-          $timeout(function () {
-            try { $pdftotxt($scope.phd); }
-            catch (ex) { console.log(ex); }
-            finally { console.info('onCompleteAll'); }
-
-          }, 10000);
-            
-                                                
+          console.info('onCompleteAll');                                       
         };
 
         console.info('uploader', uploader);
@@ -306,16 +306,14 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                         $roarmap(parsedfiles, $scope.phd)
                                             .then(function (roarmap) {
                                               $scope.phd.roarmap = roarmap;
-                                                alertify.success('ROARmap built!')
-                                                try{$patentsearch($scope.phd.application, config.PNUM)
-                                                .then(function (patentobj) {
-                                                    $scope.phd.patent = patentobj;});}
-                                                catch (ex) { console.log(ex); }
-                                                finally{
-                                                  localStorageService.set(config.appnum, $scope.phd);
-                                                  alertify.alert('Done! ')
+                                              alertify.success('ROARmap built!');
+                                              $patentsearch($scope.phd.application, config.PNUM)
+                                                  .then(function (patentobj) {
+                                                    $scope.phd.patent = patentobj;
+                                                    localStorageService.set(config.appnum, $scope.phd);
+                                                    alertify.log('Almost done... waiting for upload for finish ');
+                                                });
                                                 
-                                                }
                                             });
                                         // try {
                                         //     //main.pdFF(files.pdffiles);
