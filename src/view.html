@@ -43,9 +43,10 @@
         <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
     </button>
 
-<div collapse="collapsereport">
- 
-    <uib-tabset class="card tabbable tabs-left">
+<div collapse="collapsereport" class="card clearfix" style="padding:0;margin:0;">
+ <uib-tabset class="tabbable" justified="true" pills="true">
+   <uib-tab heading="PTO Meta-Data" class="nav-pill">
+    <uib-tabset class="tabbable tabs-left" >
         <uib-tab class="ngDialogTab">
             <uib-tab-heading class="">USSN {{phd.application[0][1]}}</uib-tab-heading>
             <h4 class="card-title pull-right">PTO Meta-Data TSVFiles</h4>
@@ -57,7 +58,7 @@
         </uib-tab>
         <uib-tab class="ngDialogTab primary" ng-if="phd.application">
             
-            <uib-tab-heading style="" ng-style="" ><span style="color:#ddd;">APPLICATION</span></uib-tab-heading>
+            <uib-tab-heading style="" ng-style="" >APPLICATION</uib-tab-heading>
             <h4 class="card-title pull-right">Application Data</h4>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
 
@@ -71,7 +72,7 @@
         </uib-tab>
         <uib-tab class="ngDialogTab info" ng-if="phd.attorney">
            
-            <uib-tab-heading ng-style="" ><span style="color:#ddd;">ATTORNEY</span></uib-tab-heading>
+            <uib-tab-heading ng-style="" >ATTORNEY</uib-tab-heading>
             <h4 class="card-title pull-right">Attorney Data</h4>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
 
@@ -85,7 +86,7 @@
         </uib-tab>
         <uib-tab class="ngDialogTab success" ng-if="phd.continuity">
             
-            <uib-tab-heading style="" ng-style=""><span style="color:#ddd;">CONTINUITY</span></uib-tab-heading>
+            <uib-tab-heading style="" ng-style="">CONTINUITY</uib-tab-heading>
             <h4 class="card-title pull-right">Continuity Data</h4>
             <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
@@ -100,10 +101,10 @@
                 <tbody>
                     <tr ng-repeat="line in phd.continuity">
                         <td>{{::line['Description']}}</td>
-                        <td>{{::line['Parent Filing or 371(c) Date']}}
+                        <td>{{::line['Parent Filing or 371(c) Date']}}</td>
                         <td>{{::line['Parent Number']}}</td>
                         <td>{{::line['Parent Status']}}</td>
-                        <td><a ng-href="https://patentimages.storage.googleapis.com/pdfs/US{{::line['Patent Number'].replace(',','').replace(',','')}}.pdf" target="_blank">{{::line['Patent Number']}}</td>
+                        <td><a ng-href="https://patentimages.storage.googleapis.com/pdfs/US{{::line['Patent Number'].replace(',','').replace(',','')}}.pdf" target="_blank">{{::line['Patent Number']}}</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -111,7 +112,7 @@
         <uib-tab class="ngDialogTab warning" ng-if="phd.foreign">
 
             <!-- <pre ng-bind="main.phd.foreign | json:4"></pre> -->
-            <uib-tab-heading style="" ng-style=""><span style="color:#ddd;">FOREIGN PRIORITY</span></uib-tab-heading>
+            <uib-tab-heading style="" ng-style="">FOREIGN PRIORITY</uib-tab-heading>
             <h4 class="card-title pull-right">Foreign Priority</h4>
             <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
@@ -133,7 +134,7 @@
         </uib-tab>
         <uib-tab class="ngDialogTab danger" ng-if="phd.transaction">
             <!-- <pre ng-bind="main.transaction | json:4"></pre> -->
-            <uib-tab-heading style="" ng-style=""><span style="color:#ddd;">TRANSACTION</span></uib-tab-heading>
+            <uib-tab-heading style="" ng-style="">TRANSACTION</uib-tab-heading>
             <h4 class="card-title pull-right">Transaction Data</h4>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
                 <thead>
@@ -185,52 +186,40 @@
                 </tbody>
             </table>
         </uib-tab>
+      </uib-tabset>
+   </uib-tab>
+   <uib-tab heading="PhD Digest">
+      <uib-tabset>
         <uib-tab class="ngDialogTab {{collection.styleClass}}" ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
-            <uib-tab-heading class="" style="" ng-style=""><span style="color:#ddd;"><i class="fa {{collection.icon}}"></i>{{collection.rid}}</span></tab-heading>
+            <uib-tab-heading class="" style="" ng-style="">{{collection.rid}}&nbsp&nbsp<i class="pull-right fa {{collection.icon}} label label-{{collection.styleClass}} label-pill">{{collection.roarlist.length}}</i></uib-tab-heading>
             <h4 class="card-title pull-right fa {{collection.icon}}">{{collection.rid}}</h4>
             <div style="width: 100%;" class="reventlist">
                 <roar-event ng-repeat="event in collection.roarlist" id="{{event.id || event}}" style="width:19.5%;"></roar-event>
             </div>
 
         </uib-tab>
-        <uib-tab class="ngDialogTab" select="$('#rootwizard').bootstrapWizard({'tabClass': 'nav nav-tabs'});    ">
+        <uib-tab class="ngDialogTab" >
             <uib-tab-heading>ROAR
-                <label class="label label-info label-pill">{{phd.imagefile.length}}</label>
+                <label class="label label-info label-pill pull-right">{{phd.imagefile.length}}</label>
             </uib-tab-heading>
-            <div id="rootwizard" class="tabbable tabs-left">
-              <ul>
-                <li ng-repeat="roarevent in phd.roarmap.roarevents"><a href="#tab{{$index}}" data-toggle="tab"><roar-chip id="{{roarevent.id || roarevent}}"></roar-chip></a></li>
-              </ul>
-              <div class="tab-content">
-                <div class="tab-pane" id="tab{{$index}}" ng-repeat="roarevent in phd.roarmap.roarevents">
-                      <iframe src="{{event.media}}" class="card card-block card-fancy" style="width:48%;"></iframe>
-                    <iframe src="{{event.txt}}" class="card card-block card-fancy" style="width: 48%"></iframe>
-                  
-                
-                </div>
-                <ul class="pager wizard">
-                            <li class="previous first" style="display:none;"><a href="#">First</a></li>
-                            <li class="previous"><a href="#">Previous</a></li>
-                            <li class="next last" style="display:none;"><a href="#">Last</a></li>
-                              <li class="next"><a href="#">Next</a></li>
-                        </ul>
-              </div>
-            </div>
+           
             <uib-tabset class="tabbable tabs-left">
                 <uib-tab ng-repeat="roarevent in phd.roarmap.roarevents" select="event = roarevent">
                 <uib-tab-heading><roar-chip id="{{roarevent.id || roarevent}}"></roar-chip></uib-tab-heading>
-                <div class="row">
-                    <iframe src="{{event.media}}" class="card card-block card-fancy" style="width:48%;"></iframe>
-                    <iframe src="{{event.txt}}" class="card card-block card-fancy" style="width: 48%"></iframe>
-                  </div>
-                </tab>
+                
+                    <iframe src="{{event.media}}" class="card card-block card-fancy pull-left" style="width:48%;"></iframe>
+                    <iframe src="{{event.txt}}" class="card card-block card-fancy pull-right" style="width: 48%"></iframe>
+                  
+                </uib-tab>
                 
           </uib-tabset>
             
         </uib-tab>
-        
-        <uib-tab class="ngDialogTab">
-           <uib-tab-heading class="" ng-style="">US {{phd.patent.number | number:0}}</uib-tab-heading>
+      </uib-tabset>
+   </uib-tab>
+   
+        <uib-tab class="ngDialogTab ">
+           <uib-tab-heading class="nav-pill" ng-style="">US {{phd.patent.number | number:0}}</uib-tab-heading>
             <iframe src="{{phd.patent.media}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
             <iframe src="{{phd.patent.txt}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
             <!--<tabset>
