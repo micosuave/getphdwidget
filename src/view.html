@@ -32,7 +32,7 @@
         
         <h5 class="card-subtitle lead ng-binding" style="color:#ddd;">USSN {{phd.application[0][1] || config.appnum}}</h5>
         </div>
-        <img src="/llp_core/img/GoldLion.svg" class="img" style="width:75px;height: auto;">
+        <img src="/llp_core/img/GoldLion.svg" class="img lionlogofilter" style="width:75px;height: auto;">
         
         <div style="display:flex;flex-direction:column;align-items:flex-start;justify-content:space-around;">
           <img src="/llp_core/img/GoldLogoLong.svg" class="img" style="height:45px;">
@@ -45,19 +45,19 @@
 
 <div collapse="collapsereport">
  
-    <tabset class="card">
-        <tab class="ngDialogTab">
-            <tab-heading class="lead">USSN {{phd.application[0][1]}}</tab-heading>
+    <uib-tabset class="card tabbable tabs-left">
+        <uib-tab class="ngDialogTab">
+            <uib-tab-heading class="">USSN {{phd.application[0][1]}}</uib-tab-heading>
             <h4 class="card-title pull-right">PTO Meta-Data TSVFiles</h4>
-            <tabset>
-                <tab class="" ng-repeat="file in phd.file" heading="{{file.label | uppercase}}">
+            <uib-tabset class="tabbable">
+                <uib-tab class="" ng-repeat="file in phd.file" heading="{{file.label | uppercase}}">
                     <pre class="card card-block card-fancy" ng-bind="file.file"></pre>
-                </tab>
-            </tabset>
-        </tab>
-        <tab class="ngDialogTab primary" ng-if="phd.application">
+                </uib-tab>
+            </uib-tabset>
+        </uib-tab>
+        <uib-tab class="ngDialogTab primary" ng-if="phd.application">
             
-            <tab-heading style="" ng-style="" ><span style="color:#ddd;">APPLICATION</span></tab-heading>
+            <uib-tab-heading style="" ng-style="" ><span style="color:#ddd;">APPLICATION</span></uib-tab-heading>
             <h4 class="card-title pull-right">Application Data</h4>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
 
@@ -68,10 +68,10 @@
                     </tr>
                 </tbody>
             </table>
-        </tab>
-        <tab class="ngDialogTab info" ng-if="phd.attorney">
+        </uib-tab>
+        <uib-tab class="ngDialogTab info" ng-if="phd.attorney">
            
-            <tab-heading ng-style="" ><span style="color:#ddd;">ATTORNEY</span></tab-heading>
+            <uib-tab-heading ng-style="" ><span style="color:#ddd;">ATTORNEY</span></uib-tab-heading>
             <h4 class="card-title pull-right">Attorney Data</h4>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
 
@@ -82,10 +82,10 @@
                     </tr>
                 </tbody>
             </table>
-        </tab>
-        <tab class="ngDialogTab success" ng-if="phd.continuity">
+        </uib-tab>
+        <uib-tab class="ngDialogTab success" ng-if="phd.continuity">
             
-            <tab-heading style="" ng-style=""><span style="color:#ddd;">CONTINUITY</span></tab-heading>
+            <uib-tab-heading style="" ng-style=""><span style="color:#ddd;">CONTINUITY</span></uib-tab-heading>
             <h4 class="card-title pull-right">Continuity Data</h4>
             <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
@@ -107,11 +107,11 @@
                     </tr>
                 </tbody>
             </table>
-        </tab>
-        <tab class="ngDialogTab warning" ng-if="phd.foreign">
+        </uib-tab>
+        <uib-tab class="ngDialogTab warning" ng-if="phd.foreign">
 
             <!-- <pre ng-bind="main.phd.foreign | json:4"></pre> -->
-            <tab-heading style="" ng-style=""><span style="color:#ddd;">FOREIGN PRIORITY</span></tab-heading>
+            <uib-tab-heading style="" ng-style=""><span style="color:#ddd;">FOREIGN PRIORITY</span></uib-tab-heading>
             <h4 class="card-title pull-right">Foreign Priority</h4>
             <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
@@ -130,10 +130,10 @@
                     </tr>
                 </tbody>
             </table>
-        </tab>
-        <tab class="ngDialogTab danger" ng-if="phd.transaction">
+        </uib-tab>
+        <uib-tab class="ngDialogTab danger" ng-if="phd.transaction">
             <!-- <pre ng-bind="main.transaction | json:4"></pre> -->
-            <tab-heading style="" ng-style=""><span style="color:#ddd;">TRANSACTION</span></tab-heading>
+            <uib-tab-heading style="" ng-style=""><span style="color:#ddd;">TRANSACTION</span></uib-tab-heading>
             <h4 class="card-title pull-right">Transaction Data</h4>
             <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
                 <thead>
@@ -149,9 +149,9 @@
                     </tr>
                 </tbody>
             </table>
-        </tab>
-        <tab class="ngDialogTab" ng-if="phd.imagefile">
-            <tab-heading ng-style="">I F W</tab-heading>
+        </uib-tab>
+        <uib-tab class="ngDialogTab" ng-if="phd.imagefile">
+            <uib-tab-heading ng-style="">I F W</uib-tab-heading>
             <h4 class="card-title pull-right">Image File Wrapper</h4>
             <input type="text" ng-model="main.query" placeholder="search..." class="pull-right">
 
@@ -184,19 +184,19 @@
                     </tr>
                 </tbody>
             </table>
-        </tab>
-        <tab class="ngDialogTab {{collection.styleClass}}" ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
-            <tab-heading class="" style="" ng-style=""><span style="color:#ddd;"><i class="fa {{collection.icon}}"></i>{{collection.rid}}</span></tab-heading>
+        </uib-tab>
+        <uib-tab class="ngDialogTab {{collection.styleClass}}" ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
+            <uib-tab-heading class="" style="" ng-style=""><span style="color:#ddd;"><i class="fa {{collection.icon}}"></i>{{collection.rid}}</span></tab-heading>
             <h4 class="card-title pull-right fa {{collection.icon}}">{{collection.rid}}</h4>
             <div style="width: 100%;" class="reventlist">
                 <roar-event ng-repeat="event in collection.roarlist" id="{{event.id || event}}" style="width:19.5%;"></roar-event>
             </div>
 
-        </tab>
-        <tab class="ngDialogTab" select="$('#rootwizard').bootstrapWizard({'tabClass': 'nav nav-tabs'});    ">
-            <tab-heading>ROAR
+        </uib-tab>
+        <uib-tab class="ngDialogTab" select="$('#rootwizard').bootstrapWizard({'tabClass': 'nav nav-tabs'});    ">
+            <uib-tab-heading>ROAR
                 <label class="label label-info label-pill">{{phd.imagefile.length}}</label>
-            </tab-heading>
+            </uib-tab-heading>
             <div id="rootwizard" class="tabbable tabs-left">
               <ul>
                 <li ng-repeat="roarevent in phd.roarmap.roarevents"><a href="#tab{{$index}}" data-toggle="tab"><roar-chip id="{{roarevent.id || roarevent}}"></roar-chip></a></li>
@@ -216,21 +216,21 @@
                         </ul>
               </div>
             </div>
-            <tabset class="tabbable tabs-left">
-                <tab ng-repeat="roarevent in phd.roarmap.roarevents" select="event = roarevent">
-                <tab-heading><roar-chip id="{{roarevent.id || roarevent}}"></roar-chip></tab-heading>
+            <uib-tabset class="tabbable tabs-left">
+                <uib-tab ng-repeat="roarevent in phd.roarmap.roarevents" select="event = roarevent">
+                <uib-tab-heading><roar-chip id="{{roarevent.id || roarevent}}"></roar-chip></uib-tab-heading>
                 <div class="row">
                     <iframe src="{{event.media}}" class="card card-block card-fancy" style="width:48%;"></iframe>
                     <iframe src="{{event.txt}}" class="card card-block card-fancy" style="width: 48%"></iframe>
                   </div>
                 </tab>
                 
-          </tabset>
+          </uib-tabset>
             
-        </tab>
+        </uib-tab>
         
-        <tab class="ngDialogTab">
-           <tab-heading class="lead" ng-style="">US {{phd.patent.number | number:0}}</tab-heading>
+        <uib-tab class="ngDialogTab">
+           <uib-tab-heading class="" ng-style="">US {{phd.patent.number | number:0}}</uib-tab-heading>
             <iframe src="{{phd.patent.media}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
             <iframe src="{{phd.patent.txt}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
             <!--<tabset>
@@ -247,7 +247,7 @@
                 <div filepicker-preview url="phd.patent.txt" style="width:100%; height:400px"></div>
                </tab>
            </tabset>-->
-           </tab> 
-    </tabset>
+           </uib-tab> 
+    </uib-tabset>
 </div>
 </div>
