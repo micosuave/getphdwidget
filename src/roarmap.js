@@ -155,7 +155,7 @@
 
 
                  function checkforexistingphd() {
-                     var application = phd.application[0][1];
+                     var application = phd.application['Application Number'];
                      var ref = new Firebase(FIREBASE_URL + 'content/' + application);
                      ref.once('value', function(snapshot) {
                          return snapshot.exists();
@@ -168,7 +168,7 @@
                          if (file['Mail Room Date'] === ''){
                              return ;
                          }else{
-                         var appnumber = phd.application[0][1].replace('/', '').replace(',', '').replace(',', '');
+                         var appnumber = phd.application['Application Number'].replace('/', '').replace(',', '').replace(',', '');
                          var date = new Date();
                          var roarevent = angular.copy(file);
                          var maildate = new Date(file['Mail Room Date']);
@@ -263,8 +263,11 @@
                              });
                               ref.child('dashboard').child('model').child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('draftid').set(id);
 
-                             p.filelist.push(id);
-                             roarmap.roarevents.push(id);
+                              Collection(id).$loaded().then(function (roarevent) {
+                                 p.filelist.push(roarevent);
+                                 roarmap.roarevents.push(roarevent);
+                              })
+                             
                              // angular.forEach(roarevent.collections, function(cid, key) {
                              //     var list = CuratedList(cid, 'roarlist');
                              //     list.$add(id);
@@ -281,8 +284,11 @@
 
                              angular.forEach(MERITSDOCS, function(code, key) {
                                  if (roarevent.doccode === code) {
-                                     p.meritslist.push(id);
-                                     $log.info('merits', id);
+                                   Collection(id).$loaded().then(function (roarevent) {
+                                     p.meritslist.push(roarevent);
+                                     $log.info('merits', roarevent);
+                                   });
+                                    
                                  }
                              });
                             //  angular.forEach(OWNERSHIPDOCS, function(code, key) {
@@ -293,8 +299,11 @@
                             //  });
                              angular.forEach(ARTDOCS, function(code, key) {
                                  if (roarevent.doccode === code) {
-                                     p.artlist.push(id);
-                                     $log.info('art', id);
+                                   Collection(id).$loaded().then(function (roarevent) {
+                                     p.artlist.push(roarevent);
+                                     $log.info('art', roarevent);
+                                   });
+                                     
                                  }
                              });
                              alertify.log("added record with id " + id);
@@ -312,36 +321,36 @@
 
                  function buildcollections(p) {
                      var newcollection = {
-                         name: 'USSN ' + phd.application[0][1],
-                         title: 'USSN ' + phd.application[0][1],
+                         name: 'USSN ' + phd.application['Application Number'],
+                         title: 'USSN ' + phd.application['Application Number'],
                          rid: 'PHD1 - ALL',
                          collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application[0][1],
+                         box: 'PhD for USSN ' + phd.application['Application Number'],
                          styleClass: 'success',
-                         app: phd.application[0][1],
+                         app: phd.application['Application Number'],
                          content_type: 'collection',
                          roarlist: p.filelist
                      };
                      var newmerits = {
-                         name: 'USSN ' + phd.application[0][1],
-                         title: 'USSN ' + phd.application[0][1],
+                         name: 'USSN ' + phd.application['Application Number'],
+                         title: 'USSN ' + phd.application['Application Number'],
                          rid: 'PHD2 - MERITS',
                          collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application[0][1],
+                         box: 'PhD for USSN ' + phd.application['Application Number'],
                          styleClass: 'danger',
-                         app: phd.application[0][1],
+                         app: phd.application['Application Number'],
                          content_type: 'collection',
                          roarlist: p.meritslist
                      };
 
                      var newart = {
-                         name: 'USSN ' + phd.application[0][1],
-                         title: 'USSN ' + phd.application[0][1],
+                         name: 'USSN ' + phd.application['Application Number'],
+                         title: 'USSN ' + phd.application['Application Number'],
                          rid: 'PHD3 - ART',
                          collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application[0][1],
+                         box: 'PhD for USSN ' + phd.application['Application Number'],
                          styleClass: 'warning',
-                         app: phd.application[0][1],
+                         app: phd.application['Application Number'],
                          content_type: 'collection',
                          roarlist: p.artlist
                      };
@@ -393,7 +402,10 @@
                                 //  }
 
                                  // var owns = angular.copy(Collection(cId));
-                                 roarmap.collections.push(cId);
+                                 Collection(cId).$loaded().then(function (collection) {
+                                   roarmap.collections.push(collection);
+                                 });
+                                 
                                  // return roarmap;
 
                              });

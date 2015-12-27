@@ -107,7 +107,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 return $scope.config.appnum === '';
             };
             var opts = {
-                header: true
+              header: true,
+              skipEmptyLines: true
             };
              var uploader = $scope.uploader = new FileUploader({
             url: $scope.url || 'https://lexlab.io/upload',
@@ -136,10 +137,12 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         };
         uploader.onBeforeUploadItem = function(item) {
           console.info('onBeforeUploadItem', item);
+          main.progress = 0;
             alertify.log('starting upload...')
         };
         uploader.onProgressItem = function(fileItem, progress) {
-            console.info('onProgressItem', fileItem, progress);
+          main.progress = progress;
+          console.info('onProgressItem', fileItem, progress);
         };
         uploader.onProgressAll = function(progress) {
             console.info('onProgressAll', progress);
@@ -155,7 +158,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         };
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
             console.info('onCompleteItem', fileItem, response, status, headers);
-            alertify.success('File uploaded!')
+            alertify.success('File uploaded!');
+            main.handleFiles(fileItem.file);
             $timeout(function () {
               try { alertify.log('extracting text'); $pdftotxt($scope.phd).then(function (phd) { $scope.phd = phd; alertify.alert('history for US' + $scope.phd.patent.number + 'has been processed and delivered to your account'); }); }
               catch (ex) { console.log(ex); alertify.error('Im sorry... something went wrong with the extraction... please try again...');}
@@ -214,9 +218,22 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         if (file.label === 'imagefile') {
                             $scope.phd.imagefile = parseTSV(file.file, opts);
                         } else if (file.label === 'application') {
-                            $scope.phd.application = parseTSV(file.file);
+                          var outerarray = parseTSV(file.file,{skipEmptyLines:true});
+                          
+                          var newobj = {};
+                          angular.forEach(outerarray, function (innerarray, key) {
+                            
+                            newobj[innerarray[0]] = innerarray[1];
+                            
+                            $scope.phd.application = newobj;
+                            
+                          });
+                         
+
+
+                            
                         } else if (file.label === 'attorney') {
-                            $scope.phd.attorney = parseTSV(file.file);
+                            $scope.phd.attorney = parseTSV(file.file, {skipEmptyLines: true});
                         } else if (file.label === 'foreign') {
                             $scope.phd.foreign = parseTSV(file.file, opts, false);
                         } else if (file.label === 'continuity') {
@@ -280,7 +297,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 
 
-
+            main.buffer = function (file) {
+              main.bufferedfile = file;
+            };
             // main.file = {};
             main.success = null;
 
@@ -289,7 +308,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             main.handleFiles = function (file) {
                 main.error = null;
                 main.success = null;
-
+                
                 extractpdf(file.files[0])
                     .then(function (files) {
                       $log.info('Files extracted', files);
@@ -411,7 +430,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             function searchforpatent(phdobj, pnum) {
                 var patentnumber = pnum;
-                var applicationnumber = phdobj[0][1];
+                var applicationnumber = phdobj['Appliction Number'];
                 var pdfstorageuri = 'https://patentimages.storage.googleapis.com/pdfs/US' + patentnumber + '.pdf';
 
                 var patent = {
@@ -422,7 +441,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         { filename: 'US' + patentnumber + '.pdf' },
                         function (Blob) {
                             var patent = angular.copy(Blob);
-                            patent.title = phdobj[19][1];
+                            patent.title = phdobj['Title  of Invention'];
                             patent.number = patentnumber;
                             patent.media = Blob.url;
                             //patentobj.srcdoc = googlepage(patentnumber) || null;
