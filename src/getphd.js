@@ -76,8 +76,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 })
     .constant('FIREBASE_URL', 'https://lexlab.firebaseio.com/')
-    .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log','FileUploader','$publish','$pdftotxt','$timeout',
-        function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout) {
+    .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log','FileUploader','$publish','$pdftotxt','$timeout','toastr',
+        function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr) {
             var main = this;
             main.size = 'lg';
             $scope.collapsereport = false;
@@ -140,10 +140,15 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           main.progress = 0;
           main.bufferedfile = item;
           console.log(item);
-            alertify.log('starting upload...')
+          alertify.log('starting upload...');
+          toastr.warning('starting upload...');
         };
         uploader.onProgressItem = function(fileItem, progress) {
           main.progress = progress;
+          if (progress < 40) { main.progresstype = 'danger' }
+          else if (progress > 40 && progress < 66) { main.progresstype = 'warning' }
+          else if (progress > 67) { main.progresstype = 'success' }
+          else{ main.progresstype = primary}
           console.info('onProgressItem', fileItem, progress);
         };
         uploader.onProgressAll = function(progress) {
@@ -154,7 +159,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           alertify.success(response);
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
-            console.info('onErrorItem', fileItem, response, status, headers);
+          console.info('onErrorItem', fileItem, response, status, headers);
+          main.progress = 'failed';
         };
         uploader.onCancelItem = function(fileItem, response, status, headers) {
             console.info('onCancelItem', fileItem, response, status, headers);
@@ -300,7 +306,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
 
 
-            main.bufferedfile = {};
+           
             main.buffer = function (file) {
               main.bufferedfile = file;
             };
@@ -312,11 +318,12 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             main.handleFiles = function (file) {
                 main.error = null;
                 main.success = null;
-                alertify.log('starting extraction...');
-                extractpdf(file.files[0])
+               toastr.warning('starting extraction...');
+                extractpdf(file)
                     .then(function (files) {
                       $log.info('Files extracted', files);
                       alertify.log('Files extracted');
+                      toastr.success('Files extracted');
                         $scope.phd.file = files.tsvfiles;
 
                         main.parse(files.tsvfiles)
