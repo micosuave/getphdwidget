@@ -298,7 +298,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
 
 
-
+            main.bufferedfile = {};
             main.buffer = function (file) {
               main.bufferedfile = file;
             };

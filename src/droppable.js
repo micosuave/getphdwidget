@@ -148,7 +148,7 @@ angular.module("fa.droppable", [])
             drop.dropFiles = function (files) {
                 console.log('files.files[0]', files.files[0]);
                 // alertify.log('files.files[0]', files.files[0])
-               $scope.$parent.main.buffer(files);
+               $scope.$parent.main.bufferedfile = files;
                 //drop.upload(files);
                 // var a = extractAndParse(files.files[0]);
                 // console.log('a', a);
