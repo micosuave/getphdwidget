@@ -8,16 +8,16 @@
  style="border: 2px dashed blue;margin: 5px;" ng-hide="phd.file">
     <div ng-controller="pageslideCtrl" >
                 <button class="row btn btn-glass btn-primary img img-rounded " ng-hide="phd.file" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;" ng-click="toggle()" ng-class="{'btn-success': (main.progress == 100)}">
-        <uib-progressbar class=""  value="main.progress" style="height:30px;margin-autoposition:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" ><i class="fa fa-upload fa-3x">{{main.progress}}</i></uib-progressbar>
+        <uib-progressbar class="" ng-if="main.progress" value="main.progress" style="height:30px;margin-autoposition:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{main.progresstype}}" >{{main.progress}}% </uib-progressbar><span us-spinner ng-if="main.progress > 98"></span><i class="fa fa-upload fa-3x"></i>
         <img src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg" class="pop img img-rounded pull-right" style="" ng-if="!config.appnum" />
         <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
     </button>
                 
 
-    <div pageslide ps-open="checked" ps-key-listener="true" ps-side="left" ps-class="card-dark">
+    <div pageslide ps-open="checked" ps-key-listener="true" ps-side="bottom" ps-class="card-dark">
                     <div ng-include="'/getphdwidget/src/phd/step-1.html'"></div>
                     <div ng-include="'/getphdwidget/src/phd/step-2.html'"></div>
-                    <upload-q></upload-q>
+                    <!--<upload-q></upload-q>-->
                 </div>
     <div class="row" ng-hide="phd.file">
 
