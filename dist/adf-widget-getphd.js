@@ -320,7 +320,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 main.error = null;
                 main.success = null;
                toastr.warning('starting extraction...');
-                extractpdf(file)
+                extractpdf(file, config.appnum)
                     .then(function (files) {
                       $log.info('Files extracted', files);
                       alertify.log('Files extracted');
