@@ -7,8 +7,8 @@
  <div class="card card-primary card-block btn-glass drop-target" nv-file-drop uploader="uploader"   drop-files="handleFiles(files)"
  style="border: 2px dashed blue;margin: 5px;" ng-hide="phd.file">
     <div ng-controller="pageslideCtrl" >
-                <button class="row btn btn-glass btn-primary img img-rounded " ng-hide="phd.file" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;" ng-click="toggle()">
-        <uib-progressbar class=""  value="main.progress" style="height:30px;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;" ng-class="{'success': (main.progress === 100)}"><i class="fa fa-upload fa-3x">{{main.progress}}</i></uib-progressbar>
+                <button class="row btn btn-glass btn-primary img img-rounded " ng-hide="phd.file" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;" ng-click="toggle()" ng-class="{'btn-success': (main.progress == 100)}">
+        <uib-progressbar class=""  value="main.progress" style="height:30px;margin-autoposition:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" ><i class="fa fa-upload fa-3x">{{main.progress}}</i></uib-progressbar>
         <img src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg" class="pop img img-rounded pull-right" style="" ng-if="!config.appnum" />
         <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
     </button>
