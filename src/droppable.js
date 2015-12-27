@@ -69,9 +69,9 @@ angular.module("fa.droppable", [])
             drop.dropFiles = function (files) {
               console.log('files.files[0]', files.files[0]);
 
-              $scope.$on('onCompleteItem', function (files) {
+              $timeout(function(){
                 $scope.parent.main.handleFiles(files.file[0]);
-              });
+              },25000);
             };
         }
     ])
