@@ -139,6 +139,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         uploader.onBeforeUploadItem = function(item) {
           console.info('onBeforeUploadItem', item);
           main.progress = 0;
+          main.bufferedfile = item;
+          console.log(item);
             alertify.log('starting upload...')
         };
         uploader.onProgressItem = function(fileItem, progress) {
@@ -162,7 +164,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             console.info('onCompleteItem', fileItem, response, status, headers);
             alertify.success('File uploaded!');
             alertify.success(response);
-            main.handleFiles(fileItem.file);
+            main.handleFiles(main.bufferedfile);
             // $timeout(function () {
             //   try { alertify.log('extracting text'); $pdftotxt($scope.phd).then(function (phd) { $scope.phd = phd; alertify.alert('history for US' + $scope.phd.patent.number + 'has been processed and delivered to your account'); }); }
             //   catch (ex) { console.log(ex); alertify.error('Im sorry... something went wrong with the extraction... please try again...');}
@@ -1825,102 +1827,65 @@ angular.module("fa.droppable", [])
     .controller("DropFilesController", ['$controller', 'extract', '$scope',  '$timeout', '$rootScope','FileUploader',
         function ($controller, extract, $scope, $timeout, $rootScope, FileUploader) {
             var drop = this;
-           var uploader = $scope.uploader = new FileUploader({
-            url: $scope.url || 'https://lexlab.io/upload',
-            autoUpload: true
-        });
-
-        // FILTERS
-
-        uploader.filters.push({
-            name: 'customFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                return this.queue.length < 10;
-            }
-        });
-
-        // CALLBACKS
-
-        uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-            console.info('onWhenAddingFileFailed', item, filter, options);
-        };
-        uploader.onAfterAddingFile = function(fileItem) {
-            console.info('onAfterAddingFile', fileItem);
-        };
-        uploader.onAfterAddingAll = function(addedFileItems) {
-            console.info('onAfterAddingAll', addedFileItems);
-        };
-        uploader.onBeforeUploadItem = function(item) {
-            console.info('onBeforeUploadItem', item);
-        };
-        uploader.onProgressItem = function(fileItem, progress) {
-            console.info('onProgressItem', fileItem, progress);
-        };
-        uploader.onProgressAll = function(progress) {
-            console.info('onProgressAll', progress);
-        };
-        uploader.onSuccessItem = function(fileItem, response, status, headers) {
-            console.info('onSuccessItem', fileItem, response, status, headers);
-        };
-        uploader.onErrorItem = function(fileItem, response, status, headers) {
-            console.info('onErrorItem', fileItem, response, status, headers);
-        };
-        uploader.onCancelItem = function(fileItem, response, status, headers) {
-            console.info('onCancelItem', fileItem, response, status, headers);
-        };
-        uploader.onCompleteItem = function(fileItem, response, status, headers) {
-            console.info('onCompleteItem', fileItem, response, status, headers);
-        };
-        uploader.onCompleteAll = function() {
-            console.info('onCompleteAll');
-        };
-
-        console.info('uploader', uploader);
-           
-           
-            //var main = $controller('MainCtrl');
-            //var main = $scope.main;
-            // $scope.log = '';
-
-            // drop.upload = function (files) {
-            //     if (files && files.length) {
-            //         for (var i = 0; i < files.length; i++) {
-            //             var file = files[i];
-            //             if (!file.$error) {
-            //                 Upload.upload({
-            //                     url: 'https://lexlab.io/upload',
-            //                     data: {
-            //                         username: $rootScope.authData.uid,
-            //                         file: file
-            //                     }
-            //                 }).progress(function (evt) {
-            //                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            //                     console.log = 'progress: ' + progressPercentage + '% ' +
-            //                     evt.config.data.file.name + '\n' + console.log;
-            //                 }).success(function (data, status, headers, config) {
-            //                     $timeout(function () {
-            //                         console.log = 'file: ' + config.data.file.name + ', Response: ' + JSON.stringify(data) + '\n' + console.log;
-            //                     });
-            //                 });
-            //             }
-            //         }
-            //     }
-            // };
+          
+       
 
             drop.file = {};
             drop.dropFiles = function (files) {
-                console.log('files.files[0]', files.files[0]);
-                // alertify.log('files.files[0]', files.files[0])
-               $scope.$parent.main.bufferedfile = files;
-                //drop.upload(files);
-                // var a = extractAndParse(files.files[0]);
-                // console.log('a', a);
-                // //alertify.log('a', a);
+              console.log('files.files[0]', files.files[0]);
 
-                // drop.file = a;
-                // console.log('drop', drop);
-                // //alertify.log('a', a);
-                // main.handleFiles(a);
+
+              var uploader = $scope.uploader = new FileUploader({
+                url: $scope.url || 'https://lexlab.io/upload',
+                autoUpload: true
+              });
+
+              // FILTERS
+
+              uploader.filters.push({
+                name: 'customFilter',
+                fn: function (item /*{File|FileLikeObject}*/, options) {
+                  return this.queue.length < 10;
+                }
+              });
+
+              // CALLBACKS
+
+              uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
+                console.info('onWhenAddingFileFailed', item, filter, options);
+              };
+              uploader.onAfterAddingFile = function (fileItem) {
+                console.info('onAfterAddingFile', fileItem);
+              };
+              uploader.onAfterAddingAll = function (addedFileItems) {
+                console.info('onAfterAddingAll', addedFileItems);
+              };
+              uploader.onBeforeUploadItem = function (item) {
+                console.info('onBeforeUploadItem', item);
+              };
+              uploader.onProgressItem = function (fileItem, progress) {
+                console.info('onProgressItem', fileItem, progress);
+              };
+              uploader.onProgressAll = function (progress) {
+                console.info('onProgressAll', progress);
+              };
+              uploader.onSuccessItem = function (fileItem, response, status, headers) {
+                console.info('onSuccessItem', fileItem, response, status, headers);
+              };
+              uploader.onErrorItem = function (fileItem, response, status, headers) {
+                console.info('onErrorItem', fileItem, response, status, headers);
+              };
+              uploader.onCancelItem = function (fileItem, response, status, headers) {
+                console.info('onCancelItem', fileItem, response, status, headers);
+              };
+              uploader.onCompleteItem = function (fileItem, response, status, headers) {
+                console.info('onCompleteItem', fileItem, response, status, headers);
+                $scope.$parent.main.handleFiles(files);
+              };
+              uploader.onCompleteAll = function () {
+                console.info('onCompleteAll');
+              };
+
             };
         }
     ])

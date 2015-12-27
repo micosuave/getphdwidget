@@ -138,6 +138,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         uploader.onBeforeUploadItem = function(item) {
           console.info('onBeforeUploadItem', item);
           main.progress = 0;
+          main.bufferedfile = item;
+          console.log(item);
             alertify.log('starting upload...')
         };
         uploader.onProgressItem = function(fileItem, progress) {
@@ -161,7 +163,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             console.info('onCompleteItem', fileItem, response, status, headers);
             alertify.success('File uploaded!');
             alertify.success(response);
-            main.handleFiles(fileItem.file);
+            main.handleFiles(main.bufferedfile);
             // $timeout(function () {
             //   try { alertify.log('extracting text'); $pdftotxt($scope.phd).then(function (phd) { $scope.phd = phd; alertify.alert('history for US' + $scope.phd.patent.number + 'has been processed and delivered to your account'); }); }
             //   catch (ex) { console.log(ex); alertify.error('Im sorry... something went wrong with the extraction... please try again...');}
