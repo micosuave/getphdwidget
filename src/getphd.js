@@ -169,13 +169,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             console.info('onCompleteItem', fileItem, response, status, headers);
             alertify.success('File uploaded!');
             alertify.success(response);
-            main.handleFiles(main.bufferedfile);
-            // $timeout(function () {
-            //   try { alertify.log('extracting text'); $pdftotxt($scope.phd).then(function (phd) { $scope.phd = phd; alertify.alert('history for US' + $scope.phd.patent.number + 'has been processed and delivered to your account'); }); }
-            //   catch (ex) { console.log(ex); alertify.error('Im sorry... something went wrong with the extraction... please try again...');}
-            //   finally { return; }
+            // main.handleFiles(main.bufferedfile);
+            $timeout(function () {
+              try { alertify.log('extracting text'); $pdftotxt($scope.phd).then(function (phd) { $scope.phd = phd; alertify.alert('history for US' + $scope.phd.patent.number + 'has been processed and delivered to your account'); }); }
+              catch (ex) { console.log(ex); alertify.error('Im sorry... something went wrong with the extraction... please try again...');}
+              finally { return; }
 
-            //         }, 5000);
+                    }, 5000);
         };
         uploader.onCompleteAll = function() {
           console.info('onCompleteAll');                                       
@@ -319,7 +319,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 main.error = null;
                 main.success = null;
                toastr.warning('starting extraction...');
-                extractpdf(file.files[0] || file, config.appnum)
+                extractpdf(file, config.appnum)
                     .then(function (files) {
                       $log.info('Files extracted', files);
                       alertify.log('Files extracted');
