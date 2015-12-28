@@ -29,9 +29,9 @@
 <div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="phd.file">
 <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);border-top-right-radius:6rem;border-bottom-right-radius:6rem;border-left:5px ridge black;" ng-click="main.collapse()">
         <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
-        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{phd.application['Patent Number'] || phd.patent.number | number:0 }}</h4>
+        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{::phd.application['Patent Number'] || ::phd.patent.number | number:0 }}<br><small><emphasis>Issued</emphasis>{{::phd.application['Issue Date of Patent']}}</small></h4>
         
-        <h5 class="card-subtitle lead ng-binding" style="color:#ddd;">USSN {{phd.application['Application Number']}}</h5>
+        <h5 class="card-subtitle  ng-binding" style="color:#ddd;"><span class="lead">USSN {{::phd.application['Application Number']}}</span><small>{{::phd.application['Filing or 371 (c) Date'] | date}}</small></h5>
         </div>
         <img src="/llp_core/img/GoldLion.svg" class="img lionlogofilter" style="width:75px;height: auto;">
         
@@ -45,13 +45,13 @@
     </button>
 
 <div uib-collapse="collapsereport" class="card clearfix" style="padding:0;margin:0;">
- <blockquote><h6>{{::phd.application['Title of Invention']}}</h6><cite>{{::phd.application[]}}</cite></blockquote>
+ <blockquote><h6>{{::phd.application['Title of Invention']}}</h6><cite>{{::phd.application['First Named Inventor']}}</cite></blockquote>
  <uib-tabset class="tabbable" justified="true" type="pills">
    <uib-tab heading="PTO Metadata" class="">
     <uib-tabset class="tabbable tabs-left" >
         <uib-tab class="">
-            <uib-tab-heading class="">USSN {{phd.application['Application Number']}}</uib-tab-heading>
-            <h4 class="card-title pull-right">PTO Metadata TSVFiles</h4>
+            <uib-tab-heading class="">USSN {{::phd.application['Application Number']}}</uib-tab-heading>
+            <h4 class="card-heading card-title pull-right">PTO Metadata TSVFiles</h4>
             <uib-tabset class="tabbable">
                 <uib-tab class="" ng-repeat="file in phd.file" heading="{{file.label | uppercase}}">
                     <pre class="card card-block card-fancy" ng-bind="file.file"></pre>
@@ -61,8 +61,8 @@
         <uib-tab class="ngDialogTab-primary" ng-if="phd.application">
             
             <uib-tab-heading style="" ng-style="" >APPLICATION</uib-tab-heading>
-            <h4 class="card-title pull-right">Application Data</h4>
-            <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
+            <h4 class="card-header card-title pull-right">Application Data</h4>
+            <table class="card card-block table table-striped table-hover table-condensed table-responsive">
 
                 <tbody>
                     <tr ng-repeat="(key, value) in phd.application">
@@ -76,8 +76,8 @@
         <uib-tab class="ngDialogTab-info" ng-if="phd.attorney">
            
             <uib-tab-heading ng-style="" >ATTORNEY</uib-tab-heading>
-            <h4 class="card-title pull-right">Attorney Data</h4>
-            <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
+            <h4 class="card-header card-title pull-right">Attorney Data</h4>
+            <table class="card card-block table table-striped table-hover table-condensed table-responsive">
 
                 <tbody>
                     <tr ng-repeat="line in phd.attorney">
@@ -90,8 +90,8 @@
         <uib-tab class="ngDialogTab-success" ng-if="phd.continuity">
             
             <uib-tab-heading style="" ng-style="">CONTINUITY</uib-tab-heading>
-            <h4 class="card-title pull-right">Continuity Data</h4>
-            <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
+            <h4 class="card-header card-title pull-right">Continuity Data</h4>
+            <table class="card  card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
                     <tr>
                         <th><strong>Description</strong></th>
@@ -116,8 +116,8 @@
 
             <!-- <pre ng-bind="main.phd.foreign | json:4"></pre> -->
             <uib-tab-heading style="" ng-style="">FOREIGN PRIORITY</uib-tab-heading>
-            <h4 class="card-title pull-right">Foreign Priority</h4>
-            <table class="card card-default card-block table table-striped table-condensed table-hover table-responsive">
+            <h4 class="card-header card-title pull-right">Foreign Priority</h4>
+            <table class="card card-block table table-striped table-condensed table-hover table-responsive">
                 <thead>
                     <tr>
                         <th><strong>Country</strong></th>
@@ -138,8 +138,8 @@
         <uib-tab class="ngDialogTab-danger" ng-if="phd.transaction">
             <!-- <pre ng-bind="main.transaction | json:4"></pre> -->
             <uib-tab-heading style="" ng-style="">TRANSACTION</uib-tab-heading>
-            <h4 class="card-title pull-right">Transaction Data</h4>
-            <table class="card card-default card-block table table-striped table-hover table-condensed table-responsive">
+            <h4 class="card-header card-title pull-right">Transaction Data</h4>
+            <table class="card  card-block table table-striped table-hover table-condensed table-responsive">
                 <thead>
                     <tr>
                         <th><strong>Date</strong></th>
@@ -156,10 +156,10 @@
         </uib-tab>
         <uib-tab class="" ng-if="phd.imagefile">
             <uib-tab-heading ng-style="">I F W</uib-tab-heading>
-            <h4 class="card-title pull-right">Image File Wrapper</h4>
+            <h4 class="card-header card-title pull-right">Image File Wrapper</h4>
             <input type="text" ng-model="main.query" placeholder="search..." class="pull-right">
 
-            <table class="card card-default card-block table table-hover table-condensed table-responsive">
+            <table class="card card-block table table-hover table-condensed table-responsive">
                 <thead>
 
                     <tr>
@@ -192,7 +192,7 @@
       </uib-tabset>
    </uib-tab>
    <uib-tab heading="PhD Report">
-      <uib-tabset class="tabbable ">
+      <uib-tabset class="tabbable " justified="true">
         <uib-tab class="ngDialogTab-{{::collection.styleClass}} " ng-repeat="collection in phd.roarmap.collections" collection="{{::collection}}">
             <uib-tab-heading class="pull-right" style="" ng-style="">{{::collection.rid}}&nbsp&nbsp<i class="pull-right fa {{::collection.icon}} label label-{{collection.styleClass}} label-pill">{{::collection.roarlist.length}}</i></uib-tab-heading>
             <h4 class="card-title pull-right fa {{collection.icon}}">{{::collection.rid}}</h4>

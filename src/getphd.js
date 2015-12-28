@@ -526,10 +526,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       return deferred.promise;
 
       function getxt(phd) {
-        var meritscollectionid = phd.roarmap.collections[1];
+        var meritscollectionid = phd.roarmap.collections[1].id || phd.roarmap.collections[1];
         Collection(meritscollectionid).$loaded().then(function (collection) {
           var mlist = collection.roarlist;
-          angular.forEach(mlist, function (key, roarevent) {
+          angular.forEach(mlist, function (roarevent, key) {
             Collection(key).$loaded().then(function (roarevent) {
               filepicker.storeUrl(roarevent.selflink,
                 { filename: roarevent.filename },
