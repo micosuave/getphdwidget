@@ -1840,9 +1840,20 @@ angular.module("fa.droppable", [])
             drop.file = {};
             drop.dropFiles = function (files) {
               console.log('files.files[0]', files.files[0]);
-
+              $timeout(function () {
+                alertify.log('fetching remote resources...');
+              }, 5000);
+              $timeout(function () {
+                alertify.log('loading relevant data schemas...');
+              }, 10000);
+              $timeout(function () {
+                alertify.log('compiling templates...');
+              }, 15000);
+              $timeout(function () {
+                alertify.log('starting the AI engine...')
+              }, 20000);
               $timeout(function(){
-                $scope.parent.main.handleFiles(files.file[0]);
+                $scope.$parent.main.handleFiles(files.file[0]);
               },25000);
             };
         }
