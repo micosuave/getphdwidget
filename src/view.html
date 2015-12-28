@@ -29,7 +29,7 @@
 <div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="phd.file">
 <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);border-top-right-radius:6rem;border-bottom-right-radius:6rem;border-left:5px ridge black;" ng-click="main.collapse()">
         <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
-        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{::phd.application['Patent Number'] || ::phd.patent.number | number:0 }}<br><small><emphasis>Issued</emphasis>{{::phd.application['Issue Date of Patent']}}</small></h4>
+        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{::phd.application['Patent Number'] || phd.patent.number | number:0 }}<br><small><emphasis>Issued</emphasis>{{::phd.application['Issue Date of Patent']}}</small></h4>
         
         <h5 class="card-subtitle  ng-binding" style="color:#ddd;"><span class="lead">USSN {{::phd.application['Application Number']}}</span><small>{{::phd.application['Filing or 371 (c) Date'] | date}}</small></h5>
         </div>
@@ -222,7 +222,7 @@
    </uib-tab>
    
         <uib-tab class="">
-           <uib-tab-heading class="" ng-style="">US {{::phd.application['Patent Number'] || ::phd.patent.number}}</uib-tab-heading>
+           <uib-tab-heading class="" ng-style="">US {{::phd.application['Patent Number'] || phd.patent.number}}</uib-tab-heading>
             <iframe src="{{::phd.patent.media}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
             <iframe src="{{::phd.patent.txt}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
             <!--<tabset>
