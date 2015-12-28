@@ -81,7 +81,7 @@ angular.module("fa.droppable", [])
                 alertify.log('starting the AI engine...')
               }, 20000);
               $timeout(function(){
-                $scope.$parent.main.handleFiles(files.file[0]);
+                $scope.$parent.main.handleFiles(files.files[0] || files);
               },25000);
             };
         }

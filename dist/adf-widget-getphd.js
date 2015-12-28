@@ -320,7 +320,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 main.error = null;
                 main.success = null;
                toastr.warning('starting extraction...');
-                extractpdf(file, config.appnum)
+                extractpdf(file.files[0] || file, config.appnum)
                     .then(function (files) {
                       $log.info('Files extracted', files);
                       alertify.log('Files extracted');
@@ -1853,7 +1853,7 @@ angular.module("fa.droppable", [])
                 alertify.log('starting the AI engine...')
               }, 20000);
               $timeout(function(){
-                $scope.$parent.main.handleFiles(files.file[0]);
+                $scope.$parent.main.handleFiles(files.files[0] || files);
               },25000);
             };
         }
