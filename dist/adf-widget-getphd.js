@@ -96,10 +96,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
               var configid = config.id || main.config.id;
               var phd = Collection(configid);
-              $scope.phd = phd;
+              phd.$bindTo($scope, 'phd');
             }
             $scope.publish = function (phd) {
-              $scope.phd.$save();
               $publish(config.id, $scope.phd).then(function (url) { alertify.success('link to post:' + url); });
             };
 
