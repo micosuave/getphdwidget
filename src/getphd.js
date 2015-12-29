@@ -91,11 +91,11 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 
                 config.appnum = config.id;
               }
-              // main.config = config || $scope.$parent.$parent.config;
-              // $scope.definition = $scope.$parent.definition || null;
+              main.config = config || $scope.$parent.$parent.config;
+              $scope.definition = $scope.$parent.definition || null;
 
-              // var configid = config.id || main.config.id;
-              var phd = Collection(config.appnum);
+              var configid = config.appnum || config.id || main.config.id;
+              var phd = Collection(configid);
               phd.$bindTo($scope, 'phd');
             }
              $scope.export2collection = function(eventID){
