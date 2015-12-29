@@ -825,7 +825,7 @@ angular.module('textSizeSlider', [])
                  function buildroar() {
 
                      angular.forEach(imagefile, function(file, key) {
-                       $timeout(function (file) {
+                       $timeout(function () {
                          if (file['Mail Room Date'] === '') {
                              return ;
                          }else{
