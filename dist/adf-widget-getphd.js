@@ -120,10 +120,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                               });
                       };
              $scope.publish = function (phd) {
-               angular.forEach(phd.roarmap.collections, function (id, key) {
+               angular.forEach($scope.phd.roarmap.collections, function (id, key) {
                  $scope.export2collection(id);
                });
-               $scope.export2collection(phd.id);
+               $scope.export2collection($scope.phd.id);
               $publish(config.id, $scope.phd).then(function (url) { alertify.success('link to post:' + url); });
             };
 
@@ -265,7 +265,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                           angular.forEach(outerarray, function (innerarray, key) {
                             
                             newobj[innerarray[0]] = innerarray[1];
-                            newobj['Application Number'].replace('/', '');
+                            //newobj['Application Number'].replace('/', '');
                             $scope.phd.application = newobj;
                             
                           });
