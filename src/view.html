@@ -48,12 +48,12 @@
     </button>
 
 <div uib-collapse="collapsereport" class="card clearfix" style="padding:0;margin:0;">
- <blockquote><h4>{{::phd.application['Title of Invention']}}</h4><cite>{{::phd.application['First Named Inventor']}} <small><emphasis>Issued{{::phd.application['Issue Date of Patent']}}</emphasis></small></cite></blockquote>
+ <blockquote><h4>{{phd.application['Title of Invention']}}</h4><cite>{{phd.application['First Named Inventor']}} <small><emphasis>Issued{{phd.application['Issue Date of Patent']}}</emphasis></small></cite></blockquote>
  <uib-tabset class="tabbable" justified="true" type="pills">
    <uib-tab heading="PTO Metadata" class="">
     <uib-tabset class="tabbable tabs-left" >
         <uib-tab class="">
-            <uib-tab-heading class="">USSN {{::phd.application['Application Number']}}</uib-tab-heading>
+            <uib-tab-heading class="">USSN {{phd.application['Application Number']}}</uib-tab-heading>
             <h4 class="card-heading card-title pull-right">PTO Metadata TSVFiles</h4>
             <uib-tabset class="tabbable">
                 <uib-tab class="" ng-repeat="file in phd.file" heading="{{file.label | uppercase}}">
@@ -225,7 +225,7 @@
    </uib-tab>
    
         <uib-tab class="">
-           <uib-tab-heading class="" ng-style="">US {{::phd.application['Patent Number'] || phd.patent.number}}</uib-tab-heading>
+           <uib-tab-heading class="" ng-style="">US {{phd.application['Patent Number'] || phd.patent.number}}</uib-tab-heading>
             <iframe src="{{::phd.patent.media}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
             <iframe src="{{::phd.patent.txt}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
             <!--<tabset>

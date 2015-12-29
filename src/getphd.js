@@ -60,8 +60,14 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                     content_type: 'curation',
                                     timestamp: Firebase.ServerValue.TIMESTAMP
                                 });
-                                config.appnum = '10000001';
                                 config.id = id;
+                                alertify.prompt('enter app number', function (resp, text) {
+                                  if (resp) {
+                                    config.appnum = text;
+
+                                  }
+                                });
+                                
                                 return config;
                             });
                             return config;
@@ -84,17 +90,17 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             main.collapse = function () {
               $scope.collapsereport = !$scope.collapsereport;
             };
-            main.showupload = true;
-            if (angular.isUndefined($scope.phd)) {
-               
-              if (!config.appnum) {
+            
+            if (angular.isUndefined($scope.phd.file)) {
+               main.showupload = true;
+              if (!config.id) {
                 
-                config.appnum = config.id;
+                config.id = config.appnum || $scope.$parent.config.id;
               }
               main.config = config || $scope.$parent.$parent.config;
               $scope.definition = $scope.$parent.definition || null;
 
-              var configid = config.appnum || config.id || main.config.id;
+              var configid = config.id || config.appnum || main.config.id;
               var phd = Collection(configid);
               phd.$bindTo($scope, 'phd');
             }
