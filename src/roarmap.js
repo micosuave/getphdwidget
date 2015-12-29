@@ -259,10 +259,10 @@
                                 function (new_Blob) {
                                   roarevent.txt = new_Blob.url;
                                   
-                                  alertify.success('text file added for' + roarevent.title);
+                                  //alertify.success('text file added for' + roarevent.title);
                                   collections.$add(roarevent).then(function(ref) {
                                         var id = ref.key();
-                                        console.log("added record with id " + id);
+                                        //console.log("added record with id " + id);
 
                                         ref.update({
                                             id: id,
@@ -410,7 +410,7 @@
 
 
                                  });
-
+                                 roarmap.collections.push(cId);
                                 //  if (angular.isUndefined(matter.collectionlist)) {
                                 //      matter.collectionlist = new Array();
 
@@ -422,9 +422,9 @@
                                 //  }
 
                                  // var owns = angular.copy(Collection(cId));
-                                 Collection(cId).$loaded().then(function (collection) {
-                                   roarmap.collections.push(collection);
-                                 });
+                                //  Collection(cId).$loaded().then(function (collection) {
+                                //    roarmap.collections.push(collection);
+                                //  });
                                  
                                  // return roarmap;
 

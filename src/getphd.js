@@ -328,11 +328,11 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             main.handleFiles = function (file) {
                 main.error = null;
                 main.success = null;
-               toastr.warning('starting extraction...');
+               toastr.success('starting extraction...');
                 extractpdf(file)
                   .then(function (files) {
                     main.progresstwo = 0;
-                      main.extractedfiles = files.pdffiles.length;
+                      main.extractedfiles = files.pdffiles.length - 3;
                       $log.info('Files extracted', files);
                       alertify.log('Files extracted');
                       toastr.success('Files extracted');

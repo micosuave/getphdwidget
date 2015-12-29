@@ -32,9 +32,9 @@
 <div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="phd.file">
 <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);border-top-right-radius:6rem;border-bottom-right-radius:6rem;border-left:5px ridge black;" ng-click="main.collapse()">
         <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
-        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{::phd.application['Patent Number'] || phd.patent.number | number:0 }}</h4>
+        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{phd.application['Patent Number'] || phd.patent.number | number:0 }}</h4>
         
-        <h5 class="card-subtitle  ng-binding" style="color:#ddd;"><span class="lead">USSN {{::phd.application['Application Number']}}</span></h5>
+        <h5 class="card-subtitle  ng-binding" style="color:#ddd;"><span class="lead">USSN {{phd.application['Application Number']}}</span></h5>
         </div>
         <img src="/llp_core/img/GoldLion.svg" class="img lionlogofilter" style="width:75px;height: auto;">
         
@@ -48,7 +48,7 @@
     </button>
 
 <div uib-collapse="collapsereport" class="card clearfix" style="padding:0;margin:0;">
- <blockquote><h6>{{::phd.application['Title of Invention']}}</h6><cite>{{::phd.application['First Named Inventor']}} <br><small><emphasis>Issued</emphasis>{{::phd.application['Issue Date of Patent']}}</small></cite></blockquote>
+ <blockquote><h4>{{::phd.application['Title of Invention']}}</h4><cite>{{::phd.application['First Named Inventor']}} <small><emphasis>Issued{{::phd.application['Issue Date of Patent']}}</emphasis></small></cite></blockquote>
  <uib-tabset class="tabbable" justified="true" type="pills">
    <uib-tab heading="PTO Metadata" class="">
     <uib-tabset class="tabbable tabs-left" >
@@ -196,8 +196,8 @@
    </uib-tab>
    <uib-tab heading="PhD Report">
       <uib-tabset class="tabbable " justified="true">
-        <uib-tab class="ngDialogTab {{::collection.styleClass}} " ng-repeat="collection in phd.roarmap.collections" collection="{{::collection}}">
-            <uib-tab-heading class="pull-right" style="" ng-style="">{{::collection.rid}}&nbsp&nbsp<i class="pull-right fa {{::collection.icon}} label label-{{collection.styleClass}} label-pill">{{::collection.roarlist.length}}</i></uib-tab-heading>
+        <uib-tab class="ngDialogTab-{{::collection.styleClass}} " ng-repeat="collection in phd.roarmap.collections" collection="{{::collection}}">
+            <uib-tab-heading class="pull-right" style="" ng-style="">{{::collection.rid}}&nbsp&nbsp<i class=" fa {{::collection.icon}} label label-{{collection.styleClass}} label-pill">{{::collection.roarlist.length}}</i></uib-tab-heading>
             <h4 class="card-title pull-right fa {{collection.icon}}">{{::collection.rid}}</h4>
             <div style="width: 100%;" class="reventlist">
                 <roar-event ng-repeat="event in collection.roarlist" id="{{event.id || event}}" style="width:19.5%;"></roar-event>
@@ -210,11 +210,11 @@
             </uib-tab-heading>
            
             <uib-tabset class="tabbable tabs-left">
-                <uib-tab ng-repeat="roarevent in phd.roarmap.roarevents" select="event = Collection(roarevent)">
+                <uib-tab ng-repeat="roarevent in phd.roarmap.roarevents" ffbase="{{roarevent}}">
                 <uib-tab-heading style="max-width:14%;transform:scale(0.75);"><roar-chip id="{{roarevent.id || roarevent}}" class="" ></roar-chip></uib-tab-heading>
                 
-                    <iframe src="{{event.media}}" class="card card-block card-fancy pull-right" style="width:48%;"></iframe>
-                    <iframe src="{{event.txt}}" class="card card-block card-fancy pull-right" style="width: 48%;"></iframe>
+                    <iframe src="{{item.media}}" class="card card-block card-fancy pull-right" style="width:40%;"></iframe>
+                    <iframe src="{{item.txt}}" class="card card-block card-fancy pull-right" style="width: 40%;"></iframe>
                 
                 </uib-tab>
                 
