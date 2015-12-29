@@ -137,7 +137,7 @@
                  function hello() {
                      var check = checkforexistingphd();
                      if (check) {
-                         getroar();
+                         alertify.alert('already exists');
                      } else {
                          buildroar();
                      }
@@ -155,7 +155,7 @@
 
 
                  function checkforexistingphd() {
-                     var application = phd.application['Application Number'];
+                     var application = phd.application['Application Number'].replace('/','').replace(',','').replace(',','');
                      var ref = new Firebase(FIREBASE_URL + 'content/' + application);
                      ref.once('value', function(snapshot) {
                          return snapshot.exists();
@@ -331,7 +331,7 @@
                      });
                      $timeout(function() {
                          buildcollections(p);
-                     }, 5000);
+                     }, 30000);
                  };
 
 

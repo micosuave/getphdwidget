@@ -87,15 +87,15 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
             if (angular.isUndefined($scope.phd)) {
                main.showupload = true;
-              if (!config.id) {
+              if (!config.appnum) {
                 
-                config = $scope.$parent.config;
+                config.appnum = config.id;
               }
-              main.config = config || $scope.$parent.$parent.config;
-              $scope.definition = $scope.$parent.definition || null;
+              // main.config = config || $scope.$parent.$parent.config;
+              // $scope.definition = $scope.$parent.definition || null;
 
-              var configid = config.id || main.config.id;
-              var phd = Collection(configid);
+              // var configid = config.id || main.config.id;
+              var phd = Collection(config.appnum);
               phd.$bindTo($scope, 'phd');
             }
             $scope.publish = function (phd) {
@@ -779,7 +779,7 @@ angular.module('textSizeSlider', [])
                  function hello() {
                      var check = checkforexistingphd();
                      if (check) {
-                         getroar();
+                         alertify.alert('already exists');
                      } else {
                          buildroar();
                      }
@@ -797,7 +797,7 @@ angular.module('textSizeSlider', [])
 
 
                  function checkforexistingphd() {
-                     var application = phd.application['Application Number'];
+                     var application = phd.application['Application Number'].replace('/','').replace(',','').replace(',','');
                      var ref = new Firebase(FIREBASE_URL + 'content/' + application);
                      ref.once('value', function(snapshot) {
                          return snapshot.exists();
@@ -973,7 +973,7 @@ angular.module('textSizeSlider', [])
                      });
                      $timeout(function() {
                          buildcollections(p);
-                     }, 5000);
+                     }, 30000);
                  };
 
 
