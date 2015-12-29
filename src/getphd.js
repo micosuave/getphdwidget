@@ -82,8 +82,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 })
     .constant('FIREBASE_URL', 'https://lexlab.firebaseio.com/')
-    .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log','FileUploader','$publish','$pdftotxt','$timeout','toastr','$rootScope',
-        function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope) {
+    .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log','FileUploader','$publish','$pdftotxt','$timeout','toastr','$rootScope','$stateParams',
+        function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams) {
             var main = this;
             main.size = 'lg';
             $scope.collapsereport = false;
