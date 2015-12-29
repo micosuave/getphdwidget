@@ -258,7 +258,7 @@
                                 { format: 'txt' },
                                 function (new_Blob) {
                                   roarevent.txt = new_Blob.url;
-                                  roarevent.$save();
+                                  
                                   alertify.success('text file added for' + roarevent.title);
                                   collections.$add(roarevent).then(function(ref) {
                              var id = ref.key();
