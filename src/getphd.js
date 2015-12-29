@@ -84,30 +84,49 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             main.collapse = function () {
               $scope.collapsereport = !$scope.collapsereport;
             };
-            if (angular.isUndefined($scope.phd)) {
-               main.showupload = true;
-              if (!config.appnum) {
+            main.showupload = true;
+            // if (angular.isUndefined($scope.phd)) {
+            //    
+            //   if (!config.appnum) {
                 
-                config.appnum = config.id;
-              }
-              // main.config = config || $scope.$parent.$parent.config;
-              // $scope.definition = $scope.$parent.definition || null;
+            //     config.appnum = config.id;
+            //   }
+            //   // main.config = config || $scope.$parent.$parent.config;
+            //   // $scope.definition = $scope.$parent.definition || null;
 
-              // var configid = config.id || main.config.id;
-              var phd = Collection(config.appnum);
-              phd.$bindTo($scope, 'phd');
-            }
-            $scope.publish = function (phd) {
+            //   // var configid = config.id || main.config.id;
+            //   var phd = Collection(config.appnum);
+            //   phd.$bindTo($scope, 'phd');
+            // }
+             $scope.export2collection = function(eventID){
+                          var projectId = $stateParams.pId;
+                          var out = Collection(projectId);
+                              out.$loaded().then(function(output){
+                                  if(angular.isUndefined(output.roarlist)){
+                                      output.roarlist = new Array();
+                                      output.roarlist.push(eventID);
+                                      output.$save();
+                                  }else{
+                                      output.roarlist.push(eventID);
+                                      output.$save();
+                                  }
+                              });
+                      };
+             $scope.publish = function (phd) {
+               angular.forEach(phd.roarmap.collections, function (id, key) {
+                 $scope.export2collection(id);
+               });
+               $scope.export2collection(phd.id);
               $publish(config.id, $scope.phd).then(function (url) { alertify.success('link to post:' + url); });
             };
 
-            $scope.configured = function () {
-                return $scope.config.appnum !== '';
-            };
+            // $scope.configured = function () {
+            //     return $scope.config.appnum !== '';
+            // };
 
-            $scope.notConfigured = function () {
-                return $scope.config.appnum === '';
-            };
+            // $scope.notConfigured = function () {
+            //     return $scope.config.appnum === '';
+            // };
             var opts = {
               header: true,
               skipEmptyLines: true
