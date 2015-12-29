@@ -85,19 +85,19 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
               $scope.collapsereport = !$scope.collapsereport;
             };
             main.showupload = true;
-            // if (angular.isUndefined($scope.phd)) {
-            //    
-            //   if (!config.appnum) {
+            if (angular.isUndefined($scope.phd)) {
+               
+              if (!config.appnum) {
                 
-            //     config.appnum = config.id;
-            //   }
-            //   // main.config = config || $scope.$parent.$parent.config;
-            //   // $scope.definition = $scope.$parent.definition || null;
+                config.appnum = config.id;
+              }
+              // main.config = config || $scope.$parent.$parent.config;
+              // $scope.definition = $scope.$parent.definition || null;
 
-            //   // var configid = config.id || main.config.id;
-            //   var phd = Collection(config.appnum);
-            //   phd.$bindTo($scope, 'phd');
-            // }
+              // var configid = config.id || main.config.id;
+              var phd = Collection(config.appnum);
+              phd.$bindTo($scope, 'phd');
+            }
              $scope.export2collection = function(eventID){
                           var projectId = $stateParams.pId;
                           var out = Collection(projectId);
