@@ -341,6 +341,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         main.parse(files.tsvfiles)
 
                             .then(function (parsedfiles) {
+                              $scope.phd.application['Application Number'].replace('/', '');
                                 $log.info('TSV Parsed', parsedfiles);
                                 alertify.log('TSV Parsed');
 
