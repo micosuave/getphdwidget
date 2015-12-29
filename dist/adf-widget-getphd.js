@@ -468,8 +468,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 filepicker.storeUrl(pdfstorageuri.toString(),
                         { filename: 'US' + patentnumber + '.pdf' },
                         function (Blob) {
-                            var patent = angular.copy(Blob);
-                            patent.title = phdobj['Title  of Invention'];
+                            var patent = {}
+                            patent.title = phdobj['Title  of Invention'] || null;
                             patent.number = patentnumber;
                             patent.media = Blob.url;
                             //patentobj.srcdoc = googlepage(patentnumber) || null;
@@ -764,8 +764,8 @@ angular.module('textSizeSlider', [])
              };
          };
      }])
-     .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$mocks', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'FIREBASE_URL',
-         function($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $mocks, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, FIREBASE_URL) {
+     .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$mocks', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'FIREBASE_URL','filepickerService',
+         function($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $mocks, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, FIREBASE_URL, filepickerService) {
              return function(files, phd, main) {
 
 

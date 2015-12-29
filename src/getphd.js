@@ -467,8 +467,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 filepicker.storeUrl(pdfstorageuri.toString(),
                         { filename: 'US' + patentnumber + '.pdf' },
                         function (Blob) {
-                            var patent = angular.copy(Blob);
-                            patent.title = phdobj['Title  of Invention'];
+                            var patent = {}
+                            patent.title = phdobj['Title  of Invention'] || null;
                             patent.number = patentnumber;
                             patent.media = Blob.url;
                             //patentobj.srcdoc = googlepage(patentnumber) || null;
