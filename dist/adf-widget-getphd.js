@@ -822,7 +822,7 @@ angular.module('textSizeSlider', [])
 
 
                  function checkforexistingphd() {
-                     var application = phd.application['Application Number'].replace('/','').replace(',','').replace(',','');
+                     var application = angular.copy(phd.application['Application Number']).replace('/','').replace(',','').replace(',','');
                      var ref = new Firebase(FIREBASE_URL + 'content/' + application);
                      ref.once('value', function(snapshot) {
                          return snapshot.exists();
@@ -836,7 +836,7 @@ angular.module('textSizeSlider', [])
                          if (file['Mail Room Date'] === '') {
                              return ;
                          }else{
-                         var appnumber = phd.application['Application Number'].replace('/', '').replace(',', '').replace(',', '');
+                         var appnumber = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
                          var date = new Date();
                          var roarevent = angular.copy(file);
                          var maildate = new Date(file['Mail Room Date']);
@@ -1005,39 +1005,39 @@ angular.module('textSizeSlider', [])
 
                  function buildcollections(p) {
                      var newcollection = {
-                         name: 'USSN ' + phd.application['Application Number'].replace('/',''),
-                         title: 'USSN ' + phd.application['Application Number'].replace('/',''),
+                         name: 'USSN ' + phd.application['Application Number'],
+                         title: 'USSN ' + phd.application['Application Number'],
                          rid: 'PHD1 - ALL',
                          collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application['Application Number'].replace('/',''),
+                         box: 'PhD for USSN ' + phd.application['Application Number'],
                          styleClass: 'success',
                          icon: 'fa-file-pdf-o',
-                         app: phd.application['Application Number'].replace('/',''),
+                         app: phd.application['Application Number'],
                          content_type: 'collection',
                          roarlist: p.filelist
                      };
                      var newmerits = {
-                         name: 'USSN ' + phd.application['Application Number'].replace('/',''),
-                         title: 'USSN ' + phd.application['Application Number'].replace('/',''),
+                         name: 'USSN ' + phd.application['Application Number'],
+                         title: 'USSN ' + phd.application['Application Number'],
                          rid: 'PHD2 - MERITS',
                          collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application['Application Number'].replace('/',''),
+                         box: 'PhD for USSN ' + phd.application['Application Number'],
                          styleClass: 'danger',
                          icon: 'fa-balance',
-                         app: phd.application['Application Number'].replace('/',''),
+                         app: phd.application['Application Number'],
                          content_type: 'collection',
                          roarlist: p.meritslist
                      };
 
                      var newart = {
-                         name: 'USSN ' + phd.application['Application Number'].replace('/',''),
-                         title: 'USSN ' + phd.application['Application Number'].replace('/',''),
+                         name: 'USSN ' + phd.application['Application Number'],
+                         title: 'USSN ' + phd.application['Application Number'],
                          rid: 'PHD3 - ART',
                          collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application['Application Number'].replace('/',''),
+                         box: 'PhD for USSN ' + phd.application['Application Number'],
                          styleClass: 'warning',
                          icon: 'fa-paintbrush',
-                         app: phd.application['Application Number'].replace('/',''),
+                         app: phd.application['Application Number'],
                          content_type: 'collection',
                          roarlist: p.artlist
                      };
