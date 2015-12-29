@@ -323,7 +323,7 @@
                          
                          
                          }
-                       },1000);
+                       },750 * key || 1000);
                      });
                      $timeout(function() {
                          buildcollections(p);

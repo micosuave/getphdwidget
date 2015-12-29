@@ -76,8 +76,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 })
     .constant('FIREBASE_URL', 'https://lexlab.firebaseio.com/')
-    .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log','FileUploader','$publish','$pdftotxt','$timeout','toastr',
-        function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr) {
+    .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log','FileUploader','$publish','$pdftotxt','$timeout','toastr','$rootScope',
+        function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope) {
             var main = this;
             main.size = 'lg';
             $scope.collapsereport = false;
@@ -172,6 +172,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             console.info('onCompleteItem', fileItem, response, status, headers);
             alertify.success('File uploaded!');
             alertify.success(response);
+            $rootScope.$broadcast('UPLOADCOMPLETE', response);
             // main.handleFiles(main.bufferedfile);
             // $timeout(function () {
             //   try { alertify.log('extracting text'); $pdftotxt($scope.phd).then(function (phd) { $scope.phd = phd; alertify.alert('history for US' + $scope.phd.patent.number + 'has been processed and delivered to your account'); }); }

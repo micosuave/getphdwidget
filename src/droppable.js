@@ -80,9 +80,12 @@ angular.module("fa.droppable", [])
               $timeout(function () {
                 alertify.log('starting the AI engine...')
               }, 20000);
-              $timeout(function(){
+              $scope.$on('UPLOADCOMPLETE', function (event) {
                 $scope.$parent.main.handleFiles(files.files[0]);
-              },25000);
+              });
+
+
+             
             };
         }
     ])
