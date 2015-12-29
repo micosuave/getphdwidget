@@ -92,7 +92,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         $scope.collapsereport = !$scope.collapsereport;
       };
        main.showupload = true
-      var PHD =  PHD(config.id) || PHD(config.appnum);
+      var PHD =  Collection(config.id) || Collection(config.appnum);
       PHD.$loaded().then(function (phd) {
         phd.$bindTo($scope, 'phd');
         if (angular.isUndefined(phd.file)) {
