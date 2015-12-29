@@ -5,7 +5,7 @@
 <button class="button button-icon fa fa-print" ng-click="publish(phd)" style="position:absolute;top:-1rem;right:1rem;z-index:1000;" ></button>
  
  <div class="card card-primary card-block btn-glass drop-target" nv-file-drop uploader="uploader"   drop-files="handleFiles(files)"
- style="border: 2px dashed blue;margin: 5px;" ng-if="main.showupload">
+ style="border: 2px dashed blue;margin: 5px;" ng-if="main.showupload" ng-hide="phd.patent">
     <div ng-controller="pageslideCtrl" >
                 <button class="row btn btn-glass btn-primary img img-rounded " style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;" ng-click="toggle()" ng-class="{'btn-success': (main.progress == 100),'btn-danger':(main.progress === 'failed')}">
         <uib-progressbar class="btn-glass fa fa-3x" ng-class="{'active':(main.progress < 100)}" ng-if="main.progress" value="main.progress" style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{main.progresstype}}" > </uib-progressbar><span us-spinner ng-if="main.progress > 98"></span><i class="fa fa-upload fa-3x">{{main.progress}}<span ng-show="main.progress">%</span></i>

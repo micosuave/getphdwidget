@@ -103,7 +103,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
               var configid = config.id || config.appnum || main.config.id;
               var phd = Collection(configid);
               phd.$bindTo($scope, 'phd');
-              if (angular.isUndefined($scope.phd.file)) {
+              if (angular.isUndefined(phd.file)) {
                 main.showupload = true;
               } else {
                 main.showupload = false;
