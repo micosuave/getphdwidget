@@ -123,7 +123,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                angular.forEach($scope.phd.roarmap.collections, function (id, key) {
                  $scope.export2collection(id);
                });
-               $scope.export2collection($scope.phd.id);
+               $scope.export2collection(config.id);
               $publish(config.id, $scope.phd).then(function (url) { alertify.success('link to post:' + url); });
             };
 
@@ -482,8 +482,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             return deferred.promise;
 
             function searchforpatent(phdobj, pnum) {
-                var patentnumber = phdobj['Patent Number'].replace(',','').replace(',','') || pnum;
-                var applicationnumber = phdobj['Appliction Number'];
+                var patentnumber = angular.copy(phdobj['Patent Number']).replace(',','').replace(',','') || pnum;
+                //var applicationnumber = phdobj['Appliction Number'];
                 var pdfstorageuri = 'https://patentimages.storage.googleapis.com/pdfs/US' + patentnumber + '.pdf';
 
                 var patent = {
