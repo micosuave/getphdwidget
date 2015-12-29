@@ -998,39 +998,39 @@ angular.module('textSizeSlider', [])
 
                  function buildcollections(p) {
                      var newcollection = {
-                         name: 'USSN ' + phd.application['Application Number'],
-                         title: 'USSN ' + phd.application['Application Number'],
+                         name: 'USSN ' + phd.application['Application Number'].replace('/',''),
+                         title: 'USSN ' + phd.application['Application Number'].replace('/',''),
                          rid: 'PHD1 - ALL',
                          collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application['Application Number'],
+                         box: 'PhD for USSN ' + phd.application['Application Number'].replace('/',''),
                          styleClass: 'success',
                          icon: 'fa-file-pdf-o',
-                         app: phd.application['Application Number'],
+                         app: phd.application['Application Number'].replace('/',''),
                          content_type: 'collection',
                          roarlist: p.filelist
                      };
                      var newmerits = {
-                         name: 'USSN ' + phd.application['Application Number'],
-                         title: 'USSN ' + phd.application['Application Number'],
+                         name: 'USSN ' + phd.application['Application Number'].replace('/',''),
+                         title: 'USSN ' + phd.application['Application Number'].replace('/',''),
                          rid: 'PHD2 - MERITS',
                          collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application['Application Number'],
+                         box: 'PhD for USSN ' + phd.application['Application Number'].replace('/',''),
                          styleClass: 'danger',
                          icon: 'fa-balance',
-                         app: phd.application['Application Number'],
+                         app: phd.application['Application Number'].replace('/',''),
                          content_type: 'collection',
                          roarlist: p.meritslist
                      };
 
                      var newart = {
-                         name: 'USSN ' + phd.application['Application Number'],
-                         title: 'USSN ' + phd.application['Application Number'],
+                         name: 'USSN ' + phd.application['Application Number'].replace('/',''),
+                         title: 'USSN ' + phd.application['Application Number'].replace('/',''),
                          rid: 'PHD3 - ART',
                          collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application['Application Number'],
+                         box: 'PhD for USSN ' + phd.application['Application Number'].replace('/',''),
                          styleClass: 'warning',
                          icon: 'fa-paintbrush',
-                         app: phd.application['Application Number'],
+                         app: phd.application['Application Number'].replace('/',''),
                          content_type: 'collection',
                          roarlist: p.artlist
                      };
