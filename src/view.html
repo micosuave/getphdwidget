@@ -210,12 +210,12 @@
             </uib-tab-heading>
            
             <uib-tabset class="tabbable tabs-left">
-                <uib-tab ng-repeat="roarevent in phd.roarmap.roarevents" ffbase="{{roarevent}}">
+                <uib-tab ng-repeat="roarevent in phd.roarmap.roarevents" ffbase="{{roarevent}}" select="item.active = true" active="item.active">
                 <uib-tab-heading style="max-width:14%;transform:scale(0.75);"><roar-chip id="{{roarevent.id || roarevent}}" class="" ></roar-chip></uib-tab-heading>
-                
-                    <iframe src="{{item.media}}" class="card card-block card-fancy pull-right" style="width:40%;"></iframe>
-                    <iframe src="{{item.txt}}" class="card card-block card-fancy pull-right" style="width: 40%;"></iframe>
-                
+                <div style="max-width:80%;">
+                    <iframe src="{{item.media}}" class="card card-block card-fancy pull-right" style="width:49%;" ng-if="item.active"></iframe>
+                    <iframe src="{{item.txt}}" class="card card-block card-fancy pull-right" style="width: 49%;" ng-if="item.active"></iframe>
+                </div>
                 </uib-tab>
                 
           </uib-tabset>

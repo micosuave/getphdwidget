@@ -239,7 +239,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                           angular.forEach(outerarray, function (innerarray, key) {
                             
                             newobj[innerarray[0]] = innerarray[1];
-                            
+                            newobj['Application Number'].replace('/', '');
                             $scope.phd.application = newobj;
                             
                           });
@@ -328,20 +328,20 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             main.handleFiles = function (file) {
                 main.error = null;
                 main.success = null;
-               toastr.success('starting extraction...');
+               //toastr.success('starting extraction...');
                 extractpdf(file)
                   .then(function (files) {
                     main.progresstwo = 0;
                       main.extractedfiles = files.pdffiles.length - 3;
                       $log.info('Files extracted', files);
                       alertify.log('Files extracted');
-                      toastr.success('Files extracted');
+                      //toastr.success('Files extracted');
                         $scope.phd.file = files.tsvfiles;
 
                         main.parse(files.tsvfiles)
 
                             .then(function (parsedfiles) {
-                              $scope.phd.application['Application Number'].replace('/', '');
+                             
                                 $log.info('TSV Parsed', parsedfiles);
                                 alertify.log('TSV Parsed');
 
@@ -350,7 +350,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                             .then(function (roarmap) {
                                               $scope.phd.roarmap = roarmap;
                                               alertify.success('ROARmap built!');
-                                              $patentsearch($scope.phd.application, config.PNUM)
+                                              $patentsearch($scope.phd.application, config.PNUM || 8000000)
                                                   .then(function (patentobj) {
                                                     $scope.phd.patent = patentobj;
                                                     localStorageService.set($scope.phd.application['Application Number'], $scope.phd);
