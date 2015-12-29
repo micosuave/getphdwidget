@@ -105,7 +105,7 @@
      }])
      .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$mocks', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'FIREBASE_URL',
          function($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $mocks, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, FIREBASE_URL) {
-             return function(files, phd) {
+             return function(files, phd, main) {
 
 
 
@@ -165,7 +165,8 @@
                  function buildroar() {
 
                      angular.forEach(imagefile, function(file, key) {
-                         if (file['Mail Room Date'] === ''){
+                       $timeout(function (file) {
+                         if (file['Mail Room Date'] === '') {
                              return ;
                          }else{
                          var appnumber = phd.application['Application Number'].replace('/', '').replace(',', '').replace(',', '');
@@ -187,8 +188,8 @@
 
                          //roarevent.mimeType = file.mimeType;
                          //roarevent.description = file.DocumentDescription;
-                         roarevent.selflink = 'https://lexlab.io/files/public/documents/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
-                         roarevent.media = 'https://lexlab.io/files/viewer/web/viewer.html?file=%2Ffiles/public/documents/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                         roarevent.selflink = 'https://lexlab.io/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                         roarevent.media = 'https://lexlab.io/files/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                          roarevent.description = file['Document Description'] || null;
                          roarevent.filename = file['Filename'] || null;
                          roarevent.collections = [];
@@ -249,10 +250,17 @@
                       } 
                          };
 
-
-
-
-                         collections.$add(roarevent).then(function(ref) {
+                          filepicker.storeUrl(roarevent.selflink,
+                            { filename: roarevent.filename },
+                            function (Blob) {
+                              filepicker.convert(
+                                Blob,
+                                { format: 'txt' },
+                                function (new_Blob) {
+                                  roarevent.txt = new_Blob.url;
+                                  roarevent.$save();
+                                  alertify.success('text file added for' + roarevent.title);
+                                  collections.$add(roarevent).then(function(ref) {
                              var id = ref.key();
                              console.log("added record with id " + id);
 
@@ -264,9 +272,10 @@
                               ref.child('dashboard').child('model').child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('draftid').set(id);
 
                               Collection(id).$loaded().then(function (roarevent) {
-                                 p.filelist.push(roarevent);
-                                 roarmap.roarevents.push(roarevent);
-                              })
+                                p.filelist.push(roarevent);
+                                roarmap.roarevents.push(roarevent);
+                                main.progresstwo++;
+                              });
                              
                              // angular.forEach(roarevent.collections, function(cid, key) {
                              //     var list = CuratedList(cid, 'roarlist');
@@ -308,9 +317,13 @@
                              });
                              alertify.log("added record with id " + id);
                          });
+                                });
+                            });
 
+                         
+                         
                          }
-
+                       },1000);
                      });
                      $timeout(function() {
                          buildcollections(p);
@@ -327,6 +340,7 @@
                          collectiontype: 'source',
                          box: 'PhD for USSN ' + phd.application['Application Number'],
                          styleClass: 'success',
+                         icon: 'fa-file-pdf-o',
                          app: phd.application['Application Number'],
                          content_type: 'collection',
                          roarlist: p.filelist
@@ -338,6 +352,7 @@
                          collectiontype: 'source',
                          box: 'PhD for USSN ' + phd.application['Application Number'],
                          styleClass: 'danger',
+                         icon: 'fa-balance',
                          app: phd.application['Application Number'],
                          content_type: 'collection',
                          roarlist: p.meritslist
@@ -350,6 +365,7 @@
                          collectiontype: 'source',
                          box: 'PhD for USSN ' + phd.application['Application Number'],
                          styleClass: 'warning',
+                         icon: 'fa-paintbrush',
                          app: phd.application['Application Number'],
                          content_type: 'collection',
                          roarlist: p.artlist

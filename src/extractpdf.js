@@ -54,8 +54,8 @@ angular.module("llp.extractpdf", [])
             });
 
             var files = {
-                tsvfiles: new Array(),
-                pdffiles: zip.files
+                tsvfiles: [],
+                pdffiles: []
             };
 
             angular.forEach(targets, function(target, key) {
@@ -73,14 +73,16 @@ angular.module("llp.extractpdf", [])
                     file: file.asText()
                 });
             });
-
+            angular.forEach(zip.files, function (file, key) {
+              files.pdffiles.push({ label: file.name, file: file });
+            });
             // for (var i = zip.files.length - 1; i >= 0; i--) {
             //     files.pdffiles.push({
             //         label: zip.files[i].name,
-            //         file: zip.files[i].asArrayBuffer()
+            //         file: zip.files[i]
 
             //     });
-            //     debugger
+               
             // };
 
             return deferred.resolve(files);

@@ -7,12 +7,15 @@
  <div class="card card-primary card-block btn-glass drop-target" nv-file-drop uploader="uploader"   drop-files="handleFiles(files)"
  style="border: 2px dashed blue;margin: 5px;" ng-if="main.showupload">
     <div ng-controller="pageslideCtrl" >
-                <button class="row btn btn-glass btn-primary img img-rounded " ng-hide="phd.file" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;" ng-click="toggle()" ng-class="{'btn-success': (main.progress == 100),'btn-danger':(main.progress === 'failed')}">
-        <uib-progressbar class="btn-glass fa fa-3x" ng-class="{'active':(main.progress < 100)}" ng-if="main.progress" value="main.progress" style="height:auto;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{main.progresstype}}" > </uib-progressbar><span us-spinner ng-if="main.progress > 98"></span><i class="fa fa-upload fa-3x">{{main.progress}}<span ng-show="main.progress">%</span></i>
+                <button class="row btn btn-glass btn-primary img img-rounded " style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;" ng-click="toggle()" ng-class="{'btn-success': (main.progress == 100),'btn-danger':(main.progress === 'failed')}">
+        <uib-progressbar class="btn-glass fa fa-3x" ng-class="{'active':(main.progress < 100)}" ng-if="main.progress" value="main.progress" style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{main.progresstype}}" > </uib-progressbar><span us-spinner ng-if="main.progress > 98"></span><i class="fa fa-upload fa-3x">{{main.progress}}<span ng-show="main.progress">%</span></i>
         <img src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg" class="pop img img-rounded pull-right" style="max-height:100px;" ng-if="!main.progress" />
         <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
     </button>
-                
+           <div class="row btn btn-glass btn-info" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;" ng-if="main.extractedfiles">
+             <uib-progressbar class="btn-glass fa fa-3x" ng-class="{'active':(main.progress < 100)}" value="main.progresstwo" max="main.extractedfiles.length" style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{main.progresstype}}" > </uib-progressbar><span us-spinner ng-if="main.progress > 98"></span><i class="fa fa-refresh fa-3x fa-spinner">{{main.progresstwo}}/{{main.extractedfiles.length}}</i>
+             
+           </div>
 
     <div pageslide ps-open="checked" ps-key-listener="true" ps-side="left" ps-class="card-dark">
                     <div ng-include="'/getphdwidget/src/phd/step-1.html'"></div>
@@ -29,9 +32,9 @@
 <div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="phd.file">
 <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);border-top-right-radius:6rem;border-bottom-right-radius:6rem;border-left:5px ridge black;" ng-click="main.collapse()">
         <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
-        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{::phd.application['Patent Number'] || phd.patent.number | number:0 }}<br><small><emphasis>Issued</emphasis>{{::phd.application['Issue Date of Patent']}}</small></h4>
+        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{::phd.application['Patent Number'] || phd.patent.number | number:0 }}</h4>
         
-        <h5 class="card-subtitle  ng-binding" style="color:#ddd;"><span class="lead">USSN {{::phd.application['Application Number']}}</span><small>{{::phd.application['Filing or 371 (c) Date'] | date}}</small></h5>
+        <h5 class="card-subtitle  ng-binding" style="color:#ddd;"><span class="lead">USSN {{::phd.application['Application Number']}}</span></h5>
         </div>
         <img src="/llp_core/img/GoldLion.svg" class="img lionlogofilter" style="width:75px;height: auto;">
         
@@ -45,7 +48,7 @@
     </button>
 
 <div uib-collapse="collapsereport" class="card clearfix" style="padding:0;margin:0;">
- <blockquote><h6>{{::phd.application['Title of Invention']}}</h6><cite>{{::phd.application['First Named Inventor']}}</cite></blockquote>
+ <blockquote><h6>{{::phd.application['Title of Invention']}}</h6><cite>{{::phd.application['First Named Inventor']}} <br><small><emphasis>Issued</emphasis>{{::phd.application['Issue Date of Patent']}}</small></cite></blockquote>
  <uib-tabset class="tabbable" justified="true" type="pills">
    <uib-tab heading="PTO Metadata" class="">
     <uib-tabset class="tabbable tabs-left" >
@@ -193,7 +196,7 @@
    </uib-tab>
    <uib-tab heading="PhD Report">
       <uib-tabset class="tabbable " justified="true">
-        <uib-tab class="ngDialogTab-{{::collection.styleClass}} " ng-repeat="collection in phd.roarmap.collections" collection="{{::collection}}">
+        <uib-tab class="ngDialogTab {{::collection.styleClass}} " ng-repeat="collection in phd.roarmap.collections" collection="{{::collection}}">
             <uib-tab-heading class="pull-right" style="" ng-style="">{{::collection.rid}}&nbsp&nbsp<i class="pull-right fa {{::collection.icon}} label label-{{collection.styleClass}} label-pill">{{::collection.roarlist.length}}</i></uib-tab-heading>
             <h4 class="card-title pull-right fa {{collection.icon}}">{{::collection.rid}}</h4>
             <div style="width: 100%;" class="reventlist">
