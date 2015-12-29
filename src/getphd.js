@@ -262,9 +262,14 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                           
                           var newobj = {};
                           angular.forEach(outerarray, function (innerarray, key) {
+                            if (innerarray[0] == 'Class / Subclass') {
+                              newobj['Class Subclass'] = innerarray[1];
+                            } else {
+                              newobj[innerarray[0]] = innerarray[1];
+                            }
                             
-                            newobj[innerarray[0]] = innerarray[1];
-                            //newobj['Application Number'].replace('/', '');
+                           
+
                             $scope.phd.application = newobj;
                             
                           });

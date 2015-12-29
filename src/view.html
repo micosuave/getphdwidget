@@ -1,5 +1,5 @@
 
-<div ng-controller="MainCtrl as main">
+<div ng-controller="MainCtrl as main" ng-cloak>
 <!--<div class="alert alert-info" ng-if="notconfigured()">Please configure the +getphd widget</div>-->
 <!--<div ng-if="configured()" ng-bind-html="main.content"></div>-->
 <button class="button button-icon fa fa-print" ng-click="publish(phd)" style="position:absolute;top:-1rem;right:1rem;z-index:1000;" ></button>
@@ -210,11 +210,11 @@
             </uib-tab-heading>
            
             <uib-tabset class="tabbable tabs-left">
-                <uib-tab ng-repeat="roarevent in phd.roarmap.roarevents" ffbase="{{roarevent}}" select="item.active = true" active="item.active">
+                <uib-tab ng-repeat="roarevent in phd.roarmap.roarevents" ffbase="{{roarevent}}" select="item.active = true" deselect="item.active = false" active="item.active">
                 <uib-tab-heading style="max-width:14%;transform:scale(0.75);"><roar-chip id="{{roarevent.id || roarevent}}" class="" ></roar-chip></uib-tab-heading>
-                <div style="max-width:80%;">
-                    <iframe src="{{item.media}}" class="card card-block card-fancy pull-right" style="width:49%;" ng-if="item.active"></iframe>
-                    <iframe src="{{item.txt}}" class="card card-block card-fancy pull-right" style="width: 49%;" ng-if="item.active"></iframe>
+                <div style="max-width:75%;" class="pull-right">
+                    <iframe src="{{item.media}}" class="card card-block card-fancy pull-right" style="width:45%;" ng-if="item.active"></iframe>
+                    <iframe src="{{item.txt}}" class="card card-block card-fancy pull-right" style="width: 45%;" ng-if="item.active"></iframe>
                 </div>
                 </uib-tab>
                 
