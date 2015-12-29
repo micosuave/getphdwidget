@@ -261,62 +261,66 @@
                                   
                                   alertify.success('text file added for' + roarevent.title);
                                   collections.$add(roarevent).then(function(ref) {
-                             var id = ref.key();
-                             console.log("added record with id " + id);
+                                        var id = ref.key();
+                                        console.log("added record with id " + id);
 
-                             ref.update({
-                                 id: id,
+                                        ref.update({
+                                            id: id,
 
-                                 timestamp: Firebase.ServerValue.TIMESTAMP
-                             });
-                              ref.child('dashboard').child('model').child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('draftid').set(id);
+                                            timestamp: Firebase.ServerValue.TIMESTAMP
+                                        });
+                                          ref.child('dashboard').child('model').child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('draftid').set(id);
+                                          p.filelist.push(id);
+                                          roarmap.roarevents.push(id);  
+                                            main.progresstwo++;      
+                                          // Collection(id).$loaded().then(function (roarevent) {
+                                          //   p.filelist.push(roarevent);
+                                          //   roarmap.roarevents.push(roarevent);
+                                          //   main.progresstwo++;
+                                          // });
+                                        
+                                        // angular.forEach(roarevent.collections, function(cid, key) {
+                                        //     var list = CuratedList(cid, 'roarlist');
+                                        //     list.$add(id);
+                                        // });
 
-                              Collection(id).$loaded().then(function (roarevent) {
-                                p.filelist.push(roarevent);
-                                roarmap.roarevents.push(roarevent);
-                                main.progresstwo++;
-                              });
-                             
-                             // angular.forEach(roarevent.collections, function(cid, key) {
-                             //     var list = CuratedList(cid, 'roarlist');
-                             //     list.$add(id);
-                             // });
-
-                             // angular.forEach(roarmap.collections, function(colId, key) {
-                             //     Collection(colId).$loaded().then(function(collection) {
-                             //         collection.roarlist[id] = id;
-                             //         collection.$save();
+                                        // angular.forEach(roarmap.collections, function(colId, key) {
+                                        //     Collection(colId).$loaded().then(function(collection) {
+                                        //         collection.roarlist[id] = id;
+                                        //         collection.$save();
 
 
-                             //     });
-                             // });
+                                        //     });
+                                        // });
 
-                             angular.forEach(MERITSDOCS, function(code, key) {
-                                 if (roarevent.doccode === code) {
-                                   Collection(id).$loaded().then(function (roarevent) {
-                                     p.meritslist.push(roarevent);
-                                     $log.info('merits', roarevent);
-                                   });
-                                    
-                                 }
-                             });
-                            //  angular.forEach(OWNERSHIPDOCS, function(code, key) {
-                            //      if (roarevent.doccode === code) {
-                            //          p.ownlist.push(id);
-                            //          $log.info('ownership', id);
-                            //      }
-                            //  });
-                             angular.forEach(ARTDOCS, function(code, key) {
-                                 if (roarevent.doccode === code) {
-                                   Collection(id).$loaded().then(function (roarevent) {
-                                     p.artlist.push(roarevent);
-                                     $log.info('art', roarevent);
-                                   });
-                                     
-                                 }
-                             });
-                             alertify.log("added record with id " + id);
-                         });
+                                        angular.forEach(MERITSDOCS, function(code, key) {
+                                            if (roarevent.doccode === code) {
+                                              //  Collection(id).$loaded().then(function (roarevent) {
+                                              //    p.meritslist.push(roarevent);
+                                              //    $log.info('merits', roarevent);
+                                              //  });
+                                                p.meritslist.push(id);
+                                                $log.info('merits', id);
+                                            }
+                                        });
+                                        //  angular.forEach(OWNERSHIPDOCS, function(code, key) {
+                                        //      if (roarevent.doccode === code) {
+                                        //          p.ownlist.push(id);
+                                        //          $log.info('ownership', id);
+                                        //      }
+                                        //  });
+                                        angular.forEach(ARTDOCS, function(code, key) {
+                                            if (roarevent.doccode === code) {
+                                              //  Collection(id).$loaded().then(function (roarevent) {
+                                              //    p.artlist.push(roarevent);
+                                              //    $log.info('art', roarevent);
+                                              //  });
+                                                  p.artlist.push(id);
+                                                $log.info('art', id);
+                                            }
+                                        });
+                                        //alertify.log("added record with id " + id);
+                                    });
                                 });
                             });
 
