@@ -57,7 +57,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                   //groupId: $rootScope.$stateParams.groupId || 'groupId',
                   //author: $rootScope.authData.uid || 'userid',
                   ispublished: false,
-                  content_type: 'curation',
+                  content_type: 'getphd',
+                  templateUrl: '{widgetsPath}/getphd/src/view.html',
                   timestamp: Firebase.ServerValue.TIMESTAMP
                 });
                 config.id = id;
@@ -383,6 +384,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $roarmap(parsedfiles, $scope.phd, main)
                   .then(function (roarmap) {
                     $scope.phd.roarmap = roarmap;
+                    $scope.phd.roarlist = roarmap.collections;
                     alertify.success('ROARmap built!');
                     $patentsearch($scope.phd.application, config.PNUM || 8000000)
                       .then(function (patentobj) {
