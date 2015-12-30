@@ -122,8 +122,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         });
       };
       $scope.publish = function (phd) {
-        angular.forEach($scope.phd.roarmap.collections, function (id, key) {
-          $scope.export2collection(id);
+        angular.forEach(phd.roarmap.collections, function (col, key) {
+          $scope.export2collection(col);
+          $scope.export2collection(key);
         });
         $scope.export2collection(config.id);
         $publish(config.id, $scope.phd).then(function (url) { alertify.success('link to post:' + url); });
@@ -142,7 +143,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       };
       var uploader = $scope.uploader = new FileUploader({
         url: $scope.url || 'https://lexlab.io/upload',
-        autoUpload: true
+        autoUpload: true, 
+        removeAfterUpload: true
       });
 
       // FILTERS
