@@ -142,7 +142,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         skipEmptyLines: true
       };
       var uploader = $scope.uploader = new FileUploader({
-        url: $location.host() + '/upload' || 'https://lexlab.io/upload',
+        url:  '/upload' || 'https://lexlab.io/upload',
         autoUpload: true, 
         removeAfterUpload: true
       });
