@@ -5,9 +5,9 @@
     <div class="card-text">
         <input type="text" placeholder="Application #" ng-model="config.appnum">
         <a class="btn btn-warning fa fa-download" href="https://storage.googleapis.com/uspto-pair/applications/{{config.appnum}}.zip" target="_blank" data-toggle="popover" data-placement="bottom" title="DOWNLOAD FROM GOOGLE" data-content="" data-animation="true"
-        data-trigger="hover" style="width: 17.5rem;color:white;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;"> from Google</a>
+        data-trigger="hover" style="width: 17.5rem;color:white;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;" ng-click="main.remotezip(config.appnum, this.href)"> from Google</a>
         <a class="btn btn-warning fa fa-download" href="https://patents.reedtech.com/downloads/pair/{{config.appnum}}.zip" target="_blank" data-toggle="popover" data-placement="bottom" title="DOWNLOAD FROM REEDTECH" data-content="" data-animation="true" data-trigger="hover"
-        style="width: 17.5rem;color:white;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;"> from ReedTech</a>
+        style="width: 17.5rem;color:white;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;" ng-click="main.remotezip(config.appnum, this.href)"> from ReedTech</a>
         <!--<br>
         <button class="btn btn-info fa fa-arrow-right pull-right" ng-dialog="phd-step3.html" ng-dialog-class="ngdialog-theme-inline" ng-dialog-controller="ImagefilewrapperCtrl" ng-dialog-data="[{{ngDialogData}},{{$scope}}]" data-toggle="popover" data-placement="top"
         data-content="NEXT" data-animation="true" data-trigger="hover"></button>-->
