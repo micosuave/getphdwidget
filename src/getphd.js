@@ -435,11 +435,11 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                              model:{
                           rows:[
                               {columns:[
-                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url:$scope.phd.media || 'http://www.google.com'},title:$scope.phd.title || 'title',type:'iframe',wid:n+100,styleClass:$scope.phd.styleClass || 'btn-dark'}]},
-                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:$scope.phd.id},title:$scope.phd.title || 'title',type:'testwidget', wid:n+1010,styleClass:$scope.phd.styleClass || 'btn-dark'}]}
+                                  {cid:n+10,styleClass:'col-sm-12',widgets:[{config:{height: "30em",url:$scope.phd.media || 'http://www.google.com'},title:$scope.phd.title || 'title',type:'iframe',wid:n+100,styleClass:$scope.phd.styleClass || 'btn-dark'}]}
+                                  
                               ]}
                           ],
-                          structure: "6-6",
+                          structure: "1",
                           title: $scope.phd.title || "PROMISE",
                           titleTemplateUrl: "../src/templates/dashboard-title.html"
                       } 
