@@ -91,7 +91,7 @@
                           rows:[
                               {columns:[
                                   {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
-                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{draftid:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'testwidget', wid:n+15,styleClass:roarevent.styleClass || 'btn-dark'}]}
+                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'testwidget', wid:n+15,styleClass:roarevent.styleClass || 'btn-dark'}]}
                               ]}
                           ],
                           structure: "6-6",
@@ -246,7 +246,7 @@
                           rows:[
                               {columns:[
                                   {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
-                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{draftid:'PROMISE'},title:roarevent.title || 'title',type:'testwidget', wid:n+1010,styleClass:roarevent.styleClass || 'btn-dark'}]}
+                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',type:'testwidget', wid:n+1010,styleClass:roarevent.styleClass || 'btn-dark'}]}
                               ]}
                           ],
                           structure: "6-6",
