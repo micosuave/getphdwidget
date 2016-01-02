@@ -62,12 +62,12 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                   timestamp: Firebase.ServerValue.TIMESTAMP
                 });
                 config.id = id;
-                alertify.prompt('enter app number', function (resp, text) {
-                  if (resp) {
-                    config.appnum = text;
+                // alertify.prompt('enter app number', function (resp, text) {
+                //   if (resp) {
+                //     config.appnum = text;
 
-                  }
-                });
+                //   }
+                // });
 
                 return config;
               });

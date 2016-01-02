@@ -2,7 +2,7 @@
 <div ng-controller="MainCtrl as main" ng-cloak>
 <!--<div class="alert alert-info" ng-if="notconfigured()">Please configure the +getphd widget</div>-->
 <!--<div ng-if="configured()" ng-bind-html="main.content"></div>-->
-<button class="button button-icon fa fa-print" ng-click="publish(phd)" style="position:absolute;top:-1rem;right:1rem;z-index:1000;" ></button>
+<button class="btn btn-glass fa fa-print" ng-click="publish(phd)" style="position:absolute;top:-1rem;right:1rem;z-index:1000;" ></button>
  
  <div class="card card-primary card-block btn-glass drop-target" nv-file-drop uploader="uploader"   drop-files="handleFiles(files)"
  style="border: 2px dashed blue;margin: 5px;" ng-if="main.showupload" ng-hide="phd.patent">
