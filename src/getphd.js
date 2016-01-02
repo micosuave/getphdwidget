@@ -429,7 +429,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         $scope.phd.styleClass = 'NOA';
                         $scope.phd.rid = 'PHD';
                         localStorageService.set($scope.phd.application['Application Number'], $scope.phd);
-                        
+                         var d = new Date();
+                        var n = d.getTime();
                         $scope.phd.dashboard = {
                              model:{
                           rows:[
