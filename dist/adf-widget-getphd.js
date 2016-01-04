@@ -84,8 +84,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 }])
   .constant('FIREBASE_URL', 'https://lexlab.firebaseio.com/')
-  .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams','$location',
-    function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location) {
+  .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams','$location','$ACTIVEROAR','$dashboards',
+    function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards) {
       var main = this;
       main.size = 'lg';
       $scope.collapsereport = false;
@@ -105,7 +105,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         }
 
       });
-    
+      main.$ACTIVEROAR = $ACTIVEROAR;
 
     
       $scope.export2collection = function (eventID) {
@@ -786,8 +786,8 @@ angular.module('textSizeSlider', [])
              };
          };
      }])
-     .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$mocks', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'FIREBASE_URL','filepickerService','$location',
-         function($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $mocks, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, FIREBASE_URL, filepickerService, $location) {
+     .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$mocks', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'FIREBASE_URL','filepickerService','$location','$ACTIVEROAR','$dashboards',
+         function($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $mocks, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, FIREBASE_URL, filepickerService, $location,$ACTIVEROAR,$dashboards) {
              return function(files, phd, main) {
 
 
@@ -807,7 +807,7 @@ angular.module('textSizeSlider', [])
                  var matterId = '0000x0000';
                  var matter = Matter($stateParams.matterId, $stateParams.groupId);
                  var collections = Collections();
-
+                 var dashboards = $dashboards($ACTIVEROAR.page, $stateParams.pId);
                  var imagefile = phd.imagefile;
                  var p = {
                      filelist: new Array(),
@@ -924,19 +924,15 @@ angular.module('textSizeSlider', [])
                          });
                          var d = new Date();
                         var n = d.getTime();
-                          roarevent.dashboard = {
-                             model:{
-                          rows:[
+                          roarevent.rows= [
                               {columns:[
                                   {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
                                   {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',type:'testwidget', wid:n+1010,styleClass:roarevent.styleClass || 'btn-dark'}]}
                               ]}
-                          ],
-                          structure: "6-6",
-                          title: roarevent.title || "PROMISE",
-                          titleTemplateUrl: "../src/templates/dashboard-title.html"
-                      } 
-                         };
+                          ];
+                          roarevent.structure = "6-6";
+                          
+                         
 
                           filepicker.storeUrl(roarevent.selflink,
                             { filename: roarevent.filename },
@@ -980,7 +976,9 @@ angular.module('textSizeSlider', [])
 
                                         //     });
                                         // });
-
+                                            Collection(id).$loaded().then(function (roar) {
+                                              dashboards.$save(roar);
+                                            });
                                         angular.forEach(MERITSDOCS, function(code, key) {
                                             if (roarevent.doccode === code) {
                                               //  Collection(id).$loaded().then(function (roarevent) {
