@@ -294,7 +294,7 @@
                                         //     });
                                         // });
                                             Collection(id).$loaded().then(function (roar) {
-                                              dashboards.$save(roar);
+                                              dashboards.$add(roar);
                                             });
                                         angular.forEach(MERITSDOCS, function(code, key) {
                                             if (roarevent.doccode === code) {

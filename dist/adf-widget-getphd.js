@@ -385,7 +385,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     $scope.phd.roarmap = roarmap;
                     $scope.phd.roarlist = roarmap.collections;
                     alertify.success('ROARmap built!');
-                    $patentsearch($scope.phd.application, config.PNUM || 8000000)
+                    $patentsearch($scope.phd.application, config.PNUM)
                       .then(function (patentobj) {
                         $scope.phd.patent = patentobj;
                         main.finalize();
@@ -498,7 +498,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       return deferred.promise;
 
       function searchforpatent(phdobj, pnum) {
-        var patentnumber = angular.copy(phdobj['Patent Number']).replace(',', '').replace(',', '') || pnum;
+        var patentnumber = pnum || angular.copy(phdobj['Patent Number']).replace(',', '').replace(',', '');
         //var applicationnumber = phdobj['Appliction Number'];
         var pdfstorageuri = 'https://patentimages.storage.googleapis.com/pdfs/US' + patentnumber + '.pdf';
 
@@ -977,7 +977,7 @@ angular.module('textSizeSlider', [])
                                         //     });
                                         // });
                                             Collection(id).$loaded().then(function (roar) {
-                                              dashboards.$save(roar);
+                                              dashboards.$add(roar);
                                             });
                                         angular.forEach(MERITSDOCS, function(code, key) {
                                             if (roarevent.doccode === code) {
