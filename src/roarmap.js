@@ -124,7 +124,7 @@
                  var matterId = '0000x0000';
                  var matter = Matter($stateParams.matterId, $stateParams.groupId);
                  var collections = Collections();
-                 var dashboardsref = $dashboards($ACTIVEROAR.page, $stateParams.pId).$ref();
+                 var dashboards = $dashboards($ACTIVEROAR.page, $stateParams.pId);
                  var imagefile = phd.imagefile;
                  var p = {
                      filelist: new Array(),
@@ -292,11 +292,12 @@
 
 
                                         //     });
-                                        // // });
-                                        //     Collection(id).$loaded().then(function (roar) {
-                                        //       dashboards.$add(roar);
-                                        //     });
-                                            dashboardsref.child(id).set(ref);
+                                        // });
+                                            Collection(id).$loaded().then(function (roar) {
+                                              dashboards.$add(roar);
+                                              alertify.success('page added!');
+                                            });
+                                            //dashboardsref.child(id).set(ref);
                                         angular.forEach(MERITSDOCS, function(code, key) {
                                             if (roarevent.doccode === code) {
                                               //  Collection(id).$loaded().then(function (roarevent) {
