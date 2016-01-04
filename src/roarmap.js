@@ -124,7 +124,7 @@
                  var matterId = '0000x0000';
                  var matter = Matter($stateParams.matterId, $stateParams.groupId);
                  var collections = Collections();
-                 var dashboards = $dashboards($ACTIVEROAR.page, $stateParams.pId);
+                 var dashboardsref = $dashboards($ACTIVEROAR.page, $stateParams.pId).$ref();
                  var imagefile = phd.imagefile;
                  var p = {
                      filelist: new Array(),
@@ -244,7 +244,7 @@
                           roarevent.rows= [
                               {columns:[
                                   {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
-                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',type:'testwidget', wid:n+1010,styleClass:roarevent.styleClass || 'btn-dark'}]}
+                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',type:'ckwidget', wid:n+1010,styleClass:roarevent.styleClass || 'btn-dark'}]}
                               ]}
                           ];
                           roarevent.structure = "6-6";
@@ -270,7 +270,7 @@
 
                                             timestamp: Firebase.ServerValue.TIMESTAMP
                                         });
-                                          ref.child('dashboard').child('model').child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('draftid').set(id);
+                                          ref.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
                                           p.filelist.push(id);
                                           roarmap.roarevents.push(id);  
                                             main.progresstwo++;      
@@ -292,10 +292,11 @@
 
 
                                         //     });
-                                        // });
-                                            Collection(id).$loaded().then(function (roar) {
-                                              dashboards.$add(roar);
-                                            });
+                                        // // });
+                                        //     Collection(id).$loaded().then(function (roar) {
+                                        //       dashboards.$add(roar);
+                                        //     });
+                                            dashboardsref.child(id).set(ref);
                                         angular.forEach(MERITSDOCS, function(code, key) {
                                             if (roarevent.doccode === code) {
                                               //  Collection(id).$loaded().then(function (roarevent) {
