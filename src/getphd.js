@@ -189,6 +189,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       uploader.onSuccessItem = function (fileItem, response, status, headers) {
         console.info('onSuccessItem', fileItem, response, status, headers);
         alertify.success(response);
+         alertify.success('File uploaded!');
+       
+        $rootScope.$broadcast('UPLOADCOMPLETE', response);
       };
       uploader.onErrorItem = function (fileItem, response, status, headers) {
         console.info('onErrorItem', fileItem, response, status, headers);
@@ -200,9 +203,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       };
       uploader.onCompleteItem = function (fileItem, response, status, headers) {
         console.info('onCompleteItem', fileItem, response, status, headers);
-        alertify.success('File uploaded!');
         alertify.success(response);
-        $rootScope.$broadcast('UPLOADCOMPLETE', response);
         // main.handleFiles(main.bufferedfile);
         // $timeout(function () {
         //   try { alertify.log('extracting text'); $pdftotxt($scope.phd).then(function (phd) { $scope.phd = phd; alertify.alert('history for US' + $scope.phd.patent.number + 'has been processed and delivered to your account'); }); }
