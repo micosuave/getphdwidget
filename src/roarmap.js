@@ -86,22 +86,18 @@
                          var date = new Date();
                          var d = new Date();
                         var n = d.getTime();
-                         roarevent.dashboard = {
-                             model:{
-                          rows:[
+                         roarevent.rows = [
                               {columns:[
                                   {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
                                   {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'testwidget', wid:n+15,styleClass:roarevent.styleClass || 'btn-dark'}]}
                               ]}
-                          ],
-                          structure: "6-6",
-                          title: roarevent.title || "PROMISE",
-                          titleTemplateUrl: "../src/templates/dashboard-title.html"
-                      } 
-                         };
+                          ];
+                         roarevent.structure = "6-6";
                return deferred.resolve(roarevent);  
+                          
+                         };
              };
-         };
+         
      }])
      .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$mocks', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'FIREBASE_URL','filepickerService','$location','$ACTIVEROAR','$dashboards',
          function($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $mocks, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, FIREBASE_URL, filepickerService, $location,$ACTIVEROAR,$dashboards) {
@@ -125,6 +121,7 @@
                  var matter = Matter($stateParams.matterId, $stateParams.groupId);
                  var collections = Collections();
                  var dashboards = $dashboards($ACTIVEROAR.page, $stateParams.pId);
+                 var dashboardsref = dashboards.$ref();
                  var imagefile = phd.imagefile;
                  var p = {
                      filelist: new Array(),
@@ -293,11 +290,12 @@
 
                                         //     });
                                         // });
-                                            Collection(id).$loaded().then(function (roar) {
-                                              dashboards.$add(roar);
-                                              alertify.success('page added!');
-                                            });
-                                            //dashboardsref.child(id).set(ref);
+                                            // Collection(id).$loaded().then(function (roar) {
+                                            //   dashboards.$add(roar);
+                                            //   alertify.success('page added!');
+                                            // });
+                                            dashboardsref.child(id).set(id);
+                                            alertify.success('page added!');
                                         angular.forEach(MERITSDOCS, function(code, key) {
                                             if (roarevent.doccode === code) {
                                               //  Collection(id).$loaded().then(function (roarevent) {
