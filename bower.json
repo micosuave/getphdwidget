@@ -21,7 +21,7 @@
   ],
   "description": "import a patent prosecution history",
   "dependencies": {
-    "angular-dashboard-framework": "~0.10.0",
+    "angular-dashboard-framework": "~0.11.0",
     "jszip": "2.4.0",
     "ngAlertify": "~1.0.2",
     "angular-toastr": "~1.5.0",
@@ -39,9 +39,9 @@
   },
   "resolutions": {
     "angular": "~1.4.7",
-    "angular-dashboard-framework": "~0.10.0",
-    "angular-bootstrap": "^0.13.3",
-    "bootstrap": "3.3.5",
+    "angular-dashboard-framework": "~0.11.0",
+    "angular-bootstrap": "^0.14.3",
+    "bootstrap": "^3.3.6",
     "Sortable": "1.2.1",
     "jquery": "~2.1",
     "jquery-ui": "~1.11.4",
