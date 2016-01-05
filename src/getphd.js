@@ -24,8 +24,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       controllerAs: 'main',
       frameless: true,
       reload: true,
-      collapsed: true,
-      immediate: true,
+      //collapsed: true,
+      //immediate: true,
       icon: 'fa-ge',
       iconurl: 'img/logolong.png',
       styleClass: 'primary panel panel-primary',
@@ -35,8 +35,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         controller: 'MainCtrl',
         controllerAs: 'main',
         modalSize: 'lg',
-        reload: true,
-        immediate: true
+        reload: true
+        //immediate: true
       },
       resolve: {
         config: ["config", "$firebaseArray", "$rootScope", "FIREBASE_URL",
