@@ -2,13 +2,13 @@
 <div ng-controller="MainCtrl as main" ng-cloak>
 <!--<div class="alert alert-info" ng-if="notconfigured()">Please configure the +getphd widget</div>-->
 <!--<div ng-if="configured()" ng-bind-html="main.content"></div>-->
-<button class="btn btn-glass fa fa-print" ng-click="publish(phd)" style="position:absolute;top:-1rem;right:1rem;z-index:1000;" ></button>
+<!--<button class="btn btn-glass fa fa-print" ng-click="publish(phd)" style="position:absolute;top:-1rem;right:1rem;z-index:1000;" ></button>-->
  
  <div class="card card-primary card-block btn-glass drop-target" nv-file-drop uploader="uploader"   drop-files="handleFiles(files)"
  style="border: 2px dashed blue;margin: 5px;" ng-if="main.showupload" ng-hide="phd.patent">
     <div ng-controller="pageslideCtrl" >
                 <button class="row btn btn-glass btn-primary img img-rounded " style="width:100%;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;" ng-click="toggle()" ng-class="{'btn-success': (main.progress == 100),'btn-danger':(main.progress === 'failed')}">
-        <uib-progressbar class="btn-glass fa fa-3x" ng-class="{'active':(main.progress < 100)}" ng-if="main.progress" value="main.progress" style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{main.progresstype}}" > <span us-spinner ng-if="main.progress > 98"></span><i class="fa fa-upload fa-3x">{{main.progress}}<span ng-show="main.progress">%</span></i></uib-progressbar>
+        <uib-progressbar class="btn-glass fa fa-3x" ng-class="{'active':(main.progress < 100)}" ng-if="main.progress" value="main.progress" style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{main.progresstype}}" > <i class="fa fa-upload fa-3x">{{main.progress}}<span ng-show="main.progress">%</span></i></uib-progressbar>
         <img src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg" class="pop img img-rounded pull-right" style="max-height:100px;" ng-if="!main.progress" />
         <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
     </button>
@@ -162,7 +162,7 @@
             <h4 class="card-header card-title pull-right">Image File Wrapper</h4>
             <input type="text" ng-model="main.query" placeholder="search..." class="pull-right">
 
-            <table class="card card-block table table-hover table-condensed table-responsive">
+            <table class=" table table-hover table-condensed table-responsive">
                 <thead>
 
                     <tr>
@@ -213,8 +213,8 @@
                 <uib-tab ng-repeat="roarevent in phd.roarmap.roarevents" ffbase="{{roarevent}}" select="item.active = true" deselect="item.active = false" active="item.active">
                 <uib-tab-heading style="max-width:14%;transform:scale(0.75);"><roar-chip id="{{roarevent.id || roarevent}}" class="" ></roar-chip></uib-tab-heading>
                 <div style="max-width:75%;" class="pull-right">
-                    <iframe src="{{item.media}}" class="card card-block card-fancy pull-right" style="width:45%;" ng-if="item.active"></iframe>
-                    <iframe src="{{item.txt}}" class="card card-block card-fancy pull-right" style="width: 45%;" ng-if="item.active"></iframe>
+                    <iframe ng-src="{{item.media}}" class="card card-block card-fancy pull-right" style="width:45%;" ng-if="item.active"></iframe>
+                    <iframe ng-src="{{item.txt}}" class="card card-block card-fancy pull-right" style="width: 45%;" ng-if="item.active"></iframe>
                 </div>
                 </uib-tab>
                 
@@ -226,8 +226,8 @@
    
         <uib-tab class="">
            <uib-tab-heading class="" ng-style="">US {{phd.application['Patent Number'] || phd.patent.number}}</uib-tab-heading>
-            <iframe src="{{::phd.patent.media}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
-            <iframe src="{{::phd.patent.txt}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
+            <iframe ng-src="{{::phd.patent.media}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
+            <iframe ng-src="{{::phd.patent.txt}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
             <!--<tabset>
                 <tab heading=".pdf">
             <div filepicker-preview url="phd.patent.media" style="width:100%; height:400px"></div>

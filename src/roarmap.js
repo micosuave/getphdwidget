@@ -190,7 +190,7 @@
                            roarevent.media = '/files/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                          } else {
                            roarevent.selflink = 'https://lexlab.io/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
-                           roarevent.media = 'https://lexlab.io/files/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                           roarevent.media = 'https://lexlab.io/files/public/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                          }
                          roarevent.description = file['Document Description'] || null;
                          roarevent.filename = file['Filename'] || null;
@@ -248,14 +248,14 @@
                           
                          
 
-                          filepicker.storeUrl(roarevent.selflink,
-                            { filename: roarevent.filename },
-                            function (Blob) {
-                              filepicker.convert(
-                                Blob,
-                                { format: 'txt' },
-                                function (new_Blob) {
-                                  roarevent.txt = new_Blob.url;
+                          // filepicker.storeUrl(roarevent.selflink,
+                          //   { filename: roarevent.filename },
+                          //   function (Blob) {
+                          //     filepicker.convert(
+                          //       Blob,
+                          //       { format: 'txt' },
+                          //       function (new_Blob) {
+                          //         roarevent.txt = new_Blob.url;
                                   
                                   //alertify.success('text file added for' + roarevent.title);
                                   collections.$add(roarevent).then(function(ref) {
@@ -294,7 +294,7 @@
                                             //   dashboards.$add(roar);
                                             //   alertify.success('page added!');
                                             // });
-                                            dashboardsref.child('roarlist').child(id).set(id);
+                                            
                                             //alertify.success('page added!');
                                         angular.forEach(MERITSDOCS, function(code, key) {
                                             if (roarevent.doccode === code) {
@@ -303,6 +303,7 @@
                                               //    $log.info('merits', roarevent);
                                               //  });
                                                 p.meritslist.push(id);
+                                                dashboardsref.child('roarlist').child(id).set(id);
                                                 $log.info('merits', id);
                                             }
                                         });
@@ -324,8 +325,8 @@
                                         });
                                         //alertify.log("added record with id " + id);
                                     });
-                                });
-                            });
+                            //     });
+                            // });
 
                          
                          
@@ -334,7 +335,7 @@
                      });
                      $timeout(function() {
                          buildcollections(p);
-                     }, 30000);
+                     }, 5000);
                  };
 
 
