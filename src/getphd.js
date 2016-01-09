@@ -366,7 +366,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         extractpdf(file)
           .then(function (files) {
             main.progresstwo = 0;
-            main.extractedfiles = files.pdffiles.length - 2;
+            main.extractedfiles = files.pdffiles.length;
             $log.info('Files extracted', files);
             alertify.log('Files extracted');
             //toastr.success('Files extracted');
