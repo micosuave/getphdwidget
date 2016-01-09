@@ -120,7 +120,7 @@
                  var matterId = '0000x0000';
                  var matter = Matter($stateParams.matterId, $stateParams.groupId);
                  var collections = Collections();
-                 var dashboards = $dashboards($ACTIVEROAR.page, $stateParams.pId);
+                 var dashboards = Collection($ACTIVEROAR.page);
                  var dashboardsref = dashboards.$ref();
                  var imagefile = phd.imagefile;
                  var p = {
@@ -240,7 +240,7 @@
                         var n = d.getTime();
                           roarevent.rows= [
                               {columns:[
-                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',type:'pdfviewer',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
+                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
                                   {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',type:'ckwidget', wid:n+1010,styleClass:roarevent.styleClass || 'btn-dark'}]}
                               ]}
                           ];
@@ -294,8 +294,8 @@
                                             //   dashboards.$add(roar);
                                             //   alertify.success('page added!');
                                             // });
-                                            dashboardsref.child(id).set(id);
-                                            alertify.success('page added!');
+                                            dashboardsref.child('roarlist').child(id).set(id);
+                                            //alertify.success('page added!');
                                         angular.forEach(MERITSDOCS, function(code, key) {
                                             if (roarevent.doccode === code) {
                                               //  Collection(id).$loaded().then(function (roarevent) {
