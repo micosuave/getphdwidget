@@ -1006,12 +1006,12 @@ angular.module('textSizeSlider', [])
                                     });
                             //     });
                             // });
-
-                         
-                         
                          }
+                         
+                         
+                         });
                        //},750 * key || 1000);
-                     });
+                    //  });
                      $timeout(function() {
                          buildcollections(p);
                      }, 5000);
