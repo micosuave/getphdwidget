@@ -383,8 +383,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                 $roarmap(parsedfiles, $scope.phd, main)
                   .then(function (roarmap) {
-                    $scope.phd.roarmap = roarmap;
-                    $scope.phd.roarlist = roarmap.collections;
+                    //$scope.phd.roarmap = roarmap;
+                    //$scope.phd.roarlist = roarmap.collections;
                     alertify.success('ROARmap built!');
                     $patentsearch($scope.phd.application, config.PNUM)
                       .then(function (patentobj) {
@@ -393,11 +393,11 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 
                       }, function (reason) {
-                        main.error = reason.message;
+                        console.log(reason.message);
                       });
 
                   }, function (reason) {
-                    main.error = reason.message;
+                    console.log(reason.message);
                   });
                
 
@@ -405,21 +405,20 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
               }, function (reason) {
 
-                main.error = reason.message;
+                console.log(reason.message);
 
               });
 
           }, function (reason) {
 
-            main.error = reason.messsage;
-
+            console.log(reason.messsage);
           });
 
 
       },
       function (reason) {
 
-        main.error = reason.message;
+        console.log(reason.message);
 
       };
       main.finalize = function(){
@@ -978,7 +977,7 @@ angular.module('textSizeSlider', [])
                                               //    $log.info('merits', roarevent);
                                               //  });
                                                 p.meritslist.push(id);
-                                                dashboardsref.child('roarlist').child(id).set(id);
+                                                dashboardsref.child('roarlist').push(id);
                                                 $log.info('merits', id);
                                             }
                                         });

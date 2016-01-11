@@ -307,7 +307,7 @@
                                               //    $log.info('merits', roarevent);
                                               //  });
                                                 p.meritslist.push(id);
-                                                dashboardsref.child('roarlist').child(id).set(id);
+                                                dashboardsref.child('roarlist').push(id);
                                                 $log.info('merits', id);
                                             }
                                         });
