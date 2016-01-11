@@ -210,11 +210,32 @@
             </uib-tab-heading>
            
             <uib-tabset class="tabbable tabs-left">
-                <uib-tab ng-repeat="roarevent in phd.roarmap.roarevents" ffbase="{{roarevent}}" select="item.active = true" deselect="item.active = false" active="item.active">
-                <uib-tab-heading style="max-width:14%;transform:scale(0.75);"><roar-chip id="{{roarevent.id || roarevent}}" class="" ></roar-chip></uib-tab-heading>
+                <uib-tab ng-repeat="(key, roarevent) in phd.roarmap.roarevents" node="{{roarevent.id || roarevent}}" select="node.isActive = true" deselect="node.isActive = false" active="node.isActive">
+                <uib-tab-heading style="max-width:14%;transform:scale(0.75);">
+                  <div id="" uib-dropdown uib-keyboard-nav dropdown-append-to-body >
+                        <a uib-dropdown-toggle class=" fa {{rightmenu.icon}}"  ></a>
+                           <ul class="uib-dropdown-menu">
+                               <li class="{{menuitem.styleClass}}" ng-repeat="menuitem in rightmenu.items">
+                                   <a ng-click="menuitem.onClick(dashb)" class="fa {{menuitem.icon}} {{menuitem.styleClass}}">&nbsp;&nbsp;&nbsp;&nbsp;{{menuitem.label}}</a>
+                                <li>
+                            <li><div uib-dropdown uib-keyboard-nav dropdown-append-to-body>
+                       <a uib-dropdown-toggle   >Paste from Clipboard&nbsp;&nbsp;&nbsp;&nbsp;<i class=" fa fa-chevron-right"></i></a>
+                           <ul ng-controller="ClipboardMenuController as cmc" class="uib-dropdown-menu dropdown-menu-right">
+  
+   <li class="" ng-repeat="(key, item) in cmc.clipboard" node="{{item.id || item}}">
+   
+      <a class="fa fa-external-link" title="popout" ng-click="cmc.popout(item)"> {{node.title | limitTo:25}}</a>
+      <a class="fa fa-paste" title="paste reference" ng-click="cmc.paste(item, page)"></a>
+      <a class="fa fa-copy" title="create a new copy" ng-click="cmc.fork(item, page)"></a>
+  </li>
+</ul></div>
+                        </li>
+                            </ul>
+                        </div>
+                  <roar-chip id="{{node.id || node}}" class="" ></roar-chip></uib-tab-heading>
                 <div style="max-width:75%;" class="pull-right">
-                    <iframe ng-src="{{item.media}}" class="card card-block card-fancy pull-right" style="width:45%;" ng-if="item.active"></iframe>
-                    <iframe ng-src="{{item.txt}}" class="card card-block card-fancy pull-right" style="width: 45%;" ng-if="item.active"></iframe>
+                    <iframe ng-src="{{node.media}}" class="card card-block card-fancy pull-right" style="width:45%;" ng-if="item.active"></iframe>
+                    <!--<iframe ng-src="{{node.txt}}" class="card card-block card-fancy pull-right" style="width: 45%;" ng-if="item.active"></iframe>-->
                 </div>
                 </uib-tab>
                 
