@@ -111,8 +111,8 @@
 
 
                  var roarmap = {
-                     collections: new Array(),
-                     roarevents: new Array()
+                     collections: [],
+                     roarevents: []
                  };
                  var deferred = $q.defer();
 
@@ -122,7 +122,7 @@
                  var collections = Collections();
                  var dashboards = Collection($ACTIVEROAR.page);
                  var dashboardsref = dashboards.$ref();
-                 var phdref = phd.$ref();
+                 var phdref = Collection(phd.id).$ref();
                  var imagefile = phd.imagefile;
                  var p = {
                      filelist: new Array(),
