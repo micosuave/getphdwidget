@@ -122,6 +122,7 @@
                  var collections = Collections();
                  var dashboards = Collection($ACTIVEROAR.page);
                  var dashboardsref = dashboards.$ref();
+                 var phdref = phd.$ref();
                  var imagefile = phd.imagefile;
                  var p = {
                      filelist: new Array(),
@@ -271,6 +272,7 @@
                                         });
                                           ref.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
                                           p.filelist.push(id);
+                                          phdref.child('roarmap').child('roarlist').push(id);
                                           roarmap.roarevents.push(id);  
                                             main.progresstwo++;      
                                           // Collection(id).$loaded().then(function (roarevent) {
@@ -410,12 +412,12 @@
 
                                  ref.update({
                                      id: cId,
-                                     timestamp: Firebase.ServerValue.TIMESTAMP,
-                                     matter: $stateParams.matterId || $mocks.stateParams.matterId,
-                                     project: $stateParams.pId || $mocks.stateParams.pId
-
+                                     timestamp: Firebase.ServerValue.TIMESTAMP
+                                     
 
                                  });
+                                 phdref.child('roarmap').child('collections').push(cId);
+                                 phdref.child('roarlist').push(cId);
                                  roarmap.collections.push(cId);
                                 //  if (angular.isUndefined(matter.collectionlist)) {
                                 //      matter.collectionlist = new Array();
