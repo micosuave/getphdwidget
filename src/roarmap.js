@@ -419,6 +419,8 @@
                                  phdref.child('roarmap').child('collections').push(cId);
                                  phdref.child('roarlist').push(cId);
                                  roarmap.collections.push(cId);
+                                 dashboardsref.child('roarlist').push(cId);
+                                 
                                 //  if (angular.isUndefined(matter.collectionlist)) {
                                 //      matter.collectionlist = new Array();
 
