@@ -750,7 +750,8 @@ angular.module('textSizeSlider', [])
                                  if (doccode === key) {
                                      roarevent.name = value;
                                      roarevent.title = value;
-                                 }
+                               }
+                                 else{roarevent.name = filename}
                              });
                          });
                          var date = new Date();
@@ -758,7 +759,7 @@ angular.module('textSizeSlider', [])
                         var n = d.getTime();
                          roarevent.rows = [
                               {columns:[
-                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'pdfviewer',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
+                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
                                   {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'ckwidget', wid:n+15,styleClass:roarevent.styleClass || 'btn-dark'}]}
                               ]}
                           ];
