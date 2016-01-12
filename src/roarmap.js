@@ -249,7 +249,7 @@
                               ]}
                           ];
                           roarevent.structure = "6-6";
-                          
+                          roarevent.isActive = false;
                          
 
                           // filepicker.storeUrl(roarevent.selflink,
@@ -419,7 +419,7 @@
                                  });
                                  phdref.child('roarmap').child('collections').push(cId);
                                  phdref.child('roarlist').push(cId);
-                                 roarmap.collections.push(cId);
+                                 
                                  dashboardsref.child('roarlist').push(cId);
                                  
                                 //  if (angular.isUndefined(matter.collectionlist)) {
