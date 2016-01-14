@@ -1030,6 +1030,8 @@ angular.module('textSizeSlider', [])
                          icon: 'fa-file-pdf-o',
                          app: phd.application['Application Number'],
                          content_type: 'collection',
+                         titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargridtitle.html',
+                         rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-8',widgets:[{type:'pagebuilder',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]},{cid:n+11,styleClass:'col-sm-4',widgets:[{type:'iframe',config:{url:'https://lexlab.io/app'}}]}]}],
                          roarlist: p.filelist
                      };
                      var newmerits = {
@@ -1042,6 +1044,8 @@ angular.module('textSizeSlider', [])
                          icon: 'fa-balance',
                          app: phd.application['Application Number'],
                          content_type: 'collection',
+                         titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargridtitle.html',
+                         rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-8',widgets:[{type:'pagebuilder',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]},{cid:n+11,styleClass:'col-sm-4',widgets:[{type:'iframe',config:{url:'https://lexlab.io/app'}}]}]}],
                          roarlist: p.meritslist
                      };
 
@@ -1055,6 +1059,8 @@ angular.module('textSizeSlider', [])
                          icon: 'fa-paintbrush',
                          app: phd.application['Application Number'],
                          content_type: 'collection',
+                         titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargridtitle.html',
+                         rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-8',widgets:[{type:'pagebuilder',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]},{cid:n+11,styleClass:'col-sm-4',widgets:[{type:'iframe',config:{url:'https://lexlab.io/app'}}]}]}],
                          roarlist: p.artlist
                      };
                     //  var newown = {
@@ -1086,11 +1092,13 @@ angular.module('textSizeSlider', [])
 
 
                                  ref.update({
-                                     id: cId,
+                                   id: cId,
+                                     
                                      timestamp: Firebase.ServerValue.TIMESTAMP
                                      
 
                                  });
+                                 ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(cId);
                                  phdref.child('roarmap').child('collections').push(cId);
                                  phdref.child('roarlist').push(cId);
                                  
