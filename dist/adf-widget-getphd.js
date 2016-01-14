@@ -422,13 +422,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
       };
       main.finalize = function(){
-        $scope.phd.title = $scope.phd.application['Title of Invention'];
+        //$scope.phd.title = $scope.phd.application['Title of Invention'];
                         var appnum = angular.copy($scope.phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
-                        var phdref = Collection(phd.id).$ref();
+                        var phdref = Collection($scope.phd.id).$ref();
                         phdref.update({
                           appnum: appnum,
                           media: 'https://lexlab.io/files/public/uspto/index#?app=' + appnum,
-                          name: 'PhD for ' + ($scope.phd.application['Patent Number'] || $scope.phd.patent.number),
+                          title: 'PhD for ' + ($scope.phd.application['Patent Number'] || $scope.phd.patent.number),
                           styleClass: 'NOA',
                           rid: 'PHD'
                         }).then(function (ref) {
