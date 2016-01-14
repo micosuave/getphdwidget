@@ -1020,7 +1020,10 @@ angular.module('textSizeSlider', [])
 
 
                  function buildcollections(p) {
-                     var newcollection = {
+                   var d = new Date();
+                        var n = d.getTime();
+                   
+                   var newcollection = {
                          name: 'USSN ' + phd.application['Application Number'],
                          title: 'USSN ' + phd.application['Application Number'],
                          rid: 'PHD1 - ALL',
