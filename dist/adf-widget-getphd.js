@@ -382,7 +382,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 alertify.log('Building ROARmap...');
 
                 $roarmap(parsedfiles, $scope.phd, main)
-                  .then(function (roarmap) {
+                  .then(function () {
                     //$scope.phd.roarmap = roarmap;
                     //$scope.phd.roarlist = roarmap.collections;
                     alertify.success('ROARmap built!');
@@ -798,6 +798,7 @@ angular.module('textSizeSlider', [])
                  var dashboards = Collection($ACTIVEROAR.page);
                  var dashboardsref = dashboards.$ref();
                  var phdref = Collection(phd.id).$ref();
+                 var projref = Collection($stateParams.pId).$ref();
                  var imagefile = phd.imagefile;
                  var p = {
                      filelist: new Array(),
@@ -808,34 +809,21 @@ angular.module('textSizeSlider', [])
 
 
                  function hello() {
-                     var check = checkforexistingphd();
-                     if (check) {
-                         alertify.alert('already exists');
-                     } else {
-                         buildroar();
-                     }
+                    //  var check = checkforexistingphd();
+                    //  if (check) {
+                    //      alertify.alert('already exists');
+                    //  } else {
+                    //      buildroar();
+                    //  }
 
-
+                   buildcollections();
 
                      
                  };
                  hello();
                  return deferred.promise;
 
-
-
-
-
-
-                 function checkforexistingphd() {
-                     var application = angular.copy(phd.application['Application Number']).replace('/','').replace(',','').replace(',','');
-                     var ref = new Firebase(FIREBASE_URL + 'content/' + application);
-                     ref.once('value', function(snapshot) {
-                         return snapshot.exists();
-                     });
-                 };
-                 
-                 function buildroar() {
+                 function buildroar(groups) {
 
                      angular.forEach(imagefile, function(file, key) {
                        //$timeout(function () {
@@ -855,12 +843,7 @@ angular.module('textSizeSlider', [])
                          var appdatesubstring = filename.slice((filename.indexOf("-") + 1), (filename.indexOf("-") + 11));
                          var doccode = filename.slice((filename.lastIndexOf("-") + 1), (filename.indexOf(".pdf")));
                          roarevent.content_type = 'document';
-                         //roarevent.media = file.url.replace('/view?usp=drive_web', '/preview');
-                         // roarevent.iconUrl = file.iconUrl;
-                         //roarevent.uuid = file.id;
-
-                         //roarevent.mimeType = file.mimeType;
-                         //roarevent.description = file.DocumentDescription;
+                         
                          if ($location.host() === 'localhost') {
                            roarevent.selflink = '/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                            roarevent.media = roarevent.selflink;
@@ -938,7 +921,6 @@ angular.module('textSizeSlider', [])
                                   //alertify.success('text file added for' + roarevent.title);
                                   collections.$add(roarevent).then(function(ref) {
                                         var id = ref.key();
-                                        //console.log("added record with id " + id);
 
                                         ref.update({
                                             id: id,
@@ -946,192 +928,168 @@ angular.module('textSizeSlider', [])
                                             timestamp: Firebase.ServerValue.TIMESTAMP
                                         });
                                           ref.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
-                                          p.filelist.push(id);
+                                          //p.filelist.push(id);
                                           phdref.child('roarmap').child('roarlist').push(id);
                                           roarmap.roarevents.push(id);  
-                                            main.progresstwo++;      
-                                          // Collection(id).$loaded().then(function (roarevent) {
-                                          //   p.filelist.push(roarevent);
-                                          //   roarmap.roarevents.push(roarevent);
-                                          //   main.progresstwo++;
-                                          // });
-                                        
-                                        // angular.forEach(roarevent.collections, function(cid, key) {
-                                        //     var list = CuratedList(cid, 'roarlist');
-                                        //     list.$add(id);
-                                        // });
-
-                                        // angular.forEach(roarmap.collections, function(colId, key) {
-                                        //     Collection(colId).$loaded().then(function(collection) {
-                                        //         collection.roarlist[id] = id;
-                                        //         collection.$save();
-
-
-                                        //     });
-                                        // });
-                                            // Collection(id).$loaded().then(function (roar) {
-                                            //   dashboards.$add(roar);
-                                            //   alertify.success('page added!');
-                                            // });
-                                            
-                                            //alertify.success('page added!');
+                                          groups.all.child('roarlist').push(id);
+                                          main.progresstwo++;      
+                                          
                                         angular.forEach(MERITSDOCS, function(code, key) {
                                             if (roarevent.doccode === code) {
-                                              //  Collection(id).$loaded().then(function (roarevent) {
-                                              //    p.meritslist.push(roarevent);
-                                              //    $log.info('merits', roarevent);
-                                              //  });
-                                                p.meritslist.push(id);
+                                              
+                                                //p.meritslist.push(id);
                                                 dashboardsref.child('roarlist').push(id);
+                                                groups.merits.child('roarlist').push(id);
                                                 $log.info('merits', id);
                                             }
                                         });
-                                        //  angular.forEach(OWNERSHIPDOCS, function(code, key) {
-                                        //      if (roarevent.doccode === code) {
-                                        //          p.ownlist.push(id);
-                                        //          $log.info('ownership', id);
-                                        //      }
-                                        //  });
+                                       
                                         angular.forEach(ARTDOCS, function(code, key) {
                                             if (roarevent.doccode === code) {
-                                              //  Collection(id).$loaded().then(function (roarevent) {
-                                              //    p.artlist.push(roarevent);
-                                              //    $log.info('art', roarevent);
-                                              //  });
-                                                  p.artlist.push(id);
+                                              
+                                              //p.artlist.push(id);
+                                              groups.art.child('roarlist').push(id);
                                                 $log.info('art', id);
                                             }
                                         });
-                                        //alertify.log("added record with id " + id);
+                                       
                                     });
-                            //     });
-                            // });
+                          
                          }
                          
                          
                          });
-                       //},750 * key || 1000);
-                    //  });
-                     $timeout(function() {
-                         buildcollections(p);
-                     }, 30000);
+                     return deferred.resolve(true);
+                    //  $timeout(function() {
+                    //      buildcollections(p);
+                    //  }, 30000);
                  };
 
-
-
-                 function buildcollections(p) {
-                   var d = new Date();
-                        var n = d.getTime();
-                   
-                   var newcollection = {
-                         name: 'USSN ' + phd.application['Application Number'],
-                         title: 'USSN ' + phd.application['Application Number'],
-                         rid: 'PHD1 - ALL',
-                         collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application['Application Number'],
-                         styleClass: 'success',
-                         icon: 'fa-file-pdf-o',
-                         app: phd.application['Application Number'],
-                         content_type: 'collection',
-                         titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargridtitle.html',
-                         rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-8',widgets:[{type:'pagebuilder',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]},{cid:n+11,styleClass:'col-sm-4',widgets:[{type:'iframe',config:{url:'https://lexlab.io/app'}}]}]}],
-                         roarlist: p.filelist
+                 function buildcollections() {
+                    var Binder = function(options){
+                       var binder = this;
+                            binder = {
+                              name: 'USSN ' + phd.application['Application Number'],
+                              title: 'USSN ' + phd.application['Application Number'],
+                              rid: options.rid,
+                              collectiontype: 'source',
+                              description: 'PhD for USSN ' + phd.application['Application Number'],
+                              styleClass: options.styleClass,
+                              icon: options.icon,
+                              app: phd.application['Application Number'],
+                              content_type: 'collection',
+                              titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargrid-title.html',
+                              rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]
+                              
+                          };
+                        return binder;
                      };
-                     var newmerits = {
-                         name: 'USSN ' + phd.application['Application Number'],
-                         title: 'USSN ' + phd.application['Application Number'],
-                         rid: 'PHD2 - MERITS',
-                         collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application['Application Number'],
-                         styleClass: 'danger',
-                         icon: 'fa-balance',
-                         app: phd.application['Application Number'],
-                         content_type: 'collection',
-                         titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargridtitle.html',
-                         rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-8',widgets:[{type:'pagebuilder',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]},{cid:n+11,styleClass:'col-sm-4',widgets:[{type:'iframe',config:{url:'https://lexlab.io/app'}}]}]}],
-                         roarlist: p.meritslist
-                     };
-
-                     var newart = {
-                         name: 'USSN ' + phd.application['Application Number'],
-                         title: 'USSN ' + phd.application['Application Number'],
-                         rid: 'PHD3 - ART',
-                         collectiontype: 'source',
-                         box: 'PhD for USSN ' + phd.application['Application Number'],
-                         styleClass: 'warning',
-                         icon: 'fa-paintbrush',
-                         app: phd.application['Application Number'],
-                         content_type: 'collection',
-                         titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargridtitle.html',
-                         rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-8',widgets:[{type:'pagebuilder',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]},{cid:n+11,styleClass:'col-sm-4',widgets:[{type:'iframe',config:{url:'https://lexlab.io/app'}}]}]}],
-                         roarlist: p.artlist
-                     };
-                    //  var newown = {
-                    //      name: 'USSN ' + phd.application[0][1],
-                    //      title: 'USSN ' + phd.application[0][1],
-                    //      rid: 'PHD4 - OWNERSHIP',
-                    //      collectiontype: 'source',
-                    //      box: 'PhD for USSN ' + phd.application[0][1],
-                    //      styleClass: 'primary',
-                    //      app: phd.application[0][1],
-                    //      content_type: 'collection',
-                    //      roarlist: p.ownlist
-
-                    //  };
-
-
-                   //  var cray = [newcollection, newmerits, newart, newown];
-
-                    var cray = [newcollection, newmerits, newart];
-
-
-
-
-                     angular.forEach(cray, function(col, key) {
-                         collections.$add(col)
-                             .then(function(ref) {
-
-                                 var cId = ref.key();
-
-
-                                 ref.update({
-                                   id: cId,
-                                     
-                                     timestamp: Firebase.ServerValue.TIMESTAMP
-                                     
-
-                                 });
-                                 ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(cId);
-                                 phdref.child('roarmap').child('collections').push(cId);
-                                 phdref.child('roarlist').push(cId);
-                                 
-                                 dashboardsref.child('roarlist').push(cId);
-                                 
-                                //  if (angular.isUndefined(matter.collectionlist)) {
-                                //      matter.collectionlist = new Array();
-
-                                //      matter.collectionlist.push(cId);
-                                //      matter.$save();
-                                //  } else {
-                                //      matter.collectionlist.push(cId);
-                                //      matter.$save();
-                                //  }
-
-                                 // var owns = angular.copy(Collection(cId));
-                                //  Collection(cId).$loaded().then(function (collection) {
-                                //    roarmap.collections.push(collection);
-                                //  });
-                                 
-                                 // return roarmap;
-
-                             });
-
-
+                     var phdall = { rid: 'PHD1 - ALL', styleClass: 'success', icon: 'fa-file-pdf-o' },
+                       phdmerits = { rid: 'PHD2 - MERITS', styleClass: 'danger', icon: 'fa-balance' },
+                       phdart = { rid: 'PHD3 - ART', styleClass: 'warning', icon: 'fa-paintbrush' };
+                       
+                     var groups = { all: phdall, merits: phdmerits, art: phdart };
+                     angular.forEach(groups, function (group, key) {
+                       collections.$add(new Binder(group)).then(function (ref) {
+                         var id = ref.key();
+                         ref.update({
+                           id: id,
+                           timestamp: Firebase.ServerValue.TIMESTAMP
+                         });
+                         ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(id);
+                         phdref.child('roarmap').child('collections').push(id);
+                         phdref.child('roarlist').push(id);
+                         projref.child('roarlist').push(id);
+                         return group = ref;
+                       });
                      });
-
-
-                     return deferred.resolve(roarmap);
+                     buildroar(groups);
                  };
+
+                //  function buildcollections(p) {
+                //    var d = new Date();
+                //         var n = d.getTime();
+                   
+                //    var newcollection = {
+                //          name: 'USSN ' + phd.application['Application Number'],
+                //          title: 'USSN ' + phd.application['Application Number'],
+                //          rid: 'PHD1 - ALL',
+                //          collectiontype: 'source',
+                //          description: 'PhD for USSN ' + phd.application['Application Number'],
+                //          styleClass: 'success',
+                //          icon: 'fa-file-pdf-o',
+                //          app: phd.application['Application Number'],
+                //          content_type: 'collection',
+                //          titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargrid-title.html',
+                //          rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]}],
+                //          roarlist: p.filelist
+                //      };
+                //      var newmerits = {
+                //          name: 'USSN ' + phd.application['Application Number'],
+                //          title: 'USSN ' + phd.application['Application Number'],
+                //          rid: 'PHD2 - MERITS',
+                //          collectiontype: 'source',
+                //          description: 'PhD for USSN ' + phd.application['Application Number'],
+                //          styleClass: 'danger',
+                //          icon: 'fa-balance',
+                //          app: phd.application['Application Number'],
+                //          content_type: 'collection',
+                //          titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargrid-title.html',
+                //          rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]}],
+                //          roarlist: p.meritslist
+                //      };
+
+                //      var newart = {
+                //          name: 'USSN ' + phd.application['Application Number'],
+                //          title: 'USSN ' + phd.application['Application Number'],
+                //          rid: 'PHD3 - ART',
+                //          collectiontype: 'source',
+                //          description: 'PhD for USSN ' + phd.application['Application Number'],
+                //          styleClass: 'warning',
+                //          icon: 'fa-paintbrush',
+                //          app: phd.application['Application Number'],
+                //          content_type: 'collection',
+                //          titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargrid-title.html',
+                //          rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]}],
+                //          roarlist: p.artlist
+                //      };
+                     
+                    
+                     
+
+                //     var cray = [newcollection, newmerits, newart];
+
+
+
+
+                //      angular.forEach(cray, function(col, key) {
+                //          collections.$add(col)
+                //              .then(function(ref) {
+
+                //                  var cId = ref.key();
+
+
+                //                  ref.update({
+                //                    id: cId,
+                                     
+                //                      timestamp: Firebase.ServerValue.TIMESTAMP
+                                     
+
+                //                  });
+                //                  ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(cId);
+                //                  phdref.child('roarmap').child('collections').push(cId);
+                //                  phdref.child('roarlist').push(cId);
+                                 
+                //                  dashboardsref.child('roarlist').push(cId);
+                              
+                //              });
+
+
+                //      });
+
+
+                //      return deferred.resolve(roarmap);
+                //  };
 
 
 

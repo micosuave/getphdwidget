@@ -381,7 +381,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 alertify.log('Building ROARmap...');
 
                 $roarmap(parsedfiles, $scope.phd, main)
-                  .then(function (roarmap) {
+                  .then(function () {
                     //$scope.phd.roarmap = roarmap;
                     //$scope.phd.roarlist = roarmap.collections;
                     alertify.success('ROARmap built!');
