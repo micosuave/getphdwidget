@@ -304,7 +304,7 @@
                               name: 'USSN ' + phd.application['Application Number'],
                              
                               rid: options.rid,
-                               title: this.rid + ' - ' + this.name,
+                               title: options.rid + ' - ' + 'USSN ' + phd.application['Application Number'],
                               collectiontype: 'source',
                               description: 'PhD for USSN ' + phd.application['Application Number'],
                               styleClass: options.styleClass,
