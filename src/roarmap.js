@@ -257,7 +257,8 @@
                                           //p.filelist.push(id);
                                           phdref.child('roarmap').child('roarlist').push(id);
                                           roarmap.roarevents.push(id);  
-                                          groups.all.child('roarlist').push(id);
+                                          var allref = Collection(groupids[0]).$ref();
+                                          allref.child('roarlist').push(id);
                                           main.progresstwo++;      
                                           
                                         angular.forEach(MERITSDOCS, function(code, key) {
@@ -265,7 +266,8 @@
                                               
                                                 //p.meritslist.push(id);
                                                 dashboardsref.child('roarlist').push(id);
-                                                groups.merits.child('roarlist').push(id);
+                                                var meritsref = Collection(groupids[1]).$ref();
+                                                meritsref.child('roarlist').push(id);
                                                 $log.info('merits', id);
                                             }
                                         });
@@ -274,7 +276,8 @@
                                             if (roarevent.doccode === code) {
                                               
                                               //p.artlist.push(id);
-                                              groups.art.child('roarlist').push(id);
+                                              var artref = Collection(groupids[2]).$ref();
+                                              artref.child('roarlist').push(id);
                                                 $log.info('art', id);
                                             }
                                         });
@@ -316,7 +319,7 @@
                      var phdall = { rid: 'PHD1 - ALL', styleClass: 'success', icon: 'fa-file-pdf-o' },
                        phdmerits = { rid: 'PHD2 - MERITS', styleClass: 'danger', icon: 'fa-balance' },
                        phdart = { rid: 'PHD3 - ART', styleClass: 'warning', icon: 'fa-paintbrush' };
-                       
+                     var groupids = [];  
                      var groups = { all: phdall, merits: phdmerits, art: phdart };
                      angular.forEach(groups, function (group, key) {
                        collections.$add(new Binder(group)).then(function (ref) {
@@ -329,10 +332,10 @@
                          phdref.child('roarmap').child('collections').push(id);
                          phdref.child('roarlist').push(id);
                          projref.child('roarlist').push(id);
-                         return group = ref;
+                         return groupids.push(id);
                        });
                      });
-                     buildroar(groups);
+                     buildroar(groupids);
                  };
 
                 //  function buildcollections(p) {
