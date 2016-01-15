@@ -150,8 +150,11 @@
                  return deferred.promise;
 
                  function buildroar(groupids) {
+                    var artref = Collection(groupids[2]).$ref();
+                    var meritsref = Collection(groupids[1]).$ref();
+                    var allref = Collection(groupids[0]).$ref();
 
-                     angular.forEach(imagefile, function(file, key) {
+                    angular.forEach(imagefile, function (file, key) {
                        //$timeout(function () {
                          if (file['Mail Room Date'] === '') {
                              return ;
@@ -256,17 +259,17 @@
                                           ref.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
                                           //p.filelist.push(id);
                                           phdref.child('roarmap').child('roarlist').push(id);
-                                          roarmap.roarevents.push(id);  
-                                          var allref = Collection(groupids[0]).$ref();
+                                          //roarmap.roarevents.push(id);  
+                                          
                                           allref.child('roarlist').push(id);
-                                          main.progresstwo++;      
+                                              
                                           
                                         angular.forEach(MERITSDOCS, function(code, key) {
                                             if (roarevent.doccode === code) {
                                               
                                                 //p.meritslist.push(id);
                                                 dashboardsref.child('roarlist').push(id);
-                                                var meritsref = Collection(groupids[1]).$ref();
+                                                
                                                 meritsref.child('roarlist').push(id);
                                                 $log.info('merits', id);
                                             }
@@ -276,14 +279,14 @@
                                             if (roarevent.doccode === code) {
                                               
                                               //p.artlist.push(id);
-                                              var artref = Collection(groupids[2]).$ref();
+                                              
                                               artref.child('roarlist').push(id);
                                                 $log.info('art', id);
                                             }
                                         });
                                        
                                     });
-                          
+                          main.progresstwo++;  
                          }
                          
                          
@@ -306,7 +309,7 @@
                               rid: options.rid,
                                title: options.rid + ' - ' + 'USSN ' + phd.application['Application Number'],
                               collectiontype: 'source',
-                              description: 'PhD for USSN ' + phd.application['Application Number'],
+                              description: 'for US ' + phd.application['Patent Number'],
                               styleClass: options.styleClass,
                               icon: options.icon,
                               app: phd.application['Application Number'],
@@ -318,8 +321,8 @@
                         return binder;
                      };
                      var phdall = { rid: 'PHD1 - ALL', styleClass: 'success', icon: 'fa-file-pdf-o' },
-                       phdmerits = { rid: 'PHD2 - MERITS', styleClass: 'danger', icon: 'fa-balance' },
-                       phdart = { rid: 'PHD3 - ART', styleClass: 'warning', icon: 'fa-paintbrush' };
+                       phdmerits = { rid: 'PHD2 - MERITS', styleClass: 'danger', icon: 'fa-balance-scale' },
+                       phdart = { rid: 'PHD3 - ART', styleClass: 'warning', icon: 'fa-leaf' };
                      var groupids = [];  
                      var groups = { all: phdall, merits: phdmerits, art: phdart };
                      angular.forEach(groups, function (group, key) {
@@ -333,10 +336,11 @@
                          phdref.child('roarmap').child('collections').push(id);
                          phdref.child('roarlist').push(id);
                          projref.child('roarlist').push(id);
-                         projref.update({styleClass: 'primary',title: 'PhD Report'})
+                        
                          return groupids.push(id);
                        });
                      });
+                     dashboardsref.update({ styleClass: 'primary', title: 'PhD Report' });
                      buildroar(groupids);
                  };
 

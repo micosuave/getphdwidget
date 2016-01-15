@@ -376,9 +376,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
               .then(function (parsedfiles) {
 
-                $log.info('TSV Parsed', parsedfiles);
+                //$log.info('TSV Parsed', parsedfiles);
                 alertify.log('TSV Parsed');
-                alertify.log('Building ROARmap...');
+                //alertify.log('Building ROARmap...');
 
                 $roarmap(parsedfiles, $scope.phd, main)
                   .then(function () {
