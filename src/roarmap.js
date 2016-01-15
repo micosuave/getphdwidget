@@ -302,8 +302,9 @@
                        var binder = this;
                             binder = {
                               name: 'USSN ' + phd.application['Application Number'],
-                              title: 'USSN ' + phd.application['Application Number'],
+                             
                               rid: options.rid,
+                               title: this.rid + ' - ' + this.name,
                               collectiontype: 'source',
                               description: 'PhD for USSN ' + phd.application['Application Number'],
                               styleClass: options.styleClass,
@@ -332,6 +333,7 @@
                          phdref.child('roarmap').child('collections').push(id);
                          phdref.child('roarlist').push(id);
                          projref.child('roarlist').push(id);
+                         projref.update({styleClass: 'primary',title: 'PhD Report'})
                          return groupids.push(id);
                        });
                      });
