@@ -823,7 +823,7 @@ angular.module('textSizeSlider', [])
                  hello();
                  return deferred.promise;
 
-                 function buildroar(groups) {
+                 function buildroar(groupids) {
 
                      angular.forEach(imagefile, function(file, key) {
                        //$timeout(function () {
