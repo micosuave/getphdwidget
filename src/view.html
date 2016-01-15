@@ -218,7 +218,7 @@
    <uib-tab heading="PhD Report" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[1].isActive = true" deselect="main.tabs[1].isActive = false">
       <uib-tab-content ng-if="main.tabs[1].isActive">
       <uib-tabset class="tabbable " justified="true">
-        <uib-tab class="{{collection.styleClass}} " ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
+        <uib-tab class="ngDialogTab text-{{collection.styleClass}} " ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
             <uib-tab-heading class="pull-right" style="" ng-style="">{{collection.rid}}&nbsp&nbsp<i class=" fa {{collection.icon}} label label-{{collection.styleClass}} label-pill">{{collection.roarlist.length}}</i></uib-tab-heading>
             <h4 class="card-title pull-right fa {{collection.icon}}">{{collection.rid}}</h4>
             <div style="width: 100%;" class="reventlist">
@@ -226,13 +226,13 @@
             </div>
 
         </uib-tab>
-        <uib-tab class="" >
+        <uib-tab class="ngDialogTab text-info" >
             <uib-tab-heading class="">ROAR
                 <label class="label label-info label-pill pull-right">{{phd.imagefile.length}}</label>
             </uib-tab-heading>
            
             <uib-tabset class="tabbable tabs-left">
-                <uib-tab ng-repeat="(key, roarevent) in phd.roarmap.roarevents" node="{{roarevent.id || roarevent}}" select="node.isActive = true" deselect="node.isActive = false" active="node.isActive">
+                <uib-tab ng-repeat="(key, roarevent) in phd.roarmap.roarlist" node="{{roarevent.id || roarevent}}" select="node.isActive = true" deselect="node.isActive = false" active="node.isActive">
                 <uib-tab-heading style="max-width:14%;transform:scale(0.75);">
                   <div id="" uib-dropdown uib-keyboard-nav dropdown-append-to-body >
                         <a uib-dropdown-toggle class=" fa {{rightmenu.icon}}"  ></a>

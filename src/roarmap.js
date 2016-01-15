@@ -333,8 +333,10 @@
                            timestamp: Firebase.ServerValue.TIMESTAMP
                          });
                          ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(id);
+                         ref.child('roarlist').push(id);
                          phdref.child('roarmap').child('collections').push(id);
                          phdref.child('roarlist').push(id);
+                         dashboardsref.child('roarlist').push(id);
                          projref.child('roarlist').push(id);
                         
                          return groupids.push(id);
@@ -343,7 +345,7 @@
                      dashboardsref.update({ styleClass: 'primary', title: 'PhD Report' });
                      $timeout(function () {
                        buildroar(groupids);
-                     }, 5000);
+                     }, 1000);
                  };
 
                 //  function buildcollections(p) {
