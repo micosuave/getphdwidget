@@ -1015,7 +1015,9 @@ angular.module('textSizeSlider', [])
                        });
                      });
                      dashboardsref.update({ styleClass: 'primary', title: 'PhD Report' });
-                     buildroar(groupids);
+                     $timeout(function () {
+                       buildroar(groupids);
+                     }, 5000);
                  };
 
                 //  function buildcollections(p) {
