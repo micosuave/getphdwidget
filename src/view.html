@@ -213,7 +213,7 @@
    </uib-tab>
    <uib-tab heading="PhD Report">
       <uib-tabset class="tabbable " justified="true">
-        <uib-tab class="ngDialogTab-{{collection.styleClass}} " ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
+        <uib-tab class="{{collection.styleClass}} " ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
             <uib-tab-heading class="pull-right" style="" ng-style="">{{collection.rid}}&nbsp&nbsp<i class=" fa {{collection.icon}} label label-{{collection.styleClass}} label-pill">{{collection.roarlist.length}}</i></uib-tab-heading>
             <h4 class="card-title pull-right fa {{collection.icon}}">{{collection.rid}}</h4>
             <div style="width: 100%;" class="reventlist">
@@ -222,7 +222,7 @@
 
         </uib-tab>
         <uib-tab class="" >
-            <uib-tab-heading class="pull-right">ROAR
+            <uib-tab-heading class="">ROAR
                 <label class="label label-info label-pill pull-right">{{phd.imagefile.length}}</label>
             </uib-tab-heading>
            
