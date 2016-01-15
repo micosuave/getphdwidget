@@ -91,7 +91,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       main.collapse = function () {
         $scope.collapsereport = !$scope.collapsereport;
       };
-      main.showupload = true;
+      //main.showupload = true;
       var config = $scope.$parent.config || $scope.$parent.$parent.config;
       
       var PHD =  Collection(config.id) || Collection(config.appnum);
@@ -105,7 +105,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
       });
       main.$ACTIVEROAR = $ACTIVEROAR;
-
+      main.tabs = [{ isActive: true, disabled: false }, { isActive: false, disabled: false }, { isActive: false, disabled: false }];
     
       $scope.export2collection = function (eventID) {
         var projectId = $stateParams.pId;

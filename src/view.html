@@ -5,7 +5,7 @@
 <!--<button class="btn btn-glass fa fa-print" ng-click="publish(phd)" style="position:absolute;top:-1rem;right:1rem;z-index:1000;" ></button>-->
  
  <div class="card card-primary card-block btn-glass drop-target" nv-file-drop uploader="uploader"   drop-files="handleFiles(files)"
- style="border: 2px dashed blue;margin: 5px;" ng-if="!phd.patent" >
+ style="border: 2px dashed blue;margin: 5px;" ng-if="main.showupload" >
     <div ng-controller="pageslideCtrl" >
                 <button class="row btn btn-glass btn-primary img img-rounded " style="width:100%;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;" ng-click="toggle()" ng-class="{'btn-success': (main.progress == 100),'btn-danger':(main.progress === 'failed')}">
         <uib-progressbar class="btn-glass fa fa-3x" ng-class="{'active':(main.progress < 100)}" ng-if="main.progress" value="main.progress" style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{main.progresstype}}" > <i class="fa fa-upload fa-3x">{{main.progress}}<span ng-show="main.progress">%</span></i></uib-progressbar>
@@ -54,8 +54,8 @@
  
  
  <uib-tabset class="tabbable" justified="true" type="pills">
-   <uib-tab heading="PTO Metadata" class="" active="this.isActive" disabled="this.disabled" select="this.isActive = true" deselect="this.isActive = false">
-    <uib-tab-content ng-if="this.isActive">
+   <uib-tab heading="PTO Metadata" class="" active="main.tabs[0].isActive" disabled="main.tabs[0].disabled" select="main.tabs[0].isActive = true" deselect="main.tabs[0].isActive = false">
+    <uib-tab-content ng-if="main.tabs[0].isActive">
     
     <uib-tabset class="tabbable tabs-left" >
             <uib-tab-heading class="">USSN {{phd.application['Application Number']}}</uib-tab-heading>
@@ -215,8 +215,8 @@
     </uib-tab-content>
     
    </uib-tab>
-   <uib-tab heading="PhD Report" active="this.isActive" disable="this.disabled" select="this.isActive = true" deselect="this.isActive = false">
-      <uib-tab-content ng-if="this.isActive">
+   <uib-tab heading="PhD Report" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[1].isActive = true" deselect="main.tabs[1].isActive = false">
+      <uib-tab-content ng-if="main.tabs[1].isActive">
       <uib-tabset class="tabbable " justified="true">
         <uib-tab class="{{collection.styleClass}} " ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
             <uib-tab-heading class="pull-right" style="" ng-style="">{{collection.rid}}&nbsp&nbsp<i class=" fa {{collection.icon}} label label-{{collection.styleClass}} label-pill">{{collection.roarlist.length}}</i></uib-tab-heading>
@@ -268,10 +268,10 @@
       </uib-tab-content>
    </uib-tab>
    
-        <uib-tab class="" active="this.isActive" disable="this.disabled" select="this.isActive = true" deselect="this.isActive = false">
+        <uib-tab class="" active="main.tabs[2].isActive" disable="main.tabs[2].disabled" select="main.tabs[2].isActive = true" deselect="main.tabs[2].isActive = false">
            <uib-tab-heading class="" ng-style="">US {{phd.application['Patent Number'] || phd.patent.number}}</uib-tab-heading>
             
-            <uib-tab-content ng-if="this.isActive">
+            <uib-tab-content ng-if="main.tabs[2].isActive">
             <iframe ng-src="{{phd.patent.media}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
             <iframe ng-src="{{phd.patent.txt}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
             <!--<tabset>
