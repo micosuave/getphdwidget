@@ -8,14 +8,45 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
   localStorageServiceProvider.setPrefix('adf.getphd');
 
   dashboardProvider
-    .widget('column', {
-      title: 'ColumnHeader',
-      description: 'Define groupings of widgets',
-      templateUrl: '{widgetsPath}/getphd/src/titleTemplate.html',
-      icon: 'fa-ge',
+    .widget('carousel', {
+      title: 'Carousel',
+      description: 'Display items in a carousel',
+      templateUrl: '{widgetsPath}/getphd/src/gallery.html',
+      icon: 'fa-picture',
       iconurl: 'img/lexlab.svg',
-      styleClass: 'warning panel panel-warning',
-      frameless: true
+      styleClass: 'info ',
+      frameless: false,
+      reload: true,
+      controller: 'GalleryCarouselController',
+      controllerAs: 'gallery',
+      edit: {
+        templateUrl: '{widgetsPath}/getphd/src/editgallery.html',
+        controller: 'GalleryCarouselController',
+        controllerAs: 'gallery',
+        modalSize: 'lg',
+        reload: true
+        //immediate: true
+      }
+    })
+    .widget('gallery', {
+      title: 'Gallery',
+      description: 'Plain Image with thumnnails & caption',
+      templateUrl: '{widgetsPath}/getphd/src/galleryplain.html',
+      icon: 'fa-picture',
+      iconurl: 'img/lexlab.svg',
+      styleClass: 'info ',
+      frameless: false,
+      reload: true,
+      controller: 'GalleryController',
+      controllerAs: 'gallery',
+      edit: {
+        templateUrl: '{widgetsPath}/getphd/src/editgalleryplain.html',
+        controller: 'GalleryController',
+        controllerAs: 'gallery',
+        modalSize: 'lg',
+        reload: true
+        //immediate: true
+      }
     })
     .widget('getphd', {
       title: '+PhD',
@@ -641,9 +672,38 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     };
 
     console.info('uploader', uploader);
-  }]);
+  }])
+  .controller('GalleryCarouselController', ['$scope', 'config', 'Collection', '$rootScope','$ACTIVEROAR', function ($scope, config, Collection, $rootScope, $ACTIVEROAR) {
+    var gallery = this;
+    var config = config;
+    $scope.config = config;
+    gallery.slides = [];
+    if (config.id) {
+      Collection(config.id).$loaded().then(function (collection) {
+        angular.forEach(collection.roarlist, function (item, key) {
+          Collection(item).$loaded().then(function (slide) {
+            gallery.slides.push(angular.copy(slide));
+          });
+        });
+      });
+    }
+    else {
+      Collection($ACTIVEROAR.page).$loaded().then(function (collection) {
+        angular.forEach(collection.roarlist, function (item, key) {
+          Collection(item).$loaded().then(function (slide) {
+            gallery.slides.push(angular.copy(slide));
+          });
+        });
+      });
+      gallery.slides.push({ title: 'DemoSlide', media: '/llp_core/img/lexlab.svg' })
+      gallery.slides.push({ title: 'PatentPhD', media:'/llp_core/img/logolong.png' });
+    }
+  }])
+  .controller('GalleryCarousel',['',function(){}]);
 
 angular.module("adf.widget.getphd").run(["$templateCache", function($templateCache) {$templateCache.put("{widgetsPath}/getphd/src/edit.html","<form role=form><div class=form-group><label for=sample>Application #</label> <input type=text class=form-control id=sample ng-model=config.appnum placeholder=\"Enter Application #\"></div></form>");
+$templateCache.put("{widgetsPath}/getphd/src/editgallery.html","<form role=form><div class=form-group><label for=sample>Interval, in milliseconds:</label> <input type=number class=form-control ng-model=config.interval><br>Enter a negative number or 0 to stop the interval.</div><div class=form-group><label>Disable Slide Looping</label> <input type=checkbox ng-model=config.nowrap></div><div class=form-group><label>Pause on Hover?</label> <input type=checkbox ng-model=config.pauseonhover></div><div class=form-group><label>Disable Transition</label> <input type=checkbox ng-model=config.transition></div></form>");
+$templateCache.put("{widgetsPath}/getphd/src/gallery.html","<div style=\"min-height: 305px\"><uib-carousel interval={{config.interval}} no-pause={{config.pauseonhover}} no-transition={{config.transition}} no-wrap={{config.nowrap}}><uib-slide ng-repeat=\"slide in gallery.slides\" active={slide.active} index=slide.index><img ng-src={{slide.media}} style=margin:auto;><div class=carousel-caption><h4>Slide {{slide.$index}}</h4><p>{{slide.title}}</p></div></uib-slide></uib-carousel></div>");
 $templateCache.put("{widgetsPath}/getphd/src/titleTemplate.html","<div class=card-header style=z-index:1;><h4 class=\"bs-callout bs-callout-primary\" style=color:steelblue;>{{config.title || roarevent.title}} <span class=pull-right><a title=notes ng-click=\"alert(\'note\')\"><i class=\"fa fa-pencil\" style=color:steelblue;></i></a><a title=comment ng-click=$window.console.log(this)><i class=\"fa fa-comments-o\" style=color:steelblue;></i></a><a title=\"expand widget\" ng-show=\"options.collapsible && widgetState.isCollapsed\" ng-click=\"widgetState.isCollapsed = !widgetState.isCollapsed\"><i class=\"fa fa-plus\" style=color:steelblue;></i></a> <a title=\"edit widget configuration\" ng-click=edit()><i class=\"fa fa-cog\" style=color:steelblue;></i></a> <a title=\"fullscreen widget\" ng-click=openFullScreen(roarevent) ng-show=\"options.maximizable || true\"><i class=\"fa fa-expand\" style=color:steelblue;></i></a> <a title=\"remove widget\" ng-click=remove()><i class=\"fa fa-close\" style=color:steelblue;></i></a></span></h4></div>");
 $templateCache.put("{widgetsPath}/getphd/src/view.html","<div ng-controller=\"MainCtrl as main\"><div class=\"card card-primary card-block btn-glass drop-target\" nv-file-drop uploader=uploader drop-files=handleFiles(files) style=\"border: 2px dashed blue;margin: 5px;\" ng-if=main.showupload><div ng-controller=pageslideCtrl><button class=\"row btn btn-glass btn-primary img img-rounded\" style=width:100%;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row; ng-click=toggle() ng-class=\"{\'btn-success\': (main.progress == 100),\'btn-danger\':(main.progress === \'failed\')}\"><uib-progressbar class=\"btn-glass fa fa-3x\" ng-class=\"{\'active\':(main.progress < 100)}\" ng-if=main.progress value=main.progress style=height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch; type={{main.progresstype}}><i class=\"fa fa-upload fa-3x\">{{main.progress}}<span ng-show=main.progress>%</span></i></uib-progressbar><img src=https://lexlab.firebaseapp.com/img/GoldLogoLong.svg class=\"pop img img-rounded pull-right\" style=max-height:100px; ng-if=!main.progress></button><div class=\"row btn btn-glass btn-info\" style=position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row; ng-if=main.extractedfiles><uib-progressbar class=\"btn-glass fa fa-3x\" ng-class=\"{\'active\':(main.progress < 100)}\" value=main.progresstwo max=main.extractedfiles style=height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch; type={{main.progresstype}}></uib-progressbar><i class=\"fa fa-refresh fa-3x fa-spinner fa-spin\"></i><i class=\"fa fa-3x\">{{main.progresstwo}}/{{main.extractedfiles}}</i></div><div pageslide ps-open=checked ps-key-listener=true ps-side=left ps-class=card-dark><div ng-include=\"\'/getphdwidget/src/phd/step-1.html\'\"></div><div ng-include=\"\'/getphdwidget/src/phd/step-2.html\'\"></div><button class=button ng-click=toggle()>Close</button></div></div></div><div class=\"card card-fancy card-rounded card-block card-thick\" style=\"text-align: left;color: #444;\" ng-if=phd.file><button class=\"alert btn-glass btn-primary img card-rounded row\" style=\"position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);\" ng-click=main.collapse()><div style=display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;><h4 class=\"card-title ng-binding display-4\" style=\"margin-bottom:0;color: #fff;\">US {{phd.application[\'Patent Number\'] || (phd.patent.number | number:0) }}</h4><h5 class=\"card-subtitle ng-binding\" style=color:#ddd;><span class=lead>USSN {{phd.application[\'Application Number\']}}</span></h5></div><img src=/llp_core/img/GoldLion.svg class=\"img lionlogofilter\" style=\"width:75px;height: auto;\"><div style=display:flex;flex-direction:column;align-items:flex-start;justify-content:space-around;><img src=/llp_core/img/GoldLogoLong.svg class=img style=height:45px;> <img src=/llp_core/img/GoldPhdLogoLong.svg class=img style=height:25px;padding-left:2px;></div></button><div uib-collapse=collapsereport class=\"card clearfix\" style=padding:0;margin:0;><blockquote><h4>{{phd.application[\'Title of Invention\']}}</h4><p><cite>{{phd.application[\'First Named Inventor\']}} <small><emphasis>Issued&nbsp&nbsp&nbsp&nbsp{{phd.application[\'Issue Date of Patent\']}}</emphasis></small></cite></p></blockquote><uib-tabset class=tabbable justified=true type=pills><uib-tab heading=\"PTO Metadata\" active=main.tabs[0].isActive disabled=main.tabs[0].disabled select=\"main.tabs[0].isActive = true\" deselect=\"main.tabs[0].isActive = false\"><uib-tab-content ng-if=main.tabs[0].isActive><uib-tabset class=\"tabbable tabs-left\"><uib-tab-heading>USSN {{phd.application[\'Application Number\']}}</uib-tab-heading><uib-tab class=ngDialogTab-primary ng-if=phd.application><uib-tab-heading ng-style>APPLICATION</uib-tab-heading><uib-tab-content><table class=\"card card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"(key, value) in phd.application\"><td><strong>{{::key}}</strong></td><td>{{::value}}</td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab class=ngDialogTab-info ng-if=phd.attorney><uib-tab-heading ng-style>ATTORNEY</uib-tab-heading><uib-tab-content><table class=\"card card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"line in phd.attorney\"><td ng-repeat=\"value in line\">{{::value}}</td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab class=ngDialogTab-success ng-if=phd.continuity><uib-tab-heading ng-style>CONTINUITY</uib-tab-heading><uib-tab-content><table class=\"card card-block table table-striped table-condensed table-hover table-responsive\"><thead><tr><th><strong>Description</strong></th><th><strong>Parent Filing or 371(c) Date</strong></th><th><strong>Parent Number</strong></th><th><strong>Parent Status</strong></th><th><strong>Patent Number</strong></th></tr></thead><tbody><tr ng-repeat=\"line in phd.continuity\"><td>{{::line[\'Description\']}}</td><td>{{::line[\'Parent Filing or 371(c) Date\']}}</td><td>{{::line[\'Parent Number\']}}</td><td>{{::line[\'Parent Status\']}}</td><td><a ng-href=\"https://patentimages.storage.googleapis.com/pdfs/US{{::line[\'Patent Number\'].replace(\',\',\'\').replace(\',\',\'\')}}.pdf\" target=_blank>{{::line[\'Patent Number\']}}</a></td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab class=ngDialogTab-warning ng-if=phd.foreign><uib-tab-heading ng-style>FOREIGN PRIORITY</uib-tab-heading><uib-tab-content><table class=\"card card-block table table-striped table-condensed table-hover table-responsive\"><thead><tr><th><strong>Country</strong></th><th><strong>Priority</strong></th><th><strong>Priority Date</strong></th></tr></thead><tbody><tr ng-repeat=\"p in phd.foreign\"><td ng-bind=\"::p[\'Country\']\"></td><td ng-bind=\"::p[\'Priority\']\"></td><td ng-bind=\"::p[\'Priority Date\'] | date\"></td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab class=ngDialogTab-danger ng-if=phd.transaction><uib-tab-heading ng-style>TRANSACTION</uib-tab-heading><uib-tab-content><table class=\"card card-block table table-striped table-hover table-condensed table-responsive\"><thead><tr><th><strong>Date</strong></th><th><strong>Transaction Description</strong></th></tr></thead><tbody><tr ng-repeat=\"trans in phd.transaction\"><td>{{::trans[\'Date\']}}</td><td>{{::trans[\'Transaction Description\']}}</td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab ng-if=phd.imagefile><uib-tab-heading ng-style>Image File Wrapper</uib-tab-heading><uib-tab-content><input type=text ng-model=main.query placeholder=search... class=pull-right><table class=\"table table-hover table-condensed table-responsive\"><thead><tr><th><strong>Mail Room Date</strong></th><th><strong>Document Code</strong></th><th><strong>Document Description</strong></th><th><strong>Document Category</strong></th><th><strong>Page Count</strong></th><th><strong>Filename</strong></th></tr></thead><tbody><tr ng-repeat=\"roarevent in phd.imagefile |filter: main.query\"><td ng-bind=\"::roarevent[\'Mail Room Date\']\"></td><td ng-bind=\"::roarevent[\'Document Code\']\"></td><td ng-bind=\"::roarevent[\'Document Description\']\"></td><td ng-bind=\"::roarevent[\'Document Category\']\"></td><td ng-bind=\"::roarevent[\'Page Count\']\"></td><td ng-bind=\"::roarevent[\'Filename\']\"></td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab><uib-tabset class=tabbable><uib-tab ng-repeat=\"file in phd.file\" heading=\"{{file.label | uppercase}}\"><uib-tab-content><pre class=\"card card-block card-fancy\" ng-bind=file.file></pre></uib-tab-content></uib-tab></uib-tabset></uib-tab></uib-tabset></uib-tab-content></uib-tab><uib-tab heading=\"PhD Report\" active=main.tabs[1].isActive disable=main.tabs[1].disabled select=\"main.tabs[1].isActive = true\" deselect=\"main.tabs[1].isActive = false\"><uib-tab-content ng-if=main.tabs[1].isActive><uib-tabset class=tabbable justified=true><uib-tab class=\"ngDialogTab text-{{collection.styleClass}}\" ng-repeat=\"collection in phd.roarmap.collections\" collection={{collection}}><uib-tab-heading class=pull-right ng-style>{{collection.rid}}&nbsp&nbsp<i class=\"fa {{collection.icon}} label label-{{collection.styleClass}} label-pill\">{{collection.roarlist.length}}</i></uib-tab-heading><h4 class=\"card-title pull-right fa {{collection.icon}}\">{{collection.rid}}</h4><div style=\"width: 100%;\" class=reventlist><roar-event ng-repeat=\"event in collection.roarlist\" id=\"{{event.id || event}}\" style=width:19.5%;></roar-event></div></uib-tab><uib-tab class=\"ngDialogTab text-info\"><uib-tab-heading>ROAR <label class=\"label label-info label-pill pull-right\">{{phd.imagefile.length}}</label></uib-tab-heading><uib-tabset class=\"tabbable tabs-left\"><uib-tab ng-repeat=\"(key, roarevent) in phd.roarmap.roarlist\" node=\"{{roarevent.id || roarevent}}\" select=\"node.isActive = true\" deselect=\"node.isActive = false\" active=node.isActive><uib-tab-heading style=max-width:14%;transform:scale(0.75);><div uib-dropdown uib-keyboard-nav dropdown-append-to-body><a uib-dropdown-toggle class=\"fa {{rightmenu.icon}}\"></a><ul class=uib-dropdown-menu><li class={{menuitem.styleClass}} ng-repeat=\"menuitem in rightmenu.items\"><a ng-click=menuitem.onClick(dashb) class=\"fa {{menuitem.icon}} {{menuitem.styleClass}}\">&nbsp;&nbsp;&nbsp;&nbsp;{{menuitem.label}}</a></li><li><div uib-dropdown uib-keyboard-nav dropdown-append-to-body><a uib-dropdown-toggle>Paste from Clipboard&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"fa fa-chevron-right\"></i></a><ul ng-controller=\"ClipboardMenuController as cmc\" class=\"uib-dropdown-menu dropdown-menu-right\"><li ng-repeat=\"(key, item) in cmc.clipboard\" node=\"{{item.id || item}}\"><a class=\"fa fa-external-link\" title=popout ng-click=cmc.popout(item)>{{node.title | limitTo:25}}</a> <a class=\"fa fa-paste\" title=\"paste reference\" ng-click=\"cmc.paste(item, page)\"></a> <a class=\"fa fa-copy\" title=\"create a new copy\" ng-click=\"cmc.fork(item, page)\"></a></li></ul></div></li></ul></div><roar-chip id=\"{{node.id || node}}\"></roar-chip></uib-tab-heading></uib-tab></uib-tabset></uib-tab></uib-tabset></uib-tab-content></uib-tab><uib-tab active=main.tabs[2].isActive disable=main.tabs[2].disabled select=\"main.tabs[2].isActive = true\" deselect=\"main.tabs[2].isActive = false\"><uib-tab-heading ng-style>US {{phd.application[\'Patent Number\'] || phd.patent.number}}</uib-tab-heading><uib-tab-content ng-if=main.tabs[2].isActive><iframe ng-src={{phd.patent.media}} class=\"card card-fancy col-sm-5\" style=min-height:500px;></iframe><iframe ng-src={{phd.patent.txt}} class=\"card card-fancy col-sm-5\" style=min-height:500px;></iframe></uib-tab-content></uib-tab></uib-tabset></div></div></div>");
 $templateCache.put("{widgetsPath}/getphd/src/phd/step-1.html","<div class=\"card card-success\"><div class=card-header><h6 class=card-title>+PhD Step 1 - Download Patent</h6></div><div class=card-text><input type=text placeholder=\"Patent #\" ng-model=config.PNUM> <a class=\"btn btn-success fa fa-download\" href=http://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM}}.pdf target=_blank data-toggle=popover data-placement=bottom data-content=DOWNLOAD data-animation=true data-trigger=hover onclick=\"window.open(this.href, \'\', \'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150\'); return false;\" style=color:white;></a></div></div>");

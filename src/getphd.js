@@ -7,14 +7,45 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
   localStorageServiceProvider.setPrefix('adf.getphd');
 
   dashboardProvider
-    .widget('column', {
-      title: 'ColumnHeader',
-      description: 'Define groupings of widgets',
-      templateUrl: '{widgetsPath}/getphd/src/titleTemplate.html',
-      icon: 'fa-ge',
+    .widget('carousel', {
+      title: 'Carousel',
+      description: 'Display items in a carousel',
+      templateUrl: '{widgetsPath}/getphd/src/gallery.html',
+      icon: 'fa-picture',
       iconurl: 'img/lexlab.svg',
-      styleClass: 'warning panel panel-warning',
-      frameless: true
+      styleClass: 'info ',
+      frameless: false,
+      reload: true,
+      controller: 'GalleryCarouselController',
+      controllerAs: 'gallery',
+      edit: {
+        templateUrl: '{widgetsPath}/getphd/src/editgallery.html',
+        controller: 'GalleryCarouselController',
+        controllerAs: 'gallery',
+        modalSize: 'lg',
+        reload: true
+        //immediate: true
+      }
+    })
+    .widget('gallery', {
+      title: 'Gallery',
+      description: 'Plain Image with thumnnails & caption',
+      templateUrl: '{widgetsPath}/getphd/src/galleryplain.html',
+      icon: 'fa-picture',
+      iconurl: 'img/lexlab.svg',
+      styleClass: 'info ',
+      frameless: false,
+      reload: true,
+      controller: 'GalleryController',
+      controllerAs: 'gallery',
+      edit: {
+        templateUrl: '{widgetsPath}/getphd/src/editgalleryplain.html',
+        controller: 'GalleryController',
+        controllerAs: 'gallery',
+        modalSize: 'lg',
+        reload: true
+        //immediate: true
+      }
     })
     .widget('getphd', {
       title: '+PhD',
@@ -640,4 +671,31 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     };
 
     console.info('uploader', uploader);
-  }]);
+  }])
+  .controller('GalleryCarouselController', ['$scope', 'config', 'Collection', '$rootScope','$ACTIVEROAR', function ($scope, config, Collection, $rootScope, $ACTIVEROAR) {
+    var gallery = this;
+    var config = config;
+    $scope.config = config;
+    gallery.slides = [];
+    if (config.id) {
+      Collection(config.id).$loaded().then(function (collection) {
+        angular.forEach(collection.roarlist, function (item, key) {
+          Collection(item).$loaded().then(function (slide) {
+            gallery.slides.push(angular.copy(slide));
+          });
+        });
+      });
+    }
+    else {
+      Collection($ACTIVEROAR.page).$loaded().then(function (collection) {
+        angular.forEach(collection.roarlist, function (item, key) {
+          Collection(item).$loaded().then(function (slide) {
+            gallery.slides.push(angular.copy(slide));
+          });
+        });
+      });
+      gallery.slides.push({ title: 'DemoSlide', media: '/llp_core/img/lexlab.svg' })
+      gallery.slides.push({ title: 'PatentPhD', media:'/llp_core/img/logolong.png' });
+    }
+  }])
+  .controller('GalleryCarousel',['',function(){}]);
