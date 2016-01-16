@@ -869,7 +869,7 @@ angular.module('textSizeSlider', [])
 
                  phd.roarmap = {
                      collections: [],
-                     roarevents: []
+                     roarlist: []
                };
                  phd.roarlist = {};
                  var deferred = $q.defer();
