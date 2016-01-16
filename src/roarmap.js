@@ -123,7 +123,7 @@
                  var collections = Collections();
                  var dashboards = Collection($ACTIVEROAR.page);
                  var dashboardsref = dashboards.$ref();
-                 var phdref = Collection(phd.id).$ref();
+                //  var phdref = Collection(phd.id).$ref();
                  var projref = Collection($stateParams.pId).$ref();
                  var imagefile = phd.imagefile;
                  var p = {
@@ -258,9 +258,9 @@
                                         });
                                           ref.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
                                           //p.filelist.push(id);
-                                          phdref.child('roarmap').child('roarlist').push(id);
+                                          //phdref.child('roarmap').child('roarlist').push(id);
                                           //roarmap.roarevents.push(id);  
-                                          
+                                          phd.roarmap.roarlist[id] = id;
                                           allref.child('roarlist').push(id);
                                               
                                           
@@ -268,7 +268,7 @@
                                             if (roarevent.doccode === code) {
                                               
                                                 //p.meritslist.push(id);
-                                                dashboardsref.child('roarlist').push(id);
+                                               // dashboardsref.child('roarlist').push(id);
                                                 
                                                 meritsref.child('roarlist').push(id);
                                                 $log.info('merits', id);
@@ -291,7 +291,7 @@
                          
                          
                          });
-                     return deferred.resolve(true);
+                     return deferred.resolve(groupids);
                     //  $timeout(function() {
                     //      buildcollections(p);
                     //  }, 30000);
@@ -320,7 +320,7 @@
                           };
                         return binder;
                      };
-                     var phdall = { rid: 'PHD1 - ALL', styleClass: 'success', icon: 'fa-file-pdf-o' },
+                     var phdall = { rid: 'PHD1 - ALL', styleClass: 'success', icon: 'fa-legal' },
                        phdmerits = { rid: 'PHD2 - MERITS', styleClass: 'danger', icon: 'fa-balance-scale' },
                        phdart = { rid: 'PHD3 - ART', styleClass: 'warning', icon: 'fa-leaf' };
                      var groupids = [];  

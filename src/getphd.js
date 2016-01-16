@@ -199,6 +199,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         console.info('onAfterAddingAll', addedFileItems);
       };
       uploader.onBeforeUploadItem = function (item) {
+        if (!config.PNUM || config.PNUM < 8000000){
+          alertify.prompt("Please enter the Patent Number!")
+        }
         console.info('onBeforeUploadItem', item);
         main.progress = 0;
         main.bufferedfile = item;
@@ -208,7 +211,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       };
       uploader.onProgressItem = function (fileItem, progress) {
         main.progress = progress;
-        if (progress < 40) { main.progresstype = 'danger'; }
+        if (progress <= 40) { main.progresstype = 'danger'; }
         else if (progress > 40 && progress < 66) { main.progresstype = 'warning'; }
         else if (progress > 97) { main.progresstype = 'success'; }
         else { main.progresstype = 'primary'; }
@@ -393,6 +396,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       main.handleFiles = function (file) {
         main.error = null;
         main.success = null;
+        main.phd = {};
         //toastr.success('starting extraction...');
         extractpdf(file)
           .then(function (files) {
@@ -401,7 +405,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             $log.info('Files extracted', files);
             alertify.log('Files extracted');
             //toastr.success('Files extracted');
-            $scope.phd.file = files.tsvfiles;
+           main.phd.file = files.tsvfiles;
 
             main.parse(files.tsvfiles)
 
@@ -411,15 +415,15 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 alertify.log('TSV Parsed');
                 //alertify.log('Building ROARmap...');
 
-                $roarmap(parsedfiles, $scope.phd, main)
-                  .then(function () {
+                $roarmap(parsedfiles, main.phd, main)
+                  .then(function (groupids) {
                     //$scope.phd.roarmap = roarmap;
                     //$scope.phd.roarlist = roarmap.collections;
                     alertify.success('ROARmap built!');
-                    $patentsearch($scope.phd.application, config.PNUM)
+                    $patentsearch(main.phd.application, config.PNUM)
                       .then(function (patentobj) {
-                        $scope.phd.patent = patentobj;
-                        main.finalize();
+                        main.phd.patent = patentobj;
+                        main.finalize(main.phd, groupids);
 
 
                       }, function (reason) {
@@ -451,22 +455,31 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         console.log(reason.message);
 
       };
-      main.finalize = function(){
+      main.finalize = function(phd, groupids){
         //$scope.phd.title = $scope.phd.application['Title of Invention'];
-                        var appnum = angular.copy($scope.phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
+                        var appnum = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
                         var phdref = Collection($scope.phd.id).$ref();
-                        phdref.update({
-                          appnum: appnum,
-                          media: 'https://lexlab.io/files/public/uspto/index#?app=' + appnum,
-                          title: 'PhD for ' + ($scope.phd.application['Patent Number'] || $scope.phd.patent.number),
-                          styleClass: 'NOA',
-                          rid: 'PHD'
-                        });
+                        // phdref.update({
+                        //   appnum: appnum,
+                        //   media: 'https://lexlab.io/files/public/uspto/index#?app=' + appnum,
+                        //   title: 'PhD for ' + (phd.application['Patent Number'] || phd.patent.number),
+                        //   styleClass: 'NOA',
+                        //   rid: 'PHD'
+                        // });
+                        phd.appnum = appnum;
+                        phd.media= 'https://lexlab.io/files/public/uspto/index#?app=' + appnum;
+                        phd.title = 'PhD for ' + (main.phd.application['Patent Number'] || phd.patent.number);
+                        phd.styleClass = 'NOA';
+                          phd.rid= 'PHD';
+                          localStorageService.set(main.phd.application['Application Number'], phd);
+                          $http.post('/getphd/store/' + appnum, phd);
+                          angular.forEach(groupids, function (id, key) {
+                            phdref.child('roarlist').push(id);
+                          });
                           
-                          localStorageService.set($scope.phd.application['Application Number'], $scope.phd);
-                          $http.post('/getphd/store/' + appnum, $scope.phd);
                           main.showupload = false;
-                          alertify.alert('<div class="card card-fancy"><div class="card-header"><h1 class="card-title">Success!</h1></div><div class="card-block"><p class="lead">All files have been successfully processed and the Prosecution History Digest for US ' + $scope.phd.application['Patent Number'] + ' has been generated by LEO and delivered to your account for your review.</p></div></div>');
+                          $scope.phd = phd;
+                          alertify.alert('<div class="card card-block card-fancy"><div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.application['Patent Number'] + '</h1></div><div class="card-block"><p class="card-text">All files have been successfully processed by LEO and delivered to your account for review.</p></div></div>');
 
                         
                                                 

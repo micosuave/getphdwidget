@@ -8,7 +8,7 @@
  style="border: 2px dashed blue;margin: 5px;" ng-if="main.showupload" >
     <div ng-controller="pageslideCtrl" >
                 <button class="row btn btn-glass btn-primary img img-rounded " style="width:100%;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;" ng-click="toggle()" ng-class="{'btn-success': (main.progress == 100),'btn-danger':(main.progress === 'failed')}">
-        <uib-progressbar class="btn-glass fa fa-3x" ng-class="{'active':(main.progress < 100)}" ng-if="main.progress" value="main.progress" style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{main.progresstype}}" > <i class="fa fa-upload fa-3x">{{main.progress}}<span ng-show="main.progress">%</span></i></uib-progressbar>
+        <uib-progressbar class="btn-glass fa fa-3x" ng-class="{'active':(main.progress < 100)}" ng-if="main.progress" value="main.progress" style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{main.progresstype}}" > </uib-progressbar><i class="fa fa-upload fa-3x">{{main.progress}}<span ng-show="main.progress">%</span></i>
         <img src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg" class="pop img img-rounded pull-right" style="max-height:100px;" ng-if="!main.progress" />
         <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
     </button>
@@ -20,7 +20,7 @@
     <div pageslide ps-open="checked" ps-key-listener="true" ps-side="left" ps-class="card-dark">
                     <div ng-include="'/getphdwidget/src/phd/step-1.html'"></div>
                     <div ng-include="'/getphdwidget/src/phd/step-2.html'"></div>
-                    <button class="button" ng-click="toggle()">Close</button>
+                    <button class="btn btn-dark" ng-click="toggle()">Close</button>
                     <!--<upload-q></upload-q>-->
                 </div>
     <!--<div class="row" ng-hide="phd.file">-->
@@ -32,7 +32,7 @@
 <div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="phd.file">
 <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);" ng-click="main.collapse()">
         <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
-        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{phd.application['Patent Number'] || (phd.patent.number | number:0) }}</h4>
+        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{phd.patent.number | number:0 }}</h4>
         
         <h5 class="card-subtitle  ng-binding" style="color:#ddd;"><span class="lead">USSN {{phd.application['Application Number']}}</span></h5>
         </div>
@@ -269,7 +269,7 @@
    </uib-tab>
    
         <uib-tab class="" active="main.tabs[2].isActive" disable="main.tabs[2].disabled" select="main.tabs[2].isActive = true" deselect="main.tabs[2].isActive = false">
-           <uib-tab-heading class="" ng-style="">US {{phd.application['Patent Number'] || phd.patent.number}}</uib-tab-heading>
+           <uib-tab-heading class="" ng-style="">US {{phd.patent.number || phd.application['Patent Number'] }}</uib-tab-heading>
             
             <uib-tab-content ng-if="main.tabs[2].isActive">
             <iframe ng-src="{{phd.patent.media}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
