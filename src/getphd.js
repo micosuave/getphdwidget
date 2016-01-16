@@ -392,7 +392,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       main.success = null;
 
       main.info = null;
-
+      main.phd = {};
       main.handleFiles = function (file) {
         main.error = null;
         main.success = null;
@@ -474,10 +474,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         // });
                         phd.appnum = appnum;
                         phd.media= 'https://lexlab.io/files/public/uspto/index#?app=' + appnum;
-                        phd.title = 'PhD for ' + (main.phd.application['Patent Number'] || phd.patent.number);
+                        phd.title = 'PhD for ' + (phd.patent.number || phd.application['Patent Number']);
                         phd.styleClass = 'NOA';
                           phd.rid= 'PHD';
-                          localStorageService.set(main.phd.application['Application Number'], phd);
+                          localStorageService.set(phd.application['Application Number'], phd);
                           $http.post('/getphd/store/' + appnum, phd);
                           angular.forEach(groupids, function (id, key) {
                             phdref.child('roarlist').push(id);
@@ -488,7 +488,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                           
                           main.showupload = false;
                           $scope.phd = phd;
-                          alertify.alert('<div class="card card-block card-fancy"><div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.application['Patent Number'] + '</h1></div><div class="card-block"><p class="card-text">All files have been successfully processed by LEO and delivered to your account for review.</p></div></div>');
+                          alertify.alert('<div class="card card-block card-fancy"><div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><p class="card-text">All files have been successfully processed by LEO and delivered to your account for review.</p></div></div>');
 
                         
                                                 

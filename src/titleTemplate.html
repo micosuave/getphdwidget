@@ -8,11 +8,11 @@
 
  <span class="pull-right"> 
 
-<a href title="notes" ng-click="alert('note')" ><i class="fa fa-pencil" style="color:steelblue;"></i></a>
+<a href title="notes" ng-click="alert(roarevent.title, roarevent.media)" ><i class="fa fa-pencil" style="color:steelblue;"></i></a>
 
 <!--<a href title="mail" ng-click="$publish(this)"><i class="fa fa-send" style="color:steelblue;"></i></a>-->
 
- <a href title="comment" ng-click="$window.console.log(this)"><i class="fa fa-comments-o" style="color:steelblue;"></i></a>
+ <a href title="comment" ng-click="note(roarevent.id)"><i class="fa fa-comments-o" style="color:steelblue;"></i></a>
 
  <!--<a href title="reload widget content"  ng-click="reload()"> <i class="fa fa-refresh" style="color:steelblue;"></i> </a>  -->
 
@@ -22,11 +22,11 @@
 
  <a href title="expand widget" ng-show="options.collapsible && widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-plus" style="color:steelblue;"></i> </a>  
 
- <a href title="edit widget configuration" ng-click="edit()" > <i class="fa fa-cog" style="color:steelblue;"></i> </a> 
+ <a href title="edit widget configuration" ng-click="edit(roarevent.id)" > <i class="fa fa-cog" style="color:steelblue;"></i> </a> 
 
- <a href title="fullscreen widget" ng-click="openFullScreen(roarevent)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="color:steelblue;"></i> </a>  
+ <a href title="fullscreen widget" ng-click="openFullScreen(roarevent.id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="color:steelblue;"></i> </a>  
 
- <a href title="remove widget" ng-click="remove()" > <i class="fa fa-close" style="color:steelblue;"></i> </a> 
+ <a href title="remove widget" ng-click="remove()" on-click="$(this).parent().parent().parent().remove()"> <i class="fa fa-close" style="color:steelblue;"></i> </a> 
 
  </span>
 
