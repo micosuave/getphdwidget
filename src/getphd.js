@@ -459,6 +459,12 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         //$scope.phd.title = $scope.phd.application['Title of Invention'];
                         var appnum = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
                         var phdref = Collection($scope.phd.id).$ref();
+                         var dashboards = Collection($ACTIVEROAR.page);
+                 var dashboardsref = dashboards.$ref();
+                //  var phdref = Collection(phd.id).$ref();
+                 var projref = Collection($stateParams.pId).$ref();
+                        
+                        
                         // phdref.update({
                         //   appnum: appnum,
                         //   media: 'https://lexlab.io/files/public/uspto/index#?app=' + appnum,
@@ -475,6 +481,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                           $http.post('/getphd/store/' + appnum, phd);
                           angular.forEach(groupids, function (id, key) {
                             phdref.child('roarlist').push(id);
+                             dashboardsref.child('roarlist').push(id);
+                              projref.child('roarlist').push(id);
+                        
                           });
                           
                           main.showupload = false;
