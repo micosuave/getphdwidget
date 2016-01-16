@@ -1067,9 +1067,9 @@ angular.module('textSizeSlider', [])
                           };
                         return binder;
                      };
-                     var phdall = { rid: 'PHD1 - ALL', styleClass: 'success', icon: 'fa-legal' },
-                       phdmerits = { rid: 'PHD2 - MERITS', styleClass: 'danger', icon: 'fa-balance-scale' },
-                       phdart = { rid: 'PHD3 - ART', styleClass: 'warning', icon: 'fa-leaf' };
+                     var phdall = { rid: 'PHD1 - ALL', styleClass: 'NOA', icon: 'fa-legal' },
+                       phdmerits = { rid: 'PHD2 - MERITS', styleClass: 'PTO', icon: 'fa-balance-scale' },
+                       phdart = { rid: 'PHD3 - ART', styleClass: 'Petition', icon: 'fa-leaf' };
                      var groupids = [];  
                      var groups = { all: phdall, merits: phdmerits, art: phdart };
                      angular.forEach(groups, function (group, key) {
