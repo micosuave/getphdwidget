@@ -296,7 +296,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             $log.error(ex);
           } finally {
             if (file.label === 'imagefile') {
-              $scope.phd.imagefile = parseTSV(file.file, opts);
+              main.phd.imagefile = parseTSV(file.file, opts);
               main.progresstwo++;
             } else if (file.label === 'application') {
               var outerarray = parseTSV(file.file, { skipEmptyLines: true });
@@ -311,7 +311,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 
 
-                $scope.phd.application = newobj;
+                main.phd.application = newobj;
 
               });
               main.progresstwo++;
@@ -319,16 +319,16 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 
             } else if (file.label === 'attorney') {
-              $scope.phd.attorney = parseTSV(file.file, { skipEmptyLines: true });
+              main.phd.attorney = parseTSV(file.file, { skipEmptyLines: true });
               main.progresstwo++;
             } else if (file.label === 'foreign') {
-              $scope.phd.foreign = parseTSV(file.file, opts, false);
+              main.phd.foreign = parseTSV(file.file, opts, false);
               main.progresstwo++;
             } else if (file.label === 'continuity') {
-              $scope.phd.continuity = parseTSV(file.file, opts, false);
+              main.phd.continuity = parseTSV(file.file, opts, false);
               main.progresstwo++;
             } else if (file.label === 'transaction') {
-              $scope.phd.transaction = parseTSV(file.file, opts, false);
+              main.phd.transaction = parseTSV(file.file, opts, false);
               main.progresstwo++;
             } else if (file.label === 'README') {
               main.info = file.file;
@@ -336,7 +336,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             } else {
               main.error = 'Unhandled case!';
             }
-            return deffered.resolve($scope.phd);
+            return deffered.resolve(main.phd);
           }
         });
         return deffered.promise;
