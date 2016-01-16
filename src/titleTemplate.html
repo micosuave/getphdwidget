@@ -1,5 +1,5 @@
-<button class="fa fa-close fa-2x btn-danger pull-right floatingclosebutton" onclick="$(this).parent().remove();" style="position:absolute;top:0;right:-20px;z-index:1;"></button>
-<div class="card-header" style="z-index:0;">
+
+<div class="card-header" style="z-index:1;">
     
     <h4 class="bs-callout bs-callout-primary" style="color:steelblue;">
         <!-- <img src="img/GoldLogoLong.svg" class="img pull-left"> -->
@@ -12,7 +12,7 @@
 
 <!--<a href title="mail" ng-click="$publish(this)"><i class="fa fa-send" style="color:steelblue;"></i></a>-->
 
- <a href title="comment" ng-click="alert('note')"><i class="fa fa-comments-o" style="color:steelblue;"></i></a>
+ <a href title="comment" ng-click="$window.console.log(this)"><i class="fa fa-comments-o" style="color:steelblue;"></i></a>
 
  <!--<a href title="reload widget content"  ng-click="reload()"> <i class="fa fa-refresh" style="color:steelblue;"></i> </a>  -->
 
@@ -24,9 +24,9 @@
 
  <a href title="edit widget configuration" ng-click="edit()" > <i class="fa fa-cog" style="color:steelblue;"></i> </a> 
 
- <a href title="fullscreen widget" ng-click="openFullScreen()" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="color:steelblue;"></i> </a>  
+ <a href title="fullscreen widget" ng-click="openFullScreen(roarevent)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="color:steelblue;"></i> </a>  
 
- <!--<a href title="remove widget" ng-click="remove()" ng-if="editMode"> <i class="fa fa-close" style="color:steelblue;"></i> </a> -->
+ <a href title="remove widget" ng-click="remove()" > <i class="fa fa-close" style="color:steelblue;"></i> </a> 
 
  </span>
 
