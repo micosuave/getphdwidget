@@ -114,7 +114,8 @@
                  phd.roarmap = {
                      collections: [],
                      roarevents: []
-                 };
+               };
+                 phd.roarlist = {};
                  var deferred = $q.defer();
 
 
