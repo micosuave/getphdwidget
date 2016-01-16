@@ -111,7 +111,7 @@
 
 
 
-                 var roarmap = {
+                 phd.roarmap = {
                      collections: [],
                      roarevents: []
                  };

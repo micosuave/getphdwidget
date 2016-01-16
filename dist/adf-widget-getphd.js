@@ -867,7 +867,7 @@ angular.module('textSizeSlider', [])
 
 
 
-                 var roarmap = {
+                 phd.roarmap = {
                      collections: [],
                      roarevents: []
                  };
