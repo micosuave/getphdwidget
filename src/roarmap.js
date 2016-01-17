@@ -12,7 +12,7 @@
 
          return stateParams;
      }])
-     .factory('$roarevent', ['OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', function(OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q){
+     .factory('$roarevent', ['OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q','$filter', function(OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, $filter){
          return function(file){
              var deferred = $q.defer();
              parse(file);
@@ -20,22 +20,27 @@
              function parse(file){
                  var roarevent = angular.copy(file);
                  //debugger;
-                         var filename = file.Filename || file.name || file.filename;
-                         //debugger;
-                         var appnumsubstring = filename.slice(0, filename.indexOf("-"));
-                         var appdatesubstring = filename.slice((filename.indexOf("-") + 1), (filename.indexOf("-") + 11));
-                         var doccode = filename.slice((filename.lastIndexOf("-") + 1), (filename.indexOf(".pdf")));
-                         roarevent.content_type = 'document';
-                         
-                         if(file.url){
-                             roarevent.media = file.url;
+                 
+                         var test = new RegExp('^[0-9]{8}-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{5}-');
+
+                        var array = $filter('filter')(roarevent, test);
+                        if (array) {
+                          var filename = file.Filename || file.name || file.filename;
+                          //debugger;
+                          var appnumsubstring = filename.slice(0, filename.indexOf("-"));
+                          var appdatesubstring = filename.slice((filename.indexOf("-") + 1), (filename.indexOf("-") + 11));
+                          var doccode = filename.slice((filename.lastIndexOf("-") + 1), (filename.indexOf(".pdf")));
+                          roarevent.content_type = 'document';
+
+                          if (file.url) {
+                            roarevent.media = file.url;
                             //  var partA = file.url.replace('/view?usp', '/preview');
                             //   roarevent.media = partA.slice(0, partA.indexOf('='));
                             //     roarevent.iconUrl = file.iconUrl || null;
-                                roarevent.uuid = file.id;
+                            roarevent.uuid = file.id;
 
-                                roarevent.mimeType = file.mimeType || null;
-                         }
+                            roarevent.mimeType = file.mimeType || null;
+                          }
                         
                          // 
                          //roarevent.description = file.DocumentDescription;
@@ -94,6 +99,9 @@
                               ]}
                           ];
                          roarevent.structure = "6-6";
+                        } else {
+                          alertify.alert(roarevent.filename);
+                        }
                return deferred.resolve(roarevent);  
                           
                          };
