@@ -218,7 +218,7 @@
    <uib-tab heading="PhD Report" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[1].isActive = true" deselect="main.tabs[1].isActive = false">
       <uib-tab-content ng-if="main.tabs[1].isActive">
       <uib-tabset class="tabbable " justified="true">
-        <uib-tab class="ngDialogTab text-{{collection.styleClass}} " ng-repeat="collection in phd.roarmap.collections" collection="{{collection}}">
+        <uib-tab class="ngDialogTab text-{{collection.styleClass}} " ng-repeat="(key,collection) in phd.roarmap.collections" collection="{{collection}}">
             <uib-tab-heading class="pull-right" style="" ng-style="">{{collection.rid}}&nbsp&nbsp<i class=" fa {{collection.icon}} label label-{{collection.styleClass}} label-pill">{{collection.roarlist.length}}</i></uib-tab-heading>
             <h4 class="card-title pull-right fa {{collection.icon}}">{{collection.rid}}</h4>
             <div style="width: 100%;" class="reventlist">

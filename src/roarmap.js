@@ -356,7 +356,7 @@
                          return groupids.push(id);
                        });
                      });
-                     dashboardsref.update({ styleClass: 'primary', title: 'PhD Report' });
+                     
                      $timeout(function () {
                        buildroar(groupids);
                      }, 1000);
