@@ -8,7 +8,7 @@
 
  <span class="pull-right"> 
 
-<a href title="notes" ng-click="alert(roarevent.title, roarevent.media)" ><i class="fa fa-pencil" style="color:steelblue;"></i></a>
+<a href title="notes" ng-click="note(roarevent)" ><i class="fa fa-pencil" style="color:steelblue;"></i></a>
 
 <!--<a href title="mail" ng-click="$publish(this)"><i class="fa fa-send" style="color:steelblue;"></i></a>-->
 
@@ -22,15 +22,14 @@
 
  <a href title="expand widget" ng-show="options.collapsible && widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-plus" style="color:steelblue;"></i> </a>  
 
- <a href title="edit widget configuration" ng-click="edit(roarevent.id)" > <i class="fa fa-cog" style="color:steelblue;"></i> </a> 
+ <a href title="edit widget configuration" ng-click="edit(roarevent.id)" > <i class="fa fa-copy" style="color:steelblue;"></i> </a> 
 
  <a href title="fullscreen widget" ng-click="openFullScreen(roarevent.id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="color:steelblue;"></i> </a>  
 
- <a href title="remove widget" ng-click="remove()" on-click="$(this).parent().parent().parent().remove()"> <i class="fa fa-close" style="color:steelblue;"></i> </a> 
+ <a href title="remove widget" ng-click="remove()" onclick="$('.issuedocpanel').remove()"> <i class="fa fa-close" style="color:steelblue;"></i> </a> 
 
  </span>
 
 </h4>
-
+<!--<a on-click="$(this).parent().remove()" class="fa fa-close fa-2x text-danger  " style="position: absolute;top:0;right:-10px;box-shadow:inset 0 0 0.5rem black;border-radius:50%;"></a>-->
 </div>
-<a ng-click="$(this).parent().remove()" class="fa fa-close text-danger showonhover " style="position: absolute;top:0;right:0;box-shadow:inset 0 0 0.5rem black;border-radius:50%;"></a>

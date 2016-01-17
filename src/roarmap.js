@@ -20,11 +20,12 @@
              function parse(file){
                  var roarevent = angular.copy(file);
                  //debugger;
-                 
+                 var tese = [];
+                 tese.push(roarevent);
                          var test = new RegExp('^[0-9]{8}-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{5}-');
 
-                        var array = $filter('filter')(roarevent, test);
-                        if (array) {
+                        var array = $filter('filter')(tese, test);
+                        if (array.length > 0 && roarevent.filename.indexOf('.pdf')) {
                           var filename = file.Filename || file.name || file.filename;
                           //debugger;
                           var appnumsubstring = filename.slice(0, filename.indexOf("-"));
@@ -99,10 +100,12 @@
                               ]}
                           ];
                          roarevent.structure = "6-6";
+                         return deferred.resolve(roarevent);  
                         } else {
                           alertify.alert(roarevent.filename);
+                          return deferred.reject();
                         }
-               return deferred.resolve(roarevent);  
+               
                           
                          };
              };
