@@ -458,12 +458,40 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       };
       main.finalize = function(phd, groupids){
         //$scope.phd.title = $scope.phd.application['Title of Invention'];
-                        var appnum = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
-                        var phdref = Collection($scope.phd.id).$ref();
-                         var dashboards = Collection($ACTIVEROAR.page);
-                 var dashboardsref = dashboards.$ref();
+            var appnum = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
+              var phdref = Collection($scope.phd.id).$ref();
+              var dashboards = Collection($ACTIVEROAR.page);
+              var dashboardsref = dashboards.$ref();
                 //  var phdref = Collection(phd.id).$ref();
-                 var projref = Collection($stateParams.pId).$ref();
+              var projref = Collection($stateParams.pId).$ref();
+
+
+            var date = new Date();
+            var d = new Date();
+            var n = d.getTime();
+            var patent = angular.copy(phd.patent);
+            patent.rows = [
+                              {columns:[
+                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
+                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'ckwidget', wid:n+15,styleClass:roarevent.styleClass || 'btn-dark'}]}
+                              ]}
+                          ];
+            patent.structure = "6-6";
+            collections.$add(patent).then(function (ref) {
+              var id = ref.key();
+              ref.update({
+                id: id,
+                timestamp: Firebase.ServerValue.TIMESTAMP
+              });
+              ref.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
+              var allref = Collection(groupids[0]).$ref();
+              var meritsref = Collection(groupids[1]).$ref();
+              allref.child('roarlist').push(id);
+              meritsref.child('roarlist').push(id);
+
+            });
+
+              
                         
                         
                         // phdref.update({
@@ -580,7 +608,11 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             patent.title = phdobj['Title  of Invention'] || null;
             patent.number = patentnumber;
             patent.media = Blob.url;
-            patent.google = 'https://www.google.com/patents/US' + patentnumber
+            patent.google = 'https://www.google.com/patents/US' + patentnumber;
+            patent.rid = 'P1';
+            patent.date = phd.application['Issue Date of Patent'] || null;
+            patent.styleClass = 'NOA';
+            
             //patentobj.srcdoc = googlepage(patentnumber) || null;
             googlepage(patent.number);
             filepicker.convert(
