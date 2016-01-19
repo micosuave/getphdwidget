@@ -12,7 +12,7 @@
         <img src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg" class="pop img img-rounded pull-right" style="max-height:100px;" ng-if="!main.progress" />
         <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
     </button>
-           <div class="row btn btn-glass btn-info" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;" ng-if="main.extractedfiles">
+           <div class="row btn btn-glass btn-info" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;" ng-if="main.progresstwo">
              <uib-progressbar class="btn-glass fa fa-3x active stripped" ng-class="{'active':(main.progress < 100)}" value="main.progressdisplay" max="main.extractedfiles" style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{main.progresstype}}" > </uib-progressbar><i class="fa fa-refresh fa-3x fa-spinner fa-spin"></i><i class="fa fa-3x">{{main.progressdisplay}}/{{main.extractedfiles}}</i>
              
            </div>
