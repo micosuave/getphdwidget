@@ -58,7 +58,7 @@
     <uib-tab-content ng-if="main.tabs[0].isActive">
     
     <uib-tabset class="tabbable tabs-left" >
-            <uib-tab-heading class="">USSN {{phd.application['Application Number']}}</uib-tab-heading>
+           
         
         <uib-tab class="ngDialogTab-primary" ng-if="phd.application">
             
@@ -177,12 +177,12 @@
 
                     <tr>
                         <!--<th ng-click="reverse = !reverse" class="fa " ng-class="{'fa-chevron-up': reverse,'fa-chevron-down': !reverse}">#</th>-->
-                        <th ng-click="dog = 'Mail Room Date'; maybe = !maybe"><strong>Mail Room Date<i class="fa" ng-if="dog = 'Mail Room Date'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
-                        <th ng-click="dog = 'Document Code'; maybe = !maybe"><strong>Document Code<i class="fa" ng-if="dog = 'Document Code'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
-                        <th ng-click="dog = 'Document Description'; maybe = !maybe"><strong>Document Description<i class="fa" ng-if="dog = 'Document Description'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
-                        <th ng-click="dog = 'Document Category'; maybe = !maybe"><strong>Document Category<i class="fa" ng-if="dog = 'Document Category'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
-                        <th ng-click="dog = 'Page Count'; maybe = !maybe"><strong>Page Count<i class="fa" ng-if="dog = 'Page Count'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
-                        <th ng-click="dog = 'Filename'; maybe = !maybe"><strong>Filename<i class="fa" ng-if="dog = 'Filename'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
+                        <th ng-click="dog = ['Mail Room Date']; maybe = !maybe"><strong>Mail Room Date<i class="fa" ng-if="dog = ['Mail Room Date']" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
+                        <th ng-click="dog = ['Document Code']; maybe = !maybe"><strong>Document Code<i class="fa" ng-if="dog = ['Document Code']" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
+                        <th ng-click="dog = ['Document Description']; maybe = !maybe"><strong>Document Description<i class="fa" ng-if="dog = 'Document Description']" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
+                        <th ng-click="dog = ['Document Category']; maybe = !maybe"><strong>Document Category<i class="fa" ng-if="dog = ['Document Category']" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
+                        <th ng-click="dog = ['Page Count']; maybe = !maybe"><strong>Page Count<i class="fa" ng-if="dog = ['Page Count']" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
+                        <th ng-click="dog = ['Filename']; maybe = !maybe"><strong>Filename<i class="fa" ng-if="dog = ['Filename']" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -193,7 +193,7 @@
                         <td ng-bind="::roarevent['Document Description']"></td>
                         <td ng-bind="::roarevent['Document Category']"></td>
                         <td ng-bind="::roarevent['Page Count']"></td>
-                        <td ><a ng-href="https://lexlab.io/files/public/uspto/{{::phd.appum}}/{{::phd.appnum}}-image_file_wrapper/{{::roarevent['Filename']}}" target="_popup" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=yes,width=500,left=150,height=700,top=150'); return false;">{{::roarevent['Filename']}}</a></td>
+                        <td ><a ng-href="https://lexlab.io/files/public/uspto/{{::phd.appnum}}/{{::phd.appnum}}-image_file_wrapper/{{::roarevent['Filename']}}" target="_popup" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=yes,width=500,left=150,height=700,top=150'); return false;">{{::roarevent['Filename']}}</a></td>
 
 
 
@@ -205,6 +205,7 @@
         </uib-tab>
         <uib-tab class="">
             <!--<h4 class="card-heading card-title pull-right">PTO Metadata TSVFiles</h4>-->
+           <uib-tab-heading class="">USSN {{phd.application['Application Number']}}</uib-tab-heading>
             <uib-tabset class="tabbable">
                 <uib-tab class="" ng-repeat="file in phd.file" heading="{{file.label | uppercase}}">
                    <uib-tab-content> <pre class="card card-block card-fancy" ng-bind="file.file"></pre></uib-tab-content>
@@ -218,13 +219,14 @@
    <uib-tab heading="PhD Report" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[1].isActive = true" deselect="main.tabs[1].isActive = false">
       <uib-tab-content ng-if="main.tabs[1].isActive">
       <uib-tabset class="tabbable " justified="true">
-        <uib-tab class="ngDialogTab text-{{collection.styleClass}} " ng-repeat="(key,collection) in phd.roarlist" collection="{{collection}}">
+        <uib-tab class="ngDialogTab text-{{collection.styleClass}} " ng-repeat="(key,tab) in phd.roarlist" collection="{{key || tab}}" active="tab.active" select="tab.active = true;" deselect="tab.active = false;">
             <uib-tab-heading class="pull-right" style="" ng-style="">{{collection.rid}}&nbsp&nbsp<i class=" fa {{collection.icon}} label label-{{collection.styleClass}} label-pill">{{collection.roarlist.length}}</i></uib-tab-heading>
+            <uib-tab-content ng-if="tab.active">
             <h4 class="card-title pull-right fa {{collection.icon}}">{{collection.rid}}</h4>
             <div style="width: 100%;" class="reventlist">
                 <roar-event ng-repeat="event in collection.roarlist" id="{{event.id || event}}" style="width:19.5%;"></roar-event>
             </div>
-
+            </uib-tab-content>
         </uib-tab>
         <uib-tab class="ngDialogTab text-info" >
             <uib-tab-heading class="">ROAR
