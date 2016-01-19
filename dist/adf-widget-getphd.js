@@ -622,12 +622,12 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           { filename: 'US' + patentnumber + '.pdf' },
           function (Blob) {
             var patent = {};
-            patent.title = phdobj['Title  of Invention'] || null;
+            patent.title = phdobj['Title of Invention'] || null;
             patent.number = patentnumber;
             patent.media = Blob.url;
             patent.google = 'https://www.google.com/patents/US' + patentnumber;
             patent.rid = 'P1';
-            patent.date = phdobj['Issue Date of Patent'] || null;
+            if (phdobj['Issue Date of Patent'] !== '-') { patent.date = phdobj['Issue Date of Patent']; } else { patent.date =  '1899-12-31'; }
             patent.styleClass = 'NOA';
             
             //patentobj.srcdoc = googlepage(patentnumber) || null;
