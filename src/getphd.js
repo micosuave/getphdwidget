@@ -114,8 +114,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 })
   .constant('FIREBASE_URL', 'https://lexlab.firebaseio.com/')
-  .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams','$location','$ACTIVEROAR','$dashboards',
-    function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards) {
+  .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams','$location','$ACTIVEROAR','$dashboards',"$interval",
+    function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval) {
       var main = this;
       main.size = 'lg';
       $scope.collapsereport = false;
@@ -214,7 +214,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         if (progress <= 40) { main.progresstype = 'danger'; }
         else if (progress > 40 && progress < 66) { main.progresstype = 'warning'; }
         else if (progress > 97) { main.progresstype = 'success'; }
-        else { main.progresstype = 'primary'; }
+        else { main.progresstype = 'info'; }
         console.info('onProgressItem', fileItem, progress);
       };
       uploader.onProgressAll = function (progress) {
@@ -251,7 +251,20 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       };
 
       console.info('uploader', uploader);
+      main.progressbarfn = progressfunction;
+      
+      var progressfunction = function (length) {
+        main.n = 0;
+        main.progresstwo = 0;
+        main.progressdisplay = 0;
+        main.extractedfiles = length;
+        $interval(function () {
+          main.progressdisplay = main.progresstwo - main.n;
+          main.n++;
+        }, 500, length);
 
+
+      };
       main.phd = {};
       var appnum = config.appnum;
       var attorney = appnum + '/' + appnum + '-address_and_attorney_agent.tsv';
@@ -400,8 +413,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         //toastr.success('starting extraction...');
         extractpdf(file)
           .then(function (files) {
-            main.progresstwo = 0;
-            main.extractedfiles = files.pdffiles.length;
+           
+            main.progressbarfn(files.pdffiles.length);
             $log.info('Files extracted', files);
             alertify.log('Files extracted');
             //toastr.success('Files extracted');
@@ -471,8 +484,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             var patent = angular.copy(phd.patent);
             patent.rows = [
                               {columns:[
-                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
-                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'ckwidget', wid:n+15,styleClass:roarevent.styleClass || 'btn-dark'}]}
+                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: patent.media || 'http://www.google.com'},title:patent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:patent.styleClass || 'btn-dark'}]},
+                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:patent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'ckwidget', wid:n+15,styleClass:patent.styleClass || 'btn-dark'}]}
                               ]}
                           ];
             patent.structure = "6-6";
@@ -609,7 +622,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             patent.media = Blob.url;
             patent.google = 'https://www.google.com/patents/US' + patentnumber;
             patent.rid = 'P1';
-            patent.date = phd.application['Issue Date of Patent'] || null;
+            patent.date = phdobj['Issue Date of Patent'] || null;
             patent.styleClass = 'NOA';
             
             //patentobj.srcdoc = googlepage(patentnumber) || null;
