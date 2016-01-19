@@ -60,7 +60,7 @@
     <uib-tabset class="tabbable tabs-left" >
            
         
-        <uib-tab class="ngDialogTab-primary" ng-if="phd.application">
+        <uib-tab class="text-primary" ng-if="phd.application">
             
             <uib-tab-heading style="" ng-style="" >APPLICATION</uib-tab-heading>
             <!--<h4 class="card-header card-title pull-right">Application Data</h4>-->
@@ -77,7 +77,7 @@
             </table>
             </uib-tab-content>
         </uib-tab>
-        <uib-tab class="ngDialogTab-info" ng-if="phd.attorney">
+        <uib-tab class="text-info" ng-if="phd.attorney">
            
             <uib-tab-heading ng-style="" >ATTORNEY</uib-tab-heading>
             <!--<h4 class="card-header card-title pull-right">Attorney Data</h4>-->
@@ -93,7 +93,7 @@
             </table>
             </uib-tab-content>
         </uib-tab>
-        <uib-tab class="ngDialogTab-success" ng-if="phd.continuity">
+        <uib-tab class="text-success" ng-if="phd.continuity">
             
             <uib-tab-heading style="" ng-style="">CONTINUITY</uib-tab-heading>
             <!--<h4 class="card-header card-title pull-right">Continuity Data</h4>-->
@@ -120,13 +120,13 @@
             </table>
             </uib-tab-content>
         </uib-tab>
-        <uib-tab class="ngDialogTab-warning" ng-if="phd.foreign">
+        <uib-tab class="text-warning" ng-if="phd.foreign">
 
             <!-- <pre ng-bind="main.phd.foreign | json:4"></pre> -->
             <uib-tab-heading style="" ng-style="">FOREIGN PRIORITY</uib-tab-heading>
             <!--<h4 class="card-header card-title pull-right">Foreign Priority</h4>-->
             <uib-tab-content>
-            <table class="card card-block table table-striped table-condensed table-hover table-responsive">
+            <table class=" table table-striped table-condensed table-hover table-responsive">
                 <thead>
                     <tr>
                         <th><strong>Country</strong></th>
@@ -145,12 +145,12 @@
             </table>
             </uib-tab-content>
         </uib-tab>
-        <uib-tab class="ngDialogTab-danger" ng-if="phd.transaction">
+        <uib-tab class="text-danger" ng-if="phd.transaction">
             <!-- <pre ng-bind="main.transaction | json:4"></pre> -->
             <uib-tab-heading style="" ng-style="">TRANSACTION</uib-tab-heading>
             <!--<h4 class="card-header card-title pull-right">Transaction Data</h4>-->
             <uib-tab-content>
-            <table class="card  card-block table table-striped table-hover table-condensed table-responsive">
+            <table class="table table-striped table-hover table-condensed table-responsive">
                 <thead>
                     <tr>
                         <th><strong>Date</strong></th>
@@ -188,12 +188,12 @@
                 <tbody>
                     <tr ng-repeat="roarevent in phd.imagefile | filter: main.query | orderBy: dog : maybe" class="">
                         <!--<th class=""> <a ng-click="pdfToPlainText(roarevent['Filename'])" getpdftext><i class="fa fa-file-pdf"> {{$index}}</i></a></th>-->
-                        <td ng-bind="::roarevent['Mail Room Date']"></td>
-                        <td ng-bind="::roarevent['Document Code']"></td>
-                        <td ng-bind="::roarevent['Document Description']"></td>
-                        <td ng-bind="::roarevent['Document Category']"></td>
-                        <td ng-bind="::roarevent['Page Count']"></td>
-                        <td ><a ng-href="https://lexlab.io/files/public/uspto/{{::phd.appnum}}/{{::phd.appnum}}-image_file_wrapper/{{::roarevent['Filename']}}" target="_popup" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=yes,width=500,left=150,height=700,top=150'); return false;">{{::roarevent['Filename']}}</a></td>
+                        <td ng-bind="roarevent['Mail Room Date']"></td>
+                        <td ng-bind="roarevent['Document Code']"></td>
+                        <td ng-bind="roarevent['Document Description']"></td>
+                        <td ng-bind="roarevent['Document Category']"></td>
+                        <td ng-bind="roarevent['Page Count']"></td>
+                        <td ><a ng-href="https://lexlab.io/files/public/uspto/{{phd.appnum}}/{{phd.appnum}}-image_file_wrapper/{{roarevent['Filename']}}" target="_popup" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=yes,width=500,left=150,height=700,top=150'); return false;">{{roarevent['Filename']}}</a></td>
 
 
 
@@ -216,7 +216,7 @@
     </uib-tab-content>
     
    </uib-tab>
-   <uib-tab heading="PhD Report" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[1].isActive = true" deselect="main.tabs[1].isActive = false">
+   <!--<uib-tab heading="PhD Report" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[1].isActive = true" deselect="main.tabs[1].isActive = false">
       <uib-tab-content ng-if="main.tabs[1].isActive">
       <uib-tabset class="tabbable " justified="true">
         <uib-tab class="ngDialogTab text-{{collection.styleClass}} " ng-repeat="(key,tab) in phd.roarlist" collection="{{key || tab}}" active="tab.active" select="tab.active = true;" deselect="tab.active = false;">
@@ -261,21 +261,21 @@
                     <!--<iframe ng-src="{{node.media}}" class="card card-block card-fancy pull-right" style="width:45%;" ng-if="node.isActive"></iframe>-->
                     <!--<iframe ng-src="{{node.txt}}" class="card card-block card-fancy pull-right" style="width: 45%;" ng-if="item.active"></iframe>-->
                 <!--</div>-->
-                </uib-tab>
+               <!-- </uib-tab>
                 
           </uib-tabset>
             
         </uib-tab>
       </uib-tabset>
       </uib-tab-content>
-   </uib-tab>
+   </uib-tab>-->
    
-        <uib-tab class="" active="main.tabs[2].isActive" disable="main.tabs[2].disabled" select="main.tabs[2].isActive = true" deselect="main.tabs[2].isActive = false">
+        <uib-tab class="" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[2].isActive = true" deselect="main.tabs[1].isActive = false">
            <uib-tab-heading class="" ng-style="">US {{phd.patent.number || phd.application['Patent Number'] }}</uib-tab-heading>
             
             <uib-tab-content ng-if="main.tabs[2].isActive">
             <iframe ng-src="{{phd.patent.media}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
-            <iframe ng-src="{{phd.patent.txt}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
+            <iframe ng-src="{{phd.patent.txt}}" class="card card-fancy col-sm-6" style="min-height:500px;"></iframe>
             <!--<tabset>
                 <tab heading=".pdf">
             <div filepicker-preview url="phd.patent.media" style="width:100%; height:400px"></div>
