@@ -200,7 +200,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       };
       uploader.onBeforeUploadItem = function (item) {
         if (!config.PNUM || config.PNUM < 8000000){
-          alertify.prompt("Please enter the Patent Number!")
+          alertify.prompt("Please enter the Patent Number!");
         }
         console.info('onBeforeUploadItem', item);
         main.progress = 0;
@@ -251,7 +251,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       };
 
       console.info('uploader', uploader);
-      main.progressbarfn = progressfunction(length);
+      //main.progressbarfn = progressfunction(length);
       
       function progressfunction(length) {
         main.n = 0;
@@ -413,54 +413,57 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         //toastr.success('starting extraction...');
         extractpdf(file)
           .then(function (files) {
-           
-            main.progressbarfn(files.pdffiles.length);
-            $log.info('Files extracted', files);
-            alertify.log('Files extracted');
-            //toastr.success('Files extracted');
-           main.phd.file = files.tsvfiles;
+            try {
+              progressfunction(files.pdffiles.length);
+            }
+            catch (ex) { console.log(ex); }
+            finally {
+              $log.info('Files extracted', files);
+              alertify.log('Files extracted');
+              //toastr.success('Files extracted');
+              main.phd.file = files.tsvfiles;
 
-            main.parse(files.tsvfiles)
+              main.parse(files.tsvfiles)
 
-              .then(function (parsedfiles) {
+                .then(function (parsedfiles) {
 
-                //$log.info('TSV Parsed', parsedfiles);
-                alertify.log('TSV Parsed');
-                //alertify.log('Building ROARmap...');
+                  //$log.info('TSV Parsed', parsedfiles);
+                  alertify.log('TSV Parsed');
+                  //alertify.log('Building ROARmap...');
 
-                $roarmap(parsedfiles, main.phd, main)
-                  .then(function (groupids) {
-                    // $scope.phd.roarmap = roarmap;
-                    //$scope.phd.roarlist = roarmap.collections;
-                    alertify.success('ROARmap built!');
-                    $patentsearch(main.phd.application, config.PNUM)
-                      .then(function (patentobj) {
-                        main.phd.patent = patentobj;
-                        main.finalize(main.phd, groupids);
-
-
-                      }, function (reason) {
-                        console.log(reason.message);
-                      });
-
-                  }, function (reason) {
-                    console.log(reason.message);
-                  });
-               
+                  $roarmap(parsedfiles, main.phd, main)
+                    .then(function (groupids) {
+                      // $scope.phd.roarmap = roarmap;
+                      //$scope.phd.roarlist = roarmap.collections;
+                      alertify.success('ROARmap built!');
+                      $patentsearch(main.phd.application, config.PNUM)
+                        .then(function (patentobj) {
+                          main.phd.patent = patentobj;
+                          main.finalize(main.phd, groupids);
 
 
+                        }, function (reason) {
+                          console.log(reason.message);
+                        });
 
-              }, function (reason) {
+                    }, function (reason) {
+                      console.log(reason.message);
+                    });
 
-                console.log(reason.message);
 
-              });
 
-          }, function (reason) {
 
-            console.log(reason.messsage);
-          });
+                }, function (reason) {
 
+                  console.log(reason.message);
+
+                });
+
+            }}, function (reason) {
+
+              console.log(reason.messsage);
+            });
+      
 
       },
       function (reason) {
@@ -616,7 +619,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           pdfstorageuri.toString(),
           { filename: 'US' + patentnumber + '.pdf' },
           function (Blob) {
-            var patent = {}
+            var patent = {};
             patent.title = phdobj['Title  of Invention'] || null;
             patent.number = patentnumber;
             patent.media = Blob.url;
