@@ -177,23 +177,23 @@
 
                     <tr>
                         <!--<th ng-click="reverse = !reverse" class="fa " ng-class="{'fa-chevron-up': reverse,'fa-chevron-down': !reverse}">#</th>-->
-                        <th><strong>Mail Room Date</strong></th>
-                        <th><strong>Document Code</strong></th>
-                        <th><strong>Document Description</strong></th>
-                        <th><strong>Document Category</strong></th>
-                        <th><strong>Page Count</strong></th>
-                        <th><strong>Filename</strong></th>
+                        <th ng-click="dog = 'Mail Room Date'; maybe = !maybe"><strong>Mail Room Date<i class="fa" ng-if="dog = 'Mail Room Date'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
+                        <th ng-click="dog = 'Document Code'; maybe = !maybe"><strong>Document Code<i class="fa" ng-if="dog = 'Document Code'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
+                        <th ng-click="dog = 'Document Description'; maybe = !maybe"><strong>Document Description<i class="fa" ng-if="dog = 'Document Description'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
+                        <th ng-click="dog = 'Document Category'; maybe = !maybe"><strong>Document Category<i class="fa" ng-if="dog = 'Document Category'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
+                        <th ng-click="dog = 'Page Count'; maybe = !maybe"><strong>Page Count<i class="fa" ng-if="dog = 'Page Count'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
+                        <th ng-click="dog = 'Filename'; maybe = !maybe"><strong>Filename<i class="fa" ng-if="dog = 'Filename'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="roarevent in phd.imagefile |filter: main.query " class="">
+                    <tr ng-repeat="roarevent in phd.imagefile | filter: main.query | orderBy: dog : maybe" class="">
                         <!--<th class=""> <a ng-click="pdfToPlainText(roarevent['Filename'])" getpdftext><i class="fa fa-file-pdf"> {{$index}}</i></a></th>-->
                         <td ng-bind="::roarevent['Mail Room Date']"></td>
                         <td ng-bind="::roarevent['Document Code']"></td>
                         <td ng-bind="::roarevent['Document Description']"></td>
                         <td ng-bind="::roarevent['Document Category']"></td>
                         <td ng-bind="::roarevent['Page Count']"></td>
-                        <td ng-bind="::roarevent['Filename']"></td>
+                        <td ><a ng-href="https://lexlab.io/files/public/uspto/{{::phd.appum}}/{{::phd.appnum}}-image_file_wrapper/{{::roarevent['Filename']}}" target="_popup" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=yes,width=500,left=150,height=700,top=150'); return false;">{{::roarevent['Filename']}}</a></td>
 
 
 
@@ -218,7 +218,7 @@
    <uib-tab heading="PhD Report" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[1].isActive = true" deselect="main.tabs[1].isActive = false">
       <uib-tab-content ng-if="main.tabs[1].isActive">
       <uib-tabset class="tabbable " justified="true">
-        <uib-tab class="ngDialogTab text-{{collection.styleClass}} " ng-repeat="(key,collection) in phd.roarmap.collections" collection="{{collection}}">
+        <uib-tab class="ngDialogTab text-{{collection.styleClass}} " ng-repeat="(key,collection) in phd.roarlist" collection="{{collection}}">
             <uib-tab-heading class="pull-right" style="" ng-style="">{{collection.rid}}&nbsp&nbsp<i class=" fa {{collection.icon}} label label-{{collection.styleClass}} label-pill">{{collection.roarlist.length}}</i></uib-tab-heading>
             <h4 class="card-title pull-right fa {{collection.icon}}">{{collection.rid}}</h4>
             <div style="width: 100%;" class="reventlist">
@@ -232,7 +232,7 @@
             </uib-tab-heading>
            
             <uib-tabset class="tabbable tabs-left">
-                <uib-tab ng-repeat="(key, roarevent) in phd.roarmap.roarlist" node="{{roarevent.id || roarevent}}" select="node.isActive = true" deselect="node.isActive = false" active="node.isActive">
+                <uib-tab ng-repeat="(key, roarevent) in phd.imagefile" node="{{roarevent.id || roarevent}}" select="node.isActive = true" deselect="node.isActive = false" active="node.isActive">
                 <uib-tab-heading style="max-width:14%;transform:scale(0.75);">
                   <div id="" uib-dropdown uib-keyboard-nav dropdown-append-to-body >
                         <a uib-dropdown-toggle class=" fa {{rightmenu.icon}}"  ></a>

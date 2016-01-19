@@ -416,8 +416,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //alertify.log('Building ROARmap...');
 
                 $roarmap(parsedfiles, main.phd, main)
-                  .then(function (roarmap, groupids) {
-                    $scope.phd.roarmap = roarmap;
+                  .then(function (groupids) {
+                    // $scope.phd.roarmap = roarmap;
                     //$scope.phd.roarlist = roarmap.collections;
                     alertify.success('ROARmap built!');
                     $patentsearch(main.phd.application, config.PNUM)

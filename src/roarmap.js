@@ -303,7 +303,7 @@
                          
                          
                          });
-                     return deferred.resolve(phd.roarmap, groupids);
+                     return deferred.resolve(groupids);
                     //  $timeout(function() {
                     //      buildcollections(p);
                     //  }, 30000);
