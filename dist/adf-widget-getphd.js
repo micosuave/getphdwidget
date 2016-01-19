@@ -55,7 +55,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       controller: 'MainCtrl',
       controllerAs: 'main',
       frameless: true,
-      reload: true,
+      reload: false,
       //collapsed: true,
       //immediate: true,
       icon: 'fa-ge',
@@ -1107,10 +1107,10 @@ angular.module('textSizeSlider', [])
                          ref.child('roarlist').push(id);
                          phd.roarmap.collections[id] = id;
                          phd.roarlist[id] = id;
-                         //phdref.child('roarmap').child('collections').push(id);
-                         //phdref.child('roarlist').push(id);
-                        // dashboardsref.child('roarlist').push(id);
-                         //projref.child('roarlist').push(id);
+                         phdref.child('roarmap').child('collections').push(id);
+                         phdref.child('roarlist').push(id);
+                        dashboardsref.child('roarlist').push(id);
+                         projref.child('roarlist').push(id);
                         
                          return groupids.push(id);
                        });
