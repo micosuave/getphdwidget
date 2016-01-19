@@ -254,8 +254,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       console.info('uploader', uploader);
       main.progressbarfn = progressfunction(length);
       
-      var progressfunction = function (length) {
-       return function(length){ main.n = 0;
+      function progressfunction(length) {
+        main.n = 0;
         main.progresstwo = 0;
         main.progressdisplay = 0;
         main.extractedfiles = length;
@@ -263,7 +263,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           main.progressdisplay = main.progresstwo - main.n;
           main.n++;
         }, 500, length);
-       };
+     
 
       };
       main.phd = {};
