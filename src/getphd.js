@@ -114,8 +114,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 })
   .constant('FIREBASE_URL', 'https://lexlab.firebaseio.com/')
-  .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams','$location','$ACTIVEROAR','$dashboards',"$interval",
-    function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval) {
+  .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams','$location','$ACTIVEROAR','$dashboards',"$interval","Collections",
+    function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, Collections) {
       var main = this;
       main.size = 'lg';
       $scope.collapsereport = false;
@@ -259,7 +259,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         main.progressdisplay;
         main.extractedfiles = length;
         $interval(function () {
-          main.progressdisplay = main.progresstwo - main.n;
+          main.progressdisplay =  main.n;
           main.n++;
         }, 500, length);
      
@@ -473,7 +473,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       };
       main.finalize = function(phd, groupids){
         //$scope.phd.title = $scope.phd.application['Title of Invention'];
-            var appnum = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
+        var collections = Collections();
+        var appnum = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
               var phdref = Collection($scope.phd.id).$ref();
               var dashboards = Collection($ACTIVEROAR.page);
               var dashboardsref = dashboards.$ref();
