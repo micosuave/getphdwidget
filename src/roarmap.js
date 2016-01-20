@@ -345,7 +345,7 @@
                            timestamp: Firebase.ServerValue.TIMESTAMP
                          });
                          ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(id);
-                         ref.child('roarlist').push(id);
+                         //ref.child('roarlist').push(id);
                          phd.roarmap.collections[id] = id;
                          phd.roarlist[id] = id;
                         //  phdref.child('roarmap').child('collections').push(id);

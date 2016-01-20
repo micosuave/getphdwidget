@@ -525,7 +525,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                           localStorageService.set(phd.application['Application Number'], phd);
                           $http.post('/getphd/store/' + appnum, phd);
                           phdref.update(phd);
-                          dashboardsref.update({ styleClass: 'primary', title: 'PhD Report for US '+ (phd.patent.number || phd.application['Patent Number'])});
+                          // dashboardsref.update({ styleClass: 'primary', title: 'PhD Report for US '+ (phd.patent.number || phd.application['Patent Number'])});
+                          dashboardsref.update(phd);
                           angular.forEach(groupids, function (id, key) {
                             phdref.child('roarlist').push(id);
                             
@@ -1154,7 +1155,7 @@ angular.module('textSizeSlider', [])
                            timestamp: Firebase.ServerValue.TIMESTAMP
                          });
                          ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(id);
-                         ref.child('roarlist').push(id);
+                         //ref.child('roarlist').push(id);
                          phd.roarmap.collections[id] = id;
                          phd.roarlist[id] = id;
                         //  phdref.child('roarmap').child('collections').push(id);
