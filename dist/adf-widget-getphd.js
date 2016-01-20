@@ -532,7 +532,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             
                             dashboardsref.child('roarlist').push(id);
                               projref.child('roarlist').push(id);
-                        
+                              var selfref = Collection(id).$ref();
+                              selfref.update({ media: phd.patent.media });
                           });
                           
                           main.showupload = false;
