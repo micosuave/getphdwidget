@@ -320,7 +320,7 @@
                              
                               rid: options.rid,
                                title: options.rid + ' - ' + 'USSN ' + phd.application['Application Number'],
-                              collectiontype: 'source',
+                              collection_type: 'source',
                               description: 'for US ' + phd.application['Patent Number'],
                               styleClass: options.styleClass,
                               icon: options.icon,

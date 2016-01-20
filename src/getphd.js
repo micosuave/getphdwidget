@@ -256,12 +256,11 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       function progressfunction(length) {
         main.n = 0;
         main.progresstwo = 0;
-        main.progressdisplay;
+        main.progressdisplay = 1;
         main.extractedfiles = length;
         $interval(function () {
-          main.progressdisplay =  main.n;
-          main.n++;
-        }, 500, length);
+          main.progressdisplay++;
+        }, 250, length);
      
 
       };
