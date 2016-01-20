@@ -520,7 +520,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         phd.appnum = appnum;
                         phd.media= 'https://lexlab.io/files/public/uspto/index#?app=' + appnum;
                         phd.title = 'PhD for ' + (phd.patent.number || phd.application['Patent Number']);
-                        phd.styleClass = 'NOA';
+                        phd.styleClass = 'Applicant';
                           phd.rid= 'PHD';
                           localStorageService.set(phd.application['Application Number'], phd);
                           $http.post('/getphd/store/' + appnum, phd);
@@ -628,7 +628,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             patent.rid = 'P1';
             if (phdobj['Issue Date of Patent'] !== '-') { patent.date = phdobj['Issue Date of Patent']; } else { patent.date =  '1899-12-31'; }
             patent.styleClass = 'NOA';
-            
+            patent.name = 'US' + patentnumber;
+            patent.description = phdobj['Title of Invention'];
             //patentobj.srcdoc = googlepage(patentnumber) || null;
             googlepage(patent.number);
             filepicker.convert(
