@@ -525,8 +525,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                           localStorageService.set(phd.application['Application Number'], phd);
                           $http.post('/getphd/store/' + appnum, phd);
                           phdref.update(phd);
-                          // dashboardsref.update({ styleClass: 'primary', title: 'PhD Report for US '+ (phd.patent.number || phd.application['Patent Number'])});
-                          dashboardsref.update(phd);
+                          dashboardsref.update({ styleClass: 'primary', title: 'PhD Report for US '+ (phd.patent.number || phd.application['Patent Number'])});
+                          // dashboardsref.update(phd);
                           angular.forEach(groupids, function (id, key) {
                             phdref.child('roarlist').push(id);
                             
