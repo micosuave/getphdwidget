@@ -319,7 +319,7 @@
                               name: 'USSN ' + phd.application['Application Number'],
                              
                               rid: options.rid,
-                               title: options.rid + ' - ' + 'USSN ' + phd.application['Application Number'],
+                               title: options.title + ' - ' + 'USSN ' + phd.application['Application Number'],
                               collection_type: 'source',
                               description: 'for US ' + phd.application['Patent Number'],
                               styleClass: options.styleClass,
@@ -332,9 +332,9 @@
                           };
                         return binder;
                      };
-                     var phdall = { rid: 'PHD1 - ALL', styleClass: 'NOA', icon: 'fa-legal' },
-                       phdmerits = { rid: 'PHD2 - MERITS', styleClass: 'PTO', icon: 'fa-balance-scale' },
-                       phdart = { rid: 'PHD3 - ART', styleClass: 'Petition', icon: 'fa-leaf' };
+                     var phdall = { rid: 'PHD1',title:'ALL', styleClass: 'NOA', icon: 'fa-legal' },
+                       phdmerits = { rid: 'PHD2',title:'MERITS', styleClass: 'PTO', icon: 'fa-balance-scale' },
+                       phdart = { rid: 'PHD3',title:'ART', styleClass: 'Petition', icon: 'fa-leaf' };
                      var groupids = [];  
                      var groups = { all: phdall, merits: phdmerits, art: phdart };
                      angular.forEach(groups, function (group, key) {
