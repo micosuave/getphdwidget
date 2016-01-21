@@ -260,7 +260,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         main.extractedfiles = length;
         $interval(function () {
           main.progressdisplay++;
-        }, 250, length);
+        }, 200, length);
      
 
       };
