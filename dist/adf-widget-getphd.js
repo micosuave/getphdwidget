@@ -830,12 +830,12 @@ angular.module('textSizeSlider', [])
              function parse(file){
                  var roarevent = angular.copy(file);
                  //debugger;
-                 var tese = [];
-                 tese.push(roarevent);
-                         var test = new RegExp('^[0-9]{8}-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{5}-');
+                //  var tese = [];
+                //  tese.push(roarevent);
+                //          var test = new RegExp('^[0-9]{8}-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{5}-');
 
-                        var array = $filter('filter')(tese, test);
-                        if (array.length > 0 && roarevent.filename.indexOf('.pdf')) {
+                //         var array = $filter('filter')(tese, test);
+                        if (roarevent.filename.indexOf('.pdf') > -1) {
                           var filename = file.Filename || file.name || file.filename;
                           //debugger;
                           var appnumsubstring = filename.slice(0, filename.indexOf("-"));
@@ -912,8 +912,30 @@ angular.module('textSizeSlider', [])
                          roarevent.structure = "6-6";
                          return deferred.resolve(roarevent);  
                         } else {
-                          alertify.alert(roarevent.filename);
-                          return deferred.reject();
+                          var filename = file.Filename || file.name || file.filename;
+                          roarevent.name = filename;
+                          roarevent.title = filename;
+                          if (file.url) {
+                            roarevent.media = file.url;
+                            //  var partA = file.url.replace('/view?usp', '/preview');
+                            //   roarevent.media = partA.slice(0, partA.indexOf('='));
+                            //     roarevent.iconUrl = file.iconUrl || null;
+                            roarevent.uuid = file.id;
+
+                            roarevent.mimeType = file.mimeType || null;
+                          }
+                          var date = new Date();
+                          var d = new Date();
+                          var n = d.getTime();
+                          roarevent.content = '<img width="auto" height="auto" src="' + file.url + '" class="img image-thumbnail" />';
+                          roarevent.rows = [
+                              {columns:[
+                                  {cid:n+10,styleClass:'col-sm-3',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
+                                  {cid:n+1000,styleClass:'col-sm-9',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'ckwidget', wid:n+15,styleClass:roarevent.styleClass || 'btn-dark'}]}
+                              ]}
+                          ];
+                         roarevent.structure = "3-9";
+                         return deferred.resolve(roarevent);
                         }
                
                           
