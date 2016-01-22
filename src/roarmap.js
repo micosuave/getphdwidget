@@ -378,10 +378,10 @@
                          return groupids.push(id);
                        });
                      });
-                     buildroar(groupids);
-                    //  $timeout(function () {
-                    //    buildroar(groupids);
-                    //  }, 1000);
+                    //  buildroar(groupids);
+                     $timeout(function () {
+                       buildroar(groupids);
+                     }, 1000);
                  };
 
                 //  function buildcollections(p) {

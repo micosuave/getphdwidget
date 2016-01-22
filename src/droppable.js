@@ -68,18 +68,18 @@ angular.module("fa.droppable", [])
             drop.file = {};
             drop.dropFiles = function (files) {
               console.log('files.files[0]', files.files[0]);
-              $timeout(function () {
-                toastr.info('fetching remote resources...');
-              }, 5000);
-              $timeout(function () {
-                toastr.info('loading relevant data schemas...');
-              }, 10000);
-              $timeout(function () {
-                toastr.warning('compiling templates...');
-              }, 15000);
-              $timeout(function () {
-                toastr.warning('starting the AI engine...')
-              }, 20000);
+              // $timeout(function () {
+              //   toastr.info('fetching remote resources...');
+              // }, 5000);
+              // $timeout(function () {
+              //   toastr.info('loading relevant data schemas...');
+              // }, 10000);
+              // $timeout(function () {
+              //   toastr.warning('compiling templates...');
+              // }, 15000);
+              // $timeout(function () {
+              //   toastr.warning('starting the AI engine...')
+              // }, 20000);
               $scope.$on('UPLOADCOMPLETE', function (event) {
                 $scope.$parent.main.handleFiles(files.files[0]);
               });

@@ -211,6 +211,19 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       };
       uploader.onProgressItem = function (fileItem, progress) {
         main.progress = progress;
+         if (progress === 10){
+                toastr.info('fetching remote resources...');
+              }
+             if (progress === 30) {
+                toastr.info('loading relevant data schemas...');
+              }
+             if (progress === 55) {
+                toastr.warning('compiling templates...');
+              }
+            if (progress === 75) {
+                toastr.warning('starting the AI engine...')
+              }
+
         if (progress <= 40) { main.progresstype = 'danger'; }
         else if (progress > 40 && progress < 66) { main.progresstype = 'warning'; }
         else if (progress > 97) { main.progresstype = 'success'; }

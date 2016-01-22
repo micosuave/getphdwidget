@@ -212,6 +212,19 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       };
       uploader.onProgressItem = function (fileItem, progress) {
         main.progress = progress;
+         if (progress === 10){
+                toastr.info('fetching remote resources...');
+              }
+             if (progress === 30) {
+                toastr.info('loading relevant data schemas...');
+              }
+             if (progress === 55) {
+                toastr.warning('compiling templates...');
+              }
+            if (progress === 75) {
+                toastr.warning('starting the AI engine...')
+              }
+
         if (progress <= 40) { main.progresstype = 'danger'; }
         else if (progress > 40 && progress < 66) { main.progresstype = 'warning'; }
         else if (progress > 97) { main.progresstype = 'success'; }
@@ -1186,10 +1199,10 @@ angular.module('textSizeSlider', [])
                          return groupids.push(id);
                        });
                      });
-                     buildroar(groupids);
-                    //  $timeout(function () {
-                    //    buildroar(groupids);
-                    //  }, 1000);
+                    //  buildroar(groupids);
+                     $timeout(function () {
+                       buildroar(groupids);
+                     }, 1000);
                  };
 
                 //  function buildcollections(p) {
@@ -2058,18 +2071,18 @@ angular.module("fa.droppable", [])
             drop.file = {};
             drop.dropFiles = function (files) {
               console.log('files.files[0]', files.files[0]);
-              $timeout(function () {
-                toastr.info('fetching remote resources...');
-              }, 5000);
-              $timeout(function () {
-                toastr.info('loading relevant data schemas...');
-              }, 10000);
-              $timeout(function () {
-                toastr.warning('compiling templates...');
-              }, 15000);
-              $timeout(function () {
-                toastr.warning('starting the AI engine...')
-              }, 20000);
+              // $timeout(function () {
+              //   toastr.info('fetching remote resources...');
+              // }, 5000);
+              // $timeout(function () {
+              //   toastr.info('loading relevant data schemas...');
+              // }, 10000);
+              // $timeout(function () {
+              //   toastr.warning('compiling templates...');
+              // }, 15000);
+              // $timeout(function () {
+              //   toastr.warning('starting the AI engine...')
+              // }, 20000);
               $scope.$on('UPLOADCOMPLETE', function (event) {
                 $scope.$parent.main.handleFiles(files.files[0]);
               });
