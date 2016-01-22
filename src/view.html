@@ -54,7 +54,7 @@
  
  
  <uib-tabset class="tabbable" justified="true" type="pills">
-   <uib-tab heading="PTO Metadata" class="" active="main.tabs[0].isActive" disabled="main.tabs[0].disabled" select="main.tabs[0].isActive = true" deselect="main.tabs[0].isActive = false">
+   <uib-tab heading="PTO Metadata" class="btn-glass" active="main.tabs[0].isActive" disabled="main.tabs[0].disabled" select="main.tabs[0].isActive = true" deselect="main.tabs[0].isActive = false">
     <uib-tab-content ng-if="main.tabs[0].isActive">
     
     <uib-tabset class="tabbable tabs-left" >
@@ -122,7 +122,7 @@
                         <td>{{::line['Parent Filing or 371(c) Date']}}</td>
                         <td>{{::line['Parent Number']}}</td>
                         <td>{{::line['Parent Status']}}</td>
-                        <td><a ng-href="https://patentimages.storage.googleapis.com/pdfs/US{{::line['Patent Number'].replace(',','').replace(',','')}}.pdf" target="_blank">{{::line['Patent Number']}}</a></td>
+                        <td><a ng-href="https://patentimages.storage.googleapis.com/pdfs/US{{::line['Patent Number'].replace(',','').replace(',','')}}.pdf" target="_blank" ng-if="line['Patent Number'] !== null">{{::line['Patent Number']}}</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -274,7 +274,7 @@
            <uib-tab-heading class="" ng-style="">US {{phd.patent.number || phd.application['Patent Number'] }}</uib-tab-heading>
             
             <uib-tab-content ng-if="main.tabs[2].isActive">
-            <iframe ng-src="{{phd.patent.media}}" class="card card-fancy col-sm-5" style="min-height:500px;"></iframe>
+            <iframe ng-src="{{phd.patent.media}}" class="card card-fancy col-sm-6" style="min-height:500px;"></iframe>
             <iframe ng-src="{{phd.patent.txt}}" class="card card-fancy col-sm-6" style="min-height:500px;"></iframe>
             <!--<tabset>
                 <tab heading=".pdf">

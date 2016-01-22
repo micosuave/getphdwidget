@@ -545,11 +545,15 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                               var selfref = Collection(id).$ref();
                               selfref.update({ media: phd.patent.media });
                           });
-                          
-                          main.showupload = false;
+                          Collection($scope.phd.id).$loaded().then(function (report) {
+                            var rows = angular.copy(report.rows);
+                            dashboardsref.child('rows').set(rows);
+                            main.showupload = false;
                           
                           alertify.alert('<div class="card card-block card-fancy"><div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">All files have been successfully processed by LEO and delivered to your account for review.</h6></div></div>');
 
+                          });
+                          
                         
                                                 
       };
