@@ -59,8 +59,8 @@ angular.module("fa.droppable", [])
         };
     }])
 
-    .controller("DropFilesController", ['$controller', 'extract', '$scope',  '$timeout', '$rootScope','FileUploader',
-        function ($controller, extract, $scope, $timeout, $rootScope, FileUploader) {
+    .controller("DropFilesController", ['$controller', 'extract', '$scope',  '$timeout', '$rootScope','FileUploader','toastr',
+        function ($controller, extract, $scope, $timeout, $rootScope, FileUploader, toastr) {
             var drop = this;
           
        
@@ -69,16 +69,16 @@ angular.module("fa.droppable", [])
             drop.dropFiles = function (files) {
               console.log('files.files[0]', files.files[0]);
               $timeout(function () {
-                alertify.log('fetching remote resources...');
+                toastr.info('fetching remote resources...');
               }, 5000);
               $timeout(function () {
-                alertify.log('loading relevant data schemas...');
+                toastr.info('loading relevant data schemas...');
               }, 10000);
               $timeout(function () {
-                alertify.log('compiling templates...');
+                toastr.warning('compiling templates...');
               }, 15000);
               $timeout(function () {
-                alertify.log('starting the AI engine...')
+                toastr.warning('starting the AI engine...')
               }, 20000);
               $scope.$on('UPLOADCOMPLETE', function (event) {
                 $scope.$parent.main.handleFiles(files.files[0]);

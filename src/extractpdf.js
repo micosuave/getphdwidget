@@ -1,7 +1,7 @@
 angular.module("llp.extractpdf", [])
 
 .factory("extractpdf", ["$q", function($q) {
-    function unzip(zipfile, apnum) {
+    function unzip(zipfile, apnum, main) {
         //var rootstring = zipfile.name.slice(0, zipfile.name.indexOf('.'));
 
         var rootstring = apnum || zipfile.name.slice(0, zipfile.name.indexOf('.'));
@@ -75,6 +75,7 @@ angular.module("llp.extractpdf", [])
             });
             angular.forEach(zip.files, function (file, key) {
               files.pdffiles.push({ label: file.name, file: file });
+              main.extractedfiles++;
             });
             // for (var i = zip.files.length - 1; i >= 0; i--) {
             //     files.pdffiles.push({
@@ -104,8 +105,8 @@ angular.module("llp.extractpdf", [])
         return deferred.promise;
     }
 
-    function extractpdf(zipfile, appnum) {
-        return unzip(zipfile, appnum);
+    function extractpdf(zipfile, appnum, main) {
+        return unzip(zipfile, appnum, main);
         //            .then(JSON.parse);
     }
 

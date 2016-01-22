@@ -408,15 +408,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       main.handleFiles = function (file) {
         main.error = null;
         main.success = null;
-        
+        main.progresstwo = 0;
+        main.extractedfiles = 0;
         //toastr.success('starting extraction...');
-        extractpdf(file)
+        extractpdf(file, config.APPNUM, main)
           .then(function (files) {
-            try {
-              progressfunction(files.pdffiles.length);
-            }
-            catch (ex) { console.log(ex); }
-            finally {
+           
+           
               $log.info('Files extracted', files);
               alertify.log('Files extracted');
               //toastr.success('Files extracted');
@@ -458,7 +456,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                 });
 
-            }}, function (reason) {
+            }, function (reason) {
 
               console.log(reason.messsage);
             });
@@ -530,7 +528,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             //phdref.child('roarlist').push(id);
                             
                             dashboardsref.child('roarlist').child(id).set(id);
-                              //projref.child('roarlist').push(id);
+                              projref.child('roarlist').child(id).set(id);
                               var selfref = Collection(id).$ref();
                               selfref.update({ media: phd.patent.media });
                           });

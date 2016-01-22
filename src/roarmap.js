@@ -190,7 +190,7 @@
 
                     angular.forEach(imagefile, function (file, key) {
                        //$timeout(function () {
-                         if (file['Mail Room Date'] === '') {
+                         if ((file['Mail Room Date'] === '')||(file['Filename'] === '')) {
                              return ;
                          }else{
                          var appnumber = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
@@ -201,7 +201,7 @@
                          var mailmonth = maildate.getMonth();
                          var mailday = maildate.getDate();
                          
-                         var filename = file.Filename || appnumber + '-' + mailyear + '-' + mailmonth + '-' + mailday + '-00001-NPL.pdf';
+                         var filename = file.Filename || null;
                          var appnumsubstring = filename.slice(0, filename.indexOf("-"));
                          var appdatesubstring = filename.slice((filename.indexOf("-") + 1), (filename.indexOf("-") + 11));
                          var doccode = filename.slice((filename.lastIndexOf("-") + 1), (filename.indexOf(".pdf")));
@@ -378,10 +378,10 @@
                          return groupids.push(id);
                        });
                      });
-                     
-                     $timeout(function () {
-                       buildroar(groupids);
-                     }, 1000);
+                     buildroar(groupids);
+                    //  $timeout(function () {
+                    //    buildroar(groupids);
+                    //  }, 1000);
                  };
 
                 //  function buildcollections(p) {
