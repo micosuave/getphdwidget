@@ -501,8 +501,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
               ref.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
               var allref = Collection(groupids[0]).$ref();
               var meritsref = Collection(groupids[1]).$ref();
-              allref.child('roarlist').push(id);
-              meritsref.child('roarlist').push(id);
+              allref.child('roarlist').child(id).set(id);
+              meritsref.child('roarlist').child(id).set(id);
 
             });
 
@@ -524,13 +524,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                           localStorageService.set(phd.application['Application Number'], phd);
                           $http.post('/getphd/store/' + appnum, phd);
                           phdref.update(phd);
-                          dashboardsref.update({ styleClass: 'primary', title: 'PhD Report for US '+ (phd.patent.number || phd.application['Patent Number'])});
+                          dashboardsref.update({ styleClass: 'Applicant', title: 'PhD Report for US '+ (phd.patent.number || phd.application['Patent Number'])});
                           // dashboardsref.update(phd);
                           angular.forEach(groupids, function (id, key) {
-                            phdref.child('roarlist').push(id);
+                            //phdref.child('roarlist').push(id);
                             
-                            dashboardsref.child('roarlist').push(id);
-                              projref.child('roarlist').push(id);
+                            dashboardsref.child('roarlist').child(id).set(id);
+                              //projref.child('roarlist').push(id);
                               var selfref = Collection(id).$ref();
                               selfref.update({ media: phd.patent.media });
                           });
