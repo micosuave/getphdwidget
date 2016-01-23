@@ -977,23 +977,17 @@ angular.module('textSizeSlider', [])
                  var deferred = $q.defer();
 
 
-                 var matterId = '0000x0000';
+               
                  var matter = Matter($stateParams.matterId, $stateParams.groupId);
                  var collections = Collections();
                  var dashboards = Collection($ACTIVEROAR.page);
                  var dashboardsref = dashboards.$ref();
                 //  var phdref = Collection(phd.id).$ref();
                  var projref = Collection($stateParams.pId).$ref();
-                 var imagefile = phd.imagefile;
-                 var p = {
-                     filelist: new Array(),
-                     meritslist: new Array(),
-                     artlist: new Array()
-                     //ownlist: new Array()
-                 };
+                
+             
 
-
-                 function hello() {
+                 function hello(phd) {
                     //  var check = checkforexistingphd();
                     //  if (check) {
                     //      alertify.alert('already exists');
@@ -1001,19 +995,19 @@ angular.module('textSizeSlider', [])
                     //      buildroar();
                     //  }
 
-                   buildcollections();
+                   buildcollections(phd);
 
                      
                  };
-                 hello();
+                 hello(phd);
                  return deferred.promise;
 
-                 function buildroar(groupids) {
+                 function buildroar(groupids, phd) {
                     var artref = Collection(groupids[2]).$ref();
                     var meritsref = Collection(groupids[1]).$ref();
                     var allref = Collection(groupids[0]).$ref();
 
-                    angular.forEach(imagefile, function (file, key) {
+                    angular.forEach(phd.imagefile, function (file, key) {
                        //$timeout(function () {
                          if ((file['Mail Room Date'] === '')||(file['Filename'] === '')) {
                              return ;
@@ -1156,7 +1150,7 @@ angular.module('textSizeSlider', [])
                     //  }, 30000);
                  };
 
-                 function buildcollections() {
+                 function buildcollections(phd) {
                     var d = new Date();
                         var n = d.getTime();
 
@@ -1204,10 +1198,40 @@ angular.module('textSizeSlider', [])
                        });
                      });
                     //  buildroar(groupids);
-                     $timeout(function () {
-                       buildroar(groupids);
-                     }, 1000);
+                      $timeout(function () {
+                        addpatent(groupids, phd);
+                      }, 1000);
                  };
+
+function addpatent (groupids, phd){
+       var date = new Date();
+            var d = new Date();
+            var n = d.getTime();
+            var patent = angular.copy(phd.patent);
+            patent.rows = [
+                              {columns:[
+                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: patent.media || 'http://www.google.com'},title:patent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:patent.styleClass || 'btn-dark'}]},
+                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:patent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'ckwidget', wid:n+15,styleClass:patent.styleClass || 'btn-dark'}]}
+                              ]}
+                          ];
+            patent.structure = "6-6";
+            collections.$add(patent).then(function (ref) {
+              var id = ref.key();
+              ref.update({
+                id: id,
+                timestamp: Firebase.ServerValue.TIMESTAMP
+              });
+              ref.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
+              var allref = Collection(groupids[0]).$ref();
+              var meritsref = Collection(groupids[1]).$ref();
+              allref.child('roarlist').child(id).set(id);
+              meritsref.child('roarlist').child(id).set(id);
+              buildroar(groupids, phd);
+            });
+}
+
+
+
 
                 //  function buildcollections(p) {
                 //    var d = new Date();
