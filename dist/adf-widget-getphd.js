@@ -1060,8 +1060,8 @@ angular.module('textSizeSlider', [])
                         var n = d.getTime();
                           roarevent.rows= [
                               {columns:[
-                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
-                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',type:'ckwidget', wid:n+1010,styleClass:roarevent.styleClass || 'btn-dark'}]}
+                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',type:'iframe',wid:n+100}]},
+                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',type:'ckwidget', wid:n+1010}]}
                               ]}
                           ];
                           roarevent.structure = "6-6";
