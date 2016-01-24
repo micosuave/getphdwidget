@@ -515,10 +515,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                           dashboardsref.update({ styleClass: 'Applicant', title: 'PhD Report for US '+ (phd.patent.number || phd.application['Patent Number'])});
                           // dashboardsref.update(phd);
                           angular.forEach(groupids, function (id, key) {
-                            phdref.child('roarlist').child(id).set(id);
+                            /*-- create internal report pages --*/// phdref.child('roarlist').child(id).set(id);
                             
-                            //dashboardsref.child('roarlist').child(id).set(id);
-                              //projref.child('roarlist').child(id).set(id);
+                           /*-- create pages in tab/binder--*/ //dashboardsref.child('roarlist').child(id).set(id);
+                            /*-- create tabs/binders in project --*/  projref.child('roarlist').child(id).set(id);
                               var selfref = Collection(id).$ref();
                               selfref.update({ media: phd.patent.media });
                           });

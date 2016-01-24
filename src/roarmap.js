@@ -215,7 +215,7 @@
                          roarevent.collections = [];
                          roarevent.Application = appnumsubstring || null;
                          roarevent.date = appdatesubstring || null;
-                         roarevent.rid = imagefile.indexOf(file);
+                         roarevent.rid = phd.imagefile.indexOf(file);
                          //roarevent.file = file;
                          //roarevent.collections.push(roarmap.collections[0]);
                          roarevent.doccode = file['Document Code'] || null;
