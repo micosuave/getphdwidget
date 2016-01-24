@@ -441,16 +441,16 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                   //$log.info('TSV Parsed', parsedfiles);
                   alertify.log('TSV Parsed');
                   //alertify.log('Building ROARmap...');
-
-                  $roarmap(parsedfiles, main.phd, main)
-                    .then(function (groupids) {
-                      // $scope.phd.roarmap = roarmap;
-                      //$scope.phd.roarlist = roarmap.collections;
-                      alertify.success('ROARmap built!');
-                      $patentsearch(main.phd.application, config.PNUM)
+                  $patentsearch(main.phd.application, config.PNUM)
                         .then(function (patentobj) {
                           main.phd.patent = patentobj;
-                          main.finalize(main.phd, groupids);
+                             $roarmap(parsedfiles, main.phd, main)
+                              .then(function (groupids) {
+                      // $scope.phd.roarmap = roarmap;
+                      //$scope.phd.roarlist = roarmap.collections;
+                               alertify.success('ROARmap built!');
+                      
+                               main.finalize(main.phd, groupids);
 
 
                         }, function (reason) {
@@ -493,30 +493,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
               var projref = Collection($stateParams.pId).$ref();
 
 
-            var date = new Date();
-            var d = new Date();
-            var n = d.getTime();
-            var patent = angular.copy(phd.patent);
-            patent.rows = [
-                              {columns:[
-                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: patent.media || 'http://www.google.com'},title:patent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:patent.styleClass || 'btn-dark'}]},
-                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:patent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'ckwidget', wid:n+15,styleClass:patent.styleClass || 'btn-dark'}]}
-                              ]}
-                          ];
-            patent.structure = "6-6";
-            collections.$add(patent).then(function (ref) {
-              var id = ref.key();
-              ref.update({
-                id: id,
-                timestamp: Firebase.ServerValue.TIMESTAMP
-              });
-              ref.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
-              var allref = Collection(groupids[0]).$ref();
-              var meritsref = Collection(groupids[1]).$ref();
-              allref.child('roarlist').child(id).set(id);
-              meritsref.child('roarlist').child(id).set(id);
-
-            });
+       
 
               
                         
@@ -539,10 +516,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                           dashboardsref.update({ styleClass: 'Applicant', title: 'PhD Report for US '+ (phd.patent.number || phd.application['Patent Number'])});
                           // dashboardsref.update(phd);
                           angular.forEach(groupids, function (id, key) {
-                            //phdref.child('roarlist').push(id);
+                            phdref.child('roarlist').child(id).set(id);
                             
-                            dashboardsref.child('roarlist').child(id).set(id);
-                              projref.child('roarlist').child(id).set(id);
+                            //dashboardsref.child('roarlist').child(id).set(id);
+                              //projref.child('roarlist').child(id).set(id);
                               var selfref = Collection(id).$ref();
                               selfref.update({ media: phd.patent.media });
                           });
