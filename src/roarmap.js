@@ -289,7 +289,7 @@
                                           //phdref.child('roarmap').child('roarlist').push(id);
                                           //roarmap.roarevents.push(id);  
                                           phd.roarmap.roarlist[id] = id;
-                                          allref.child('roarlist').push(id);
+                                          allref.child('roarlist').child(id).set(id);
                                               
                                           
                                         angular.forEach(MERITSDOCS, function(code, key) {
@@ -298,7 +298,7 @@
                                                 //p.meritslist.push(id);
                                                // dashboardsref.child('roarlist').push(id);
                                                 
-                                                meritsref.child('roarlist').push(id);
+                                                meritsref.child('roarlist').child(id).set(id);
                                                 $log.info('merits', id);
                                             }
                                         });
@@ -308,7 +308,7 @@
                                               
                                               //p.artlist.push(id);
                                               
-                                              artref.child('roarlist').push(id);
+                                              artref.child('roarlist').child(id).set(id);
                                                 $log.info('art', id);
                                             }
                                         });
