@@ -492,7 +492,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
         var header = $templateCache.get("{widgetsPath}/getphd/src/titleTemplate.html");
 
-        var skope = angular.element('<iframe/>').attr('height', '680px').attr('src', 'https://lexlab.io/files/public/uspto/' + phd.appnum + '/' + phd.appnum + '-image_file_wrapper/' + imgrecord['Filename']);
+        var skope = angular.element('<iframe/>').attr('height', '680px').attr('src', 'https://lexlab.io/files/public/uspto/' + $scope.phd.appnum + '/' + $scope.phd.appnum + '-image_file_wrapper/' + imgrecord['Filename']);
 
         angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
         $('.issuedocpanel').draggable({
@@ -1184,7 +1184,7 @@ angular.module('textSizeSlider', [])
                    var phdall = { rid: 'PHD1', title: 'ALL', styleClass: 'NOA', icon: 'fa-legal' },
                      phdmerits = { rid: 'PHD2', title: 'MERITS', styleClass: 'PTO', icon: 'fa-balance-scale' },
                      phdart = { rid: 'PHD3', title: 'ART', styleClass: 'Petition', icon: 'fa-leaf' },
-                     phdclaims = { rid: 'PHD4', title: 'CLAIMS', styleClass: 'primary', icon: 'fa-sitemap'};
+                     phdclaims = { rid: 'PHD4', title: 'CLAIMS', styleClass: 'Applicant', icon: 'fa-sitemap'};
                      var groupids = [];  
                      var groups = { all: phdall, merits: phdmerits, art: phdart, claims: phdclaims };
                      angular.forEach(groups, function (group, key) {
