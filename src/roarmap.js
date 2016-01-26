@@ -343,7 +343,7 @@
                               app: phd.application['Application Number'],
                               content_type: 'collection',
                               titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargrid-title.html',
-                              rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]
+                              rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',styleClass: options.styleClass,config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]
                               
                           };
                         return binder;

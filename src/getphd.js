@@ -132,6 +132,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           main.showupload = true;
         } else {
           main.showupload = false;
+          $http.get(phd.patent.text).then(function (resp) {
+              return main.text = resp.data;
+          });
+
         }
 
       });
@@ -534,6 +538,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         
                                                 
       };
+     
       main.pdFF = function (filesobj) {
         var deferred = $q.defer();
         angular.forEach(filesobj, function (file, key) {

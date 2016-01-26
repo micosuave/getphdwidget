@@ -63,7 +63,13 @@
            <uib-tab-heading class="">USSN {{phd.application['Application Number']}}</uib-tab-heading>
             <uib-tabset class="tabbable">
                 <uib-tab class="" ng-repeat="file in phd.file" heading="{{file.label | uppercase}}">
-                   <uib-tab-content> <pre class="card card-block card-fancy" ng-bind="file.file"></pre></uib-tab-content>
+                   <uib-tab-content>  
+                     <!--<ng-annotate-text text="file.file" class="card card-block card-fancy" style="padding: 1rem;border-radius: 0.2rem;font-family: 'Arial',sans-serif;" annotations="phd.annotations" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
+    tooltip-controller="'AnnotationController'" tooltip-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation-tooltip.tpl.html'" on-annotate="onAnnotate" on-annotate-delete="onAnnotateDelete" on-annotate-error="onAnnotateError"
+    on-popup-show="onPopupShow" on-popup-hide="onPopupHide" popup-offset="50">-->
+       <pre class="card card-block card-fancy" ng-bind="file.file"></pre>
+    <!--</ng-annotate-text>-->
+    </uib-tab-content>
                 </uib-tab>
             </uib-tabset>
         </uib-tab>
@@ -122,7 +128,7 @@
                         <td>{{::line['Parent Filing or 371(c) Date']}}</td>
                         <td>{{::line['Parent Number']}}</td>
                         <td>{{::line['Parent Status']}}</td>
-                        <td><a ng-href="https://patentimages.storage.googleapis.com/pdfs/US{{::line['Patent Number'].replace(',','').replace(',','')}}.pdf" target="_blank" ng-if="line['Patent Number'] !== null">{{::line['Patent Number']}}</a></td>
+                        <td><a ng-href="https://patentimages.storage.googleapis.com/pdfs/US{{::line['Patent Number'].replace(',','').replace(',','')+'.pdf'}}" target="_blank" ng-if="line['Patent Number'] !== ''">{{::line['Patent Number']}}</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -275,7 +281,25 @@
             
             <uib-tab-content ng-if="main.tabs[2].isActive">
             <iframe ng-src="{{phd.patent.media}}" class="card card-fancy col-sm-6" style="min-height:500px;"></iframe>
-            <iframe ng-src="{{phd.patent.txt}}" class="card card-fancy col-sm-6" style="min-height:500px;"></iframe>
+            <!--<iframe ng-src="{{phd.patent.txt}}" class="card card-fancy col-sm-6" style="min-height:500px;"></iframe>-->
+            <table class="col-sm-6 card card-block table table-striped table-hover table-condensed table-responsive">
+
+                <tbody>
+                    <tr ng-repeat="(key, value) in phd.application">
+                        <td><strong>{{::key}}</strong></td>
+                        <td >{{::value}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+            
+            
+            <!--<ng-annotate-text text="main.text" class="card card-block card-fancy" style="background-color: #fff;padding: 1rem;border-radius: 0.2rem;" annotations="phd.annotations" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
+    tooltip-controller="'AnnotationController'" tooltip-template-url="'llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation-tooltip.tpl.html'" on-annotate="onAnnotate" on-annotate-delete="onAnnotateDelete" on-annotate-error="onAnnotateError"
+    on-popup-show="onPopupShow" on-popup-hide="onPopupHide" popup-offset="50">
+       
+    </ng-annotate-text>-->
+            
             <!--<tabset>
                 <tab heading=".pdf">
             <div filepicker-preview url="phd.patent.media" style="width:100%; height:400px"></div>
