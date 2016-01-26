@@ -133,8 +133,8 @@
              };
          
      }])
-     .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$mocks', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'FIREBASE_URL','filepickerService','$location','$ACTIVEROAR','$dashboards',
-         function($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $mocks, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, FIREBASE_URL, filepickerService, $location,$ACTIVEROAR,$dashboards) {
+     .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$mocks', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'FIREBASE_URL','filepickerService','$location','$ACTIVEROAR','$dashboards','CLAIMDOCS',
+         function($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $mocks, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, FIREBASE_URL, filepickerService, $location,$ACTIVEROAR,$dashboards, CLAIMDOCS) {
              return function(files, phd, main) {
 
 
@@ -178,6 +178,7 @@
                  return deferred.promise;
 
                  function buildroar(groupids, phd) {
+                   var claimref = Collection(groupids[3]).$ref();
                     var artref = Collection(groupids[2]).$ref();
                     var meritsref = Collection(groupids[1]).$ref();
                     var allref = Collection(groupids[0]).$ref();
@@ -312,6 +313,12 @@
                                                 $log.info('art', id);
                                             }
                                         });
+                                        angular.forEach(CLAIMDOCS, function (code, key) {
+                                          if (roarevent.doccode === code) {
+                                            claimref.child('roarlist').child(id).set(id);
+                                            $log.info('claims', id);
+                                          }
+                                        });
                                        
                                     });
                           main.progresstwo++;  
@@ -348,11 +355,12 @@
                           };
                         return binder;
                      };
-                     var phdall = { rid: 'PHD1',title:'ALL', styleClass: 'NOA', icon: 'fa-legal' },
-                       phdmerits = { rid: 'PHD2',title:'MERITS', styleClass: 'PTO', icon: 'fa-balance-scale' },
-                       phdart = { rid: 'PHD3',title:'ART', styleClass: 'Petition', icon: 'fa-leaf' };
+                   var phdall = { rid: 'PHD1', title: 'ALL', styleClass: 'NOA', icon: 'fa-legal' },
+                     phdmerits = { rid: 'PHD2', title: 'MERITS', styleClass: 'PTO', icon: 'fa-balance-scale' },
+                     phdart = { rid: 'PHD3', title: 'ART', styleClass: 'Petition', icon: 'fa-leaf' },
+                     phdclaims = { rid: 'PHD4', title: 'CLAIMS', styleClass: 'primary', icon: 'fa-sitemap'};
                      var groupids = [];  
-                     var groups = { all: phdall, merits: phdmerits, art: phdart };
+                     var groups = { all: phdall, merits: phdmerits, art: phdart, claims: phdclaims };
                      angular.forEach(groups, function (group, key) {
                        collections.$add(new Binder(group)).then(function (ref) {
                          var id = ref.key();

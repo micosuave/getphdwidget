@@ -114,8 +114,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 })
   .constant('FIREBASE_URL', 'https://lexlab.firebaseio.com/')
-  .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams','$location','$ACTIVEROAR','$dashboards',"$interval","Collections",
-    function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, Collections) {
+  .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams','$location','$ACTIVEROAR','$dashboards',"$interval","Collections","$compile","$templateCache",
+    function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, Collections,$compile,$templateCache) {
       var main = this;
       main.size = 'lg';
       $scope.collapsereport = false;
@@ -485,6 +485,21 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         console.log(reason.message);
 
       };
+      main.popdoc = function (imgrecord) {
+
+        var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
+        //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
+        var header = $templateCache.get("{widgetsPath}/getphd/src/titleTemplate.html");
+
+        var skope = angular.element('<iframe/>').attr('height', '680px').attr('src', 'https://lexlab.io/files/public/uspto/' + phd.appnum + '/' + phd.appnum + '-image_file_wrapper/' + imgrecord['Filename']);
+
+        angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
+        $('.issuedocpanel').draggable({
+          stack: '.stacker',
+          handle: 'h4'
+        }).resizable();
+
+      };
       main.finalize = function(phd, groupids){
         //$scope.phd.title = $scope.phd.application['Title of Invention'];
         var collections = Collections();
@@ -522,10 +537,14 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             /*-- create internal report pages --*/// phdref.child('roarlist').child(id).set(id);
                             
                            /*-- create pages in tab/binder--*/ //dashboardsref.child('roarlist').child(id).set(id);
-                            /*-- create tabs/binders in project --*/  projref.child('roarlist').child(id).set(id);
+                            /*-- create tabs/binders in project --*/  //projref.child('roarlist').child(id).set(id);
                               var selfref = Collection(id).$ref();
                               selfref.update({ media: phd.patent.media });
                           });
+                          dashboardsref.child('roarlist').child(groupids[0]).set(groupids[0]);
+                          projref.child('roarlist').child(groupids[1]).set(groupids[1]);
+                          projref.child('roarlist').child(groupids[2]).set(groupids[2]);
+                          projref.child('roarlist').child(groupids[3]).set(groupids[3]);
                           Collection($scope.phd.id).$loaded().then(function (report) {
                             var rows = angular.copy(report.rows);
                             dashboardsref.child('rows').set(rows);
