@@ -258,8 +258,8 @@
                         var n = d.getTime();
                           roarevent.rows= [
                               {columns:[
-                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',type:'iframe',wid:n+100}]},
-                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',type:'ckwidget', wid:n+1010}]}
+                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},styleClass:roarevent.styleClass,title:roarevent.title || 'title',type:'iframe',wid:n+100}]},
+                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},styleClass:roarevent.styleClass,title:roarevent.title || 'title',type:'ckwidget', wid:n+1010}]}
                               ]}
                           ];
                           roarevent.structure = "6-6";
