@@ -1,4 +1,4 @@
-<div class="card card-success">
+<div class="card card-success" style="margin:0.5rem;">
     <div class="card-header">
         <h6 class="card-title">+PhD Step 1 - Download Patent</h6>
     </div>
@@ -6,11 +6,11 @@
         <input type="text" placeholder="Patent #" ng-model="config.PNUM">
         <a class="btn btn-success fa fa-download" href="http://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM}}.pdf" target="_blank" data-toggle="popover" data-placement="bottom" data-content="DOWNLOAD" data-animation="true" data-trigger="hover" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150'); return false;" style="color:white;">
         </a>
-        <!--<br>
+      <br>
         <input type="text" placeholder="IPA#" ng-model="$scope.IPANUM" style="width: 10rem;">
         <input type="text" placeholder="YYYY" ng-model="$scope.IPAYEAR" maxlength="4" style="width: 5rem;">
-        <a class="btn btn-info" href="http://storage.googleapis.com/patents/appl_full_text/{{$scope.IPAYEAR}}/ipa{{$scope.IPANUM}}.zip" target="_blank" data-toggle="popover" data-placement="bottom" title="DOWNLOAD" data-content="" data-animation="true" data-trigger="hover"
-        style="width: 17.5rem;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;"> Published Application</a>
+        <a class="btn btn-success" href="http://patentimages.storage.googleapis.com/pdfs/US{{$scope.IPAYEAR}}{{$scope.IPANUM}}.pdf" target="_blank" data-toggle="popover" data-placement="bottom" title="DOWNLOAD" data-content="" data-animation="true" data-trigger="hover"
+        style="color:white;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;"> Published Application</a>
         <br>
         <!--<button class="btn btn-info fa fa-arrow-right pull-right" ng-dialog="phd-step2.html" ng-dialog-class="ngdialog-theme-inline" ng-dialog-controller="ImagefilewrapperCtrl" ng-dialog-data="{{$scope}}" data-toggle="popover" data-placement="top" data-content="NEXT"
         data-animation="true" data-trigger="hover"></button>-->
