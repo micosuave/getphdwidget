@@ -1,6 +1,6 @@
 
 <div style="min-height: 305px">
-    <uib-carousel interval="{{config.interval}}" no-pause="{{config.pauseonhover}}" no-transition="{{config.transition}}" no-wrap="{{config.nowrap}}">
+    <uib-carousel interval="config.interval" no-pause="{{config.pauseonhover}}" no-transition="{{config.transition}}" no-wrap="{{config.nowrap}}">
   
       <uib-slide ng-repeat="slide in gallery.slides" active="{slide.active}" index="slide.index">
         <img ng-src="{{slide.media}}" style="margin:auto;">
