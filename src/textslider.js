@@ -14,7 +14,7 @@ angular.module('textSizeSlider', [])
             link: function (scope, element, attr) {
                 scope.textSize = scope.value;
                 scope.$watch('textSize', function (size) {
-                    $document.style.fontSize = size + scope.unit;
+                    $document.root.style.fontSize = size + scope.unit;
                     $('html').css({ 'font-size': size + scope.unit });
                 });
             }
