@@ -944,7 +944,7 @@ angular.module('textSizeSlider', [])
                           var date = new Date();
                           var d = new Date();
                           var n = d.getTime();
-                          roarevent.content = '<img width="auto" height="auto" src="' + file.url + '" class="img image-thumbnail" />';
+                          roarevent.content = '<img width="auto" height="auto" src="' + file.url + '" class="img img-thumbnail" />';
                           roarevent.rows = [
                               {columns:[
                                   {cid:n+10,styleClass:'col-sm-3',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
@@ -1176,8 +1176,8 @@ angular.module('textSizeSlider', [])
                               icon: options.icon,
                               app: phd.application['Application Number'],
                               content_type: 'collection',
-                              titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargrid-title.html',
-                              rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',styleClass: options.styleClass || 'btn-dark',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]
+                              /*titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargrid-title.html',*/
+                              rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',title: options.rid + ' - ' + 'USSN ' + phd.application['Application Number'],styleClass: options.styleClass || 'btn-dark',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]
                               
                           };
                         return binder;
