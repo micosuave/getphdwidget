@@ -526,32 +526,36 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         phd.appnum = appnum;
                         phd.media= 'https://lexlab.io/files/public/uspto/index#?app=' + appnum;
                         phd.title = 'PhD for ' + (phd.patent.number || phd.application['Patent Number']);
-                        phd.styleClass = 'Applicant';
+                        phd.description = 'USSN ' + phd.application['Application Number'];
+			phd.styleClass = 'Applicant';
                           phd.rid= 'PHD';
+			phd.icon = 'fa-balance-scale';
                           localStorageService.set(phd.application['Application Number'], phd);
                           $http.post('/getphd/store/' + appnum, phd);
                           phdref.update(phd);
                           dashboardsref.update({ styleClass: 'Applicant', title: 'PhD Report for US '+ (phd.patent.number || phd.application['Patent Number'])});
                           // dashboardsref.update(phd);
-                          angular.forEach(groupids, function (id, key) {
+                        dashboardsref.child('roarlist').child($ACTIVEROAR.page).set($ACTIVEROAR.page);
+ 
+			 angular.forEach(groupids, function (id, key) {
                             /*-- create internal report pages --*/// phdref.child('roarlist').child(id).set(id);
                             
-                           /*-- create pages in tab/binder--*/ //dashboardsref.child('roarlist').child(id).set(id);
+                           /*-- create pages in tab/binder--*/ 
+				dashboardsref.child('roarlist').child(id).set(id);
                             /*-- create tabs/binders in project --*/  //projref.child('roarlist').child(id).set(id);
                               var selfref = Collection(id).$ref();
                               selfref.update({ media: phd.patent.media });
                           });
-                          dashboardsref.child('roarlist').child($ACTIVEROAR.page).set($ACTIVEROAR.page);
-                          dashboardsref.child('roarlist').child(groupids[0]).set(groupids[0]);
-                          projref.child('roarlist').child(groupids[1]).set(groupids[1]);
-                          projref.child('roarlist').child(groupids[2]).set(groupids[2]);
-                          projref.child('roarlist').child(groupids[3]).set(groupids[3]);
+                        //  dashboardsref.child('roarlist').child(groupids[0]).set(groupids[0]);
+                        //  projref.child('roarlist').child(groupids[1]).set(groupids[1]);
+                        //  projref.child('roarlist').child(groupids[2]).set(groupids[2]);
+                        //  projref.child('roarlist').child(groupids[3]).set(groupids[3]);
                           Collection($scope.phd.id).$loaded().then(function (report) {
                             var rows = angular.copy(report.rows);
                             dashboardsref.child('rows').set(rows);
                             main.showupload = false;
                           
-                          alertify.alert('<div class="card card-block card-fancy"><div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">All files have been successfully processed by LEO and delivered to your account for review.</h6></div></div>');
+                          alertify.alert('<div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">All files have been successfully processed by LEO and delivered to your account for review.</h6></div>');
 
                           });
                           
