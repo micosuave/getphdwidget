@@ -1,36 +1,41 @@
 <div class="" style="margin:0.5rem;">
     <div class="btn-glass">
-        <h6 class="panel-title">+PhD </h6>
+        <h6 class="panel-title">USPTO+PhD </h6>
     </div>
     <div class="btn-dark">
       <table class="table-responsive">
         <tbody>
          <tr>
-           <td> 
+           <td col-span="2"> 
         <input type="number" placeholder="Patent #" ng-model="config.PNUM">
            </td>
+	</tr>
+	<tr>
            <td>
-        <a class="btn btn-success fa fa-download" href="http://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM}}.pdf" target="_blank" data-toggle="popover" data-placement="bottom" data-content="DOWNLOAD" data-animation="true" data-trigger="hover" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150'); return false;" style="color:white;">
-        </a>
+                <input type="number" placeholder="YYYY" ng-model="config.IPAYEAR" maxlength="4" style="width: 5rem;">
+
            </td>
-         </tr>
+	<td>
+        <input type="number" placeholder="# IPA" ng-model="config.IPANUM" style="width: 8rem;">
+ 	</td>       
+ 	</tr>
          <tr>
            <td>
-        <input type="number" placeholder="YYYY" ng-model="config.IPAYEAR" maxlength="4" style="width: 5rem;">
-           </td>
-           <td>
-        <input type="number" placeholder="# IPA" ng-model="config.IPANUM" style="width: 8rem;">
+        <a class="btn btn-success fa fa-download" href="http://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM}}.pdf" target="_blank" data-toggle="popover" data-placement="bottom" data-content="DOWNLOAD" data-animation="true" data-trigger="hover" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150'); return false;" style="color:white;">
            </td>
            <td>
         <a class="btn btn-success" href="http://patentimages.storage.googleapis.com/pdfs/US{{$scope.IPAYEAR}}{{$scope.IPANUM+'.pdf'}}'" target="_blank"  title="DOWNLOAD" 
         style="color:white;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;"> Published Application</a>
         </td>
          </tr>
-         <tr>
-           <td>
+<tr><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td></tr>         
+<tr>
+           <td col-span="2">
               <input type="text" placeholder="Application #" ng-model="config.appnum">
            </td>
-           <td>
+</tr>
+<tr>           
+<td>
         <a class="btn btn-warning fa fa-download" href="https://storage.googleapis.com/uspto-pair/applications/{{config.appnum}}.zip" target="_blank" data-toggle="popover" data-placement="bottom" title="DOWNLOAD FROM GOOGLE" data-content="" data-animation="true"
         data-trigger="hover" style="color:white;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;" ng-click="main.remotezip(config.appnum, this.href)"> from Google</a>
            </td>
