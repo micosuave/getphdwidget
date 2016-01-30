@@ -1,42 +1,48 @@
-<div class="panel" style="margin:0.5rem;">
-    <div class="panelhead2 panel-heading btn-primary btn-glass clearfix" style="margin-top:0.5rem;margin-right:-1.5rem;">
+<div class="panel panel-primary" style="margin:0.5rem;margin-left:-0.5rem;overflow:visible;">
+    <div class="panelhead2 panel-heading btn-primary btn-glass clearfix" style="margin-right:-2rem;border-top-left-radius:0rem;border-bottom-left-radius:0rem;border-top-right-radius:2rem;border-bottom-right-radius:2rem;">
         <h6 class="panel-title" style="color:#ffa;"><strong class="pull-left">USPTO</strong><em class="pull-right">+PhD</em> </h6>
     </div>
-    <div class="well card-block">
+    <div class="panel-body">
+        <blockquote class="bs-callout bs-callout-primary card-header">
+            <p class="text-muted">Use the following fields to interface with the <a href="https://www.uspto.gov/">United States Patent & Trademark Office</a>, and it's  offical data-proxy-repositors, <a href="https://www.google.com/patents/" title="Google Patents" uib-tooltip="Google Patents" tooltip-trigger="mouseenter">Google</a> & <a href="http://www.reedtech.com/" title="ReedTech" uib-tooltip="ReedTech" tooltip-trigger="mouseenter">ReedTech</a>, to acquire patents and their associated history documents. Once you have the document bundle of a desired Patent's history, drag it over the panel to the right and drop withing the dropzone demarcated by a dotted border; It will then upload to our servers, where Leo will analyse  and parse the documents and deliver his report </p>
+        </blockquote>
+    <div class="card-block form-group" style="text-align:left;">
+        <label for="patentnumber" class="card-text text-muted"><strong>Enter US Patent #</strong></label>
      <div class="input-group">
-        <input type="number" placeholder="Patent #" class="btn-dark" ng-model="config.PNUM">
-        <button class="btn btn-default input-group-addon right text-success btn-glass fa fa-2x fa-download" href="http://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM+'.pdf'}}" target="_blank" data-toggle="popover" data-placement="bottom" data-content="DOWNLOAD" data-animation="true" data-trigger="hover" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150'); return false;" style="color:white;border-top-right-radius:1rem;border-bottom-right-radius:1rem;"></button>
+        <input type="number" placeholder="Patent #" class="" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.PNUM">
+        <button class="btn btn-default input-group-addon right text-success fa fa-2x fa-download" href="http://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM+'.pdf'}}" target="_blank" data-toggle="popover" data-placement="bottom" data-content="DOWNLOAD" data-animation="true" data-trigger="hover" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150'); return false;" style="color:white;border-top-right-radius:1rem;border-bottom-right-radius:1rem;"></button>
 	</div>
 </div>
           
- 	<div class="well card-block">
-
+ 	<div class="card-block form-group" style="text-align:left;">
+         <label for="publishedapplication" class="card-text text-muted"><strong>Enter Year and Publication Number for US Application</strong></labeL>
 	<div class="input-group">
-        <button class="input-group-addon left btn-default text-info btn-glass" href="http://patentimages.storage.googleapis.com/pdfs/US{{$scope.IPAYEAR}}{{$scope.IPANUM+'.pdf'}}'" target="_blank"  title="DOWNLOAD" 
-        style="color:white;border-top-left-radius:1rem;border-bottom-left-radius:1rem;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;"> Published Application</button>
-        
-        
-                <input type="number" placeholder="YYYY" ng-model="config.IPAYEAR" maxlength="4" style="">
+       
+                <input type="number" placeholder="YYYY" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.IPAYEAR" maxlength="4" style="">
 
          
-        <input type="number" placeholder="# IPA" ng-model="config.IPANUM" style="">
-	</div>
+        <input type="number" placeholder="# IPA" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.IPANUM" style="">
+	 <button class="input-group-addon left btn-default text-info fa fa-fw fa-book fa-2x" href="http://patentimages.storage.googleapis.com/pdfs/US{{$scope.IPAYEAR}}{{$scope.IPANUM+'.pdf'}}'" target="_blank"  title="DOWNLOAD" 
+        style="border-top-right-radius:1rem;border-bottom-right-radius:1rem;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;"></button>
+        
+        
+    </div>
 	
 	</div>
 	
-	<div class="well card-block ">
-	
-              <input class="row header" type="text" placeholder="Application #" ng-model="config.appnum" ng-blur="main.remotezip(config.appnum)">
-          
+	<div class="card-block form-group" style="text-align:left;">
+	<label for="" class="card-text text-muted">Enter the US Utility Application #</label>
+              <input class="row header" type="text" placeholder="Application #" ng-model="config.appnum" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-blur="main.remotezip(config.appnum)">
+          <br/>
 	<div class="btn-group">
-        <button class="btn btn-default text-warning btn-glass fa fa-download" href="https://storage.googleapis.com/uspto-pair/applications/{{config.appnum}}.zip" target="_blank" data-toggle="popover" data-placement="bottom" title="DOWNLOAD FROM GOOGLE" data-content="" data-animation="true"
-        data-trigger="hover" style="color:white;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;" ng-click="main.remotezip(config.appnum, this.href)"> from Google</button>
+        <button class="btn btn-default text-warning  fa fa-2x fa-google" href="https://storage.googleapis.com/uspto-pair/applications/{{config.appnum}}.zip" target="_blank" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="bottom" title="DOWNLOAD FROM GOOGLE" 
+        tooltip-trigger="mouseenter hover" style="" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;" ng-click="main.remotezip(config.appnum, this.href)"></button>
          
-        <button class="btn btn-default text-warning btn-glass fa fa-download" href="https://patents.reedtech.com/downloads/pair/{{config.appnum}}.zip" target="_blank" data-toggle="popover" data-placement="bottom" title="DOWNLOAD FROM REEDTECH" data-content="" data-animation="true" data-trigger="hover"
-        style="color:white;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;" ng-click="main.remotezip(config.appnum, this.href)"> from ReedTech</button>
+        <button class="btn btn-default text-warning fa fa-fw fa-2x fa-download" href="https://patents.reedtech.com/downloads/pair/{{config.appnum}}.zip" target="_blank" uib-popover="DOWNLOAD FROM REEDTECH" data-placement="bottom" title="DOWNLOAD FROM REEDTECH"  popover-animation="true" data-trigger="hover" style=";" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;" ng-click="main.remotezip(config.appnum, this.href)"> from ReedTech</button>
       	</div>
     </div>
       <pre ng-if="main.remoteresp" ng-bind="main.remoteresp" class="card card-fancy card-block "></pre> 
 </div>
                 
 
+</div>
