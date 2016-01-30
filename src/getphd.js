@@ -132,9 +132,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           main.showupload = true;
         } else {
           main.showupload = false;
-          $http.get(phd.patent.text).then(function (resp) {
+         /* $http.get(phd.patent.text).then(function (resp) {
               return main.text = resp.data;
-          });
+          });*/
 
         }
 
