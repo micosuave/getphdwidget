@@ -281,6 +281,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
      
 
       };
+      main.toggle = function(){
+          main.checked = !main.checked;
+      };
       main.phd = {};
       var appnum = config.appnum;
       var attorney = appnum + '/' + appnum + '-address_and_attorney_agent.tsv';
