@@ -1,10 +1,24 @@
 <div class="panel panel-primary" style="margin:0.5rem;margin-left:-0.5rem;overflow:visible;">
     <div class="panelhead2 panel-heading btn-primary btn-glass clearfix" style="margin-right:-2rem;border-top-left-radius:0rem;border-bottom-left-radius:0rem;border-top-right-radius:2rem;border-bottom-right-radius:2rem;">
-        <h6 class="panel-title" style="color:#ffa;"><img src="https://lexlab.firebaseapp.com/img/GoldPhdLogoLong.svg" class="img img-rounded img-thumbnail" style="width:auto;height:100%;" /> </h6>
+        
+        <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
+        <p class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{config.pnum | number:0 }}</p>
+        
+        <small class="card-subtitle  ng-binding" style="color:#ddd;"><span class="lead">USSN {{config.appnum}}</span></small>
+        </div>
+        <img src="/llp_core/img/GoldLion.svg" class="img lionlogofilter" style="width:50px;height: auto;">
+        
+        <div style="display:flex;flex-direction:column;align-items:flex-start;justify-content:space-around;">
+          <img src="/llp_core/img/GoldLogoLong.svg" class="img" style="height:25px;">
+  
+          <img src="/llp_core/img/GoldPhdLogoLong.svg" class="img" style="height:10px;padding-left:2px;">
+        </div>
+        
+        <!--<h6 class="panel-title" style="color:#ffa;"><img src="https://lexlab.firebaseapp.com/img/GoldPhdLogoLong.svg" class="img img-rounded img-thumbnail" style="width:auto;height:100%;" /> </h6>-->
     </div>
     <div class="panel-body">
         <blockquote class="bs-callout bs-callout-primary card-header">
-            <p class="text-muted" style="text-align:left;font-size:10px;">Use the following fields to directly download U.S. utility patents and published patent applications from Google Patents, and to directly download .zip files of their prosecution histories from the <a href="https://www.uspto.gov/">USPTO</a> public data-proxy-repositors, <a href="https://www.google.com/patents/" title="Google Patents" uib-tooltip="Google Patents" tooltip-trigger="mouseenter">Google</a> & <a href="http://www.reedtech.com/" title="ReedTech" uib-tooltip="ReedTech" tooltip-trigger="mouseenter">ReedTech</a>.  To automatically parse a prosecution history, drag the downloaded .zip file over the Patent PhD panel to the right on the main screen, and drop the file within the dropzone once it has become marked by a dotted border.  The .zip file will then automatically upload to our servers, where LEO will generate a Patent PhD Report and return it to the main display screen for your review.</p>
+            <p class="text-muted text-left" style="text-align:left;font-size:12px;">Use the following fields to directly download U.S. utility patents and published patent applications from Google Patents, and to directly download .zip files of their prosecution histories from the <a href="https://www.uspto.gov/"  uib-tooltip="United States Patent & Trademark Office official site" tooltip-trigger="mouseenter">USPTO</a> public data-proxy-repositors, <a href="https://www.google.com/patents/"  uib-tooltip="Google Patents" tooltip-trigger="mouseenter">Google</a> & <a href="http://www.reedtech.com/"  uib-tooltip="ReedTech" tooltip-trigger="mouseenter">ReedTech</a>.  To automatically parse a prosecution history, drag the downloaded .zip file over the Patent PhD panel to the right on the main screen, and drop the file within the dropzone once it has become marked by a dotted border.  The .zip file will then automatically upload to our servers, where LEO will generate a Patent PhD Report and return it to the main display screen for your review.</p>
         </blockquote>
         
         
@@ -13,7 +27,7 @@
         <h6 class="card-title"><label for="patentnumber" class="card-text text-muted"><strong>Enter US Patent Number</strong></label></h6>
      <div class="input-group">
         <input type="number" placeholder="Patent #" class="" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.PNUM">
-        <button class="btn btn-default input-group-addon right text-success fa fa-2x fa-download" href="http://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM+'.pdf'}}" target="_blank" data-toggle="popover" data-placement="bottom" data-content="DOWNLOAD" data-animation="true" data-trigger="hover" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150'); return false;" style="color:white;border-top-right-radius:1rem;border-bottom-right-radius:1rem;"></button>
+        <button class="btn btn-default input-group-addon right text-success fa fa-2x fa-download" href="http://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM+'.pdf'}}" target="_blank" tooltip-trigger="mouseenter" uib-tooltip="Download Patent" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150'); return false;" style="color:white;border-top-right-radius:1rem;border-bottom-right-radius:1rem;"></button>
 	</div>
 </blockquote>
           
@@ -22,12 +36,12 @@
          
 	<div class="input-group">
        
-                <input type="number" placeholder="YYYY" style="max-width:10rem;padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.IPAYEAR" maxlength="4" style="">
+                <input type="number" placeholder="YYYY" style="max-width:10rem;padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.IPAYEAR" maxlength="4" style="border-radius:0px;border-top-left-radius:1rem;border-bottom-left-radius:1rem;">
 
          
-        <input type="number" placeholder="# IPA" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.IPANUM" style="">
-	 <button class="input-group-addon left btn-default text-info fa fa-download fa-2x" href="http://patentimages.storage.googleapis.com/pdfs/US{{$scope.IPAYEAR}}{{$scope.IPANUM+'.pdf'}}'" target="_blank"  title="DOWNLOAD" 
-        style="border-top-right-radius:1rem;border-bottom-right-radius:1rem;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;"></button>
+        <input type="number" placeholder="# IPA" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.IPANUM" style="border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;">
+	 <button class="input-group-addon left btn-default text-info fa fa-download fa-2x" href="http://patentimages.storage.googleapis.com/pdfs/US{{$scope.IPAYEAR}}{{$scope.IPANUM+'.pdf'}}'" target="_blank"   
+        style="border-top-right-radius:1rem;border-bottom-right-radius:1rem;" ng-click="$window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150'); return false;"></button>
         
         
     </div>
@@ -36,13 +50,13 @@
 	
 	<blockquote class="bs-callout bs-callout-danger card-header" style="text-align:left;">
 	<h6 class="card-title"><label for="" class="card-text text-muted">Enter the US Application Serial Number</label></h6>
-              <input class="row header" type="number" placeholder="Application #" ng-model="config.appnum" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-blur="main.remotezip(config.appnum)">
+              <input class="row header" type="number" placeholder="Application #" ng-model="config.appnum" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-blur="main.getfilehistory(config.appnum)">
          
 	<div class="btn-group pull-right">
         <button class="btn btn-default text-warning  fa fa-2x fa-google" href="https://storage.googleapis.com/uspto-pair/applications/{{config.appnum}}.zip" target="_blank" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="bottom" title="DOWNLOAD FROM GOOGLE" tooltip-animation="true" 
-        tooltip-trigger="mouseenter hover" style="" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=50,top=150'); return false;" ng-click="main.remoteziptwo(config.appnum, this.href)"></button>
+        tooltip-trigger="mouseenter hover" style="" ng-click="$window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=50,top=150'); return false;" ng-click="main.getfilehistory(config.appnum, this.href)"></button>
          
-        <button class="btn btn-default text-warning fa  fa-2x fa-download" href="https://patents.reedtech.com/downloads/pair/{{config.appnum}}.zip" target="_blank" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="bottom" title="DOWNLOAD FROM REEDTECH"  tooltip-animation="true" tooltip-trigger="mouseenter hover" style="" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=50,top=150'); return false;" ng-click="main.remotezipthree(config.appnum, this.href)"></button>
+        <button class="btn btn-default text-warning fa  fa-2x fa-download" href="https://patents.reedtech.com/downloads/pair/{{config.appnum}}.zip" target="_blank" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="bottom" title="DOWNLOAD FROM REEDTECH"  tooltip-animation="true" tooltip-trigger="mouseenter hover" style="" ng-click="$window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=50,top=150'); return false;" ng-click="main.getfilehistory(config.appnum, this.href)"></button>
       	</div>
     </blockquote>
       <pre ng-if="main.remoteresp" ng-bind="main.remoteresp" class="card card-fancy card-block "></pre> 

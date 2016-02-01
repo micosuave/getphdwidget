@@ -17,8 +17,10 @@
              
            </div>
 
-    <div pageslide ps-open="checked" ps-key-listener="true" ps-side="left" ps-class="card-dark btn-glass" ps-size="300px" style="overflow:visible;">
+    <div pageslide ps-open="main.checked" ps-key-listener="true" ps-side="{{main.side || 'left'}}" ps-class="{{main.styleClass || 'card-dark btn-glass'}}" ps-size="{{main.size || '300px'}}" style="overflow:visible;">
+                    <hr>
                     <div ng-include="'/getphdwidget/src/phd/step-1.html'"></div>
+                        <hr>                 
                    <!--<div ng-include="'/getphdwidget/src/phd/step-2.html'"></div>-->
                     <!--<upload-q></upload-q>-->
                 </div>
