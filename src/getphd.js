@@ -374,7 +374,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
       };
       main.styleClass = 'panel-primary';
-      main.size="300px";
+      main.size="450px";
       main.checked = false;
       
 //       var cors_api_url = 'https://lexlab.io/proxy/';
@@ -416,17 +416,24 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         main.spinner = true;
         main.progress = 0;
         var appnum = appnum;
-        var proxy_url = 'http://127.0.0.1:8080/';
-        var target_url = 'https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip:443';
+        var proxy_url = $location.protocol + '://' + $location.host + ':8080/';
+        var target_url = 'http://patents.reedtech.com/downloads/pair/' + appnum + '.zip';
+        //var target_url = 'http://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip';
         var request = {
           method: 'GET',
           url: proxy_url + target_url,
-          headers: {
-            'Target-Endpoint': target_url
+          //url: target_url,
+         headers: {
+            "Target-Endpoint": target_url,
+             "Access-Control-Allow-Origin": "/",
+                "Access-Control-Allow-Headers": "Content-Type,X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,    Date, X-Api-Version, X-File-Name",
+                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Credentials": true
           }
         };
-
+        console.log(request);
         $http(request).then(function (resp) {
+          console.log(resp);
           main.file = resp.data;
           console.log(resp.data);
           extract(resp.data, appnum)

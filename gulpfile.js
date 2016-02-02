@@ -85,7 +85,7 @@ gulp.task('css', function() {
 gulp.task('js', function() {
     gulp.src(['src/**/*.js', 'src/**/*.html'])
         .pipe($.if('*.html', $.minifyHtml()))
-        .pipe($.if('*.html', $.angularTemplatecache(pkg.name + '.tpl.js', templateOptions)))
+        .pipe($.if('*.html', $.angularTemplatecache(pkg.name + '.js', templateOptions)))
         .pipe($.angularFilesort())
         .pipe($.if('*.js', $.replace(/'use strict';/g, '')))
         .pipe($.concat(pkg.name + '.js'))
