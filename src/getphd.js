@@ -558,7 +558,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         var collections = Collections();
         var appnum = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
               var phdref = Collection($scope.phd.id).$ref();
-              var dashboards = Collection($ACTIVEROAR.page);
+              var dashboards = Collection($stateParams.pageid);
               var dashboardsref = dashboards.$ref();
                 //  var phdref = Collection(phd.id).$ref();
               var projref = Collection($stateParams.pId).$ref();
