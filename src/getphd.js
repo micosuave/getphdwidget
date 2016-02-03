@@ -416,7 +416,11 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         main.spinner = true;
         main.progress = 0;
         var appnum = appnum;
-        var proxy_url = $location.protocol + '://' + $location.host + ':8080/';
+        if ($location.host() == 'localhost'){
+        var proxy_url = 'http://localhost:8080/';
+        }else{
+            var proxy_url = $location.protocol() +'://'+$location.host()+':8080';
+        }
         var target_url = 'http://patents.reedtech.com/downloads/pair/' + appnum + '.zip';
         //var target_url = 'http://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip';
         var request = {
