@@ -418,11 +418,11 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         main.progress = 0;
         var appnum = appnum;
         if ($location.host() == 'localhost'){
-        var proxy_url = 'http://localhost:8080/';
+        var proxy_url = 'https://localhost:8080/';
         }else{
-            var proxy_url = $location.protocol() +'://'+$location.host()+':8080';
+            var proxy_url = $location.protocol() +'://'+$location.host()+':8080/';
         }
-        var target_url = 'http://patents.reedtech.com/downloads/pair/' + appnum + '.zip';
+        var target_url = 'https://patents.reedtech.com/downloads/pair/' + appnum + '.zip';
         //var target_url = 'http://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip';
         var request = {
           method: 'GET',
@@ -1039,7 +1039,7 @@ angular.module('textSizeSlider', [])
                
                  var matter = Matter($stateParams.matterId, $stateParams.groupId);
                  var collections = Collections();
-                 var dashboards = Collection($ACTIVEROAR.page);
+                 var dashboards = Collection($statParams.page);
                  var dashboardsref = dashboards.$ref();
                 //  var phdref = Collection(phd.id).$ref();
                  var projref = Collection($stateParams.pId).$ref();
