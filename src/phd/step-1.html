@@ -23,7 +23,7 @@
         <h6 class="card-title"style="text-align:left;font-size:12px;"><label for="patentnumber" class="card-text text-muted"><strong>Enter US Patent Number</strong></label></h6>
      <div class="input-group">
         <input type="number" placeholder="Patent #" class="" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.PNUM">
-        <button class="btn btn-default input-group-addon right text-success fa fa-2x fa-download" href="https://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM}}.pdf" target="_blank" tooltip-trigger="mouseenter" uib-tooltip="Download Patent" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150';return false;);" style="color:white;border-top-right-radius:1rem;border-bottom-right-radius:1rem;"></button>
+        <button class="btn btn-default input-group-addon right text-success fa fa-2x fa-download" href="https://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM}}.pdf" target="_blank" tooltip-trigger="mouseenter" uib-tooltip="Download Patent" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150', false);" style="color:white;border-top-right-radius:1rem;border-bottom-right-radius:1rem;"></button>
 	</div>
 </blockquote>
           
@@ -37,7 +37,7 @@
          
         <input type="number" placeholder="# IPA" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.IPANUM" style="border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;">
 	 <button class="input-group-addon left btn-default text-info fa fa-download fa-2x" href="http://patentimages.storage.googleapis.com/pdfs/US{{$scope.IPAYEAR}}{{$scope.IPANUM+'.pdf'}}'" target="_blank"   
-        style="border-top-right-radius:1rem;border-bottom-right-radius:1rem;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150';return false;);"></button>
+        style="border-top-right-radius:1rem;border-bottom-right-radius:1rem;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150', false);"></button>
         
         
     </div>
@@ -47,19 +47,19 @@
 	<blockquote class="bs-callout bs-callout-danger card-header" style="text-align:left;">
 	<h6 class="card-title"style="text-align:left;font-size:12px;"><label for="" class="card-text text-muted">Enter the US Application Serial Number</label></h6>
               <div class="input-group">
-              <input class="row header" type="number" placeholder="Application #" ng-model="config.appnum" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-blur="main.getfilehistory(config.appnum)">
+              <input class="row header" type="number" placeholder="Application #" ng-model="config.appnum" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-blur="">
          
-	<div class="input-group-addon">
-        <button class="btn btn-default text-warning input-group-addon fa fa-2x fa-google" href="https://storage.googleapis.com/uspto-pair/applications/{{config.appnum}}.zip" target="_blank" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="bottom" title="DOWNLOAD FROM GOOGLE" tooltip-animation="true" 
-        tooltip-trigger="mouseenter hover" style="" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=50,top=150');return false;" ng-click="main.getfilehistory(config.appnum)">from Google</button>
+	<div class="input-group-addon row">
+        <button class="btn btn-default text-warning fa fa-fw fa-google" href="https://storage.googleapis.com/uspto-pair/applications/{{config.appnum}}.zip" target="_blank" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="bottom" title="DOWNLOAD FROM GOOGLE" tooltip-animation="true" 
+        tooltip-trigger="mouseenter hover" style="" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=50,top=150', false);" >from Google</button>
          
-        <button class="btn btn-default text-warning input-group-addon fa  fa-2x fa-download" href="https://patents.reedtech.com/downloads/pair/{{config.appnum}}.zip" target="_blank" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="bottom" title="DOWNLOAD FROM REEDTECH"  tooltip-animation="true" tooltip-trigger="mouseenter hover" style="" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=50,top=150'); return false;" ng-click="main.getfilehistory(config.appnum)">from ReedTech</button>
+        <button class="btn btn-default text-warning input-group-addon fa  fa-fw fa-download" href="https://patents.reedtech.com/downloads/pair/{{config.appnum}}.zip" target="_blank" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="bottom" title="DOWNLOAD FROM REEDTECH"  tooltip-animation="true" tooltip-trigger="mouseenter hover" style="" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=50,top=150', false);" >from ReedTech</button>
       	</div>
           </div>
     </blockquote>
       <pre ng-if="main.remoteresp" ng-bind="main.remoteresp" class="card card-fancy card-block "></pre> 
 </div><!--panelbody-->
        <div class="panel-footer">         
-                    <button class="btn btn-default btn-sm pull-right" ng-click="$scope.$parent.toggle()">Close</button>
+                    <button class="btn btn-dark btn-sm " ng-click="$scope.$parent.toggle()">Close</button>
        </div>
 </div><!--panel-->
