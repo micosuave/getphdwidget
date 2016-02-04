@@ -155,7 +155,7 @@
                
                  var matter = Matter($stateParams.matterId, $stateParams.groupId);
                  var collections = Collections();
-                 var dashboards = Collection($statParams.page);
+                 var dashboards = Collection($stateParams.pageid);
                  var dashboardsref = dashboards.$ref();
                 //  var phdref = Collection(phd.id).$ref();
                  var projref = Collection($stateParams.pId).$ref();
