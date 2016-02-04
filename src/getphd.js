@@ -588,7 +588,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                           phdref.update(phd);
                           dashboardsref.update({ styleClass: 'Applicant', title: 'PhD Report for US '+ (phd.patent.number || phd.application['Patent Number'])});
                           // dashboardsref.update(phd);
-                        dashboardsref.child('roarlist').child($ACTIVEROAR.page).set($ACTIVEROAR.page);
+                        //dashboardsref.child('roarlist').child($stateParams.pageid).set($stateParams.pageid);
  
 			 angular.forEach(groupids, function (id, key) {
                             /*-- create internal report pages --*/// phdref.child('roarlist').child(id).set(id);
