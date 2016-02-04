@@ -31,7 +31,7 @@
 
  <a href title="fullscreen widget" ng-click="openFullScreen(roarevent.id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="color:steelblue;"></i> </a>  
 
- <a href title="remove widget" ng-click="remove()" onclick="$('#{{roarevent.id}}').remove()"> <i class="fa fa-close" style="color:steelblue;"></i> </a> 
+ <a href title="remove widget" ng-click="remove()" onclick="$('#{{roarevent.id||roarevent.$id}}.issuedocpanel').remove()"> <i class="fa fa-close" style="color:steelblue;"></i> </a> 
 
  </span>
 </div>
