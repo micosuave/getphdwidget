@@ -115,8 +115,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 }])
   
-  .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams','$location','$ACTIVEROAR','$dashboards',"$interval","Collections","$compile","$templateCache",
-    function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, Collections,$compile,$templateCache) {
+  .controller('MainCtrl', ['Collection', 'extract', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams','$location','$ACTIVEROAR','$dashboards','$interval','Collections','$compile','$templateCache','$window','$document',
+    function (Collection, extract, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, Collections,$compile,$templateCache, $window, $document) {
       var main = this;
       //main.size = 'lg';
       $scope.collapsereport = false;
@@ -414,45 +414,58 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       
       
       main.getfilehistory = function (appnum) {
-        main.spinner = true;
-        main.progress = 0;
-        var appnum = appnum;
-        if ($location.host() == 'localhost'){
-        var proxy_url = 'https://localhost:8080/';
-        }else{
-            var proxy_url = $location.protocol() +'://'+$location.host()+':8080/';
-        }
-        var target_url = 'https://patents.reedtech.com/downloads/pair/' + appnum + '.zip';
-        //var target_url = 'http://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip';
-        var request = {
-          method: 'GET',
-          url: proxy_url + target_url,
-          //url: target_url,
-         headers: {
-            "Target-Endpoint": target_url,
-             "Access-Control-Allow-Origin": "/",
-                "Access-Control-Allow-Headers": "Content-Type,X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,    Date, X-Api-Version, X-File-Name",
-                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS",
-                "Access-Control-Allow-Credentials": true
-          }
+        var winreed = function(appnum){
+            return $window.open('https://patents.reedtech.com/downloads/pair/'+appnum+'.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
+        };     
+        var wingoog = function(appnum){
+            return $window.open('https://storage.googleapis.com/uspto-pair/applications/'+appnum+'.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
         };
-        console.log(request);
-        $http(request).then(function (resp) {
-          console.log(resp);
-          main.file = resp.data;
-          console.log(resp.data);
-          extract(resp.data, appnum)
-            .then(function (files) {
-              console.log(files);
-              main.file = files;
-              main.parse(files).then(function () {
-                main.spinner = false;
-              });
-            }, function (reason) {
-              main.error = reason.message;
-            });
-        });
-      };
+        try{winreed(appnum)}
+        catch(ex){
+            winreed.close();
+        }
+        finally{
+            wingoog(appnum);
+        }
+       // main.spinner = true;
+       // main.progress = 0;
+       // var appnum = appnum;
+       // if ($location.host() == 'localhost'){
+       // var proxy_url = 'https://localhost:8080/';
+       // }else{
+       //     var proxy_url = $location.protocol() +'://'+$location.host()+':8080/';
+       // }
+       // var target_url = 'https://patents.reedtech.com/downloads/pair/' + appnum + '.zip';
+        //var target_url = 'http://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip';
+       // var request = {
+       //   method: 'GET',
+       //   url: proxy_url + target_url,
+          //url: target_url,
+       //  headers: {
+       //     "Target-Endpoint": target_url,
+        //     "Access-Control-Allow-Origin": "/",
+         //       "Access-Control-Allow-Headers": "Content-Type,X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,    Date, X-Api-Version, X-File-Name",
+          //      "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS",
+           //     "Access-Control-Allow-Credentials": true
+          //}
+        };
+    //     console.log(request);
+    //     $http(request).then(function (resp) {
+    //       console.log(resp);
+    //       main.file = resp.data;
+    //       console.log(resp.data);
+    //       extract(resp.data, appnum)
+    //         .then(function (files) {
+    //           console.log(files);
+    //           main.file = files;
+    //           main.parse(files).then(function () {
+    //             main.spinner = false;
+    //           });
+    //         }, function (reason) {
+    //           main.error = reason.message;
+    //         });
+    //     });
+    //   };
 
       main.remotezip = function (appnum) {
         $http.get('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip').then(function(resp) {
