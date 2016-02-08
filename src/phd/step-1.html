@@ -23,7 +23,7 @@
         <h6 class="card-title"style="text-align:left;font-size:12px;"><label for="patentnumber" class="card-text text-muted"><strong>Enter US Patent Number</strong></label></h6>
      <div class="input-group">
         <input type="number" placeholder="Patent #" class="" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.PNUM">
-        <button class="btn btn-default input-group-addon right text-success fa fa-2x fa-fw fa-download" href="https://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM}}.pdf" target="_blank" tooltip-trigger="mouseenter" uib-tooltip="Download Patent" ng-click="main.getpatentdownload(config.PNUM);" style="color:white;border-top-right-radius:1rem;border-bottom-right-radius:1rem;"></button>
+        <button class="btn btn-default right text-success fa fa-2x fa-download" href="https://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM}}.pdf" target="_blank" tooltip-trigger="mouseenter" uib-tooltip="Download Patent" ng-click="main.getpatentdownload(config.PNUM);" style="color:white;border-top-right-radius:1rem;border-bottom-right-radius:1rem;"></button>
 	   <!--<iframe name="testframe" id="testframe" style="visibility: hidden;width:auto;height:1px;"></iframe>-->
     </div>
 </blockquote>
@@ -37,7 +37,7 @@
 
          
         <input type="number" placeholder="# PA" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.IPANUM" style="border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;">
-	 <button class="input-group-addon left btn-default text-info fa fa-download fa-2x" href="http://patentimages.storage.googleapis.com/pdfs/US{{$scope.IPAYEAR}}{{$scope.IPANUM+'.pdf'}}'" target="_blank"   
+	 <button class="btn btn-default text-warning fa fa-download fa-2x" href="http://patentimages.storage.googleapis.com/pdfs/US{{$scope.IPAYEAR}}{{$scope.IPANUM+'.pdf'}}'" target="_blank"   
         style="border-top-right-radius:1rem;border-bottom-right-radius:1rem;" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150', false);"></button>
         
         
@@ -49,15 +49,15 @@
 	<h6 class="card-title"style="text-align:left;font-size:12px;"><label for="" class="card-text text-muted">Enter the US Application Serial Number</label></h6>
               <div class="input-group">
               <input class="row header" type="number" placeholder="Application #" ng-model="config.appnum" style="padding:1rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-blur="main.remotezip(config.appnum)">
+         <button class="btn btn-default text-danger fa fa-2x fa-download" ng-click="main.getfilehistory(config.appnum)" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="top" title="DOWNLOAD FROM FILE HISTORY" tooltip-animation="true"></button>
          
-	<div class="input-group-addon">
+	<!--<div class="input-group-addon">-->
         <!--<iframe name="testframereed" id="testframereed" style="visibility: hidden;width:auto;height:1px;"></iframe>-->
         <!--<button class="btn btn-default text-warning fa fa-2x fa-google" ng-href="https://storage.googleapis.com/uspto-pair/applications/{{config.appnum}}.zip" target="_blank" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="bottom" title="DOWNLOAD FROM GOOGLE" tooltip-animation="true" -->
         <!--tooltip-trigger="mouseenter hover" style="" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=50,top=150');" >from Google</button>-->
-         <button class="btn btn-default text-warning fa fa-2x fa-download" ng-click="main.getfilehistory(config.appnum)" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="top" title="DOWNLOAD FROM FILE HISTORY" tooltip-animation="true"></button>
         <!--<button class="btn btn-default text-warning input-group-addon fa  fa-2x fa-download" ng-href="https://patents.reedtech.com/downloads/pair/{{config.appnum}}.zip" target="_blank" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="bottom" title="DOWNLOAD FROM REEDTECH"  tooltip-animation="true" tooltip-trigger="mouseenter hover" style="" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=50,top=150');" >from ReedTech</button>-->
      <!--<iframe name="testframegoog" id="testframegoog" style="visibility: hidden;width:auto;height:1px;"></iframe>-->
-      	</div>
+      	<!--</div>-->
           </div>
     </blockquote>
       <pre ng-if="main.remoteresp" ng-bind="main.remoteresp" class="card card-fancy card-block "></pre> 
