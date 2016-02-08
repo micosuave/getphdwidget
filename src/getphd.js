@@ -413,15 +413,15 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       
       main.getpatentdownload = function(pnum){
           var patgoog = function(pnum){
-              return $window.open('https://patentimages.storage.googleapis.com/pdfs/US' + pnum + '.pdf', 'testframe', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
+              return $window.open('https://patentimages.storage.googleapis.com/pdfs/US' + pnum + '.pdf', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
           }
       }
       main.getfilehistory = function (appnum) {
         var winreed = function(appnum){
-            return $window.open('https://patents.reedtech.com/downloads/pair/'+appnum+'.zip', 'testframereed', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
+            return $window.open('https://patents.reedtech.com/downloads/pair/'+appnum+'.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
         };     
         var wingoog = function(appnum){
-            return $window.open('https://storage.googleapis.com/uspto-pair/applications/'+appnum+'.zip', 'testframegoog', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
+            return $window.open('https://storage.googleapis.com/uspto-pair/applications/'+appnum+'.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
         };
         try{winreed(appnum)}
         catch(ex){
