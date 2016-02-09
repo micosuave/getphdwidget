@@ -417,6 +417,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           }
           patgoog(pnum);
       };
+      main.getpublishedapplication = function(y,num){
+            $window.open('https://patentimages.storage.googleapis.com/pdfs/US'+y+num+'.pdf', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');  
+      };
       main.getfilehistory = function (appnum, provider) {
         var winreed = function(appnum){
             return $window.open('https://patents.reedtech.com/downloads/pair/'+appnum+'.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');

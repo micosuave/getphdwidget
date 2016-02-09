@@ -37,8 +37,8 @@
 
          
         <input type="number" placeholder="# PA" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.IPANUM" style="border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;">
-	 <button class="btn btn-default text-warning fa fa-download fa-2x" href="http://patentimages.storage.googleapis.com/pdfs/US{{$scope.IPAYEAR}}{{$scope.IPANUM+'.pdf'}}'" target="_blank"   
-        style="" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150', false);"></button>
+	 <button class="btn btn-default text-warning fa fa-download fa-2x"    
+        style="" ng-click="main.getpublishedapplication(config.IPAYEAR, config.IPANUM)"></button>
         
         
     </div>
@@ -46,7 +46,7 @@
 	</blockquote>
 	
 	<blockquote class="bs-callout bs-callout-danger card-header" style="text-align:left;">
-	<h6 class="card-title"style="text-align:left;font-size:12px;"><label for="" class="card-text text-muted">Enter the US Application Serial Number</label></h6>
+	<h6 class="card-title"style="text-align:left;font-size:12px;"><label for="" class="card-text text-muted">Enter US Application Serial Number</label></h6>
               <div class="input-group">
               <input class="" type="number" placeholder="Application #" ng-model="config.appnum" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-blur="main.remotezip(config.appnum)">
          <button class="btn btn-default text-danger fa fa-2x fa-download right" ng-click="main.getfilehistory(config.appnum,'reedtech')" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="top" title="DOWNLOAD FILE HISTORY FROM REEDTECH" tooltip-animation="true"></button>
