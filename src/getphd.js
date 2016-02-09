@@ -470,14 +470,18 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     //   };
 
       main.remotezip = function (appnum) {
-        $http.get('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip').then(function(resp) {
-          console.log(resp);
-          alertify.log(resp.headers);
+        
+        appnum.pop(appnum.indexOf('/'));
+        appnum.pop(appnum.indexOf(','));
+        config.appnum = appnum;
+        // $http.get('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip').then(function(resp) {
+        //   console.log(resp);
+        //   alertify.log(resp.headers);
           
-          var zip = new JSZip(resp.data);
-          main.remoteresp = zip;
-          main.handleFiles(zip);
-        });
+        //   var zip = new JSZip(resp.data);
+        //   main.remoteresp = zip;
+        //   main.handleFiles(zip);
+        // });
 
       };
 
