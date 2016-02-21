@@ -474,8 +474,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
       main.remotezip = function (appnum) {
       
-        appnum.splice(appnum.indexOf('/'),1);
-        appnum.splice(appnum.indexOf(','),1);
+        appnum.slice(appnum.indexOf('/'),1);
+        appnum.slice(appnum.indexOf(','),1);
         config.appnum = appnum;
         // $http.get('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip').then(function(resp) {
         //   console.log(resp);
