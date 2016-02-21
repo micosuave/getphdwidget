@@ -48,10 +48,13 @@
 	<blockquote class="bs-callout bs-callout-danger card-header" style="text-align:left;">
 	<h6 class="card-title"style="text-align:left;font-size:12px;"><label for="" class="card-text text-muted">Enter US Application Serial Number</label></h6>
               <div class="input-group">
-              <input class="" type="text" placeholder="Application #" ng-model="config.appnum" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-blur="main.remotezip(config.appnum)">
-         <button class="btn btn-default text-danger fa fa-2x fa-download right" ng-click="main.getfilehistory(config.appnum,'reedtech')" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="top" title="DOWNLOAD FILE HISTORY FROM REEDTECH" tooltip-animation="true"></button>
-                  <button class="btn btn-default text-danger fa fa-2x fa-download right" ng-click="main.getfilehistory(config.appnum,'google')" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="top" title="DOWNLOAD FILE HISTORY FROM GOOGLE" tooltip-animation="true"></button>
-	<!--<div class="input-group-addon">-->
+            <form name="application">
+              <input class="" type="text" placeholder="Application #" ng-model="config.appnum" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-pattern="\d+||\d\d\/\d\d\d\,\d\d\d" ng-blur="main.remotezip(config.appnum)">
+         <button class="btn btn-default text-danger fa fa-2x fa-file-zip-o right" ng-click="main.getfilehistory(config.appnum,'reedtech')" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="top" title="DOWNLOAD FILE HISTORY FROM REEDTECH" tooltip-animation="true"></button>
+                  <button class="btn btn-default text-danger fa fa-2x fa-file-zip-o right" ng-click="main.getfilehistory(config.appnum,'google')" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="top" title="DOWNLOAD FILE HISTORY FROM GOOGLE" tooltip-animation="true"></button>
+	       
+           </form>
+    <!--<div class="input-group-addon">-->
         <!--<iframe name="testframereed" id="testframereed" style="visibility: hidden;width:auto;height:1px;"></iframe>-->
         <!--<button class="btn btn-default text-warning fa fa-2x fa-google" ng-href="https://storage.googleapis.com/uspto-pair/applications/{{config.appnum}}.zip" target="_blank" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="bottom" title="DOWNLOAD FROM GOOGLE" tooltip-animation="true" -->
         <!--tooltip-trigger="mouseenter hover" style="" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=50,top=150');" >from Google</button>-->

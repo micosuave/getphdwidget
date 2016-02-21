@@ -412,20 +412,23 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 //   })();
       
       main.getpatentdownload = function(pnum){
+      $(document.createElement("iframe")).attr('name','fframe').appendTo('body');
           var patgoog = function(pnum){
-              return $window.open('https://patentimages.storage.googleapis.com/pdfs/US' + pnum + '.pdf', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
+              return $window.open('https://patentimages.storage.googleapis.com/pdfs/US' + pnum + '.pdf', 'fframe', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
           }
           patgoog(pnum);
       };
       main.getpublishedapplication = function(y,num){
-            $window.open('https://patentimages.storage.googleapis.com/pdfs/US'+y+num+'.pdf', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');  
+                $(document.createElement("iframe")).attr('name','fframe').appendTo('body');
+            $window.open('https://patentimages.storage.googleapis.com/pdfs/US'+y+num+'.pdf', 'fframe', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');  
       };
       main.getfilehistory = function (appnum, provider) {
+                $(document.createElement("iframe")).attr('name','fframe').appendTo('body');
         var winreed = function(appnum){
-            return $window.open('https://patents.reedtech.com/downloads/pair/'+appnum+'.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
+            return $window.open('https://patents.reedtech.com/downloads/pair/'+appnum+'.zip', 'fframe', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
         };     
         var wingoog = function(appnum){
-            return $window.open('https://storage.googleapis.com/uspto-pair/applications/'+appnum+'.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
+            return $window.open('https://storage.googleapis.com/uspto-pair/applications/'+appnum+'.zip', 'fframe', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
         };
         if (provider === 'reedtech'){ winreed(appnum);}
         else{ wingoog(appnum);}
@@ -470,9 +473,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     //   };
 
       main.remotezip = function (appnum) {
-        
-        appnum.pop(appnum.indexOf('/'));
-        appnum.pop(appnum.indexOf(','));
+      
+        appnum.splice(appnum.indexOf('/'),1);
+        appnum.splice(appnum.indexOf(','),1);
         config.appnum = appnum;
         // $http.get('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip').then(function(resp) {
         //   console.log(resp);
