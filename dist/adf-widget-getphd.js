@@ -367,6 +367,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
               main.progresstwo++;
             } else {
               main.error = 'Unhandled case!';
+              alertify.error('unhandled case!');
+              deffered.reject('unhandled case!');
             }
             return deffered.resolve(main.phd);
           }
@@ -521,7 +523,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                   //$log.info('TSV Parsed', parsedfiles);
                   alertify.log('TSV Parsed');
                   //alertify.log('Building ROARmap...');
-                  $patentsearch(main.phd.application, config.PNUM)
+                  $patentsearch(main.phd.application, config)
                         .then(function (patentobj) {
                           main.phd.patent = patentobj;
                              $roarmap(parsedfiles, main.phd, main)
@@ -682,9 +684,14 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
   }])
   .factory('$patentsearch', ['$q', 'filepickerService', function ($q, filepickerService) {
 
-    return function (phdobj, pnum) {
+    return function (phdobj, config) {
       var deferred = $q.defer();
-      searchforpatent(phdobj, pnum);
+      if(config.PNUM && config.PNUM > 0){
+            searchforpatent(phdobj, config.PNUM);
+      }
+      else if (config.IPANUM){
+          searchforpatent(phdobj, config.IPAYEAR + config.IPANUM);
+      }
       return deferred.promise;
 
       function searchforpatent(phdobj, pnum) {
