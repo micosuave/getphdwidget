@@ -291,6 +291,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       var continuity = appnum + '/' + appnum + '-continuity_data.tsv';
       var foreign = appnum + '/' + appnum + '-foreign_priority.tsv';
       var transaction = appnum + '/' + appnum + '-transaction_history.tsv';
+      var termadjust = appnum + '/' + appnum + '-patent_term_adjustments.tsv';
       var imagefile = appnum + '/' + appnum + '-image_file_wrapper/' + appnum + '-image_file_wrapper.tsv';
       var readme = appnum + '/README.txt';
       var targets = [{
@@ -308,6 +309,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         }, {
           label: 'foreign',
           value: foreign
+        },{
+            label: 'term',
+            value: termadjust
         }, {
           label: 'transaction',
           value: transaction
@@ -364,7 +368,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             } else if (file.label === 'README') {
               main.info = file.file;
               main.progresstwo++;
-            } else {
+            } else if(file.label === 'term'){
+                main.phd.termadjustments === parseTSV(file.file, opts, false);
+                main.progresstwo++;
+            }else {
               main.error = 'Unhandled case!';
               alertify.error('unhandled case!');
               deffered.reject('unhandled case!');

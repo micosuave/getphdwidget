@@ -160,6 +160,13 @@
             </table>
             </uib-tab-content>
         </uib-tab>
+        <uib-tab class="" ng-if="phd.termadjustments">
+            <uib-tab-heading>PATENT TERM ADJUSTMENTS</uib-tab-heading>
+            <uib-tab-content>
+                <pre ng-bind="phd.termadjustments | json:3"></pre>
+                
+            </uib-tab-content>
+            </uib-tab>
         <uib-tab class="" ng-if="phd.transaction">
             <!-- <pre ng-bind="main.transaction | json:4"></pre> -->
             <uib-tab-heading class=""style="" ng-style="">TRANSACTION</uib-tab-heading>
