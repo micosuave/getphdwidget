@@ -369,7 +369,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
               main.info = file.file;
               main.progresstwo++;
             } else if(file.label === 'term'){
-                main.phd.termadjustments === parseTSV(file.file, opts, false);
+                main.phd.termadjustments === parseTSV(file.file, {skipEmptyLines: true});
                 main.progresstwo++;
             }else {
               main.error = 'Unhandled case!';

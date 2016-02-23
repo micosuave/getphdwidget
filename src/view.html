@@ -163,8 +163,15 @@
         <uib-tab class="" ng-if="phd.termadjustments">
             <uib-tab-heading>PATENT TERM ADJUSTMENTS</uib-tab-heading>
             <uib-tab-content>
-                <pre ng-bind="phd.termadjustments | json:3"></pre>
-                
+                <table class="card card-block table table-striped table-hover table-condensed table-responsive">
+
+                <tbody>
+                    <tr ng-repeat="line in phd.termadjustments">
+                        <td ng-repeat="value in line">{{::value}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
             </uib-tab-content>
             </uib-tab>
         <uib-tab class="" ng-if="phd.transaction">
