@@ -293,7 +293,7 @@
    </uib-tab>-->
    
         <uib-tab class="" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[2].isActive = true" deselect="main.tabs[1].isActive = false">
-           <uib-tab-heading class="" ng-style="">US {{(config.PNUM | number:0) || (config.IPAYEAR + '&nbsp;/&nbsp;' config.IPANUM)  }}</uib-tab-heading>
+           <uib-tab-heading class="" ng-style="">US {{(config.PNUM | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
             
             <uib-tab-content ng-if="main.tabs[2].isActive">
            <div class="row">
