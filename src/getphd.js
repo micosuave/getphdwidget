@@ -203,9 +203,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         console.info('onAfterAddingAll', addedFileItems);
       };
       uploader.onBeforeUploadItem = function (item) {
-        if (!config.PNUM || config.PNUM < 1000000){
-          alertify.prompt("Please enter the Patent Number!");
-        }
+        
         console.info('onBeforeUploadItem', item);
         main.progress = 0;
         main.bufferedfile = item;

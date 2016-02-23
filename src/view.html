@@ -33,7 +33,7 @@
 <div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="phd.file">
 <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);" ng-click="main.collapse()">
         <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
-        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{phd.patent.number | number:0 }}</h4>
+        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{(config.PNUM | number:0) || config.IPAYEAR + '/' config.IPANUM  }}</h4>
         
         <h5 class="card-subtitle  ng-binding" style="color:#ddd;"><span class="lead">USSN {{phd.application['Application Number']}}</span></h5>
         </div>
@@ -293,7 +293,7 @@
    </uib-tab>-->
    
         <uib-tab class="" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[2].isActive = true" deselect="main.tabs[1].isActive = false">
-           <uib-tab-heading class="" ng-style="">US {{phd.patent.number || phd.application['Patent Number'] }}</uib-tab-heading>
+           <uib-tab-heading class="" ng-style="">US {{(config.PNUM | number:0) || config.IPAYEAR + '/' config.IPANUM  }}</uib-tab-heading>
             
             <uib-tab-content ng-if="main.tabs[2].isActive">
            <div class="row">
