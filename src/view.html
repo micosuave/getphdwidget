@@ -296,9 +296,12 @@
            <uib-tab-heading class="" ng-style="">US {{(config.PNUM | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
             
             <uib-tab-content ng-if="main.tabs[2].isActive">
-           <div class="row">
+                <d3pendingtree patent="{{config.PNUM || config.IPAYEAR + config.IPANUM}}"></d3pendingtree>
+                
+                <div id="info"></div>
+           <!--<div class="row">
 		<iframe ng-src="{{phd.patent.media}}" class="card card-fancy col-sm-6" style="min-height:600px;"></iframe>
-            <!--<iframe ng-src="{{phd.patent.txt}}" class="card card-fancy col-sm-6" style="min-height:500px;"></iframe>-->
+            <!--<iframe ng-src="{{phd.patent.txt}}" class="card card-fancy col-sm-6" style="min-height:500px;"></iframe>
 <div class="col-sm-6">           
  <table class=" table table-condensed  table-hover table-responsive">
 
@@ -311,7 +314,7 @@
                 </tbody>
             </table>
             </div>
-            </div>
+            </div>-->
             <!--<ng-annotate-text text="main.text" class="card card-block card-fancy" style="background-color: #fff;padding: 1rem;border-radius: 0.2rem;" annotations="phd.annotations" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
     tooltip-controller="'AnnotationController'" tooltip-template-url="'llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation-tooltip.tpl.html'" on-annotate="onAnnotate" on-annotate-delete="onAnnotateDelete" on-annotate-error="onAnnotateError"
     on-popup-show="onPopupShow" on-popup-hide="onPopupHide" popup-offset="50">
