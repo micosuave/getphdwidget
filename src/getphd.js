@@ -738,8 +738,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             patent.media = pdfstorageuri;
             patent.filename = 'US'+patentnumber + '.pdf';
             patent.title = phdobj['Title of Invention'] || null;
-            patent.number = patentnumber;
-            patent.media = Blob.url;
+            
             patent.google = 'https://www.google.com/patents/US' + patentnumber;
             patent.rid = 'P1';
             if (phdobj['Issue Date of Patent'] !== '-') { patent.date = phdobj['Issue Date of Patent']; } else { patent.date =  '1899-12-31'; }
