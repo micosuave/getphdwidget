@@ -733,7 +733,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         //   { filename: 'US' + patentnumber + '.pdf' },
         //   function (Blob) {
         //     var patent = {};
-           $http.get('/getphd/patents/US'+patentnumber).then(function(resp){
+           $http.get('/getphd/patents/'+patentnumber).then(function(resp){
             var patent = resp.data;
             patent.number = patentnumber;
             patent.media = pdfstorageuri;
