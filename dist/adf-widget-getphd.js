@@ -762,9 +762,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           var poodle;
           angular.forEach(patent.drawings, function(drawingurl, key){
              poodle =  angular.element(contenttemplate).append($('img').attr('src',patent.thumbnails[key]).wrap($('a').attr('href', drawingurl).attr('target','fframe')));
-          });
-          patent.content = wraphead + noatemplate + poodle.html() + wraptail;
+          patent.content = wraphead + noatemplate + $(poodle).html() + wraptail;
           deferred.resolve(patent);
+          });
+          
             });
             //patentobj.srcdoc = googlepage(patentnumber) || null;
             // googlepage(patent.number);
