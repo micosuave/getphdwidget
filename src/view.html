@@ -296,16 +296,17 @@
            <uib-tab-heading class="" ng-style="">US {{(config.PNUM | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
             
             <uib-tab-content ng-if="main.tabs[2].isActive">
-                <blockquote cite="{{phd.patent.media}}" style="margin: 25px;">
-                {{tree.abstract}}     
-                <cite>{{phd.patent.filename}}<a class="fa fa-external-link fa-border" ng-href="{{phd.patent.media}}" target="fframe"></a></cite>
+                <input class="pull-right" ng-model="config.query" type="search">
+                <blockquote cite="{{phd.patent.media}}" style="margin: 25px;" ng-bind-html="tree.abstract | highlight: config.query | trustAsHTML"   >  
+                
                 </blockquote>
+                <cite>{{phd.patent.filename}}<a class="fa fa-external-link fa-border" ng-href="{{phd.patent.media}}" target="fframe"></a></cite>
                 <div class="row" style="margin: 5px 5px;overflow-x:scroll;">
                     <a ng-repeat="link in tree.drawings" ng-href="{{link}}" ng-click="main.pop(link)" target="fframe" class="btn" style="margin:2px;"><img ng-src="{{tree.thumbnails[$index]}}" class="img img-shadow"/></a>
                     </div>
                 
                 <div class="col-sm-6">
-                <d3pendingtree tree="tree" patent="{{config.PNUM || config.IPAYEAR + config.IPANUM}}" style="width:100%;height:600px;"></d3pendingtree>
+                <d3pendingtree class="{{config.query}}" tree="tree" patent="{{config.PNUM || config.IPAYEAR + config.IPANUM}}" style="width:100%;height:600px;"></d3pendingtree>
                                     <iframe ng-src="{{phd.patent.media}}" class="well" style="width:100%;height:800px;" name="fframe" id="fframe"></iframe>
                 
                 </div>
@@ -325,7 +326,7 @@
            
             <a class="btn showonhover" data-nodrag ng-if="config.editable" ng-click="remove(this);"><span class="fa fa-close text-danger "></span></a>
             <!--<a class="btn " data-nodrag ng-if="config.editable" ng-click="toc.newsubsection(this)" style=""><span class="fa fa-plus text-success"></span></a>-->
-           <div ng-bind-html="node.text"></div> 
+           <div ng-bind-html="node.text | highlight: config.query | trustAsHTML"></div> 
             <!--<a  class="gototarget btn" data-nodrag  ui-sref="{{parentstate}}.righttab({tabid: node.id})" style=""> <span ng-if="!config.editable" class="pull-left">{{node.text}}</span><i style="position:absolute;right:0;">&nbsp;</i></a>-->
 
         </div>
