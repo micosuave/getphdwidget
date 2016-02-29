@@ -296,7 +296,7 @@
            <uib-tab-heading class="" ng-style="">US {{(config.PNUM | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
             
             <uib-tab-content ng-if="main.tabs[2].isActive">
-                <input class="pull-right" ng-model="config.query" type="search">
+                <input class="pull-right" ng-model="config.query" type="search" style="margin:10px;">
                 <blockquote cite="{{phd.patent.media}}" style="margin: 25px;margin-top:35px;"><p ng-bind-html="tree.abstract | highlight: config.query | trustAsHTML"   > </p> 
                 
                 
