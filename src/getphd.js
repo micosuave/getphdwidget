@@ -568,6 +568,22 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         console.log(reason.message);
 
       };
+      main.pop = function(link){
+          var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
+        //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
+        var roarevent = {title: link.slice(link.lastIndexOf('/'), link.length)};
+        $scope.roarevent = roarevent;
+        var header = $templateCache.get("{widgetsPath}/getphd/src/titleTemplate.html");
+
+        var skope = angular.element('<iframe/>').attr('height', '680px').attr('src', link);
+
+        angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
+        $('.issuedocpanel').draggable({
+          stack: '.stacker',
+          handle: 'h4'
+        }).resizable();
+
+      };
       main.popdoc = function (imgrecord) {
 
         var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
