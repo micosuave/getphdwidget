@@ -359,7 +359,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
               main.phd.foreign = parseTSV(file.file, opts, false);
               main.progresstwo++;
             } else if (file.label === 'continuity') {
-              main.phd.continuity = parseTSV(file.file, opts, false);
+              main.phd.continuity = parseTSV(file.file, { skipEmptyLines: true });
               main.progresstwo++;
             } else if (file.label === 'transaction') {
               main.phd.transaction = parseTSV(file.file, opts, false);
