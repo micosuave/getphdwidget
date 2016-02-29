@@ -296,21 +296,30 @@
            <uib-tab-heading class="btn-glass btn-NOA" ng-style="">US {{(config.PNUM | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
             
             <uib-tab-content ng-if="main.tabs[2].isActive">
+                <blockquote cite="{{patent.media}}">
+                {{tree.abstract}}     
+                </blockquote>
+                <div class="row">
+                    <a ng-repeat="link in tree.drawings" ng-href="{{link}}" target="fframe"><img ng-src="tree.thumbnails[$index]" class="img img-shadow"/></a>
+                    </div>
+                
                 <div class="col-sm-6">
-                <d3pendingtree tree="tree" patent="{{config.PNUM || config.IPAYEAR + config.IPANUM}}" style="width:100%;height:500px;"></d3pendingtree>
+                <d3pendingtree tree="tree" patent="{{config.PNUM || config.IPAYEAR + config.IPANUM}}" class="card card-block card-fancy" style="width:100%;height:500px;"></d3pendingtree>
+                                    <iframe ng-src="{{patent.media}}" class="card card-block card-fancy" style="" name="fframe" id="fframe"></iframe>
+                
                 </div>
                 <div class="col-sm-6">
                 <div id="info"></div>
-              <div ui-tree="treeOptions" data-nodrag style="cursor:pointer!important;">
-                        <ol ui-tree-nodes max-depth="6" ng-model="tree.children">
-                            <li ui-tree-node class="" ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" data-collapsed="true"></li>
+              <div ui-tree="treeOptions"  >
+                        <ol ui-tree-nodes max-depth="6" ng-model="tree.claims">
+                            <li ui-tree-node class="" ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" ></li>
 
                         </ol>
                     </div>
                      <script type="text/ng-template" id="claim_renderer.html">
     <div ui-tree-handle class="tree-node tree-node-content">
         <div class="tree-node-content flextoprow " style="position:relative;">
-            <a class="btn " data-nodrag ng-click="toggle(this)" ng-if="node.roarlist" style=""><span class="fa " ng-class="{'fa-chevron-right': collapsed, 'fa-chevron-down': !collapsed}" style="color:steelblue;transition:all 0.25s ease;"></span></a>
+            <a class="btn " data-nodrag ng-click="toggle(this)" ng-if="node.children" style=""><span class="fa " ng-class="{'fa-chevron-right': collapsed, 'fa-chevron-down': !collapsed}" style="color:steelblue;transition:all 0.25s ease;"></span></a>
             <input type="text" ng-model="node.text" ng-change="node.$save();" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }" style="padding: 0.5rem;color:#444;"  ng-if="config.editable">
            
             <a class="btn showonhover" data-nodrag ng-if="config.editable" ng-click="remove(this);"><span class="fa fa-close text-danger "></span></a>
@@ -321,7 +330,7 @@
         </div>
     </div>
     <ol ui-tree-nodes="" ng-model="node.children" ng-class="{hidden: collapsed}" style="">
-        <li class="" ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" data-collapsed="true">
+        <li class="" ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;">
         </li>
     </ol>
 </script>
