@@ -297,10 +297,10 @@
             
             <uib-tab-content ng-if="main.tabs[2].isActive">
                 <input class="pull-right" ng-model="config.query" type="search">
-                <blockquote cite="{{phd.patent.media}}" style="margin: 25px;" ng-bind-html="tree.abstract | highlight: config.query | trustAsHTML"   >  
+                <blockquote cite="{{phd.patent.media}}" style="margin: 25px;margin-top:35px;"><p ng-bind-html="tree.abstract | highlight: config.query | trustAsHTML"   > </p> 
                 
-                </blockquote>
-                <cite>{{phd.patent.filename}}<a class="fa fa-external-link fa-border" ng-click="main.poppatent(phd.patent)" ></a></cite>
+                
+                <cite>{{phd.patent.filename}}<a class="fa fa-external-link fa-border" ng-click="main.poppatent(phd.patent)" ></a></cite></blockquote>
                 <div class="row" style="margin: 5px 5px;overflow-x:scroll;">
                     <a ng-repeat="link in tree.drawings"  ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{tree.thumbnails[$index]}}" class="img img-shadow"/></a>
                     </div>
