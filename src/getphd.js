@@ -607,7 +607,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         $scope.roarevent = roarevent;
         var header = $templateCache.get("{widgetsPath}/getphd/src/titleTemplate.html");
 
-        var skope = angular.element('<iframe/>').attr('class','img img-responsive img-shadow').attr('src', patent.media);
+        var skope = angular.element('<embed/>').attr('class','img img-responsive img-shadow').attr('src', patent.media);
 
         angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
         $('.issuedocpanel').draggable({
