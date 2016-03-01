@@ -776,15 +776,15 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         };
 
 
-        // filepicker.storeUrl(
-        //   pdfstorageuri.toString(),
-        //   { filename: 'US' + patentnumber + '.pdf' },
-        //   function (Blob) {
-        //     var patent = {};
+        filepicker.storeUrl(
+          pdfstorageuri.toString(),
+          { filename: 'US' + patentnumber + '.pdf' },
+          function (Blob) {
+            
            $http.get('/getphd/patents/'+patentnumber).then(function(resp){
             var patent = resp.data;
             patent.number = patentnumber;
-            patent.media = pdfstorageuri;
+            patent.media = Blob.url;
             patent.filename = 'US'+patentnumber + '.pdf';
             patent.title = phdobj['Title of Invention'] || null;
             
@@ -814,6 +814,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           });
            deferred.resolve(patent);
             });
+          });
             //patentobj.srcdoc = googlepage(patentnumber) || null;
             // googlepage(patent.number);
             // filepicker.convert(
