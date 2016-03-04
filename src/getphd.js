@@ -734,7 +734,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
     };
   }])
-  .factory('$patentsearch', ['$q', 'filepickerService','$http', function ($q, filepickerService, $http) {
+  .factory('$patentsearch', ['$q', 'filepickerService','$http','$document', function ($q, filepickerService, $http, $document) {
 
     return function (phdobj, config) {
       var deferred = $q.defer();
@@ -801,13 +801,16 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             '<div class="col-md-9 col-main"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + patent.title + '</h4><p>Filed '+roardate+'</p><cite>'+patent.filename+'&nbsp;&nbsp;<a href="'+patent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
             '</div>';
-           var wraphead = "<!DOCTYPE html><html><head><title></title><link href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css\" rel= \"stylesheet\" /><link href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css\" rel=\"stylesheet\"/><link href=\"//lexlab.io/llp_core/dist/app.full.min.css\" rel= \"stylesheet \" /><link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/tether-select/1.1.1/css/select-theme-default.css\"/><script src= \"https://code.jquery.com/jquery-2.2.0.min.js \"></script><script src=\"https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js \"></script><script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js\"></script><script src=\"https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js\"></script><script src=\"https://cdnjs.cloudflare.com/ajax/libs/tether-select/1.1.1/js/select.min.js\"></script><script src= \"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js \"></script><base href= \"/ \" target= \"fframe \" /></head><body class= \"dark-bg \"><div class= \"container-fluid \"><div class= \"row \"><div class= \"col-xs-12 \"><div class= \"card card-block \">";
+           var wraphead = "<!DOCTYPE html><html><head><title></title><link href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css\" rel= \"stylesheet\" /><link href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css\" rel=\"stylesheet\"/><link href=\"//lexlab.io/llp_core/dist/app.full.min.css\" rel=\"stylesheet \" /><link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/tether-select/1.1.1/css/select-theme-default.css\"/><script src=\"https://code.jquery.com/jquery-2.2.0.min.js \"></script><script src=\"https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js \"></script><script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js\"></script><script src=\"https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js\"></script><script src=\"https://cdnjs.cloudflare.com/ajax/libs/tether-select/1.1.1/js/select.min.js\"></script><script src= \"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js \"></script><base href=\"/ \" target=\"fframe \" /></head><body class= \"dark-bg \"><div class=\"container-fluid \"><div class=\"row \"><div class=\"col-xs-12 \"><div class=\"card card-block \">";
                         
                         var wraptail ="</div></div></div></div><footer class= \"navbar-fixed-bottom \"><p style= \"padding-left:30px;margin-left:30px;text-indent:20px; \">&nbsp;&nbsp;&nbsp;&nbsp;CONTAINS MATERIAL SUBJECT TO PROTECTIVE ORDER</p></footer></body></html>";
           var contenttemplate = '<p class="card-text">' + patent.abstract + '</p>';
           var poodle;
           angular.forEach(patent.drawings, function(drawingurl, key){
-             poodle =  angular.element(contenttemplate).append($('img').attr('src',patent.thumbnails[key]).wrap($('a').attr('href', drawingurl).attr('target','fframe')));
+              var image = document.createElement('img');
+              var a = document.createElement('a');
+              var wrap = $(image).attr('src', patent.thumbnails[key]).wrap($(a).attr('href', drawingurl).attr('target', 'fframe'));
+             poodle =  angular.element(contenttemplate).append(wrap);
           patent.content = wraphead + noatemplate + $(poodle).html() + wraptail;
          
           });

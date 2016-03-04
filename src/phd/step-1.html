@@ -20,23 +20,23 @@
         
         
     <blockquote class="bs-callout bs-callout-success card-header" style="text-align:left;margin:0;">
-        <h6 class="card-title"style="text-align:left;font-size:12px;"><label for="patentnumber" class="card-text text-muted"><strong>Enter US Patent Number</strong></label></h6>
+        <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="patentnumber" class="card-text text-muted"><strong>Enter US Patent Number</strong></label></h4>
      <div class="input-group">
         <input type="number" placeholder="Patent #" class="" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.PNUM">
-        <button class="btn btn-default right text-success fa fa-2x fa-download" href="https://patentimages.storage.googleapis.com/pdfs/US{{config.PNUM}}.pdf" target="_blank" tooltip-trigger="mouseenter" uib-tooltip="Download Patent" ng-click="main.getpatentdownload(config.PNUM);" style=""></button>
+        <button class="btn btn-default right text-success fa fa-2x fa-download"  tooltip-trigger="mouseenter" uib-tooltip="Download Patent" ng-click="main.getpatentdownload(config.PNUM);" style=""></button>
 	   <!--<iframe name="testframe" id="testframe" style="visibility: hidden;width:auto;height:1px;"></iframe>-->
     </div>
 </blockquote>
           
  	<blockquote class="bs-callout bs-callout-warning card-header" style="text-align:left;margin:0;">
-         <h6 class="card-title"style="text-align:left;font-size:12px;"><label for="publishedapplication" class="card-text text-muted"><strong>Enter Year of Publication and Published Application Number</strong></labeL></h6>
+         <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="publishedapplication" class="card-text text-muted"><strong>Enter Year of Publication and Published Application Number</strong></label></h4>
          
 	<div class="input-group">
        
-                <input type="number" placeholder="YYYY" style="max-width:10rem;padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.IPAYEAR" maxlength="4" style="border-radius:0px;border-top-left-radius:1rem;border-bottom-left-radius:1rem;">
+                <input type="number" placeholder="YYYY" style="max-width:10rem;padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;border-top-left-radius:1rem;border-bottom-left-radius:1rem;" ng-model="config.IPAYEAR" maxlength="4">
 
          
-        <input type="text" placeholder="# PA" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.IPANUM" style="border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;">
+        <input type="text" placeholder="# PA" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;" ng-model="config.IPANUM" >
 	 <button class="btn btn-default text-warning fa fa-download fa-2x"    
         style="" ng-click="main.getpublishedapplication(config.IPAYEAR, config.IPANUM)"></button>
         
@@ -46,10 +46,10 @@
 	</blockquote>
 	
 	<blockquote class="bs-callout bs-callout-danger card-header" style="text-align:left;margin:0;">
-	<h6 class="card-title"style="text-align:left;font-size:12px;"><label for="" class="card-text text-muted">Enter US Application Serial Number</label></h6>
+	<h4 class="card-title"style="text-align:left;font-size:12px;"><label for="" class="card-text text-muted">Enter US Application Serial Number</label></h4>
               <div class="input-group">
             <form name="application">
-              <input class="" type="text" placeholder="Application #" ng-model="config.appnum" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-pattern="\d+||\d\d\/\d\d\d\,\d\d\d" ng-blur="main.remotezip(config.appnum)">
+              <input class="" type="text" placeholder="Application #" ng-model="config.appnum" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-pattern="\d+||\d\d\/\d\d\d\,\d\d\d" >
          <button class="btn btn-default text-danger fa fa-2x fa-file-zip-o right" ng-click="main.getfilehistory(config.appnum,'reedtech')" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="top" title="DOWNLOAD FILE HISTORY FROM REEDTECH" tooltip-animation="true"></button>
                   <button class="btn btn-default text-danger fa fa-2x fa-file-zip-o right" ng-click="main.getfilehistory(config.appnum,'google')" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="top" title="DOWNLOAD FILE HISTORY FROM GOOGLE" tooltip-animation="true"></button>
 	       
@@ -63,9 +63,9 @@
       	<!--</div>-->
           </div>
     </blockquote>
-      <pre ng-if="main.remoteresp" ng-bind="main.remoteresp" class="card card-fancy card-block "></pre> 
+      <!--<pre ng-if="main.remoteresp" ng-bind="main.remoteresp" class="card card-fancy card-block "></pre> -->
 </div><!--panelbody-->
-       <div class="panel-footer">         
+       <!--<div class="panel-footer">         -->
                     <!--<button class="btn btn-dark btn-sm " ng-click="$scope.$parent.toggle()">Close</button>-->
-       </div>
+       <!--</div>-->
 </div><!--panel-->
