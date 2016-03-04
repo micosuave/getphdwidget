@@ -102,7 +102,7 @@
 
                 <tbody>
                     <tr ng-repeat="line in phd.attorney">
-                        <td ng-repeat="value in line">{{::value}}</td>
+                        <td ng-repeat="(key, value) in line">{{::value}}</td>
 
                     </tr>
                 </tbody>
@@ -135,7 +135,7 @@
                 </tbody>-->
                 <tbody>
                     <tr ng-repeat="line in phd.continuity">
-                        <td ng-repeat="value in line">{{::value}}</td>
+                        <td ng-repeat="(key, value) in line">{{::value}}</td>
 
                     </tr>
                 </tbody>
@@ -148,7 +148,7 @@
             <uib-tab-heading class="text-warning" style="" ng-style="">FOREIGN PRIORITY</uib-tab-heading>
             <!--<h4 class="card-header card-title pull-right">Foreign Priority</h4>-->
             <uib-tab-content>
-            <table class=" table table-striped table-condensed table-hover table-responsive">
+            <table class=" table table-stripped table-condensed table-hover table-responsive">
                 <thead>
                     <tr>
                         <th><strong>Country</strong></th>
@@ -167,14 +167,14 @@
             </table>
             </uib-tab-content>
         </uib-tab>
-        <uib-tab class="" ng-if="phd.termadjustments">
+        <uib-tab class="" ng-if="phd.term">
             <uib-tab-heading>PATENT TERM ADJUSTMENTS</uib-tab-heading>
             <uib-tab-content>
                 <table class="card card-block table table-striped table-hover table-condensed table-responsive">
 
                 <tbody>
                     <tr ng-repeat="line in phd.termadjustments">
-                        <td ng-repeat="value in line">{{::value}}</td>
+                        <td ng-repeat="(key,value) in line">{{::value}}</td>
 
                     </tr>
                 </tbody>
@@ -229,7 +229,7 @@
                         <td ng-bind="roarevent['Document Description']"></td>
                         <td ng-bind="roarevent['Document Category']"></td>
                         <td ng-bind="roarevent['Page Count']"></td>
-                        <td><a ng-click="main.popdoc(roarevent)" uib-popover="<p ng-thumb='/files/public/uspto/{{config.appnum}}/{{config.appnum}}-image-file-wrapper/{{roarevent['Filename']}}'></p>" popover-trigger="mouseenter" >{{roarevent['Filename']}}</a></td>
+                        <td><a ng-click="main.popdoc(roarevent)" uib-popover uib-popover-template="<p ng-thumb='/files/public/uspto/{{config.appnum}}/{{config.appnum}}-image-file-wrapper/{{roarevent['Filename']}}'></p>" popover-trigger="mouseenter" >{{roarevent['Filename']}}</a></td>
                         <!--<td ><a ng-href="https://lexlab.io/files/public/uspto/{{phd.appnum}}/{{phd.appnum}}-image_file_wrapper/{{roarevent['Filename']}}" target="_popup" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=yes,width=500,left=150,height=700,top=150'); return false;">{{roarevent['Filename']}}</a></td>-->
 
 

@@ -283,6 +283,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
      
 
       };
+      $scope.treeFilter = $filter('uiTreeFilter');
       main.toggle = function(){
           main.checked = !main.checked;
       };
@@ -293,7 +294,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       var continuity = appnum + '/' + appnum + '-continuity_data.tsv';
       var foreign = appnum + '/' + appnum + '-foreign_priority.tsv';
       var transaction = appnum + '/' + appnum + '-transaction_history.tsv';
-      var termadjust = appnum + '/' + appnum + '-patent_term_adjustments.tsv';
+      var term = appnum + '/' + appnum + '-patent_term_adjustments.tsv';
       var imagefile = appnum + '/' + appnum + '-image_file_wrapper/' + appnum + '-image_file_wrapper.tsv';
       var readme = appnum + '/README.txt';
       var targets = [{
@@ -313,7 +314,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           value: foreign
         },{
             label: 'term',
-            value: termadjust
+            value: term
         }, {
           label: 'transaction',
           value: transaction
@@ -371,7 +372,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
               main.info = file.file;
               main.progresstwo++;
             } else if(file.label === 'term'){
-                main.phd.termadjustments === parseTSV(file.file, {skipEmptyLines: true});
+                main.phd.term === parseTSV(file.file, {skipEmptyLines: true});
                 main.progresstwo++;
             }else {
               main.error = 'Unhandled case!';
@@ -777,7 +778,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
               return patent.googletext = new_Blob.url;
             });
         };
-
+        
 
         filepicker.storeUrl(
           pdfstorageuri.toString(),
