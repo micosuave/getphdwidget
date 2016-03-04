@@ -308,12 +308,13 @@
                 
                 
                 <cite>{{phd.patent.filename}}<a class="fa fa-external-link fa-border" ng-click="main.poppatent(phd.patent)" ></a></cite></blockquote>
-                <div class="row" style="margin: 5px 5px;overflow-x:scroll;">
+                <div class="row showscroll" style="margin: 5px 5px;overflow-x:scroll;">
                     <a ng-repeat="link in tree.drawings"  ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{tree.thumbnails[$index]}}" class="img img-shadow"/></a>
                     </div>
                 
                 <div class="col-sm-6">
                 <d3pendingtree class="{{config.query}}" tree="tree" patent="{{config.PNUM || config.IPAYEAR + config.IPANUM}}" style="width:100%;height:600px;"></d3pendingtree>
+                  <d3pendingtree class="{{config.query}}" tree="treetwo" patent="{{tree.pub}}" style="width:100%;height:600px;"></d3pendingtree>
                                     <!--<iframe ng-src="{{phd.patent.media}}" class="well" style="width:100%;height:800px;" name="fframe" id="fframe"></iframe>-->
                 
                 </div>
@@ -339,7 +340,7 @@
         </div>
     </div>
     <ol ui-tree-nodes="" ng-model="node.children" ng-class="{'hidden': collapsed}" style="">
-        <li class="" ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;">
+        <li class="" ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;">
         </li>
     </ol>
 </script>
