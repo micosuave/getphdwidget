@@ -114,7 +114,7 @@
             <!--<h4 class="card-header card-title pull-right">Continuity Data</h4>-->
             <uib-tab-content>
             <table class="card  card-block table table-striped table-condensed table-hover table-responsive">
-                <thead>
+                <!--<thead>
                     <tr>
                         <th><strong>Description</strong></th>
                         <th><strong>Parent Filing or 371(c) Date</strong></th>
@@ -130,6 +130,12 @@
                         <td>{{::line['Parent Number']}}</td>
                         <td>{{::line['Parent Status']}}</td>
                         <td><a ng-href="https://patentimages.storage.googleapis.com/pdfs/US{{::line['Patent Number'].replace(',','').replace(',','')+'.pdf'}}" target="_blank" ng-if="line['Patent Number'] !== ''">{{::line['Patent Number']}}</a></td>
+                    </tr>
+                </tbody>-->
+                <tbody>
+                    <tr ng-repeat="line in phd.continuity">
+                        <td ng-repeat="value in line">{{::value}}</td>
+
                     </tr>
                 </tbody>
             </table>
@@ -321,7 +327,7 @@
                      <script type="text/ng-template" id="claim_renderer.html">
     <div ui-tree-handle class="tree-node tree-node-content">
         <div class="tree-node-content flextoprow " style="position:relative;">
-            <a class="btn " data-nodrag ng-click="toggle(this)" ng-if="node.children && (node.children.length > 0)" style=""><span class="fa " ng-class="{'fa-chevron-right': collapsed, 'fa-chevron-down': !collapsed}" style="color:steelblue;transition:all 0.25s ease;"></span></a>
+            <a class="btn pull-left" data-nodrag ng-click="toggle(this)" ng-if="node.children && (node.children.length > 0)" style=""><span class="fa " ng-class="{'fa-chevron-right': collapsed, 'fa-chevron-down': !collapsed}" style="color:steelblue;transition:all 0.25s ease;"></span></a>
             <input type="text" ng-model="node.text" ng-change="node.$save();" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }" style="padding: 0.5rem;color:#444;"  ng-if="config.editable">
            
             <a class="btn showonhover" data-nodrag ng-if="config.editable" ng-click="remove(this);"><span class="fa fa-close text-danger "></span></a>
@@ -331,7 +337,7 @@
 
         </div>
     </div>
-    <ol ui-tree-nodes="" ng-model="node.children" ng-class="{hidden: collapsed}" style="">
+    <ol ui-tree-nodes="" ng-model="node.children" ng-class="{'hidden': collapsed}" style="">
         <li class="" ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;">
         </li>
     </ol>
