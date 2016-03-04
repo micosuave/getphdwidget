@@ -198,6 +198,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
         console.info('onWhenAddingFileFailed', item, filter, options);
         alertify.alert('The file\'s name must end with ".zip" and consist only of numbers -  "(",")",",","/", or " " are not permitted.');
+        this.queue = null;
       };
       uploader.onAfterAddingFile = function (fileItem) {
         console.info('onAfterAddingFile', fileItem);
