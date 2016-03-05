@@ -229,7 +229,7 @@
                         <td ng-bind="roarevent['Document Description']"></td>
                         <td ng-bind="roarevent['Document Category']"></td>
                         <td ng-bind="roarevent['Page Count']"></td>
-                        <td><a ng-click="main.popdoc(roarevent)" uib-popover uib-popover-template="<p ng-thumb='/files/public/uspto/{{config.appnum}}/{{config.appnum}}-image-file-wrapper/{{roarevent['Filename']}}'></p>" popover-trigger="mouseenter" >{{roarevent['Filename']}}</a></td>
+                        <td><a ng-click="main.popdoc(roarevent)" >{{roarevent['Filename']}}</a></td>
                         <!--<td ><a ng-href="https://lexlab.io/files/public/uspto/{{phd.appnum}}/{{phd.appnum}}-image_file_wrapper/{{roarevent['Filename']}}" target="_popup" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=yes,width=500,left=150,height=700,top=150'); return false;">{{roarevent['Filename']}}</a></td>-->
 
 
@@ -322,7 +322,7 @@
                 <div id="info"></div>
               <div ui-tree="treeOptions"  class="card card-block">
                         <ol ui-tree-nodes max-depth="6" ng-model="tree.claims">
-                            <li ui-tree-node class="" ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" ng-class="{'filtered-out':!main.treeFilter(node, config.query)}"  ></li>
+                            <li ui-tree-node class="" ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" ng-class="{'filtered-out':!main.treeFilter(node, config.query, node.text) && (config.query.length > 1)}"  ></li>
 
                         </ol>
                     </div>
@@ -340,7 +340,7 @@
         </div>
     </div>
     <ol ui-tree-nodes="" ng-model="node.children" ng-class="{'hidden': collapsed}" style="">
-        <li class=""  ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;" ng-class="{'filtered-out':!main.treeFilter(node, config.query)}">
+        <li class=""  ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;" ng-class="{'filtered-out':!main.treeFilter(node, config.query, node.text) && (config.query.length > 1)}">
         </li>
     </ol>
 </script>
