@@ -283,7 +283,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
      
 
       };
-      $scope.treeFilter = $filter('uiTreeFilter');
+      main.treeFilter = $filter('uiTreeFilter');
       main.toggle = function(){
           main.checked = !main.checked;
       };
