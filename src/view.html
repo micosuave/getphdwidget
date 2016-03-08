@@ -33,7 +33,7 @@
 <div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="phd.file">
 <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);" ng-click="main.collapse()">
         <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
-        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{(config.PNUM | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</h4>
+        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{phd.patent.number | number:0  }}</h4>
         
         <h5 class="card-subtitle  ng-binding" style="color:#ddd;"><span class="lead">USSN {{phd.application['Application Number']}}</span></h5>
         </div>
@@ -300,7 +300,7 @@
    </uib-tab>-->
    
         <uib-tab class="btn-glass NOA" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[2].isActive = true" deselect="main.tabs[1].isActive = false" style="margin: 0 5px;">
-           <uib-tab-heading class="text-NOA" ng-style="">US {{(config.PNUM | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
+           <uib-tab-heading class="text-NOA" ng-style="">US {{(phd.patent.number | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
             
             <uib-tab-content ng-if="main.tabs[2].isActive">
                 <input class="pull-right" ng-model="config.query" type="search" style="margin:10px;">
@@ -313,7 +313,7 @@
                     </div>
                 
                 <div class="col-sm-6">
-                <d3pendingtree class="{{config.query}}" tree="tree" pattern="{{config.query}}" patent="{{config.PNUM || config.IPAYEAR + config.IPANUM}}" style="width:100%;height:600px;"></d3pendingtree>
+                <d3pendingtree class="{{config.query}}" tree="tree" pattern="{{config.query}}" patent="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" style="width:100%;height:600px;"></d3pendingtree>
                 <!--<d3lib class="d3lib" data="tree.claims"></d3lib>-->
                   <!--<d3pendingtree class="{{config.query}}" tree="treetwo" patent="{{tree.pub}}" style="width:100%;height:600px;"></d3pendingtree>-->
                                     <!--<iframe ng-src="{{phd.patent.media}}" class="well" style="width:100%;height:800px;" name="fframe" id="fframe"></iframe>-->
