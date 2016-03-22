@@ -15,6 +15,8 @@ angular.module("llp.extractpdf", [])
         var continuity = appnum + '/' + appnum + '-continuity_data.tsv';
         var foreign = appnum + '/' + appnum + '-foreign_priority.tsv';
         var transaction = appnum + '/' + appnum + '-transaction_history.tsv';
+              var term = appnum + '/' + appnum + '-patent_term_adjustments.tsv';
+
         var imagefile = appnum + '/' + appnum + '-image_file_wrapper/' + appnum + '-image_file_wrapper.tsv';
         var readme = appnum + '/README.txt';
         var targets = [{
@@ -33,6 +35,9 @@ angular.module("llp.extractpdf", [])
             label: 'foreign',
             value: foreign
         }, {
+            label: 'term',
+            value: term
+        },{
             label: 'transaction',
             value: transaction
         }, {
@@ -77,38 +82,126 @@ angular.module("llp.extractpdf", [])
               files.pdffiles.push({ label: file.name, file: file });
               main.extractedfiles++;
             });
-            // for (var i = zip.files.length - 1; i >= 0; i--) {
-            //     files.pdffiles.push({
-            //         label: zip.files[i].name,
-            //         file: zip.files[i]
-
-            //     });
-               
-            // };
+           
 
             return deferred.resolve(files);
 
         };
-        // try {
-        //     reader.readAsArrayBuffer(zipfile);
-        // } catch (ex) {
-        //     alertify.alert(ex);
-        // } finally {
-        //     var file = new Blob(['HelloWorld', 'NiceToMeetYou', 'Greetings', 'Salutations']);
-        //     reader.readAsArrayBuffer(file);
-        // }
-        //var a = zipfile.type = "Blob";
-        //debugger
-        //fileReader.readAsDataUrl(zipfile);
+       
         reader.readAsArrayBuffer(zipfile);
-        //debugger
+       
         return deferred.promise;
     }
 
     function extractpdf(zipfile, appnum, main) {
         return unzip(zipfile, appnum, main);
-        //            .then(JSON.parse);
+       
     }
 
     return extractpdf;
+}]).factory("extractzip", ["$q","Upload","$http", function($q,Upload,$http) {
+    function unzip(apnum, main, uploader) {
+        
+        var deferred = $q.defer();
+        
+
+        var googleurl = 'http://127.0.0.1:8080/https://storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
+        var reedtechurl = 'http://127.0.0.1:8080/https://patents.reedtech.com/downloads/pair/'+apnum+'.zip';
+       JSZipUtils.getBinaryContent(googleurl, function(err, data) {
+  if(err) {
+      $('#googlebutton').addClass('fa-close').removeClass('fa-file-zip-o');
+    JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
+        $('#reedtechbutton').addClass('fa-check text-success').removeClass('text-danger fa-file-zip-o');
+        callback(data);
+    })
+  }
+  else{
+    $('#googlebutton').addClass('fa-check text-success').removeClass('text-danger fa-file-zip-o');
+
+  callback(data);
+       }});
+  
+var callback = function(data){
+        var appnum = apnum;
+
+        var attorney = appnum + '/' + appnum + '-address_and_attorney_agent.tsv';
+        var application = appnum + '/' + appnum + '-application_data.tsv';
+        var continuity = appnum + '/' + appnum + '-continuity_data.tsv';
+        var foreign = appnum + '/' + appnum + '-foreign_priority.tsv';
+        var transaction = appnum + '/' + appnum + '-transaction_history.tsv';
+              var term = appnum + '/' + appnum + '-patent_term_adjustments.tsv';
+
+        var imagefile = appnum + '/' + appnum + '-image_file_wrapper/' + appnum + '-image_file_wrapper.tsv';
+        var readme = appnum + '/README.txt';
+        var targets = [{
+            label: 'README',
+            value: readme
+        }, {
+            label: 'attorney',
+            value: attorney
+        }, {
+            label: 'application',
+            value: application
+        }, {
+            label: 'continuity',
+            value: continuity
+        }, {
+            label: 'foreign',
+            value: foreign
+        }, {
+            label: 'term',
+            value: term
+        },{
+            label: 'transaction',
+            value: transaction
+        }, {
+            label: 'imagefile',
+            value: imagefile
+        }];
+
+
+       
+       
+var zip = new JSZip(data);
+    
+            var files = {
+                tsvfiles: [],
+                pdffiles: []
+            };
+
+            angular.forEach(targets, function(target, key) {
+
+
+                var file = zip.files[target.value];
+
+                if (typeof file === 'undefined') {
+                    // deferred.reject(new Error(target.label + ' does not exist'));
+                    return;
+
+                }
+                files.tsvfiles.push({
+                    label: target.label,
+                    file: file.asText()
+                });
+            });
+            angular.forEach(zip.files, function (file, key) {
+              files.pdffiles.push({ label: file.name, file: file });
+              main.extractedfiles++;
+            });
+            
+
+            return deferred.resolve(files);
+
+};
+       
+       
+        return deferred.promise;
+    }
+
+    function extractzip( appnum, main, uploader) {
+        return unzip( appnum, main, uploader);
+        
+    }
+
+    return extractzip;
 }]);
