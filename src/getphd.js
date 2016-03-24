@@ -402,16 +402,17 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $(document.createElement("iframe")).attr('name', 'fframe').appendTo('body');
                 $window.open('https://patentimages.storage.googleapis.com/pdfs/US' + y + num + '.pdf', 'fframe', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
             };
+            var wingoog, winreed;
             main.getfilehistory = function(appnum, provider) {
 
-                var winreed = function(appnum) {
-                    return $window.open('https://patents.reedtech.com/downloads/pair/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
-                };
-                var wingoog = function(appnum) {
-                    return $window.open('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
-                };
-                if (provider === 'reedtech') { winreed(appnum); }
-                else { wingoog(appnum); }
+                // var winreed = function(appnum) {
+                //     return $window.open('https://patents.reedtech.com/downloads/pair/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
+                // };
+                // var wingoog = function(appnum) {
+                //     return $window.open('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
+                // };
+                if (provider === 'reedtech') { winreed(); }
+                else { wingoog(); }
                
             };
             
@@ -429,6 +430,11 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
                         }else{
                             $('#googlebutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                            wingoog = function(){
+                            var zip = new JSZip(data);
+                            var blob = zip.generate({type: 'blob'});
+                            saveAs(blob, config.appnum + '.zip');
+                            } 
                         }
                     });
                     JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
@@ -436,6 +442,11 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             $('#reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
                         }else{
                             $('#reedtechbutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                            winreed = function(){
+                            var zip = new JSZip(data);
+                            var blob = zip.generate({type: 'blob'});
+                            saveAs(blob, config.appnum + '.zip');
+                            }
                         }
                     });
                 });
@@ -699,12 +710,12 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //     dashboardsref.child('rows').set(rows);
 
                 //   });
-                main.showupload = false;
+                
                 localStorageService.set(phd.application['Application Number'], phd);
                 //$http.post('/getphd/store/' + appnum, phd);
                 phdref.update(phd);
                 alertify.alert('<div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">All files have been successfully processed by LEO and delivered to your account for review.</h6></div>');
-
+                main.showupload = false;
 
 
             };

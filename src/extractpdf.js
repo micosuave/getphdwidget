@@ -163,7 +163,35 @@ var callback = function(data){
        
        
 var zip = new JSZip(data);
-    
+    var blob = zip.generate({type: 'blob'});
+    Upload.upload({url: '/upload/', data: {file: Upload.rename(blob, appnum + '.zip')}})
+    .then(function (resp) {
+            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+        }, function (resp) {
+            console.log('Error status: ' + resp.status);
+        }, function (evt) {
+            var progress = parseInt(100.0 * evt.loaded / evt.total);
+            main.progress = progress;
+                if (progress === 10) {
+                    toastr.info('fetching remote resources...');
+                }
+                if (progress === 30) {
+                    toastr.info('loading relevant data schemas...');
+                }
+                if (progress === 55) {
+                    toastr.warning('compiling templates...');
+                }
+                if (progress === 75) {
+                    toastr.warning('starting the AI engine...')
+                }
+
+                if (progress <= 40) { main.progresstype = 'danger'; }
+                else if (progress > 40 && progress < 66) { main.progresstype = 'warning'; }
+                else if (progress > 97) { main.progresstype = 'success'; }
+                else { main.progresstype = 'info'; }
+            
+            console.log('progress: ' + progress + '% ' + evt.config.data.file.name);
+        });
             var files = {
                 tsvfiles: [],
                 pdffiles: []
