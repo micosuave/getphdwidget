@@ -101,7 +101,7 @@
             <table class="card card-block table table-striped table-hover table-condensed table-responsive">
 
                 <tbody>
-                    <tr ng-repeat="line in phd.attorney">
+                    <tr ng-repeat="(key, line) in phd.attorney">
                         <td ng-repeat="(key, value) in line">{{::value}}</td>
 
                     </tr>
@@ -134,7 +134,7 @@
                     </tr>
                 </tbody>-->
                 <tbody>
-                    <tr ng-repeat="line in phd.continuity">
+                    <tr ng-repeat="(key,line) in phd.continuity">
                         <td ng-repeat="(key, value) in line">{{::value}}</td>
 
                     </tr>
@@ -173,7 +173,7 @@
                 <table class="card card-block table table-striped table-hover table-condensed table-responsive">
 
                 <tbody>
-                    <tr ng-repeat="line in phd.term">
+                    <tr ng-repeat="(key, line) in phd.term">
                         <td ng-repeat="(key,value) in line">{{::value}}</td>
 
                     </tr>
@@ -303,11 +303,15 @@
            <uib-tab-heading class="text-NOA" ng-style="">US {{(phd.patent.number | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
             
             <uib-tab-content ng-if="main.tabs[2].isActive">
-                <input class="pull-right" ng-model="config.query" type="search" style="margin:10px;">
-                <blockquote cite="{{phd.patent.media}}" style="margin: 25px;margin-top:35px;"><p ng-bind-html="tree.abstract | highlight: config.query | trustAsHTML"   > </p> 
+                
+                <blockquote class="col-sm-8" cite="{{phd.patent.media}}" style="margin: 25px;margin-top:35px;"><h4 ><strong ng-bind="tree.title"> </strong> - <small>{{tree.claim_total}} Claims</small>               
+</h4><p ng-bind-html="tree.abstract | highlight: config.query | trustAsHTML"   > </p> 
                 
                 
                 <cite>{{phd.patent.filename}}<a class="fa fa-external-link fa-border" ng-click="main.poppatent(phd.patent)" ></a></cite></blockquote>
+                <div class="col-sm-4"><input class="pull-right" ng-model="config.query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
+                
+                </div>
                 <div class="row showscroll" style="margin: 5px 5px;overflow-x:scroll;">
                     <a ng-repeat="link in tree.drawings"  ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{tree.thumbnails[$index]}}" class="img img-shadow"/></a>
                     </div>
@@ -323,7 +327,7 @@
                 <div id="info"></div>
               <div ui-tree="treeOptions"  class="card card-block">
                         <ol ui-tree-nodes max-depth="6" ng-model="tree.claims">
-                            <li ui-tree-node class="card card-block card-fancy" ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" ></li>
+                            <li ui-tree-node class="card card-block " ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" ></li>
 
                         </ol>
                     </div>
