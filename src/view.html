@@ -310,7 +310,25 @@
                 
                 <cite>{{phd.patent.filename}}<a class="fa fa-external-link fa-border" ng-click="main.poppatent(phd.patent)" ></a></cite></blockquote>
                 <div class="col-sm-4"><input class="pull-right" ng-model="config.query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
-                
+                <div class="col-md-3">
+            <ul class="list-unstyled">
+                <li>
+                    <input type="checkbox" ng-model="highlight">
+                    <small> Highlight exact matches</small>
+                </li>
+                <li>
+                    <input type="checkbox" ng-model="dim"> <small>Dim non-matches</small>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="list-unstyled">
+                <li ng-repeat="field in availableFields">
+                    <input type="checkbox" ng-click="toggleSupport(field)" ng-checked="supportedFields.indexOf(field) > -1">
+                    <small>Match <code>{{ field }}</code></small>
+                </li>
+            </ul>
+        </div>
                 </div>
                 <div class="row showscroll" style="margin: 5px 5px;overflow-x:scroll;">
                     <a ng-repeat="link in tree.drawings"  ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{tree.thumbnails[$index]}}" class="img img-shadow"/></a>
@@ -327,7 +345,8 @@
                 <div id="info"></div>
               <div ui-tree="treeOptions"  class="card card-block">
                         <ol ui-tree-nodes max-depth="6" ng-model="tree.claims">
-                            <li ui-tree-node class="card card-block " ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" ></li>
+                            <li ui-tree-node class="card card-block " ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" ng-hide="!treeFilter(item, pattern, supportedFields) && !dim"
+                        ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && dim}"></li>
 
                         </ol>
                     </div>
@@ -345,7 +364,8 @@
         </div>
     </div>
     <ol ui-tree-nodes="" ng-model="node.children" ng-class="{'hidden': collapsed}" style="">
-        <li class="card card-block img-shadow"  ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;" >
+        <li class="card card-block img-shadow"  ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;" ng-hide="!treeFilter(item, pattern, supportedFields) && !dim"
+                        ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && dim}">
         </li>
     </ol>
 </script>

@@ -119,6 +119,14 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             var main = this;
             //main.size = 'lg';
             $scope.treeFilter = $filter('uiTreeFilter');
+
+            $scope.availableFields = ['title', 'text'];
+            $scope.supportedFields = ['title', 'text'];
+            $scope.toggleSupport = function (propertyName) {
+                return $scope.supportedFields.indexOf(propertyName) > -1 ?
+                    $scope.supportedFields.splice($scope.supportedFields.indexOf(propertyName), 1) :
+                    $scope.supportedFields.push(propertyName);
+            };
             $scope.collapsereport = false;
             main.collapse = function() {
                 $scope.collapsereport = !$scope.collapsereport;
