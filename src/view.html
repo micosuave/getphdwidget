@@ -302,7 +302,7 @@
         <uib-tab class="btn-glass NOA" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[2].isActive = true" deselect="main.tabs[1].isActive = false" style="margin: 0 5px;">
            <uib-tab-heading class="text-NOA" ng-style="">US {{(phd.patent.number | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
             
-            <uib-tab-content ng-if="main.tabs[2].isActive">
+            <uib-tab-content ng-if="main.tabs[2].isActive" ng-controller="MainCtrl as main">
                 
                 <blockquote class="col-sm-8" cite="{{phd.patent.media}}" style="margin: 25px;margin-top:35px;"><h4 ><strong ng-bind="tree.title"> </strong> - <small>{{tree.claim_total}} Claims</small>               
 </h4><p ng-bind-html="tree.abstract | highlight: config.query | trustAsHTML"   > </p> 
