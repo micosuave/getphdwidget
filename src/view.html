@@ -315,14 +315,14 @@
                     </div>
                 <div class="row">
                 <div class="col-sm-6">
-                <d3pendingtree id="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" class="{{config.query}}" tree="tree" pattern="{{config.query}}" patent="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" style="width:100%;height:600px;"></d3pendingtree>
+                <d3pendingtree id="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" class="{{query}}" tree="tree" pattern="{{query}}" patent="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" style="width:100%;height:600px;"></d3pendingtree>
                 <!--<d3lib class="d3lib" data="tree.claims"></d3lib>-->
                   <!--<d3pendingtree class="{{config.query}}" tree="treetwo" patent="{{tree.pub}}" style="width:100%;height:600px;"></d3pendingtree>-->
                                     <!--<iframe ng-src="{{phd.patent.media}}" class="well" style="width:100%;height:800px;" name="fframe" id="fframe"></iframe>-->
                 
                 </div>
                 <div class="col-sm-6">
-                    <input id="patterninput" class="" ng-model="config.query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
+                    <input id="patterninput" class="" ng-model="query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
                 <a style="position:absolute;right:0;top:4;" class="btn fa fa-close" ng-click="config.query = null"></a>
                
                 <div class="col-sm-3">
@@ -349,8 +349,8 @@
                 <div id="info"></div>
               <div ui-tree="treeOptions"  class="card card-block">
                         <ol ui-tree-nodes max-depth="6" ng-model="tree.claims">
-                            <li ui-tree-node class="card card-block " ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" ng-hide="!treeFilter(node, config.query, supportedFields) && !dim"
-                        ng-class="{'filtered-out':!treeFilter(node, config.query, supportedFields) && dim}"></li>
+                            <li ui-tree-node class="card card-block " ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" ng-hide="!treeFilter(node, query, supportedFields) && !dim"
+                        ng-class="{'filtered-out':!treeFilter(node, query, supportedFields) && dim}"></li>
 
                         </ol>
                     </div>
@@ -362,14 +362,14 @@
            
             <a class="btn showonhover" data-nodrag ng-if="config.editable" ng-click="remove(this);"><span class="fa fa-close text-danger "></span></a>
             <!--<a class="btn " data-nodrag ng-if="config.editable" ng-click="toc.newsubsection(this)" style=""><span class="fa fa-plus text-success"></span></a>-->
-           <div ng-bind-html="node.text | words | highlight: config.query "></div> 
+           <div ng-bind-html="node.text | words | highlight: query "></div> 
             <!--<a  class="gototarget btn" data-nodrag  ui-sref="{{parentstate}}.righttab({tabid: node.id})" style=""> <span ng-if="!config.editable" class="pull-left">{{node.text}}</span><i style="position:absolute;right:0;">&nbsp;</i></a>-->
 
         </div>
     </div>
     <ol ui-tree-nodes="" ng-model="node.children" ng-class="{'hidden': collapsed}" style="">
-        <li class="card card-block img-shadow"  ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;" ng-hide="!treeFilter(node, config.query, supportedFields) && !dim"
-                        ng-class="{'filtered-out':!treeFilter(node, config.query, supportedFields) && dim}">
+        <li class="card card-block img-shadow"  ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;" ng-hide="!treeFilter(node, query, supportedFields) && !dim"
+                        ng-class="{'filtered-out':!treeFilter(node, query, supportedFields) && dim}">
         </li>
     </ol>
 </script>
