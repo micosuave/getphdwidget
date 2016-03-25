@@ -101,8 +101,8 @@
             <table class="card card-block table table-striped table-hover table-condensed table-responsive">
 
                 <tbody>
-                    <tr ng-repeat="(key, line) in phd.attorney">
-                        <td ng-repeat="(key, value) in line">{{::value}}</td>
+                    <tr ng-repeat="(key, line) in phd.attorney track by $index">
+                        <td ng-repeat="(key, value) in line track by $index">{{::value}}</td>
 
                     </tr>
                 </tbody>
@@ -134,8 +134,8 @@
                     </tr>
                 </tbody>-->
                 <tbody>
-                    <tr ng-repeat="(key,line) in phd.continuity">
-                        <td ng-repeat="(key, value) in line">{{::value}}</td>
+                    <tr ng-repeat="(key,line) in phd.continuity track by $index">
+                        <td ng-repeat="(key, value) in line track by $index">{{::value}}</td>
 
                     </tr>
                 </tbody>
@@ -173,8 +173,8 @@
                 <table class="card card-block table table-striped table-hover table-condensed table-responsive">
 
                 <tbody>
-                    <tr ng-repeat="(key, line) in phd.term">
-                        <td ng-repeat="(key,value) in line">{{::value}}</td>
+                    <tr ng-repeat="(key, line) in phd.term track by $index">
+                        <td ng-repeat="(key,value) in line track by $index">{{::value}}</td>
 
                     </tr>
                 </tbody>
@@ -304,14 +304,28 @@
             
             <uib-tab-content ng-if="main.tabs[2].isActive" ng-controller="MainCtrl as main">
                 
-                <blockquote class="col-sm-8" cite="{{phd.patent.media}}" style="margin: 25px;margin-top:35px;"><h4 ><strong ng-bind="tree.title"> </strong> - <small>{{tree.claim_total}} Claims</small>               
+                <blockquote class="" cite="{{phd.patent.media}}" style="margin: 25px;margin-top:35px;"><h4 ><strong ng-bind="tree.title"> </strong> - <small>{{tree.claim_total}} Claims</small>               
 </h4><p ng-bind-html="tree.abstract | highlight: config.query | trustAsHTML"   > </p> 
                 
                 
                 <cite>{{phd.patent.filename}}<a class="fa fa-external-link fa-border" ng-click="main.poppatent(phd.patent)" ></a></cite></blockquote>
-                <div class="col-sm-4"><input class="pull-right" ng-model="config.query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
-                <a style="position:absolute;right:0;" class="btn fa fa-close" ng-click="config.query = null"></a>
-                <div class="col-md-3">
+                
+                <div class="row showscroll" style="margin: 5px 5px;overflow-x:scroll;">
+                    <a ng-repeat="link in tree.drawings"  ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{tree.thumbnails[$index]}}" class="img img-shadow"/></a>
+                    </div>
+                <div class="row">
+                <div class="col-sm-6">
+                <d3pendingtree id="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" class="{{config.query}}" tree="tree" pattern="{{config.query}}" patent="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" style="width:100%;height:600px;"></d3pendingtree>
+                <!--<d3lib class="d3lib" data="tree.claims"></d3lib>-->
+                  <!--<d3pendingtree class="{{config.query}}" tree="treetwo" patent="{{tree.pub}}" style="width:100%;height:600px;"></d3pendingtree>-->
+                                    <!--<iframe ng-src="{{phd.patent.media}}" class="well" style="width:100%;height:800px;" name="fframe" id="fframe"></iframe>-->
+                
+                </div>
+                <div class="col-sm-6">
+                    <input id="patterninput" class="" ng-model="config.query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
+                <a style="position:absolute;right:0;top:4;" class="btn fa fa-close" ng-click="config.query = null"></a>
+               
+                <div class="col-sm-3">
             <ul class="list-unstyled">
                 <li>
                     <input type="checkbox" ng-model="highlight">
@@ -322,7 +336,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-3">
+        <div class="col-sm-3">
             <ul class="list-unstyled">
                 <li ng-repeat="field in availableFields">
                     <input type="checkbox" ng-click="toggleSupport(field)" ng-checked="supportedFields.indexOf(field) > -1">
@@ -331,23 +345,12 @@
             </ul>
         </div>
                 </div>
-                <div class="row showscroll" style="margin: 5px 5px;overflow-x:scroll;">
-                    <a ng-repeat="link in tree.drawings"  ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{tree.thumbnails[$index]}}" class="img img-shadow"/></a>
-                    </div>
-                
-                <div class="col-sm-6">
-                <d3pendingtree id="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" class="{{config.query}}" tree="tree" pattern="{{config.query}}" patent="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" style="width:100%;height:600px;"></d3pendingtree>
-                <!--<d3lib class="d3lib" data="tree.claims"></d3lib>-->
-                  <!--<d3pendingtree class="{{config.query}}" tree="treetwo" patent="{{tree.pub}}" style="width:100%;height:600px;"></d3pendingtree>-->
-                                    <!--<iframe ng-src="{{phd.patent.media}}" class="well" style="width:100%;height:800px;" name="fframe" id="fframe"></iframe>-->
-                
-                </div>
-                <div class="col-sm-6">
+               
                 <div id="info"></div>
               <div ui-tree="treeOptions"  class="card card-block">
                         <ol ui-tree-nodes max-depth="6" ng-model="tree.claims">
-                            <li ui-tree-node class="card card-block " ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" ng-hide="!treeFilter(node, config.pattern, supportedFields) && !dim"
-                        ng-class="{'filtered-out':!treeFilter(node, config.pattern, supportedFields) && dim}"></li>
+                            <li ui-tree-node class="card card-block " ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" ng-hide="!treeFilter(node, config.query, supportedFields) && !dim"
+                        ng-class="{'filtered-out':!treeFilter(node, config.query, supportedFields) && dim}"></li>
 
                         </ol>
                     </div>
@@ -365,8 +368,8 @@
         </div>
     </div>
     <ol ui-tree-nodes="" ng-model="node.children" ng-class="{'hidden': collapsed}" style="">
-        <li class="card card-block img-shadow"  ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;" ng-hide="!treeFilter(node, config.pattern, supportedFields) && !dim"
-                        ng-class="{'filtered-out':!treeFilter(node, config.pattern, supportedFields) && dim}">
+        <li class="card card-block img-shadow"  ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;" ng-hide="!treeFilter(node, config.query, supportedFields) && !dim"
+                        ng-class="{'filtered-out':!treeFilter(node, config.query, supportedFields) && dim}">
         </li>
     </ol>
 </script>
