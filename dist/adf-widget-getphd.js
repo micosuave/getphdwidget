@@ -2231,21 +2231,32 @@ angular.module("llp.extractpdf", [])
 
         var googleurl = $location.protocol() +'://'+ location.host + '/proxy/https://storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
                     var reedtechurl = $location.protocol()+'://' + location.host + '/proxy/https://patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
-                    
+                try{    
                     JSZipUtils.getBinaryContent(googleurl, function(err, data) {
-  if(err) {
-      $('#googlebutton').addClass('fa-close').removeClass('fa-file-zip-o');
-    JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
-        $('#reedtechbutton').addClass('fa-check text-success').removeClass('text-danger fa-file-zip-o');
-        callback(data);
-    })
-  }
-  else{
-    $('#googlebutton').addClass('fa-check text-success').removeClass('text-danger fa-file-zip-o');
-
-  callback(data);
-       }});
+                        if(err) {
+                            alertify.error('Attempt to download from Google has failed! Attempting ReedTech...');
+                        } 
   
+                        else{
+                            // $('#googlebutton').addClass('fa-check text-success').removeClass('text-danger fa-file-zip-o');
+
+                            callback(data);
+                        }});
+                }
+                catch(ex){
+                        JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
+                            if(err){
+                                alertify.alert('attempt to download from Google & ReedTech has failed! Please wait a few minutes and try again, or download the bulk zip file directly');
+                            }
+                            // $('#reedtechbutton').setClass('fa-check text-success').removeClass('text-danger fa-file-zip-o');
+                            else{
+                                callback(data);
+                            }       
+                        });
+                }
+                finally{
+                    
+                }
 var callback = function(data){
         var appnum = apnum;
 
