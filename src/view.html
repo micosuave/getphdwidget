@@ -320,8 +320,7 @@
                   <!--<d3pendingtree class="{{config.query}}" tree="treetwo" patent="{{tree.pub}}" style="width:100%;height:600px;"></d3pendingtree>-->
                                     <!--<iframe ng-src="{{phd.patent.media}}" class="well" style="width:100%;height:800px;" name="fframe" id="fframe"></iframe>-->
                 
-                </div>
-                <div class="col-sm-6">
+               
                     <input id="patterninput" class="" ng-model="query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
                 <a style="position:absolute;right:0;top:4;" class="btn fa fa-close" ng-click="config.query = null"></a>
                
@@ -345,9 +344,9 @@
             </ul>
         </div>
                 </div>
-               
+                <div class="col-sm-6">
                 <div id="info"></div>
-              <div ui-tree="treeOptions"  class="card card-block">
+              <div ui-tree="treeOptions"  class="">
                         <ol ui-tree-nodes max-depth="6" ng-model="tree.claims">
                             <li ui-tree-node class="card card-block " ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" ng-hide="!treeFilter(node, query, supportedFields) && !dim"
                         ng-class="{'filtered-out':!treeFilter(node, query, supportedFields) && dim}"></li>
@@ -373,6 +372,7 @@
         </li>
     </ol>
 </script>
+                </div>
                 </div>
                 </div>
                 
