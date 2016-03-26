@@ -432,8 +432,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     var data = resp.data;
                     config.appnum = resp.data.application;
                     $scope.response = resp.data;
-                    var googleurl = 'http://127.0.0.1:8080/https://storage.googleapis.com/uspto-pair/applications/'+config.appnum+'.zip';
-                    var reedtechurl = 'http://127.0.0.1:8080/https://patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
+                    var googleurl = $location.protocol() +'://'+ location.host() + '/proxy/https://storage.googleapis.com/uspto-pair/applications/'+config.appnum+'.zip';
+                    var reedtechurl = $location.protocol()+'://' + location.host() + '/proxy/https://patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
                     JSZipUtils.getBinaryContent(googleurl, function(err, data) {
                         if(err) {
                             $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
@@ -2229,9 +2229,10 @@ angular.module("llp.extractpdf", [])
         var deferred = $q.defer();
         
 
-        var googleurl = 'http://127.0.0.1:8080/https://storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
-        var reedtechurl = 'http://127.0.0.1:8080/https://patents.reedtech.com/downloads/pair/'+apnum+'.zip';
-       JSZipUtils.getBinaryContent(googleurl, function(err, data) {
+        var googleurl = $location.protocol() +'://'+ location.host() + '/proxy/https://storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
+                    var reedtechurl = $location.protocol()+'://' + location.host() + '/proxy/https://patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
+                    
+                    JSZipUtils.getBinaryContent(googleurl, function(err, data) {
   if(err) {
       $('#googlebutton').addClass('fa-close').removeClass('fa-file-zip-o');
     JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
