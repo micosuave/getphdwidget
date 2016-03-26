@@ -106,7 +106,7 @@ angular.module("llp.extractpdf", [])
         
 
         var googleurl = $location.protocol() +'://'+ location.host + '/proxy/https://storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
-                    var reedtechurl = 'https://patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
+                    var reedtechurl = $location.protocol()+'://' + location.host + '/proxy/https://patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
                     
                     JSZipUtils.getBinaryContent(googleurl, function(err, data) {
   if(err) {

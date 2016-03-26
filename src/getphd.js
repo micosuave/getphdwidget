@@ -432,7 +432,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     config.appnum = resp.data.application;
                     $scope.response = resp.data;
                     var googleurl = $location.protocol() +'://'+ location.host + '/proxy/https://storage.googleapis.com/uspto-pair/applications/'+config.appnum+'.zip';
-                    var reedtechurl = 'https://patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
+                    var reedtechurl = $location.protocol() +'://'+ location.host + '/proxy/https://patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
                     JSZipUtils.getBinaryContent(googleurl, function(err, data) {
                         if(err) {
                             $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
