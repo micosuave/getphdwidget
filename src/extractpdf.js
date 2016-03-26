@@ -107,7 +107,7 @@ angular.module("llp.extractpdf", [])
 
         var googleurl = $location.protocol() +'://'+ location.host + '/proxy/https://storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
                     var reedtechurl = $location.protocol()+'://' + location.host + '/proxy/https://patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
-                try{    
+                  
                     JSZipUtils.getBinaryContent(googleurl, function(err, data) {
                         if(err) {
                             alertify.error('Attempt to download from Google has failed! Attempting ReedTech...');
@@ -115,10 +115,9 @@ angular.module("llp.extractpdf", [])
   
                         else{
                             // $('#googlebutton').addClass('fa-check text-success').removeClass('text-danger fa-file-zip-o');
-
+                            try{  
                             callback(data);
-                        }});
-                }
+                             }
                 catch(ex){
                         JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
                             if(err){
@@ -133,6 +132,8 @@ angular.module("llp.extractpdf", [])
                 finally{
                     
                 }
+                        }});
+               
 var callback = function(data){
         var appnum = apnum;
 
