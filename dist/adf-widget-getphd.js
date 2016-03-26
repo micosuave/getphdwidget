@@ -2223,14 +2223,14 @@ angular.module("llp.extractpdf", [])
     }
 
     return extractpdf;
-}]).factory("extractzip", ["$q","Upload","$http", function($q,Upload,$http) {
+}]).factory("extractzip", ["$q","Upload","$http","$location", function($q,Upload,$http, $location) {
     function unzip(apnum, main, uploader) {
         
         var deferred = $q.defer();
         
 
-        var googleurl = $location.protocol() +'://'+ location.host() + '/proxy/https://storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
-                    var reedtechurl = $location.protocol()+'://' + location.host() + '/proxy/https://patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
+        var googleurl = $location.protocol() +'://'+ location.host + '/proxy/https://storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
+                    var reedtechurl = $location.protocol()+'://' + location.host + '/proxy/https://patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
                     
                     JSZipUtils.getBinaryContent(googleurl, function(err, data) {
   if(err) {
