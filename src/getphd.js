@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
-    'fa.droppable', 'llp.parsetsv', 'roar', 'textSizeSlider', 'llp.pdf', 'LocalStorageModule', 'llp.extractpdf', 'firebase', 'ui.router', 'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'toastr', 'mentio', 'diff', 'door3.css', 'checklist-model', 'angular-md5', 'angular.filter', 'roarmap', 'ngFileUpload'
+    'fa.droppable', 'llp.parsetsv', 'roar', 'textSizeSlider', 'llp.pdf', 'LocalStorageModule', 'llp.extractpdf', 'firebase',  'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'toastr', 'mentio', 'diff', 'door3.css', 'checklist-model', 'angular-md5', 'angular.filter', 'ngFileUpload'
 ]).config(function(dashboardProvider, localStorageServiceProvider) {
 
     localStorageServiceProvider.setPrefix('adf.getphd');
@@ -720,7 +720,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //   });
                 
                 localStorageService.set(phd.application['Application Number'], phd);
-                //$http.post('/getphd/store/' + appnum, phd);
+                $http.post('/getphd/store/' + appnum, phd);
                 phdref.update(phd);
                 alertify.alert('<div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">All files have been successfully processed by LEO and delivered to your account for review.</h6></div>');
                 main.showupload = false;

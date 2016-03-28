@@ -104,11 +104,16 @@ angular.module("llp.extractpdf", [])
         
         var deferred = $q.defer();
         
-
-        var googleurl = $location.protocol() +'://'+ location.host + '/proxy/https://storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
-                    var reedtechurl = $location.protocol()+'://' + location.host + '/proxy/https://patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
+        var porter = function(){
+            return $location.host() === 'localhost' ? ':8080' : '/proxy/'
+        };
+        var prefix = function(){
+            return $location.protocol() + '://' + $location.host() + porter();
+        };
+        var googleurl = 'https://storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
+                    var reedtechurl = 'https://patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
                   
-                    JSZipUtils.getBinaryContent(googleurl, function(err, data) {
+                    JSZipUtils.getBinaryContent((prefix() + googleurl), function(err, data) {
                         if(err) {
                             alertify.error('Attempt to download from Google has failed! Attempting ReedTech...');
                         } 
@@ -119,7 +124,8 @@ angular.module("llp.extractpdf", [])
                             callback(data);
                              }
                 catch(ex){
-                        JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
+                        alertify.log('attempting ReedTech...');
+                        JSZipUtils.getBinaryContent((prefix() + reedtechurl), function(err, data){
                             if(err){
                                 alertify.alert('attempt to download from Google & ReedTech has failed! Please wait a few minutes and try again, or download the bulk zip file directly');
                             }

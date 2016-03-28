@@ -2,7 +2,7 @@
 
 
 angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
-    'fa.droppable', 'llp.parsetsv', 'roar', 'textSizeSlider', 'llp.pdf', 'LocalStorageModule', 'llp.extractpdf', 'firebase', 'ui.router', 'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'toastr', 'mentio', 'diff', 'door3.css', 'checklist-model', 'angular-md5', 'angular.filter', 'roarmap', 'ngFileUpload'
+    'fa.droppable', 'llp.parsetsv', 'roar', 'textSizeSlider', 'llp.pdf', 'LocalStorageModule', 'llp.extractpdf', 'firebase',  'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'toastr', 'mentio', 'diff', 'door3.css', 'checklist-model', 'angular-md5', 'angular.filter', 'ngFileUpload'
 ]).config(["dashboardProvider", "localStorageServiceProvider", function(dashboardProvider, localStorageServiceProvider) {
 
     localStorageServiceProvider.setPrefix('adf.getphd');
@@ -721,7 +721,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //   });
                 
                 localStorageService.set(phd.application['Application Number'], phd);
-                //$http.post('/getphd/store/' + appnum, phd);
+                $http.post('/getphd/store/' + appnum, phd);
                 phdref.update(phd);
                 alertify.alert('<div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">All files have been successfully processed by LEO and delivered to your account for review.</h6></div>');
                 main.showupload = false;
@@ -1444,9 +1444,9 @@ var wraptail = ckender;
                                         });
                                        
                                     });
-                          main.progresstwo++;  
+                            
                          }
-                         
+                         main.progresstwo++;
                          
                          });
                      return deferred.resolve(groupids);
@@ -2228,11 +2228,16 @@ angular.module("llp.extractpdf", [])
         
         var deferred = $q.defer();
         
-
-        var googleurl = $location.protocol() +'://'+ location.host + '/proxy/https://storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
-                    var reedtechurl = $location.protocol()+'://' + location.host + '/proxy/https://patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
+        var porter = function(){
+            return $location.host() === 'localhost' ? ':8080' : '/proxy/'
+        };
+        var prefix = function(){
+            return $location.protocol() + '://' + $location.host() + porter();
+        };
+        var googleurl = 'https://storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
+                    var reedtechurl = 'https://patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
                   
-                    JSZipUtils.getBinaryContent(googleurl, function(err, data) {
+                    JSZipUtils.getBinaryContent((prefix() + googleurl), function(err, data) {
                         if(err) {
                             alertify.error('Attempt to download from Google has failed! Attempting ReedTech...');
                         } 
@@ -2243,7 +2248,8 @@ angular.module("llp.extractpdf", [])
                             callback(data);
                              }
                 catch(ex){
-                        JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
+                        alertify.log('attempting ReedTech...');
+                        JSZipUtils.getBinaryContent((prefix() + reedtechurl), function(err, data){
                             if(err){
                                 alertify.alert('attempt to download from Google & ReedTech has failed! Please wait a few minutes and try again, or download the bulk zip file directly');
                             }

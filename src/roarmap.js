@@ -370,9 +370,9 @@ var wraptail = ckender;
                                         });
                                        
                                     });
-                          main.progresstwo++;  
+                            
                          }
-                         
+                         main.progresstwo++;
                          
                          });
                      return deferred.resolve(groupids);
