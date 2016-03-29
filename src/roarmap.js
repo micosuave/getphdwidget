@@ -574,4 +574,145 @@ function addpatent (groupids, phd){
                     $scope.checked2 = !$scope.checked2;
                 };
 
-     }]);
+     }]).filter('roarmap', function(APPDOCCODES,PTODOCCODES,INTVDOCCODES,PETDOCCODES,NOADOCCODES,DOCNAMES,ckstarter,ckender){
+         return function(inputarray){
+             var output = [];
+             return output;
+                           angular.forEach(inputarray, function (file, key) {
+                       //$timeout(function () {
+                         if ((file['Mail Room Date'] === '')||(file['Filename'] === '')) {
+                             return false;
+                         }else{
+                         //var appnumber = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
+                         var date = new Date();
+                         var roarevent = angular.copy(file);
+                         var maildate = new Date(file['Mail Room Date']);
+                         var mailyear = maildate.getFullYear();
+                         var mailmonth = maildate.getMonth();
+                         var mailday = maildate.getDate();
+                         var roardate = maildate.toDateString();
+                         
+                         var filename = file.Filename || null;
+                         var appnumsubstring = filename.slice(0, filename.indexOf("-"));
+                         var appdatesubstring = filename.slice((filename.indexOf("-") + 1), (filename.indexOf("-") + 11));
+                         var doccode = filename.slice((filename.lastIndexOf("-") + 1), (filename.indexOf(".pdf")));
+                         roarevent.content_type = 'document';
+                         
+                         if ($location.host() === 'localhost') {
+                           roarevent.selflink = '/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                           roarevent.media = roarevent.selflink;
+                          //  roarevent.media = '/files/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                         } else {
+                           roarevent.selflink = 'https://lexlab.io/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                           roarevent.media = roarevent.selflink;
+                          //  roarevent.media = 'https://lexlab.io/files/public/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                         }
+                         roarevent.description = file['Document Description'] || null;
+                         roarevent.filename = file['Filename'] || null;
+                         roarevent.collections = [];
+                         roarevent.Application = appnumsubstring || null;
+                         roarevent.date = appdatesubstring || null;
+                         roarevent.rid = inputarray.indexOf(file);
+                         //roarevent.file = file;
+                         //roarevent.collections.push(roarmap.collections[0]);
+                         roarevent.doccode = file['Document Code'] || null;
+                         //roarevent.collections.push(phd.roarmap.collections[0].id);
+                         angular.forEach(DOCNAMES, function(code, key) {
+                             angular.forEach(code, function(value, key) {
+
+                                 if (doccode === key) {
+                                     roarevent.name = value;
+                                     roarevent.title = value;
+                                 }
+                             });
+                         });
+                     
+                       
+                       
+                       
+                        var wraphead = ckstarter;
+var wraptail = ckender;
+                        var apptemplate =  '<div class="container-fluid two-col-right">' +
+            '<div class="row">' +
+            '<div class="col-xs-9"><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/4682b4/fff/&text='+ roarevent.rid + '" class="img img-responsive img-shadow"/></p></div>' +
+            '</div>' +
+            '</div><p>&nbsp;</p>';
+                     var ptotemplate = '<div class="container-fluid two-col-left">' +
+            '<div class="row">' +
+            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/640002/fff/&text='+ roarevent.rid + '" class="img img-responsive img-shadow"/></p></div>' +
+            '<div class="col-xs-9"><div class="bs-callout bs-callout-PTO bs-callout-reverse"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '</div>' +
+            '</div><p>&nbsp;</p>';
+                    var noatemplate = '<div class="container-fluid two-col-left">' +
+            '<div class="row">' +
+            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/7c994f/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
+            '<div class="col-xs-9"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '</div>' +
+            '</div><p>&nbsp;</p>';
+                    var petitiontemplate = '<div class="container-fluid two-col-right">' +
+            '<div class="row">' +
+            '<div class="col-xs-9"><div class="bs-callout bs-callout-Petition"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
+            '</div>' +
+            '</div><p>&nbsp;</p>';
+             var interviewtemplate = '<div class="container-fluid two-col-right">' +
+            '<div class="row">' +
+            '<div class="col-xs-9"><div class="bs-callout bs-callout-Interview"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
+            '</div>' +
+            '</div><p>&nbsp;</p>';
+            
+                   
+                     
+                         angular.forEach(APPDOCCODES, function(code, key) {
+                             if (doccode === code) {
+                                 roarevent.styleClass = 'Applicant';
+                                 roarevent.content = wraphead + apptemplate + wraptail;
+                                 
+                                 
+                             }
+                         });
+                         angular.forEach(PTODOCCODES, function(code, key) {
+                             if (doccode === code) {
+                                 roarevent.styleClass = 'PTO';
+                                 roarevent.content = wraphead + ptotemplate + wraptail;
+                             }
+                         });
+                         angular.forEach(INTVDOCCODES, function(code, key) {
+                             if (doccode === code) {
+                                 roarevent.styleClass = 'Interview';
+                                 roarevent.content = wraphead + interviewtemplate + wraptail;
+                             }
+                         });
+                         angular.forEach(NOADOCCODES, function(code, key) {
+                             if (doccode === code) {
+                                 roarevent.styleClass = 'NOA';
+                                 roarevent.content = wraphead + noatemplate + wraptail;
+                             }
+                         });
+                         angular.forEach(PETDOCCODES, function(code, key) {
+                             if (doccode === code) {
+                                 roarevent.styleClass = 'Petition';
+                                 roarevent.content = wraphead + petitiontemplate + wraptail;
+                             }
+                         });
+                         
+                         var d = new Date();
+                        var n = d.getTime();
+                          roarevent.rows= [
+                              {columns:[
+                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},styleClass:roarevent.styleClass || 'btn-dark',title:roarevent.title || 'title',type:'iframe',wid:n+100}]},
+                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},styleClass:roarevent.styleClass||'btn-dark',title:roarevent.title || 'title',type:'ckwidget', wid:n+1010}]}
+                              ]}
+                          ];
+                          //roarevent.content = ckstarter + ckheader + ckender;
+                          roarevent.structure = "6-6";
+                          roarevent.isActive = false;
+                         }
+                         output.push(roarevent);
+                           });
+             
+             return output;
+         }
+     });

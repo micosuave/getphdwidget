@@ -110,8 +110,8 @@ angular.module("llp.extractpdf", [])
         var prefix = function(){
             return $location.protocol() + '://' + $location.host() + porter();
         };
-        var googleurl = 'https://storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
-                    var reedtechurl = 'https://patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
+        var googleurl = 'storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
+                    var reedtechurl = 'patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
                   
                     JSZipUtils.getBinaryContent((prefix() + googleurl), function(err, data) {
                         if(err) {
