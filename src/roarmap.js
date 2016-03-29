@@ -574,14 +574,14 @@ function addpatent (groupids, phd){
                     $scope.checked2 = !$scope.checked2;
                 };
 
-     }]).factory('$$roarmap', function(APPDOCCODES,PTODOCCODES,INTVDOCCODES,PETDOCCODES,NOADOCCODES,DOCNAMES,ckstarter,ckender){
+     }]).factory('$$roarmap', function(APPDOCCODES,PTODOCCODES,INTVDOCCODES,PETDOCCODES,NOADOCCODES,DOCNAMES,ckstarter,ckender,$location){
          return function(inputarray){
              var output = [];
             //  return output;
                            angular.forEach(inputarray, function (file, key) {
                        //$timeout(function () {
-                         if ((file['Mail Room Date'] === '')||(file['Filename'] === '')) {
-                             return false;
+                         if (angular.isUndefined(file.Filename)||(file['Mail Room Date'] === '')||(file['Filename'] === '')) {
+                             return ;
                          }else{
                          //var appnumber = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
                          var date = new Date();
