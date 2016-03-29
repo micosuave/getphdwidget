@@ -574,10 +574,10 @@ function addpatent (groupids, phd){
                     $scope.checked2 = !$scope.checked2;
                 };
 
-     }]).filter('roarmap', function(APPDOCCODES,PTODOCCODES,INTVDOCCODES,PETDOCCODES,NOADOCCODES,DOCNAMES,ckstarter,ckender){
+     }]).factory('$$roarmap', function(APPDOCCODES,PTODOCCODES,INTVDOCCODES,PETDOCCODES,NOADOCCODES,DOCNAMES,ckstarter,ckender){
          return function(inputarray){
              var output = [];
-             return output;
+            //  return output;
                            angular.forEach(inputarray, function (file, key) {
                        //$timeout(function () {
                          if ((file['Mail Room Date'] === '')||(file['Filename'] === '')) {
@@ -709,9 +709,9 @@ var wraptail = ckender;
                           //roarevent.content = ckstarter + ckheader + ckender;
                           roarevent.structure = "6-6";
                           roarevent.isActive = false;
-                         }
+                         
                          output.push(roarevent);
-                           });
+                         }  });
              
              return output;
          }
