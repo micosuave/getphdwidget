@@ -1648,10 +1648,11 @@ function addpatent (groupids, phd){
                     $scope.checked2 = !$scope.checked2;
                 };
 
-     }]).factory('$$roarmap', ["APPDOCCODES", "PTODOCCODES", "INTVDOCCODES", "PETDOCCODES", "NOADOCCODES", "DOCNAMES", "ckstarter", "ckender", "$location", function(APPDOCCODES,PTODOCCODES,INTVDOCCODES,PETDOCCODES,NOADOCCODES,DOCNAMES,ckstarter,ckender,$location){
-         return function(inputarray){
+     }]).factory('$$roarmap', ["APPDOCCODES", "PTODOCCODES", "INTVDOCCODES", "PETDOCCODES", "NOADOCCODES", "DOCNAMES", "ckstarter", "ckender", "$location", "pdfToPlainText", "$http", function(APPDOCCODES,PTODOCCODES,INTVDOCCODES,PETDOCCODES,NOADOCCODES,DOCNAMES,ckstarter,ckender,$location,pdfToPlainText,$http){
+         return function(inputarray, patent){
              var output = [];
             //  return output;
+           
                            angular.forEach(inputarray, function (file, key) {
                        //$timeout(function () {
                          if (angular.isUndefined(file.Filename)||(file['Mail Room Date'] === '')||(file['Filename'] === '')) {
@@ -1672,15 +1673,16 @@ function addpatent (groupids, phd){
                          var doccode = filename.slice((filename.lastIndexOf("-") + 1), (filename.indexOf(".pdf")));
                          roarevent.content_type = 'document';
                          
-                         if ($location.host() === 'localhost') {
-                           roarevent.selflink = '/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
-                           roarevent.media = roarevent.selflink;
-                          //  roarevent.media = '/files/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
-                         } else {
+                        //  if ($location.host() === 'localhost') {
+                        //    roarevent.selflink = '/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                        //    roarevent.media = roarevent.selflink;
+                        //   //  roarevent.media = '/files/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                        //  } else {
                            roarevent.selflink = 'https://lexlab.io/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                            roarevent.media = roarevent.selflink;
+                            roarevent.ocrmedia = 'https://lexlab.io/ocr/public/uspto/'+ appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                           //  roarevent.media = 'https://lexlab.io/files/public/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
-                         }
+                         //}
                          roarevent.description = file['Document Description'] || null;
                          roarevent.filename = file['Filename'] || null;
                          roarevent.collections = [];
@@ -1700,22 +1702,24 @@ function addpatent (groupids, phd){
                                  }
                              });
                          });
-                     
+                   
                        
-                       
-                       
+                       var card =             '<div class="col-xs-4 col-1"><div class="card"><img src="https://placehold.it/300x225/640002/fff/&text=R" class="img img-responsive img-shadow"/><div class="card-block"><h4 class="card-title">Title</h4><p class="card-text">Do nulla id sint reprehenderit esse. Quis sunt duis consequat sit sint duis officia veniam qui. Occaecat ipsum esse officia qui et reprehenderit tempor. Aliqua officia qui occaecat veniam commodo esse magna fugiat reprehenderit duis. Adipisicing laborum ex commodo velit.</p></div></div></div>';
+
                         var wraphead = ckstarter;
+                        var old = 'https://placehold.it/250x208/4682b4/fff/&text='+ roarevent.rid;
 var wraptail = ckender;
+var frametemplate = 'http://localhost:3000/patents/US' + patent;
                         var apptemplate =  '<div class="container-fluid two-col-right">' +
             '<div class="row">' +
-            '<div class="col-xs-9"><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
-            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/4682b4/fff/&text='+ roarevent.rid + '" class="img img-responsive img-shadow"/></p></div>' +
+            '<div id="col-xs-9" class="col-xs-9" ><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite>'+ roarevent.plaintext + '</div></div>' +
+            '<div id="col-xs-3" class="col-xs-3"  onmouseenter="$(\'#col-xs-9\').toggleClass(\'col-xs-9 col-xs-3\');$(\'#col-xs-3\').toggleClass(\'col-xs-9 col-xs-3\')"><p><iframe name="fframe" src="' + frametemplate +  '" class="img img-responsive img-shadow" style="background-image:url('+old+');"></iframe></p></div>' + '<script src="https://lexlab.io/lexlab-starter/public/jQuery-Plugin-For-Auto-Resizing-iFrame-iFrame-Resizer/js/iframeResizer.min.js"></script>' + 
             '</div>' +
             '</div><p>&nbsp;</p>';
                      var ptotemplate = '<div class="container-fluid two-col-left">' +
-            '<div class="row">' +
-            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/640002/fff/&text='+ roarevent.rid + '" class="img img-responsive img-shadow"/></p></div>' +
-            '<div class="col-xs-9"><div class="bs-callout bs-callout-PTO bs-callout-reverse"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="row">' + card +
+            // '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/640002/fff/&text='+ roarevent.rid + '" class="img img-responsive img-shadow"/></p></div>' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-PTO bs-callout-reverse"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
             '</div><p>&nbsp;</p>';
                     var noatemplate = '<div class="container-fluid two-col-left">' +
@@ -1746,6 +1750,8 @@ var wraptail = ckender;
                                  
                                  
                              }
+                             
+                             
                          });
                          angular.forEach(PTODOCCODES, function(code, key) {
                              if (doccode === code) {
@@ -1783,7 +1789,7 @@ var wraptail = ckender;
                           //roarevent.content = ckstarter + ckheader + ckender;
                           roarevent.structure = "6-6";
                           roarevent.isActive = false;
-                         
+                    
                          output.push(roarevent);
                          }  });
              
