@@ -1713,7 +1713,7 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
                         var apptemplate =  '<div class="container-fluid two-col-right">' +
             '<div class="row">' +
             '<div id="col-xs-9" class="col-xs-9" ><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite>'+ roarevent.plaintext + '</div></div>' +
-            '<div id="col-xs-3" class="col-xs-3"  onmouseenter="$(\'#col-xs-9\').toggleClass(\'col-xs-9 col-xs-3\');$(\'#col-xs-3\').toggleClass(\'col-xs-9 col-xs-3\')"><p><iframe name="fframe" src="' + frametemplate +  '" class="img img-responsive img-shadow" style="background-image:url('+old+');"></iframe></p></div>' + '<script src="https://lexlab.io/lexlab-starter/public/jQuery-Plugin-For-Auto-Resizing-iFrame-iFrame-Resizer/js/iframeResizer.min.js"></script>' + 
+            '<div id="col-xs-3" class="col-xs-3"  onmouseenter="$(\'#col-xs-9\').toggleClass(\'col-xs-9 col-xs-3\');$(\'#col-xs-3\').toggleClass(\'col-xs-9 col-xs-3\')"><p><iframe name="fframe" src="' + frametemplate +  '" class="img img-responsive img-shadow" style="background-image:url('+old+');"></iframe></p></div>' + 
             '</div>' +
             '</div><p>&nbsp;</p>';
                      var ptotemplate = '<div class="container-fluid two-col-left">' +
