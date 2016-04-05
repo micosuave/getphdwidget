@@ -1428,10 +1428,10 @@ var wraptail = ckender;
                                                // dashboardsref.child('roarlist').push(id);
                                                 
                                                 meritsref.child('roarlist').child(id).set(id);
-                                                $http.get(ref.ocrlink).then(function(resp){
-                                                    var newlink = ref.media.slice(0,ref.media.indexOf('.pdf')) + '_ocr.pdf';
+                                                $http.get(roarevent.ocrlink).then(function(resp){
+                                                    var newlink = roarevent.media.slice(0,roarevent.media.indexOf('.pdf')) + '_ocr.pdf';
                                                     var text = resp.data;
-                                                    var newtext = ref.content.replace('<p>&nbsp;</p>','<p>'+text+'</p>');
+                                                    var newtext = roarevent.content.replace('<p>&nbsp;</p>','<p>'+text+'</p>');
                                                     ref.update({media: newlink, content: newtext});
                                                 });
                                                 
