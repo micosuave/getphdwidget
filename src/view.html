@@ -305,7 +305,7 @@
             <uib-tab-content ng-if="main.tabs[2].isActive" ng-controller="MainCtrl as main">
                 
                 <blockquote class="" cite="{{phd.patent.media}}" style="margin: 25px;margin-top:35px;"><h4 ><strong ng-bind="tree.title"> </strong> - <small>{{tree.claim_total}} Claims</small>               
-</h4><p ng-bind-html="tree.abstract | highlight: config.query | trustAsHTML"   > </p> 
+</h4><p ng-bind-html="tree.abstract | highlight: query | trustAsHTML"   > </p> 
                 
                 
                 <cite>{{phd.patent.filename}}<a class="fa fa-external-link fa-border" ng-click="main.poppatent(phd.patent)" ></a></cite></blockquote>

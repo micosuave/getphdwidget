@@ -204,10 +204,15 @@
                          roarevent.content_type = 'document';
                          
                          if ($location.host() === 'localhost') {
+                        
+                           roarevent.ocrlink = '/ocr/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+
                            roarevent.selflink = '/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                            roarevent.media = roarevent.selflink;
                           //  roarevent.media = '/files/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                          } else {
+                            roarevent.ocrlink = 'https://lexlab.io/ocr/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+
                            roarevent.selflink = 'https://lexlab.io/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                            roarevent.media = roarevent.selflink;
                           //  roarevent.media = 'https://lexlab.io/files/public/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
@@ -349,6 +354,13 @@ var wraptail = ckender;
                                                // dashboardsref.child('roarlist').push(id);
                                                 
                                                 meritsref.child('roarlist').child(id).set(id);
+                                                $http.get(ref.ocrlink).then(function(resp){
+                                                    var newlink = ref.media.slice(0,ref.media.indexOf('.pdf')) + '_ocr.pdf';
+                                                    var text = resp.data;
+                                                    var newtext = ref.content.replace('<p>&nbsp;</p>','<p>'+text+'</p>');
+                                                    ref.update({media: newlink, content: newtext});
+                                                });
+                                                
                                                 $log.info('merits', id);
                                             }
                                         });
