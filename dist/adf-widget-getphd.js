@@ -430,7 +430,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $('#reedtechbutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
                 $http.get('/getphd/patents/' + pnum).then(function(resp) {
                     var data = resp.data;
-                    config.appnum = resp.data.pub;
+                    config.appnum = resp.data.application_number.slice(3,resp.data.application_number.length).replace('/','').replace(',','');
                     $scope.response = resp.data;
                     var googleurl = $location.protocol() +'://'+ location.host + '/proxy/storage.googleapis.com/uspto-pair/applications/'+config.appnum+'.zip';
                     var reedtechurl = $location.protocol() +'://'+ location.host + '/proxy/patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
