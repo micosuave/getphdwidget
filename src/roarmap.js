@@ -354,12 +354,7 @@ var wraptail = ckender;
                                                // dashboardsref.child('roarlist').push(id);
                                                 
                                                 meritsref.child('roarlist').child(id).set(id);
-                                                $http.get(roarevent.ocrlink).then(function(resp){
-                                                    var newlink = roarevent.media.slice(0,roarevent.media.indexOf('.pdf')) + '_ocr.pdf';
-                                                    var text = resp.data;
-                                                    var newtext = roarevent.content.replace('<p>&nbsp;</p>','<p>'+text+'</p>');
-                                                    ref.update({media: newlink, content: newtext});
-                                                });
+                                                
                                                 
                                                 $log.info('merits', id);
                                             }
