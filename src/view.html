@@ -374,6 +374,12 @@
 </script>
                 </div>
                 </div>
+                <div class="row">
+                    <div ng-repeat="(key, ref) in phd.patent.references" style="max-width: 30vw;max-height:30vw;width:30vw;height:30vw;float:left;background-repeat:none;background-size:cover;background:url(/patents/{{ref}}/preview)">
+                            <d3pendingtree patent="{{ref}}" pattern="{{query}}" tree="tree"></d3pendingtree>
+                    </div>
+                </div>
+                
                 </div>
                 
                 <!--ng-class="{'filtered-out':!treeFilter(node, config.query, {supportedFields: ['text'],descendantCollectionField: 'children'})}" -->
