@@ -55,12 +55,13 @@ angular.module('llp.pdf', ['LocalStorageModule'])
             var linkfunction = function($scope, $element, $attr, $ctrl) {
                 $scope.pages = [];
                 
-                $scope.keywords = ['claim\s\d+','claims\s\d+','rejected under', '101','102','103','112','teaches','teach','in view of','limitations','limit','taught'];
+                $scope.keywords = '/(claim(s)?\s+\d+(\W(\s)?\d+)+)?(reject(ed)?(ion)?)?(10\d\(\D\))?/gi';
+                $scope.matches = [];
 $http.get($attr.pdfData).then(function(resp){
     
 PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
 var PDF_PATH = $attr.pdfData;
-var PAGE_NUMBER = 1;
+var PAGE_NUMBER = 2;
 var PAGE_SCALE = 0.25;
 var SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -70,7 +71,7 @@ function buildSVG(viewport, textContent) {
   //svg.setAttribute('width', viewport.width + 'px');
   //svg.setAttribute('height', viewport.height + 'px');
   svg.setAttribute('width', '50vw');
-  svg.setAttribute('height', '50vh');
+  svg.setAttribute('height', '75vh');
   // items are transformed to have 1px font size
   svg.setAttribute('font-size', 1);
 
@@ -92,7 +93,7 @@ function buildSVG(viewport, textContent) {
   return svg;
 }
 
-function pageLoaded(PAGE_NUMBER) {
+function pageLoaded() {
   // Loading document and page text content
   PDFJS.getDocument(PDF_PATH).then(function (pdfDocument) {
     pdfDocument.getPage(PAGE_NUMBER).then(function (page) {
@@ -100,7 +101,7 @@ function pageLoaded(PAGE_NUMBER) {
       page.getTextContent().then(function (textContent) {
         // building SVG and adding that to the DOM
         var svg = buildSVG(viewport, textContent);
-        return svg;
+        $element.append(svg);
       });
     });
   });
@@ -114,7 +115,7 @@ function pageLoaded(PAGE_NUMBER) {
 //   }
 //   pageLoaded();
 // });
-// pageLoaded();
+ pageLoaded();
 
                 //$scope.pdfToPlainText = function(pdfData) {
                     var newtab = {
@@ -134,7 +135,7 @@ function pageLoaded(PAGE_NUMBER) {
                         pdf.getPage(i + 1).then(function(page){getPageText(page)});
                     }
                 };
-                var template = "</pre><pre class='page card card-fancy'>";
+                var template = "</p><p class='card card-fancy draft-fancy'>";
                 var getPageText = function(page) {
                     var sectionwrap = angular.element(template).appendTo($element);
                     page.getTextContent().then(function(textContent) {
@@ -151,12 +152,42 @@ function pageLoaded(PAGE_NUMBER) {
                             //     return section;
                             // });
                             section = section + ' ' + o.str;
-                            $element.append(pageLoaded(key))
+                           
 
                         });
-                            $(sectionwrap).append(section);
+                        var string = section;
+    var regEx = $scope.keywords;
+    var re = new RegExp(regEx, "gi");
+    // for (var i=0; i<string.match(re).length; i++)
+    // {
+        string = string.replace(re, function(x){
+            return "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>";
+        });
+        //string.match(re)[i], "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>");
+    $(sectionwrap).append(string);
+    $scope.pages.push(string);
+    //}
+                        
+                        
                             
-                            $scope.pages.push(section);
+                            //var sentences = string.split('. ');
+                            //section.match($scope.keywords)
+                        //section.replace(section.match($scope.keywords), '<span class="highlight"><strong><em><u>' + $[1] + '</u></em></strong></span>');
+                            
+                            
+                            // for (var key in sentences){
+                            //     if (sentences.hasOwnProperty[key]){
+                            //         var sentence = sentences[key];
+                            //         if (sentence.match($scope.keywords)){
+                            //             $scope.matches.push(sentence);
+                            //         }
+                            //     }
+                            // }
+                            // angular.forEach(sentences, function(sentence, key){
+                            //     $scope.matches.push(sentence.match(re));
+                            // });
+                            
+                            
                         // textContent.forEach(function(o) {
 
                         // });
