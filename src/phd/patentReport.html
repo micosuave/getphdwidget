@@ -1,19 +1,34 @@
-<div class="container-fluid bs two-col-left">
+<div class="container-fluid bs two-col-left card-fancy">
     <div class="row">
-        <div class="col-xs-4 col-1">
+        <div class="col-xs-4 col-sm-3 col-1">
             <div class="card">
-                <img ng-src="{{'/patents/US'+ patent.number + '/preview'}}" class="img img-responsive img-shadow"/><div class="card-block">
-                    <h4 class="card-title" ng-bind="patent.number | number:0"></h4>
-                    <p ng-bind="patent.description"></p>
-                    <p class="card-text">Do nulla id sint reprehenderit esse. Quis sunt duis consequat sit sint duis officia veniam qui. Occaecat ipsum esse officia qui et reprehenderit tempor. Aliqua officia qui occaecat veniam commodo esse magna fugiat reprehenderit duis. Adipisicing laborum ex commodo velit.</p>
+                <img ng-src="{{'/patents/US'+ patent.id + '/preview'}}" class="img img-responsive img-shadow"/>
+                <div class="card-block">
+                    <h2 class="card-title text-NOA">US <strong ng-bind="patent.id | number:0"></strong><small ng-bind="new Date(patent.issued)|date"></small></h2>
+                    <div class="row">
+                        <em>
+                        <label class="pull-left" ng-bind="patent.application_number"></label>
+                        </em>
+                    </div>
+                    <p ng-bind="patent.description" class="card-text" style="text-align:justify;"></p>
+                    <p class="card-text" >Do nulla id sint reprehenderit esse. Quis sunt duis consequat sit sint duis officia veniam qui. Occaecat ipsum esse officia qui et reprehenderit tempor. Aliqua officia qui occaecat veniam commodo esse magna fugiat reprehenderit duis. Adipisicing laborum ex commodo velit.</p>
                     </div>
                     </div>
                     </div>
-        <div class="col-xs-8 ">
-            <div class="bs-callout bs-callout-reverse bs-callout-PTO">
-                <h4>Reprehenderit aute proident cupidatat exercitation officia incididunt culpa ullamco.</h4>
-                <p>Culpa enim minim amet proident sunt aliqua ex irure ex sunt eiusmod ut consectetur. Minim esse in tempor reprehenderit esse cupidatat adipisicing ipsum eiusmod. Ea commodo nisi enim esse et ut. Minim laborum irure eiusmod Lorem consequat duis labore deserunt ullamco velit enim ut. Aliquip tempor non amet aliqua cillum sit amet commodo aliqua sint nisi. Fugiat ex irure qui et in qui velit commodo ipsum. Non cupidatat laboris culpa ipsum culpa velit.</p>
+        <div class="card col-xs-8 col-sm-9">
+            <div class="bs-callout bs-callout-reverse bs-callout-NOA">
+                <h4 ng-bind="patent.title">Reprehenderit aute proident cupidatat exercitation officia incididunt culpa ullamco.</h4>
+                <p ng-bind="patent.abstract">Culpa enim minim amet proident sunt aliqua ex irure ex sunt eiusmod ut consectetur. Minim esse in tempor reprehenderit esse cupidatat adipisicing ipsum eiusmod. Ea commodo nisi enim esse et ut. Minim laborum irure eiusmod Lorem consequat duis labore deserunt ullamco velit enim ut. Aliquip tempor non amet aliqua cillum sit amet commodo aliqua sint nisi. Fugiat ex irure qui et in qui velit commodo ipsum. Non cupidatat laboris culpa ipsum culpa velit.</p>
+                
+                <div class="row showscroll" style="margin: 5px 5px;overflow-x:scroll;">
+                    <a ng-repeat="link in patent.drawings"  ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{patent.thumbnails[$index]}}" class="img img-shadow"/></a>
+                    </div>
                 </div>
+                <div class="card card-block card-fancy draft-fancy small-text" style="text-size: 11px!important;" ng-bind-html="patent.text | trustAsHTML">
+                    
+                    
+                </div>
+                
                 </div>
             </div>
             </div>

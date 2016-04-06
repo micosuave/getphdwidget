@@ -374,10 +374,10 @@
 </script>
                 </div>
                 </div>
-                <div class="row">
-                    <div ng-repeat="(key, ref) in phd.patent.references" style="max-width: 30vw;max-height:30vw;width:30vw;height:30vw;float:left;background-repeat:none;background-size:cover;background:url(/patents/{{ref}}/preview)">
-                            <d3pendingtree patent="{{ref}}" pattern="{{query}}" tree="tree"></d3pendingtree>
-                    </div>
+                <div class="container">
+                    <img ng-repeat="(key, ref) in phd.patent.references" class="img img-responsive img-shadow" style="max-width: 20vw;max-height:20vw;width:20vw;height:20vw;float:left;" ng-src="{{'/patents/US'+main.format(ref)+'/preview'}}">
+                            <!--<d3pendingtree patent="{{main.format(ref)}}" pattern="{{query}}" tree="tree"></d3pendingtree>-->
+                    
                 </div>
                 
                 </div>
