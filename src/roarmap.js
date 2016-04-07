@@ -732,7 +732,7 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
      }).filter('strip', function(){
          return function(input){
             var regex = new RegExp(/\D/);
-            var output = input.replace(regex, '');
+            if (input && angular.isString(input)){var output = input.replace(regex, '');}
             return output;  
          };
      });

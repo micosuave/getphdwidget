@@ -32,11 +32,67 @@
                     </uib-tab>
                     <uib-tab >
                         <uib-tab-heading>Claims <label class="badge">{{patent.claim_total}}</label></uib-tab-heading>
+                        <div class="container">
+
+                        <div class="col-sm-6">                        
                         <d3pendingtree patent="{{patent.id}}" pattern="{{query}}" tree="tree"></d3pendingtree>
+                           <input id="patterninput" class="" ng-model="query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
+                <!--<a style="position:absolute;right:0;top:4;" class="btn fa fa-close" ng-click="config.query = null"></a>-->
+               
+                <div class="col-sm-3">
+            <ul class="list-unstyled">
+                <li>
+                    <input type="checkbox" ng-model="highlight">
+                    <small> Highlight exact matches</small>
+                </li>
+                <li>
+                    <input type="checkbox" ng-model="dim"> <small>Dim non-matches</small>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-3">
+            <ul class="list-unstyled">
+                <li ng-repeat="field in availableFields">
+                    <input type="checkbox" ng-click="toggleSupport(field)" ng-checked="supportedFields.indexOf(field) > -1">
+                    <small>Match <code>{{ field }}</code></small>
+                </li>
+            </ul>
+        </div>
+                </div>
+                <div class="col-sm-6">
+                <div id="info"></div>
+              <div ui-tree="treeOptions"  class="">
+                        <ol ui-tree-nodes max-depth="6" ng-model="tree.claims">
+                            <li ui-tree-node class="card card-block " ng-repeat="node in tree.claims " ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;" ng-hide="!treeFilter(node, query, supportedFields) && !dim"
+                        ></li>
+
+                        </ol>
+                    </div>
+                     <script type="text/ng-template" id="claim_renderer.html">
+    <div ui-tree-handle class="tree-node tree-node-content">
+        <div class="tree-node-content flextoprow " style="position:relative;">
+            <a class="btn btn-xs pull-left" data-nodrag ng-click="toggle(this)" ng-if="node.children && (node.children.length > 0)"><span class="fa " ng-class="{'fa-chevron-right': collapsed, 'fa-chevron-down': !collapsed}" style="color:steelblue;transition:all 0.25s ease;"></span></a>
+            <!--<input type="text" ng-model="node.text" ng-change="node.$save();" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }" style="padding: 0.5rem;color:#444;"  ng-if="config.editable">-->
+           
+            <!--<a class="btn showonhover" data-nodrag ng-if="config.editable" ng-click="remove(this);"><span class="fa fa-close text-danger "></span></a>-->
+            <!--<a class="btn " data-nodrag ng-if="config.editable" ng-click="toc.newsubsection(this)" style=""><span class="fa fa-plus text-success"></span></a>-->
+           <div ng-bind-html="node.text | highlight: query " ng-class="{'filtered-out':(!treeFilter(node, query, supportedFields) && dim)}"></div> 
+            <!--<a  class="gototarget btn" data-nodrag  ui-sref="{{parentstate}}.righttab({tabid: node.id})" style=""> <span ng-if="!config.editable" class="pull-left">{{node.text}}</span><i style="position:absolute;right:0;">&nbsp;</i></a>-->
+
+        </div>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.children" ng-class="{'hidden': collapsed}" style="">
+        <li class="card card-block img-shadow"  ng-repeat="node in node.children" ui-tree-node ng-include="'claim_renderer.html'" style="padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;" ng-hide="!treeFilter(node, query, supportedFields) && !dim"
+                        >
+        </li>
+    </ol>
+</script>
+                    
+                </div>   
                     </uib-tab>
                     <uib-tab heading="File History">
                         
-                        <roargrid application="{{patent.application | strip}}" patent="{{patent.id}}"></roargrid>
+                        <roargrid application="{{patent.application_number | strip}}" patent="{{patent.id}}"></roargrid>
                         
                     </uib-tab>
                     <uib-tab heading="Citations">

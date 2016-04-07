@@ -137,7 +137,7 @@ function pageLoaded() {
                 };
                 var template = "</p><p class='card card-fancy draft-fancy'>";
                 var getPageText = function(page) {
-                    var sectionwrap = angular.element(template).appendTo($element);
+                    //var sectionwrap = angular.element(template).appendTo($element);
                     page.getTextContent().then(function(textContent) {
                         console.log(textContent);
                         var section = '';
@@ -164,7 +164,7 @@ function pageLoaded() {
             return "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>";
         });
         //string.match(re)[i], "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>");
-    $(sectionwrap).append(string);
+    //$(sectionwrap).append(string);
     $scope.pages.push(string);
     //}
                         
@@ -233,7 +233,7 @@ function pageLoaded() {
             return {
 
                 restrict: "A",
-                template: '<div ng-repeat="page in pages" ng-bind-html="page | highlight: keywords | trustAsHTML" class="card card-fancy card-block"></div>',
+                template: '<div ng-repeat="page in pages" ng-bind-html="page | highlight: keywords | trustAsHTML" class="card draft-fancy card-block"></div>',
                 //controller: "PDFFilesController",
                 //controllerAs: "pdff",
                 //bindToController: true,
