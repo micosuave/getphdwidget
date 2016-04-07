@@ -24,9 +24,36 @@
                     <a ng-repeat="link in patent.drawings"  ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{patent.thumbnails[$index]}}" class="img img-shadow"/></a>
                     </div>
                 </div>
+                <div class="panel panel-default">
+                <uib-tabset class="panel-heading">
+                    <uib-tab heading="Description">
                 <div class="card card-block card-fancy draft-fancy small-text" style="text-size: 11px!important;" ng-bind-html="patent.text | trustAsHTML">
-                    
-                    
+                </div>
+                    </uib-tab>
+                    <uib-tab >
+                        <uib-tab-heading>Claims <label class="badge">{{patent.claim_total}}</label></uib-tab-heading>
+                        <d3pendingtree patent="{{patent.id}}" pattern="{{query}}" tree="tree"></d3pendingtree>
+                    </uib-tab>
+                    <uib-tab heading="File History">
+                        
+                        <roargrid application="{{patent.application | strip}}" patent="{{patent.id}}"></roargrid>
+                        
+                    </uib-tab>
+                    <uib-tab heading="Citations">
+                        <table class="table table-responsive table-stripped table=condensed table-hover">
+                            <thead>
+                                
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="citation in patent.references">
+                                    <label class="badge label label-NOA">{{citation}}</label>
+                                    <patent-citation patent="{{citation | strip}}"></patent-citation>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </uib-tab>  
+                </uib-tabset>                  
+                </div>
                 </div>
                 
                 </div>

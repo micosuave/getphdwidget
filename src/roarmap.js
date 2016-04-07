@@ -729,4 +729,10 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
              
              return output;
          }
+     }).filter('strip', function(){
+         return function(input){
+            var regex = new RegExp(/\D/);
+            var output = input.replace(regex, '');
+            return output;  
+         };
      });

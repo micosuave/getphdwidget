@@ -315,7 +315,7 @@
                     </div>
                 <div class="row">
                 <div class="col-sm-6">
-                <d3pendingtree id="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" class="{{query}}" tree="tree"  pattern="{{query}}" patent="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" ></d3pendingtree>
+                <d3pendingtree id="a{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" class="{{query}}" tree="tree"  pattern="{{query}}" patent="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" ></d3pendingtree>
                 <!--<d3lib class="d3lib" data="tree.claims"></d3lib>-->
                   <!--<d3pendingtree class="{{config.query}}" tree="treetwo" patent="{{tree.pub}}" style="width:100%;height:600px;"></d3pendingtree>-->
                                     <!--<iframe ng-src="{{phd.patent.media}}" class="well" style="width:100%;height:800px;" name="fframe" id="fframe"></iframe>-->
@@ -374,9 +374,9 @@
 </script>
                 </div>
                 </div>
-                <div class="container">
+                <div class="" ng-repeat="ref in phd.patent.references">
                     <img ng-repeat="(key, ref) in phd.patent.references" class="img img-responsive img-shadow" style="max-width: 20vw;max-height:20vw;width:20vw;height:20vw;float:left;" ng-src="{{'/patents/US'+main.format(ref)+'/preview'}}">
-                            <!--<d3pendingtree patent="{{main.format(ref)}}" pattern="{{query}}" tree="tree"></d3pendingtree>-->
+                            <!--<d3pendingtree id="a{{main.format(ref)}}" patent="{{main.format(ref)}}" pattern="{{query}}" tree="$index" style="max-width: 20vw;max-height:20vw;width:20vw;height:20vw;float:left;" ></d3pendingtree>-->-->
                     
                 </div>
                 
