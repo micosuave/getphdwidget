@@ -134,8 +134,8 @@
              };
          
      }])
-     .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$mocks', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'FIREBASE_URL','filepickerService','$location','$ACTIVEROAR','$dashboards','CLAIMDOCS','ckstarter','ckender','ckheader','$http',
-         function($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $mocks, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, FIREBASE_URL, filepickerService, $location,$ACTIVEROAR,$dashboards, CLAIMDOCS, ckstarter,ckender,ckheader, $http) {
+     .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$mocks', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'FIREBASE_URL','filepickerService','$location','$ACTIVEROAR','$dashboards','CLAIMDOCS','ckstarter','ckender','ckheader','$http','$filter',
+         function($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $mocks, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, FIREBASE_URL, filepickerService, $location,$ACTIVEROAR,$dashboards, CLAIMDOCS, ckstarter,ckender,ckheader, $http,$filter) {
              return function(files, phd, main) {
 
 
@@ -280,6 +280,7 @@ var wraptail = ckender;
                              if (doccode === code) {
                                  roarevent.styleClass = 'Applicant';
                                  roarevent.content = wraphead + apptemplate + wraptail;
+                                 roarevent.data = wraphead + apptemplate + wraptail;
                                  
                                  
                              }
@@ -288,24 +289,28 @@ var wraptail = ckender;
                              if (doccode === code) {
                                  roarevent.styleClass = 'PTO';
                                  roarevent.content = wraphead + ptotemplate + wraptail;
+                                 roarevent.data = wraphead + ptotemplate + wraptail;
                              }
                          });
                          angular.forEach(INTVDOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'Interview';
                                  roarevent.content = wraphead + interviewtemplate + wraptail;
+                                 roarevent.data = wraphead + interviewtemplate + wraptail;
                              }
                          });
                          angular.forEach(NOADOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'NOA';
                                  roarevent.content = wraphead + noatemplate + wraptail;
+                                 roarevent.data = wraphead + noatemplate + wraptail;
                              }
                          });
                          angular.forEach(PETDOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'Petition';
                                  roarevent.content = wraphead + petitiontemplate + wraptail;
+                                 roarevent.data = wraphead + petitiontemplate + wraptail;
                              }
                          });
                          
@@ -332,19 +337,23 @@ var wraptail = ckender;
                           //         roarevent.txt = new_Blob.url;
                                   
                                   //alertify.success('text file added for' + roarevent.title);
-                                  collections.$add(roarevent).then(function(ref) {
-                                        var id = ref.key();
+                                 var d = filename.slice(0,filename.lastIndexOf('-'));
+                                 var refr = Collection(d).$ref();
+                                 
+                                  refr.set(roarevent).then(function(ref) {
+                                        var id = d;
 
-                                        ref.update({
+                                        refr.update({
                                             id: id,
 
                                             timestamp: Firebase.ServerValue.TIMESTAMP
                                         });
-                                          ref.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
+                                          refr.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
                                           //p.filelist.push(id);
                                           //phdref.child('roarmap').child('roarlist').push(id);
                                           //roarmap.roarevents.push(id);  
                                           phd.roarmap.roarlist[id] = id;
+                                          main.progresstwo++;
                                           allref.child('roarlist').child(id).set(id);
                                               
                                           
@@ -380,7 +389,7 @@ var wraptail = ckender;
                                     });
                             
                          }
-                         main.progresstwo++;
+                         
                          
                          });
                      return deferred.resolve(groupids);

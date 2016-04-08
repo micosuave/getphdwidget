@@ -1,0 +1,44 @@
+ <form ng-submit="getBook(ebook)" name="titleform" ng-model="ebook">
+ <fieldset name="ebooktitle">
+     <label for="ebooktitle">Title:</label>
+     <input name="ebooktitle" id="ebooktitle" placeholder="Book Title" type="text" ng-model="ebook.title" required/>
+     </fieldset>
+ <fieldset name="ebookauthor">
+     <label for="ebookauthor">Author:</label>
+     <input name="ebookauthor" id="ebookauthor" placeholder="Book author" type="text" ng-model="ebook.author" required/>
+     </fieldset>
+ <fieldset name="ebookpublisher">
+     <label for="ebookpublisher">Publisher:</label>
+     <input name="ebookpublisher" id="ebookpublisher" placeholder="Book publisher" type="text" ng-model="ebook.publisher" required/>
+     </fieldset>
+ <fieldset name="ebookCover">
+     <label for="ebookCover">Cover:</label>
+     <input name="ebookCover" id="ebookCover" placeholder="Book Cover" type="url" ng-model="ebook.cover" required/>
+     </fieldset>
+ <form name="chapterform" ng-repeat="chapter in ebook.content">
+ <fieldset name="chaptertitle">
+     <label for="chaptertitle">Chapter Title:</label>
+     <input name="chaptertitle" id="chaptertitle" placeholder="Chapter Title" type="text" ng-model="chapter.title" required/>
+     </fieldset>
+ <fieldset name="chapterauthor">
+     <label for="chapterauthor">Chapter Author:</label>
+     <input name="chapterauthor" id="chapterauthor" placeholder="Chapter Author" type="text" ng-model="chapter.author" required/>
+     </fieldset>
+ <fieldset name="chapterdata">
+     <label for="chapterdata">Contents:</label>
+     <textarea name="chapterdata" id="chapterdata" placeholder="Chapter Contents" type="text" ng-model="chapter.data" required/>
+</fieldset>
+     
+ </form>
+ 
+ </form>
+ <!--
+ var option = {
+
+    title: rdata.title,
+    author: rdata.author || rdata.inventor,
+    publisher: rdata.publisher || 'Lion Legal Products Inc',
+    cover: rdata.cover || 'http://localhost:8000/patents/US'+rdata.number+'/preview',
+    content: rdata.content
+
+};-->

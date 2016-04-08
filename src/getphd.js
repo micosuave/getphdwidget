@@ -431,8 +431,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     var data = resp.data;
                     config.appnum = resp.data.application_number.slice(3,resp.data.application_number.length).replace('/','').replace(',','');
                     $scope.response = resp.data;
-                    var googleurl = $location.protocol() +'://'+ location.host + '/proxy/storage.googleapis.com/uspto-pair/applications/'+config.appnum+'.zip';
-                    var reedtechurl = $location.protocol() +'://'+ location.host + '/proxy/patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
+                    var googleurl = 'https' +'://'+ 'lexlab.io' + '/proxy/storage.googleapis.com/uspto-pair/applications/'+config.appnum+'.zip';
+                    var reedtechurl = 'https' +'://'+ 'lexlab.io' + '/proxy/patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
                     JSZipUtils.getBinaryContent(googleurl, function(err, data) {
                         if(err) {
                             $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
@@ -722,11 +722,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //   });
                 
                 localStorageService.set(phd.application['Application Number'], phd);
-                $http.post('/getphd/store/' + appnum, phd);
+                // $http.post('/getphd/store/' + appnum, phd);
                 phdref.update(phd);
+                $http.get('https://lexlab.io/proxy/localhost:9000/'+phdref.key()).then(function(resp){
+                
                 alertify.alert('<div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">All files have been successfully processed by LEO and delivered to your account for review.</h6></div>');
                 main.showupload = false;
-
+                });
 
             };
 

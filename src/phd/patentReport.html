@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-xs-4 col-sm-3 col-1">
             <div class="card">
-                <img ng-src="{{'/patents/US'+ patent.id + '/preview'}}" class="img img-responsive img-shadow"/>
+                <img ng-src="/patents/US{{patent.id}}/preview" class="img img-responsive img-shadow"/>
                 <div class="card-block">
                     <h2 class="card-title text-NOA">US <strong ng-bind="patent.id | number:0"></strong><small ng-bind="new Date(patent.issued)|date"></small></h2>
                     <div class="row">
@@ -16,16 +16,22 @@
                     </div>
                     </div>
         <div class="card col-xs-8 col-sm-9">
+             <div class="panel panel-default">
+                <uib-tabset class="panel-heading">
+                                        <uib-tab heading="Abstract">
+
             <div class="bs-callout bs-callout-reverse bs-callout-NOA">
                 <h4 ng-bind="patent.title">Reprehenderit aute proident cupidatat exercitation officia incididunt culpa ullamco.</h4>
                 <p ng-bind="patent.abstract">Culpa enim minim amet proident sunt aliqua ex irure ex sunt eiusmod ut consectetur. Minim esse in tempor reprehenderit esse cupidatat adipisicing ipsum eiusmod. Ea commodo nisi enim esse et ut. Minim laborum irure eiusmod Lorem consequat duis labore deserunt ullamco velit enim ut. Aliquip tempor non amet aliqua cillum sit amet commodo aliqua sint nisi. Fugiat ex irure qui et in qui velit commodo ipsum. Non cupidatat laboris culpa ipsum culpa velit.</p>
-                
+                </div>
+                </uib-tab>
+                <uib-tab>                      <uib-tab-heading>Drawings <label class="badge">{{patent.drawings.length}}</label></uib-tab-heading>
+
                 <div class="row showscroll" style="margin: 5px 5px;overflow-x:scroll;">
                     <a ng-repeat="link in patent.drawings"  ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{patent.thumbnails[$index]}}" class="img img-shadow"/></a>
                     </div>
-                </div>
-                <div class="panel panel-default">
-                <uib-tabset class="panel-heading">
+                
+              </uib-tab>
                     <uib-tab heading="Description">
                 <div class="card card-block card-fancy draft-fancy small-text" style="text-size: 11px!important;" ng-bind-html="patent.text | trustAsHTML">
                 </div>
