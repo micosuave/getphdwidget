@@ -281,7 +281,7 @@ var wraptail = ckender;
                                  roarevent.styleClass = 'Applicant';
                                  roarevent.content = wraphead + apptemplate + wraptail;
                                  roarevent.data = wraphead + apptemplate + wraptail;
-                                 
+                                 phd.content += apptemplate; 
                                  
                              }
                          });
@@ -290,6 +290,7 @@ var wraptail = ckender;
                                  roarevent.styleClass = 'PTO';
                                  roarevent.content = wraphead + ptotemplate + wraptail;
                                  roarevent.data = wraphead + ptotemplate + wraptail;
+                                    phd.content += ptotemplate;
                              }
                          });
                          angular.forEach(INTVDOCCODES, function(code, key) {
@@ -297,13 +298,15 @@ var wraptail = ckender;
                                  roarevent.styleClass = 'Interview';
                                  roarevent.content = wraphead + interviewtemplate + wraptail;
                                  roarevent.data = wraphead + interviewtemplate + wraptail;
-                             }
+                                    phd.content += invterviewtemplate; 
+                            }
                          });
                          angular.forEach(NOADOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'NOA';
                                  roarevent.content = wraphead + noatemplate + wraptail;
                                  roarevent.data = wraphead + noatemplate + wraptail;
+                                    phd.content += noatemplate;
                              }
                          });
                          angular.forEach(PETDOCCODES, function(code, key) {
@@ -311,6 +314,7 @@ var wraptail = ckender;
                                  roarevent.styleClass = 'Petition';
                                  roarevent.content = wraphead + petitiontemplate + wraptail;
                                  roarevent.data = wraphead + petitiontemplate + wraptail;
+                                    phd.content += petitiontemplate;
                              }
                          });
                          
@@ -339,7 +343,7 @@ var wraptail = ckender;
                                   //alertify.success('text file added for' + roarevent.title);
                                  var d = filename.slice(0,filename.lastIndexOf('-'));
                                  var refr = Collection(d).$ref();
-                                 phd.content += roarevent.content; 
+                                 
                                   refr.set(roarevent).then(function(ref) {
                                         var id = d;
 

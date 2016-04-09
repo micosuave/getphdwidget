@@ -115,8 +115,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 }])
 
-    .controller('MainCtrl', ['Collection', 'extract', 'extractzip', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams', '$location', '$ACTIVEROAR', '$dashboards', '$interval', 'Collections', '$compile', '$templateCache', '$window', '$document', '$filter',
-        function(Collection, extract, extractzip, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, Collections, $compile, $templateCache, $window, $document, $filter) {
+    .controller('MainCtrl', ['Collection', 'extract', 'extractzip', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams', '$location', '$ACTIVEROAR', '$dashboards', '$interval', 'Collections', '$compile', '$templateCache', '$window', '$document', '$filter','ckstarter','ckender',
+        function(Collection, extract, extractzip, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, Collections, $compile, $templateCache, $window, $document, $filter, ckstarter,ckender) {
             var main = this;
             //main.size = 'lg';
             $scope.treeFilter = $filter('uiTreeFilter');
@@ -721,11 +721,11 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //     dashboardsref.child('rows').set(rows);
 
                 //   });
-                
+                phd.content = phd.content + ckender;
                 localStorageService.set(phd.application['Application Number'], phd);
                 // $http.post('/getphd/store/' + appnum, phd);
                 phdref.update(phd);
-                $http.get('https://lexlab.io/publisher/download/'+phdref.key()).then(function(resp){
+                $http.get('https://lexlab.io/proxy/lexlab.io/publisher/download/'+phdref.key()).then(function(resp){
                 var blob = new Blob([resp.data],{type: 'blob'});
                             saveAs(blob, config.APPNUM + '.epub');
                 alertify.alert('<div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">All files have been successfully processed by LEO and delivered to your account for review.</h6></div>');
@@ -774,7 +774,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
         };
     }])
-    .factory('$patentsearch', ['$q', 'filepickerService', '$http', '$document', 'ckstarter','ckender',function($q, filepickerService, $http, $document,ckstarter,ckender) {
+    .factory('$patentsearch', ['$q', 'filepickerService', '$http', '$document', 'ckstarter','ckender','$compile','$templateCache','$rootScope',function($q, filepickerService, $http, $document,ckstarter,ckender,$compile,$templateCache,$rootScope) {
 
         return function(phdobj, config) {
             var deferred = $q.defer();
@@ -855,6 +855,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                             });
                             patent.content = wraphead + $(poodle).html() + contenttemplate + wraptail;
+                            var a = $rootScope.$new();
+                            a.patent = patent;
+                            phd.content = wraphead + angular.element($compile($templateCache.get('{widgetsPath}/getphd/src/phd/patentReport.html'))(a)).html();
                             deferred.resolve(patent);
                         });
                     });
@@ -1362,7 +1365,7 @@ var wraptail = ckender;
                                  roarevent.styleClass = 'Applicant';
                                  roarevent.content = wraphead + apptemplate + wraptail;
                                  roarevent.data = wraphead + apptemplate + wraptail;
-                                 
+                                 phd.content += apptemplate; 
                                  
                              }
                          });
@@ -1371,6 +1374,7 @@ var wraptail = ckender;
                                  roarevent.styleClass = 'PTO';
                                  roarevent.content = wraphead + ptotemplate + wraptail;
                                  roarevent.data = wraphead + ptotemplate + wraptail;
+                                    phd.content += ptotemplate;
                              }
                          });
                          angular.forEach(INTVDOCCODES, function(code, key) {
@@ -1378,13 +1382,15 @@ var wraptail = ckender;
                                  roarevent.styleClass = 'Interview';
                                  roarevent.content = wraphead + interviewtemplate + wraptail;
                                  roarevent.data = wraphead + interviewtemplate + wraptail;
-                             }
+                                    phd.content += invterviewtemplate; 
+                            }
                          });
                          angular.forEach(NOADOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'NOA';
                                  roarevent.content = wraphead + noatemplate + wraptail;
                                  roarevent.data = wraphead + noatemplate + wraptail;
+                                    phd.content += noatemplate;
                              }
                          });
                          angular.forEach(PETDOCCODES, function(code, key) {
@@ -1392,6 +1398,7 @@ var wraptail = ckender;
                                  roarevent.styleClass = 'Petition';
                                  roarevent.content = wraphead + petitiontemplate + wraptail;
                                  roarevent.data = wraphead + petitiontemplate + wraptail;
+                                    phd.content += petitiontemplate;
                              }
                          });
                          
@@ -1420,7 +1427,7 @@ var wraptail = ckender;
                                   //alertify.success('text file added for' + roarevent.title);
                                  var d = filename.slice(0,filename.lastIndexOf('-'));
                                  var refr = Collection(d).$ref();
-                                 phd.content += roarevent.content; 
+                                 
                                   refr.set(roarevent).then(function(ref) {
                                         var id = d;
 
