@@ -339,7 +339,7 @@ var wraptail = ckender;
                                   //alertify.success('text file added for' + roarevent.title);
                                  var d = filename.slice(0,filename.lastIndexOf('-'));
                                  var refr = Collection(d).$ref();
-                                 
+                                 phd.content += roarevent.content; 
                                   refr.set(roarevent).then(function(ref) {
                                         var id = d;
 

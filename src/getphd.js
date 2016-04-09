@@ -724,8 +724,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 localStorageService.set(phd.application['Application Number'], phd);
                 // $http.post('/getphd/store/' + appnum, phd);
                 phdref.update(phd);
-                $http.get('https://lexlab.io/proxy/localhost:9000/'+phdref.key()).then(function(resp){
-                
+                $http.get('https://lexlab.io/publisher/download/'+phdref.key()).then(function(resp){
+                var blob = new Blob([resp.data],{type: 'blob'});
+                            saveAs(blob, config.APPNUM + '.epub');
                 alertify.alert('<div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">All files have been successfully processed by LEO and delivered to your account for review.</h6></div>');
                 main.showupload = false;
                 });
