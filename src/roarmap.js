@@ -298,7 +298,7 @@ var wraptail = ckender;
                                  roarevent.styleClass = 'Interview';
                                  roarevent.content = wraphead + interviewtemplate + wraptail;
                                  roarevent.data = wraphead + interviewtemplate + wraptail;
-                                    phd.content += invterviewtemplate; 
+                                    phd.content += interviewtemplate; 
                             }
                          });
                          angular.forEach(NOADOCCODES, function(code, key) {

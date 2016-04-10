@@ -2,67 +2,66 @@
     <div class="row">
         <div class="col-xs-4 col-sm-3 col-1">
             <div class="card">
-                <img ng-src="/patents/US{{patent.id}}/preview" class="img img-responsive img-shadow"/>
+                <img ng-src="/patents/US{{patent.id || '7654321'}}/preview" class="img img-responsive img-shadow"/>
                 <div class="card-block">
-                    <h2 class="card-title text-NOA">US <strong ng-bind="patent.id | number:0"></strong><small ng-bind="new Date(patent.issued)|date"></small></h2>
+                    <h2 class="card-title text-NOA">US <strong ng-bind="patent.id | number:0">1,234,567</strong><small ng-bind="patent.issued|date"></small></h2>
                     <div class="row">
                         <em>
-                        <label class="pull-left" ng-bind="patent.application_number"></label>
+                        <label ng-bind="patent.application_number">12/345,678</label>
                         </em>
                     </div>
-                    <p ng-bind="patent.description" class="card-text" style="text-align:justify;"></p>
-                    <p class="card-text" >Do nulla id sint reprehenderit esse. Quis sunt duis consequat sit sint duis officia veniam qui. Occaecat ipsum esse officia qui et reprehenderit tempor. Aliqua officia qui occaecat veniam commodo esse magna fugiat reprehenderit duis. Adipisicing laborum ex commodo velit.</p>
+                    <p ng-bind="patent.description" class="card-text" style="text-align:justify;">Do nulla id sint reprehenderit esse. Quis sunt duis consequat sit sint duis officia veniam qui. Occaecat ipsum esse officia qui et reprehenderit tempor. Aliqua officia qui occaecat veniam commodo esse magna fugiat reprehenderit duis. Adipisicing laborum ex commodo velit.</p>
                     </div>
                     </div>
                     </div>
         <div class="card col-xs-8 col-sm-9">
-             <div class="panel panel-default">
-                <uib-tabset class="panel-heading">
-                                        <uib-tab heading="Abstract">
+             <div class="">
+                <uib-tabset class="panel panel-default">
+                                        <uib-tab class="panel-heading" heading="Abstract">
 
             <div class="bs-callout bs-callout-reverse bs-callout-NOA">
                 <h4 ng-bind="patent.title">Reprehenderit aute proident cupidatat exercitation officia incididunt culpa ullamco.</h4>
                 <p ng-bind="patent.abstract">Culpa enim minim amet proident sunt aliqua ex irure ex sunt eiusmod ut consectetur. Minim esse in tempor reprehenderit esse cupidatat adipisicing ipsum eiusmod. Ea commodo nisi enim esse et ut. Minim laborum irure eiusmod Lorem consequat duis labore deserunt ullamco velit enim ut. Aliquip tempor non amet aliqua cillum sit amet commodo aliqua sint nisi. Fugiat ex irure qui et in qui velit commodo ipsum. Non cupidatat laboris culpa ipsum culpa velit.</p>
                 </div>
                 </uib-tab>
-                <uib-tab>                      <uib-tab-heading>Drawings <label class="badge">{{patent.drawings.length}}</label></uib-tab-heading>
+                <uib-tab class="panel-heading">                      <uib-tab-heading>Drawings <label class="badge">{{patent.drawings.length}}</label></uib-tab-heading>
 
                 <div class="row showscroll" style="margin: 5px 5px;overflow-x:scroll;">
                     <a ng-repeat="link in patent.drawings"  ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{patent.thumbnails[$index]}}" class="img img-shadow"/></a>
                     </div>
                 
               </uib-tab>
-                    <uib-tab heading="Description">
+                    <uib-tab class="panel-heading" heading="Description">
                 <div class="card card-block card-fancy draft-fancy small-text" style="text-size: 11px!important;" ng-bind-html="patent.text | trustAsHTML">
                 </div>
                     </uib-tab>
-                    <uib-tab >
+                    <uib-tab class="panel-heading">
                         <uib-tab-heading>Claims <label class="badge">{{patent.claim_total}}</label></uib-tab-heading>
                         <div class="container">
 
                         <div class="col-sm-6">                        
-                        <d3pendingtree patent="{{patent.id}}" pattern="{{query}}" tree="tree"></d3pendingtree>
+                        <d3pendingtree patent="{{patent.id}}" pattern="{{query || ''}}" tree="tree"></d3pendingtree>
                            <input id="patterninput" class="" ng-model="query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
                 <!--<a style="position:absolute;right:0;top:4;" class="btn fa fa-close" ng-click="config.query = null"></a>-->
                
                 <div class="col-sm-3">
             <ul class="list-unstyled">
-                <li>
+                <!--<li>
                     <input type="checkbox" ng-model="highlight">
                     <small> Highlight exact matches</small>
-                </li>
+                </li>-->
                 <li>
                     <input type="checkbox" ng-model="dim"> <small>Dim non-matches</small>
                 </li>
             </ul>
         </div>
         <div class="col-sm-3">
-            <ul class="list-unstyled">
+            <!--<ul class="list-unstyled">
                 <li ng-repeat="field in availableFields">
                     <input type="checkbox" ng-click="toggleSupport(field)" ng-checked="supportedFields.indexOf(field) > -1">
                     <small>Match <code>{{ field }}</code></small>
                 </li>
-            </ul>
+            </ul>-->
         </div>
                 </div>
                 <div class="col-sm-6">
@@ -96,20 +95,20 @@
                     
                 </div>   
                     </uib-tab>
-                    <uib-tab heading="File History">
+                    <uib-tab class="panel-heading" heading="File History">
                         
                         <roargrid application="{{patent.application_number | strip}}" patent="{{patent.id}}"></roargrid>
                         
                     </uib-tab>
-                    <uib-tab heading="Citations">
-                        <table class="table table-responsive table-stripped table=condensed table-hover">
+                    <uib-tab class="panel-heading" heading="Citations">
+                        <table class="table table-responsive table-stripped table-condensed table-hover">
                             <thead>
                                 
                             </thead>
                             <tbody>
                                 <tr ng-repeat="citation in patent.references">
-                                    <label class="badge label label-NOA">{{citation}}</label>
-                                    <patent-citation patent="{{citation | strip}}"></patent-citation>
+                                    <td><label class="badge label label-NOA">{{citation}}</label></td>
+                                    <td><patent-citation patent="{{citation | strip}}"></patent-citation></td>
                                 </tr>
                             </tbody>
                         </table>

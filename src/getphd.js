@@ -485,7 +485,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                 //$log.info('TSV Parsed', parsedfiles);
                                 alertify.log('TSV Parsed');
                                 //alertify.log('Building ROARmap...');
-                                $patentsearch(main.phd.application, config)
+                                $patentsearch(main.phd, config)
                                     .then(function(patentobj) {
                                         main.phd.patent = patentobj;
                                         $roarmap(parsedfiles, main.phd, main)
@@ -786,7 +786,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             return deferred.promise;
 
             function searchforpatent(phdobj, pnum) {
-                var patentnumber = pnum || angular.copy(phdobj['Patent Number']).replace(',', '').replace(',', '');
+                var patentnumber = pnum || angular.copy(phdobj.application['Patent Number']).replace(',', '').replace(',', '');
                 //var applicationnumber = phdobj['Appliction Number'];
                 var pdfstorageuri = 'https://patentimages.storage.googleapis.com/pdfs/US' + patentnumber + '.pdf';
 
@@ -824,15 +824,15 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             patent.number = patentnumber;
                             patent.media = Blob.url;
                             patent.filename = 'US' + patentnumber + '.pdf';
-                            patent.title = phdobj['Title of Invention'] || null;
+                            //patent.title = phdobj['Title of Invention'] || null;
 
                             patent.google = 'https://www.google.com/patents/US' + patentnumber;
                             patent.rid = 'P1';
-                            if (phdobj['Issue Date of Patent'] !== '-') { patent.date = phdobj['Issue Date of Patent']; } else { patent.date = '1899-12-31'; }
+                            //if (phdobj['Issue Date of Patent'] !== '-') { patent.date = phdobj['Issue Date of Patent']; } else { patent.date = '1899-12-31'; }
                             patent.styleClass = 'NOA';
                             patent.name = 'US' + patentnumber;
-                            patent.description = phdobj['Title of Invention'];
-                            var maildate = new Date(patent.date);
+                            //patent.description = phdobj['Title of Invention'];
+                            var maildate = new Date(patent.issued);
                             var roardate = maildate.toDateString();
                             var noatemplate = '<div class="container-fluid two-col-left">' +
                                 '<div class="row two-col-left">' +
@@ -856,7 +856,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             patent.content = wraphead + $(poodle).html() + contenttemplate + wraptail;
                             var a = $rootScope.$new();
                             a.patent = patent;
-                            phdobj.content = wraphead + angular.element($compile($templateCache.get('{widgetsPath}/getphd/src/phd/patentReport.html'))(a)).html();
+                            phdobj.content = wraphead + $(angular.element($compile($templateCache.get('{widgetsPath}/getphd/src/phd/patentReport.html'))(a))).html();
                             deferred.resolve(patent);
                         });
                     });
