@@ -691,7 +691,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //   rid: 'PHD'
                 // });
                 phd.appnum = appnum;
-                phd.media = 'https://lexlab.io/files/public/uspto/index#?app=' + appnum;
+                phd.media = 'https://lexlab.io/patents/US' + appnum+'/preview';
                 phd.title = 'PhD for ' + (phd.patent.number || phd.application['Patent Number']);
                 phd.description = 'USSN ' + phd.application['Application Number'];
                 phd.styleClass = 'Applicant';
