@@ -1416,7 +1416,7 @@ var wraptail = ckender;
                         //  roarevent.content = wraphead + '<doc-header roarid="' + de + '" roarevent="roarevent"></doc-header>' + wraptail + appfunction(roarevent, phd.imagefile,main,phd);
                         //  roarevent.data = wraphead + '<doc-header roarid="' + de + '" roarevent="roarevent"></doc-header>' + wraptail + appfunction(roarevent, phd.imagefile,main,phd);
                         //  phd.content += '<doc-header roarid="' + de + '" roarevent="roarevent"></doc-header>';
-                        //  var d = new Date();
+                         var d = new Date();
                         var n = d.getTime();
                           roarevent.rows= [
                               {columns:[
