@@ -1819,8 +1819,8 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
          return {
            restrict:'EA',
            scope:{
-               roarevent: '=',
-               roarid: '@'
+               roarevent: '='
+              
            },
            template:'<div class="container-fluid two-col-right"><div class="row"><div class="col-xs-8"><div class="bs-callout bs-callout-{{roarevent.styleClass}}"><h4>{{roarevent.title}}</h4><p>Filed {{roardate()}}</p><cite>{{roarevent.filename}}&nbsp;&nbsp;<a href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div><div class="col-xs-4"><iframe name="fframe" id="fframe" style="width:350px;height:480px;" ng-src="https://placehold.it/350x480/{{background() ||"4682b4"}}/fff/&text="{{roarevent.rid}}" class="img img-responsive img-shadow"><img src="https://placehold.it/350x480/{{background()||\'4682b4\'}}/fff/&text={{roarevent.rid}}" class="img img-responsive img-shadow"/></iframe></div></div></div><div getpdftext ng-repeat="page in pages" class="card card-block"><p ng-bind-html="page | trustASHTML"></p><footer><p>{{$index}}</p></footer></div>',
            //controller:'ROARCtrl',
@@ -1847,7 +1847,7 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
                 $scope.background = background;
                 var background = function(){
                     var template;
-                    var styleClass = roarevent.styleClass;
+                    var styleClass = roarevent.$loaded().styleClass;
                     switch (styleClass){
                         case 'Applicant':
                         template = '4682b4';
