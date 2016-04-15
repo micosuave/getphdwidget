@@ -328,7 +328,7 @@ var wraptail = ckender;
                                  var refr = Collection(de).$ref();
                                  
                                   refr.set(roarevent).then(function(ref) {
-                                        var id = d;
+                                        var id = de;
 
                                         refr.update({
                                             id: id,
