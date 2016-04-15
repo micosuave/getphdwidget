@@ -243,15 +243,15 @@
                        var appfunction = function(roarevent, roarevents, controller, phd){
                           
                            
-                           var template = '<script>app.controller("AppCtrl", function($scope, $compile,$templateCache, $http, Collection,$window,$document,$location){var app = this;'+
-                                    'app = ' + controller + ';' +
-                                    'app.patent = ' + phd.patent + ';' +
-                                    'app.roarevent = ' + roarevent +  ';' +
-                                    'app.phd = ' + phd + ';' +
-                                    'console.log(' + controller + ');' +
-                                    'console.log(' + phd.patent + ');' +
-                                    'console.log(' + roarevent +  ');' +
-                                    'console.log(' + phd + ');' +
+                           var template = '<script>var app = angular.module("ckapp").controller("AppCtrl", ["$scope", "$compile","$templateCache", "$http", "Collection","$window","$document","$location",function($scope, $compile,$templateCache, $http, Collection,$window,$document,$location){var app = this;'+
+                                    'app = ' + controller() + ';' +
+                                    'app.patent = ' + phd().patent + ';' +
+                                    'app.roarevent = ' + roarevent() +  ';' +
+                                    'app.phd = ' + phd() + ';' +
+                                    'console.log(' + controller() + ');' +
+                                    'console.log(' + phd.patent() + ');' +
+                                    'console.log(' + roarevent() +  ');' +
+                                    'console.log(' + phd() + ');' +
                                     '});</script>';
                                 return template;
                             };
@@ -747,12 +747,12 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
                 if(roarid){
                     var roarevent = Collection(roarid);
                     roarevent.$bindTo($scope, 'roarevent');
-                }
+                
                 
                 $scope.roardate = roardate;
                 
                 var roardate = function(){
-                         var roarevent = $scope.roarevent;
+                         var roarevent = roarevent;
                          var maildate = new Date(roarevent['Mail Room Date']);
                         //  var mailyear = maildate.getFullYear();
                         //  var mailmonth = maildate.getMonth();
@@ -763,7 +763,7 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
                 $scope.background = background;
                 var background = function(){
                     var template;
-                    var styleClass = $scope.roarevent.styleClass;
+                    var styleClass = roarevent.styleClass;
                     switch (styleClass){
                         case 'Applicant':
                         template = '4682b4';
@@ -784,7 +784,7 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
                     
                     return template;
                 }    
-           }  
+           }  }
              
          };
          
