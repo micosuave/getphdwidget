@@ -203,7 +203,8 @@
                          var appdatesubstring = filename.slice((filename.indexOf("-") + 1), (filename.indexOf("-") + 11));
                          var doccode = filename.slice((filename.lastIndexOf("-") + 1), (filename.indexOf(".pdf")));
                          roarevent.content_type = 'document';
-                         
+                        var de = filename.slice(0,filename.lastIndexOf('-'));
+                        roarevent.id = de;
                          if ($location.host() === 'localhost') {
                         
                            roarevent.ocrlink = '/ocr/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
@@ -239,85 +240,68 @@
                          });
                      
                        
-                       
+                       var appfunction = function(roarevent, roarevents, controller, phd){
+                          
+                           
+                           var template = '<script>app.controller("AppCtrl", function($scope, $compile,$templateCache, $http, Collection,$window,$document,$location){var app = this;'+
+                                    'app = ' + controller + ';' +
+                                    'app.patent = ' + phd.patent + ';' +
+                                    'app.roarevent = ' + roarevent +  ';' +
+                                    'app.phd = ' + phd + ';' +
+                                    'console.log(' + controller + ');' +
+                                    'console.log(' + phd.patent + ');' +
+                                    'console.log(' + roarevent +  ');' +
+                                    'console.log(' + phd + ');' +
+                                    '});</script>';
+                                return template;
+                            };
                        
                         var wraphead = ckstarter;
 var wraptail = ckender;
-                        var apptemplate =  '<div class="container-fluid two-col-right">' +
-            '<div class="row">' +
-            '<div class="col-xs-9"><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
-            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/4682b4/fff/&text='+ roarevent.rid + '" class="img img-responsive img-shadow"/></p></div>' +
-            '</div>' +
-            '</div><p>&nbsp;</p>';
-                     var ptotemplate = '<div class="container-fluid two-col-left">' +
-            '<div class="row">' +
-            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/640002/fff/&text='+ roarevent.rid + '" class="img img-responsive img-shadow"/></p></div>' +
-            '<div class="col-xs-9"><div class="bs-callout bs-callout-PTO bs-callout-reverse"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
-            '</div>' +
-            '</div><p>&nbsp;</p>';
-                    var noatemplate = '<div class="container-fluid two-col-left">' +
-            '<div class="row">' +
-            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/7c994f/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
-            '<div class="col-xs-9"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
-            '</div>' +
-            '</div><p>&nbsp;</p>';
-                    var petitiontemplate = '<div class="container-fluid two-col-right">' +
-            '<div class="row">' +
-            '<div class="col-xs-9"><div class="bs-callout bs-callout-Petition"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
-            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
-            '</div>' +
-            '</div><p>&nbsp;</p>';
-             var interviewtemplate = '<div class="container-fluid two-col-right">' +
-            '<div class="row">' +
-            '<div class="col-xs-9"><div class="bs-callout bs-callout-Interview"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
-            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
-            '</div>' +
-            '</div><p>&nbsp;</p>';
-            
-                   
+                        
                      
                          angular.forEach(APPDOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'Applicant';
-                                 roarevent.content = wraphead + apptemplate + wraptail;
-                                 roarevent.data = wraphead + apptemplate + wraptail;
-                                 phd.content += apptemplate; 
+                                // f
                                  
                              }
                          });
                          angular.forEach(PTODOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'PTO';
-                                 roarevent.content = wraphead + ptotemplate + wraptail;
-                                 roarevent.data = wraphead + ptotemplate + wraptail;
-                                    phd.content += ptotemplate;
+                                //  roarevent.content = wraphead + ptotemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
+                                //  roarevent.data = wraphead + ptotemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
+                                //     phd.content += ptotemplate;
                              }
                          });
                          angular.forEach(INTVDOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'Interview';
-                                 roarevent.content = wraphead + interviewtemplate + wraptail;
-                                 roarevent.data = wraphead + interviewtemplate + wraptail;
-                                    phd.content += interviewtemplate; 
+                                //  roarevent.content = wraphead + interviewtemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
+                                //  roarevent.data = wraphead + interviewtemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
+                                //     phd.content += interviewtemplate; 
                             }
                          });
                          angular.forEach(NOADOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'NOA';
-                                 roarevent.content = wraphead + noatemplate + wraptail;
-                                 roarevent.data = wraphead + noatemplate + wraptail;
-                                    phd.content += noatemplate;
+                                //  roarevent.content = wraphead + noatemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
+                                //  roarevent.data = wraphead + noatemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
+                                //     phd.content += noatemplate;
                              }
                          });
                          angular.forEach(PETDOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'Petition';
-                                 roarevent.content = wraphead + petitiontemplate + wraptail;
-                                 roarevent.data = wraphead + petitiontemplate + wraptail;
-                                    phd.content += petitiontemplate;
+                                //  roarevent.content = wraphead + petitiontemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
+                                //  roarevent.data = wraphead + petitiontemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
+                                //     phd.content += petitiontemplate;
                              }
                          });
-                         
+                         roarevent.content = wraphead + '<doc-header roarid="' + de + '" roarevent="roarevent"></doc-header>' + wraptail + appfunction(roarevent, phd.imagefile,main,phd);
+                         roarevent.data = wraphead + '<doc-header roarid="' + de + '" roarevent="roarevent"></doc-header>' + wraptail + appfunction(roarevent, phd.imagefile,main,phd);
+                         phd.content += '<doc-header roarid="' + de + '" roarevent="roarevent"></doc-header>';
                          var d = new Date();
                         var n = d.getTime();
                           roarevent.rows= [
@@ -341,8 +325,7 @@ var wraptail = ckender;
                           //         roarevent.txt = new_Blob.url;
                                   
                                   //alertify.success('text file added for' + roarevent.title);
-                                 var d = filename.slice(0,filename.lastIndexOf('-'));
-                                 var refr = Collection(d).$ref();
+                                 var refr = Collection(de).$ref();
                                  
                                   refr.set(roarevent).then(function(ref) {
                                         var id = d;
@@ -748,4 +731,93 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
             if (input && angular.isString(input)){var output = input.replace(regex, '');}
             return output;  
          };
-     });
+     }).directive('docHeader',['$window','$document','$compile','$templateCache','Collection', function($window,$document,$compile,$templateCache,Collection){
+         return {
+           restrict:'EA',
+           scope:{
+               roarevent: '=',
+               roarid: '@'
+           },
+           template:'<div class="container-fluid two-col-right"><div class="row"><div class="col-xs-8"><div class="bs-callout bs-callout-{{roarevent.styleClass}}"><h4>{{roarevent.title}}</h4><p>Filed {{roardate()}}</p><cite>{{roarevent.filename}}&nbsp;&nbsp;<a href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div><div class="col-xs-4"><iframe name="fframe" id="fframe" style="width:350px;height:480px;" ng-src="https://placehold.it/350x480/{{background() ||"4682b4"}}/fff/&text="{{roarevent.rid}}" class="img img-responsive img-shadow"><img src="https://placehold.it/350x480/{{background()||\'4682b4\'}}/fff/&text={{roarevent.rid}}" class="img img-responsive img-shadow"/></iframe></div></div></div><div getpdftext ng-repeat="page in pages" class="card card-block"><p ng-bind-html="page | trustASHTML"></p><footer><p>{{$index}}</p></footer></div>',
+           //controller:'ROARCtrl',
+           //controllerAs:'roarevent',
+           //bindToController: true,
+           link: function($scope,$element,$attrs,$ctrl){
+                var roarid = $attrs.roarid;
+                if(roarid){
+                    var roarevent = Collection(roarid);
+                    roarevent.$bindTo($scope, 'roarevent');
+                }
+                
+                $scope.roardate = roardate;
+                
+                var roardate = function(){
+                         var roarevent = $scope.roarevent;
+                         var maildate = new Date(roarevent['Mail Room Date']);
+                        //  var mailyear = maildate.getFullYear();
+                        //  var mailmonth = maildate.getMonth();
+                        //  var mailday = maildate.getDate();
+                         var roardate = maildate.toDateString();
+                         
+                };
+                $scope.background = background;
+                var background = function(){
+                    var template;
+                    var styleClass = $scope.roarevent.styleClass;
+                    switch (styleClass){
+                        case 'Applicant':
+                        template = '4682b4';
+                        break;
+                    case 'PTO':
+                        template = '640002';
+                        break;
+                    case 'Petition':
+                        template = 'b48200';
+                        break;
+                    case 'Interview':
+                        template = null;
+                        break;
+                    case 'NOA':
+                        template = '7c994f';
+                        break;
+                    }
+                    
+                    return template;
+                }    
+           }  
+             
+         };
+         
+     }]);
+
+                /*var apptemplate =  '<div class="container-fluid two-col-right">' +
+            '<div class="row">' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-4"><iframe name="fframe" id="fframe" style="width:350px;height:480px;" src="https://placehold.it/350x480/4682b4/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"><img src="https://placehold.it/350x480/4682b4/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></iframe></div>' +
+            '</div>' +
+            '</div><p>&nbsp;</p>';
+                     var ptotemplate = '<div class="container-fluid two-col-left">' +
+            '<div class="row">' +
+            '<div class="col-xs-4"><iframe name="fframe" id="fframe" style="width:350px;height:480px;" src="https://placehold.it/350x480/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"><img src="https://placehold.it/350x480/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></iframe><p><img src="https://placehold.it/250x208/640002/fff/&text='+ roarevent.rid + '" class="img img-responsive img-shadow"/></p></div>' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-PTO bs-callout-reverse"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '</div>' +
+            '</div><p>&nbsp;</p>';
+                    var noatemplate = '<div class="container-fluid two-col-left">' +
+            '<div class="row">' +
+            '<div class="col-xs-4"><iframe name="fframe" id="fframe" style="width:350px;height:480px;" src="https://placehold.it/350x480/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"><img src="https://placehold.it/350x480/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></iframe><p><img src="https://placehold.it/250x208/7c994f/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '</div>' +
+            '</div><p>&nbsp;</p>';
+                    var petitiontemplate = '<div class="container-fluid two-col-right">' +
+            '<div class="row">' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-Petition"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-4"><iframe name="fframe" id="fframe" style="width:350px;height:480px;" src="https://placehold.it/350x480/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"><img src="https://placehold.it/350x480/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></iframe></div>' +
+            '</div>' +
+            '</div><p>&nbsp;</p>';
+             var interviewtemplate = '<div class="container-fluid two-col-right">' +
+            '<div class="row">' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-Interview"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-4"><iframe name="fframe" id="fframe" style="width:350px;height:480px;" src="https://placehold.it/350x480/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"><img src="https://placehold.it/350x480/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></iframe><p><img src="https://placehold.it/250x208/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
+            '</div>' +
+            '</div><p>&nbsp;</p>';
+            */
