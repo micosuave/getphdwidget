@@ -293,39 +293,51 @@ var wraptail = ckender;
                          angular.forEach(APPDOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'Applicant';
-                                // f
+                                roarevent.content = wraphead + apptemplate + wraptail;
+                                //+ appfunction(roarevent, phd.imagefile, main, phd);
+                                  roarevent.data = wraphead + apptemplate + wraptail;
+                                  //+ appfunction(roarevent, phd.imagefile, main, phd);
+                                     phd.content += ptotemplate;
                                  
                              }
                          });
                          angular.forEach(PTODOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'PTO';
-                                  roarevent.content = wraphead + ptotemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
-                                  roarevent.data = wraphead + ptotemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
+                                  roarevent.content = wraphead + ptotemplate + wraptail;
+                                  //+ appfunction(roarevent, phd.imagefile, main, phd);
+                                  roarevent.data = wraphead + ptotemplate + wraptail;
+                                  //+ appfunction(roarevent, phd.imagefile, main, phd);
                                      phd.content += ptotemplate;
                              }
                          });
                          angular.forEach(INTVDOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'Interview';
-                                 roarevent.content = wraphead + interviewtemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
-                                 roarevent.data = wraphead + interviewtemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
+                                 roarevent.content = wraphead + interviewtemplate + wraptail;
+                                 //+ appfunction(roarevent, phd.imagefile, main, phd);
+                                 roarevent.data = wraphead + interviewtemplate + wraptail;
+                                 //+ appfunction(roarevent, phd.imagefile, main, phd);
                                     phd.content += interviewtemplate; 
                             }
                          });
                          angular.forEach(NOADOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'NOA';
-                                 roarevent.content = wraphead + noatemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
-                                 roarevent.data = wraphead + noatemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
+                                 roarevent.content = wraphead + noatemplate + wraptail;
+                                 //+ appfunction(roarevent, phd.imagefile, main, phd);
+                                 roarevent.data = wraphead + noatemplate + wraptail;
+                                 //+ appfunction(roarevent, phd.imagefile, main, phd);
                                     phd.content += noatemplate;
                              }
                          });
                          angular.forEach(PETDOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'Petition';
-                                 roarevent.content = wraphead + petitiontemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
-                                 roarevent.data = wraphead + petitiontemplate + wraptail+ appfunction(roarevent, phd.imagefile, main, phd);
+                                 roarevent.content = wraphead + petitiontemplate + wraptail;
+                                 //+ appfunction(roarevent, phd.imagefile, main, phd);
+                                 roarevent.data = wraphead + petitiontemplate + wraptail;
+                                 //+ appfunction(roarevent, phd.imagefile, main, phd);
                                     phd.content += petitiontemplate;
                              }
                          });
@@ -672,32 +684,32 @@ var wraptail = ckender;
 var frametemplate = 'http://localhost:3000/patents/US' + patent;
                         var apptemplate =  '<div class="container-fluid two-col-right">' +
             '<div class="row">' +
-            '<div id="col-xs-9" class="col-xs-9" ><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite>'+ roarevent.plaintext + '</div></div>' +
-            '<div id="col-xs-3" class="col-xs-3"  onmouseenter="$(\'#col-xs-9\').toggleClass(\'col-xs-9 col-xs-3\');$(\'#col-xs-3\').toggleClass(\'col-xs-9 col-xs-3\')"><p><iframe name="fframe" src="' + frametemplate +  '" class="img img-responsive img-shadow" style="background-image:url('+old+');"></iframe></p></div>' + 
+            '<div id="col-xs-4" class="col-xs-9" ><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite>'+  '</div></div>' +
+            '<div id="col-xs-4" class="col-xs-3"  onmouseenter="$(\'#col-xs-9\').toggleClass(\'col-xs-9 col-xs-3\');$(\'#col-xs-3\').toggleClass(\'col-xs-9 col-xs-3\')"><p><iframe name="fframe" src="' + frametemplate +  '" class="img img-responsive img-shadow" style="background-image:url('+old+');"></iframe></p></div>' + 
             '</div>' +
             '</div><p>&nbsp;</p>';
                      var ptotemplate = '<div class="container-fluid two-col-left">' +
-            '<div class="row">' + card +
-            // '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/640002/fff/&text='+ roarevent.rid + '" class="img img-responsive img-shadow"/></p></div>' +
+            '<div class="row">' + 
+            '<div class="col-xs-4"><p><img src="https://placehold.it/250x208/640002/fff/&text='+ roarevent.rid + '" class="img img-responsive img-shadow"/></p></div>' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-PTO bs-callout-reverse"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
             '</div><p>&nbsp;</p>';
                     var noatemplate = '<div class="container-fluid two-col-left">' +
             '<div class="row">' +
-            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/7c994f/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
-            '<div class="col-xs-9"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-4"><p><img src="https://placehold.it/250x208/7c994f/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
             '</div><p>&nbsp;</p>';
                     var petitiontemplate = '<div class="container-fluid two-col-right">' +
             '<div class="row">' +
-            '<div class="col-xs-9"><div class="bs-callout bs-callout-Petition"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
-            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-Petition"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-4"><p><img src="https://placehold.it/250x208/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
             '</div>' +
             '</div><p>&nbsp;</p>';
              var interviewtemplate = '<div class="container-fluid two-col-right">' +
             '<div class="row">' +
-            '<div class="col-xs-9"><div class="bs-callout bs-callout-Interview"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
-            '<div class="col-xs-3"><p><img src="https://placehold.it/250x208/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-Interview"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-4"><p><img src="https://placehold.it/250x208/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
             '</div>' +
             '</div><p>&nbsp;</p>';
             
