@@ -1328,14 +1328,14 @@ angular.module('textSizeSlider', [])
                           
                            
                            var template = '<script>var app = angular.module("ckapp").controller("AppCtrl", ["$scope", "$compile","$templateCache", "$http", "Collection","$window","$document","$location",function($scope, $compile,$templateCache, $http, Collection,$window,$document,$location){var app = this;'+
-                                    'app = ' + controller() + ';' +
-                                    'app.patent = ' + phd().patent + ';' +
-                                    'app.roarevent = ' + roarevent() +  ';' +
-                                    'app.phd = ' + phd() + ';' +
-                                    'console.log(' + controller() + ');' +
-                                    'console.log(' + phd.patent() + ');' +
-                                    'console.log(' + roarevent() +  ');' +
-                                    'console.log(' + phd() + ');' +
+                                    'app = ' + controller + ';' +
+                                    'app.patent = ' + phd.patent + ';' +
+                                    'app.roarevent = ' + roarevent +  ';' +
+                                    'app.phd = ' + phd + ';' +
+                                    'console.log(' + controller + ');' +
+                                    'console.log(' + phd.patent + ');' +
+                                    'console.log(' + roarevent +  ');' +
+                                    'console.log(' + phd + ');' +
                                     '});</script>';
                                 return template;
                             };
