@@ -2031,11 +2031,12 @@ angular.module('llp.pdf', ['LocalStorageModule'])
 
 
     }])
-    .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http',
-        function(extract, $document, $window, $rootScope, $http) {
+    .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection',
+        function(extract, $document, $window, $rootScope, $http, Collection) {
             var linkfunction = function($scope, $element, $attr, $ctrl) {
                 $scope.pages = [];
-                
+                var id = $attr.pdfData.slice($attr.pdfData.lastIndexOf('/')+1,$attr.pdfData.lastIndexOf('-'));
+                var roarevent = Collection(id);
                 // $scope.keywords = '/(claim(s)?\s+\d+(\W(\s)?\d+)+)?(reject(ed)?(ion)?)?(10\d\(\D\))?/gi';
                 // $scope.matches = [];
 $http.get($attr.pdfData).then(function(resp){
@@ -2125,25 +2126,10 @@ function pageLoaded() {
                 var template = "</p><p class='card card-fancy draft-fancy'>";
                 var getPageText = function(page) {
                     //var sectionwrap = angular.element(template).appendTo($element);
-                    var viewport = page.getViewport(1);
                     page.getTextContent().then(function(textContent) {
-                         textContent.items.forEach(function (textItem) {
-    // we have to take in account viewport transform, which incudes scale,
-    // rotation and Y-axis flip, and not forgetting to flip text.
-    var tx = PDFJS.Util.transform(
-      PDFJS.Util.transform(viewport.transform, textItem.transform),
-      [1, 0, 0, -1, 0, 0]);
-    var style = textContent.styles[textItem.fontName];
-    // adding text element
-    var text = document.createElement('span');
-    text.setAttribute('style', 'transform:matrix(' + tx.join(' ') + ');font-family:'+ style.fontFamily);
-    text.text = textItem.str;
-                        
-                     var p = angular.element('<div class="card card-block"/>');
-                     p.append(text);   
-                        //console.log(textContent);
-                        // var section = '';
-                        // angular.forEach(textContent.items, function(o, key) {
+                        console.log(textContent);
+                        var section = '';
+                        angular.forEach(textContent.items, function(o, key) {
 
                             // var section = '';
                             
@@ -2153,11 +2139,11 @@ function pageLoaded() {
                             //     section = section + ' ' + i.str;
                             //     return section;
                             // });
-                            // section = section + ' ' + o.str;
+                            section = section + ' ' + o.str;
                            
 
-                        // });
-                        var string = $(p).html();
+                        });
+                        var string = section;
     // var regEx = $scope.keywords;
     // var re = new RegExp(regEx, "gi");
     // // for (var i=0; i<string.match(re).length; i++)
@@ -2194,7 +2180,6 @@ function pageLoaded() {
 
                         // });
                     });
-                });
                 };
                 // $document.on('mouseup', function(event) {
                 //     var a = $window.getSelection() || $document.getSelection();
@@ -2230,6 +2215,10 @@ function pageLoaded() {
                 // }
 
                 //   });
+var newcontent = $('<!DOCTYPE>').html();
+roarevent.content = newcontent;
+roarevent.pages = $scope.pages;
+roarevent.$save();
 });
             };
 
