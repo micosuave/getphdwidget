@@ -87,9 +87,11 @@ function buildSVG(viewport, textContent) {
     var style = textContent.styles[textItem.fontName];
     // adding text element
     var text = document.createElementNS(SVG_NS, 'svg:text');
+    tx[1]= 0;
+    tx[2]= 0;
     text.setAttribute('transform', 'matrix(' + tx.join(' ') + ')');
-    //text.setAttribute('font-family', style.fontFamily);
-    text.setAttribute('font-family', 'Helvetica');
+    text.setAttribute('font-family', style.fontFamily);
+    //text.setAttribute('font-family', 'Helvetica');
     text.textContent = textItem.str;
     svg.appendChild(text);
   });
@@ -163,7 +165,7 @@ function pageLoaded() {
                            
 
                         });
-                        var pss = section.split('. ');
+                        var pss = section.split('  ');
                         var string = section;
     // var regEx = $scope.keywords;
     // var re = new RegExp(regEx, "gi");
