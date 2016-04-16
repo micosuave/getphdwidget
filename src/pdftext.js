@@ -144,6 +144,7 @@ function pageLoaded() {
                 var template = "</p><p class='card card-fancy draft-fancy'>";
                 var getPageText = function(page) {
                     //var sectionwrap = angular.element(template).appendTo($element);
+                    var viewport = page.getViewport(1);
                     page.getTextContent().then(function(textContent) {
                          textContent.items.forEach(function (textItem) {
     // we have to take in account viewport transform, which incudes scale,

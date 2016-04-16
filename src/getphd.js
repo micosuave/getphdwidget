@@ -926,9 +926,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
                 $('.issuedocpanel').draggable({
                     stack: '.stacker',
-                    handle: 'img'
+                    handle: 'h4'
                 }).resizable();
-                $('#docheader').on('dblclick', function(e){
+                $('img').on('dblclick', function(e){
                     $('.issuedocpanel').remove();
                     $scope.$destroy();
                 });

@@ -927,9 +927,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
                 $('.issuedocpanel').draggable({
                     stack: '.stacker',
-                    handle: 'img'
+                    handle: 'h4'
                 }).resizable();
-                $('#docheader').on('dblclick', function(e){
+                $('img').on('dblclick', function(e){
                     $('.issuedocpanel').remove();
                     $scope.$destroy();
                 });
@@ -1462,12 +1462,12 @@ var wraptail = ckender;
                         var n = d.getTime();
                           roarevent.rows= [
                               {columns:[
-                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "90vh",url: roarevent.ocrlink || 'http://www.google.com'},styleClass:roarevent.styleClass || 'btn-dark',title:roarevent.title || 'title',type:'iframe',wid:n+100}]},
-                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},height:'90vh',styleClass:roarevent.styleClass||'btn-dark',title:roarevent.title || 'title',type:'ckwidget', wid:n+1010}]}
+                                  {cid:n+10,styleClass:'col-sm-4',widgets:[{config:{height: "90vh",url: roarevent.ocrlink || 'http://www.google.com'},styleClass:roarevent.styleClass || 'btn-dark',title:roarevent.title || 'title',type:'iframe',wid:n+100}]},
+                                  {cid:n+1000,styleClass:'col-sm-8',widgets:[{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:roarevent.title || 'title',type:'ckwidget', wid:n+1010}]}
                               ]}
                           ];
                           //roarevent.content = ckstarter + ckheader + ckender;
-                          roarevent.structure = "6-6";
+                          roarevent.structure = "4-8";
                           roarevent.isActive = false;
                          
 
@@ -2125,6 +2125,7 @@ function pageLoaded() {
                 var template = "</p><p class='card card-fancy draft-fancy'>";
                 var getPageText = function(page) {
                     //var sectionwrap = angular.element(template).appendTo($element);
+                    var viewport = page.getViewport(1);
                     page.getTextContent().then(function(textContent) {
                          textContent.items.forEach(function (textItem) {
     // we have to take in account viewport transform, which incudes scale,
