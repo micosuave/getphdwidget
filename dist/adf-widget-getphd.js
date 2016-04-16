@@ -2071,7 +2071,8 @@ function buildSVG(viewport, textContent) {
     // adding text element
     var text = document.createElementNS(SVG_NS, 'svg:text');
     text.setAttribute('transform', 'matrix(' + tx.join(' ') + ')');
-    text.setAttribute('font-family', style.fontFamily);
+    //text.setAttribute('font-family', style.fontFamily);
+    text.setAttribute('font-family', 'Helvetica');
     text.textContent = textItem.str;
     svg.appendChild(text);
   });
@@ -2145,6 +2146,7 @@ function pageLoaded() {
                            
 
                         });
+                        var pss = section.split('. ');
                         var string = section;
     // var regEx = $scope.keywords;
     // var re = new RegExp(regEx, "gi");
@@ -2155,8 +2157,8 @@ function pageLoaded() {
     //     });
         //string.match(re)[i], "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>");
     //$(sectionwrap).append(string);
-    $scope.pages.push(string);
-    roarref.child('pages').push(string);
+    $scope.pages.push(pss);
+    roarref.child('pages').push(pss);
     //}
                         
                         
@@ -2225,7 +2227,7 @@ function pageLoaded() {
             return {
 
                 restrict: "A",
-                template: '<pre ng-repeat="page in pages" ng-bind-html="page | highlight: keywords | trustAsHTML" class="card card-block"></pre>',
+                template: '<pre ng-repeat="page in pages" ng-bind-html="page | highlight: keywords | trustAsHTML" class="card card-block" style="line-height:1.5;font-size:14px;"></pre>',
                 //controller: "PDFFilesController",
                 //controllerAs: "pdff",
                 //bindToController: true,
