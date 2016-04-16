@@ -50,7 +50,7 @@ angular.module('llp.pdf', ['LocalStorageModule'])
 
 
     }])
-    .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection',
+    /*.directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection',
         function(extract, $document, $window, $rootScope, $http, Collection) {
             var linkfunction = function($scope, $element, $attr, $ctrl) {
                 $scope.pages = [];
@@ -247,20 +247,34 @@ function pageLoaded() {
                 //   });
 
 });
-            };
+            };*/
+            
+   .directive('getpdftext', ['$document','Collection','$window',function($document,Collection,$window){         
 
             return {
 
                 restrict: "A",
-                template: '<pre ng-repeat="page in pages" ng-bind-html="page | highlight: keywords | trustAsHTML" class="card card-block" style="line-height:1.5;font-size:14px;"></pre>',
+                template: '<pre ng-repeat="page in roarevent.pages" ng-bind-html="page | highlight: query | trustAsHTML" class="card card-block" style="line-height:1.5;font-size:14px;"></pre>',
                 //controller: "PDFFilesController",
                 //controllerAs: "pdff",
                 //bindToController: true,
                 scope:{
-                    pdfData: '@',
+                    
                     
                 },
-                link: linkfunction
+                link: function($scope,$el,$attr,$ctrl){
+                    var id = $attr.getpdftext;
+                    var roarevent = Collection(id);
+                    roarevent.$bindTo($scope, 'roarevent');
+                    
+                    $document.on('mouseup', function(event) {
+                    var a = $window.getSelection() || $document.getSelection();
+                    if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
+                        var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
+                        alertify.alert(text);
+                    }
+                    });
+                }
             };
         }
     ])

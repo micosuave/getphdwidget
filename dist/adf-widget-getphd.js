@@ -1379,31 +1379,31 @@ var wraptail = ckender;
             '<div class="col-xs-8"><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '<div class="col-xs-4"><img src="https://placehold.it/250x208/4682b4/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '</div>' +
-            '</div></div><div getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</div>';
+            '</div></div></div><div getpdftext="'+roarevent.id+'">&nbsp;</div>';
                      var ptotemplate = '<div id="docheader" class="container-fluid two-col-left">' +
             '<div class="row">' +
             '<div class="col-xs-4"><img src="https://placehold.it/250x208/640002/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-PTO bs-callout-reverse"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
-            '</div></div><div getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</div>';
+            '</div></div></div><div getpdftext="'+roarevent.id+'">&nbsp;</div>';
                     var noatemplate = '<div id="docheader" class="container-fluid two-col-left">' +
             '<div class="row">' +
             '<div class="col-xs-4"><img src="https://placehold.it/250x208/7c994f/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
-            '</div></div><div getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</div>';
+            '</div></div></div><div getpdftext="'+roarevent.id+'">&nbsp;</div>';
                     var petitiontemplate = '<div id="docheader" class="container-fluid two-col-right">' +
             '<div class="row">' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-Petition"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '<div class="col-xs-4"><img src="https://placehold.it/250x208/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '</div>' +
-            '</div></div><div getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</div>';
+            '</div></div></div><div getpdftext="'+roarevent.id+'">&nbsp;</div>';
              var interviewtemplate = '<div id="docheader" class="container-fluid two-col-right">' +
             '<div class="row">' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-Interview"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '<div class="col-xs-4"<img src="https://placehold.it/250x208/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '</div>' +
-            '</div></div><div getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</div>';
+            '</div></div></div><div getpdftext="'+roarevent.id+'">&nbsp;</div>';
                 
                      
                          angular.forEach(APPDOCCODES, function(code, key) {
@@ -2033,7 +2033,7 @@ angular.module('llp.pdf', ['LocalStorageModule'])
 
 
     }])
-    .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection',
+    /*.directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection',
         function(extract, $document, $window, $rootScope, $http, Collection) {
             var linkfunction = function($scope, $element, $attr, $ctrl) {
                 $scope.pages = [];
@@ -2230,20 +2230,34 @@ function pageLoaded() {
                 //   });
 
 });
-            };
+            };*/
+            
+   .directive('getpdftext', ['$document','Collection','$window',function($document,Collection,$window){         
 
             return {
 
                 restrict: "A",
-                template: '<pre ng-repeat="page in pages" ng-bind-html="page | highlight: keywords | trustAsHTML" class="card card-block" style="line-height:1.5;font-size:14px;"></pre>',
+                template: '<pre ng-repeat="page in roarevent.pages" ng-bind-html="page | highlight: query | trustAsHTML" class="card card-block" style="line-height:1.5;font-size:14px;"></pre>',
                 //controller: "PDFFilesController",
                 //controllerAs: "pdff",
                 //bindToController: true,
                 scope:{
-                    pdfData: '@',
+                    
                     
                 },
-                link: linkfunction
+                link: function($scope,$el,$attr,$ctrl){
+                    var id = $attr.getpdftext;
+                    var roarevent = Collection(id);
+                    roarevent.$bindTo($scope, 'roarevent');
+                    
+                    $document.on('mouseup', function(event) {
+                    var a = $window.getSelection() || $document.getSelection();
+                    if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
+                        var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
+                        alertify.alert(text);
+                    }
+                    });
+                }
             };
         }
     ])
