@@ -258,31 +258,31 @@
                        
                         var wraphead = ckstarter;
 var wraptail = ckender;
-                    var apptemplate =  '<div class="container-fluid two-col-right">' +
+                    var apptemplate =  '<div id="docheader" class="container-fluid two-col-right">' +
             '<div class="row">' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
-            '<div class="col-xs-4"><img src="https://placehold.it/350x480/4682b4/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
+            '<div class="col-xs-4"><img src="https://placehold.it/250x208/4682b4/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '</div>' +
             '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
-                     var ptotemplate = '<div class="container-fluid two-col-left">' +
+                     var ptotemplate = '<div id="docheader" class="container-fluid two-col-left">' +
             '<div class="row">' +
-            '<div class="col-xs-4"><img src="https://placehold.it/350x480/640002/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
+            '<div class="col-xs-4"><img src="https://placehold.it/250x208/640002/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-PTO bs-callout-reverse"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
             '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
-                    var noatemplate = '<div class="container-fluid two-col-left">' +
+                    var noatemplate = '<div id="docheader" class="container-fluid two-col-left">' +
             '<div class="row">' +
             '<div class="col-xs-4"><img src="https://placehold.it/250x208/7c994f/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
             '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
-                    var petitiontemplate = '<div class="container-fluid two-col-right">' +
+                    var petitiontemplate = '<div id="docheader" class="container-fluid two-col-right">' +
             '<div class="row">' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-Petition"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '<div class="col-xs-4"><img src="https://placehold.it/250x208/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '</div>' +
             '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
-             var interviewtemplate = '<div class="container-fluid two-col-right">' +
+             var interviewtemplate = '<div id="docheader" class="container-fluid two-col-right">' +
             '<div class="row">' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-Interview"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '<div class="col-xs-4"<img src="https://placehold.it/250x208/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +

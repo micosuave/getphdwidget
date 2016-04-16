@@ -920,15 +920,19 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                 var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
                 //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
-                var header = $templateCache.get("{widgetsPath}/getphd/src/titleTemplate.html");
-
+                //var header = $templateCache.get("{widgetsPath}/getphd/src/titleTemplate.html");
+                var header = $('#docheader').html();
                 var skope = angular.element('<iframe/>').attr('height', '90vh').attr('src', $attr.href); 
 
                 angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
                 $('.issuedocpanel').draggable({
                     stack: '.stacker',
-                    handle: 'h4'
+                    handle: 'img'
                 }).resizable();
+                $('#docheader').on('dblclick', function(e){
+                    $('.issuedocpanel').remove();
+                    $scope.$destroy();
+                });
 
             };
                 $el.on('click', function(e){
@@ -1368,31 +1372,31 @@ angular.module('textSizeSlider', [])
                        
                         var wraphead = ckstarter;
 var wraptail = ckender;
-                    var apptemplate =  '<div class="container-fluid two-col-right">' +
+                    var apptemplate =  '<div id="docheader" class="container-fluid two-col-right">' +
             '<div class="row">' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
-            '<div class="col-xs-4"><img src="https://placehold.it/350x480/4682b4/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
+            '<div class="col-xs-4"><img src="https://placehold.it/250x208/4682b4/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '</div>' +
             '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
-                     var ptotemplate = '<div class="container-fluid two-col-left">' +
+                     var ptotemplate = '<div id="docheader" class="container-fluid two-col-left">' +
             '<div class="row">' +
-            '<div class="col-xs-4"><img src="https://placehold.it/350x480/640002/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
+            '<div class="col-xs-4"><img src="https://placehold.it/250x208/640002/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-PTO bs-callout-reverse"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
             '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
-                    var noatemplate = '<div class="container-fluid two-col-left">' +
+                    var noatemplate = '<div id="docheader" class="container-fluid two-col-left">' +
             '<div class="row">' +
             '<div class="col-xs-4"><img src="https://placehold.it/250x208/7c994f/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
             '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
-                    var petitiontemplate = '<div class="container-fluid two-col-right">' +
+                    var petitiontemplate = '<div id="docheader" class="container-fluid two-col-right">' +
             '<div class="row">' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-Petition"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '<div class="col-xs-4"><img src="https://placehold.it/250x208/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '</div>' +
             '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
-             var interviewtemplate = '<div class="container-fluid two-col-right">' +
+             var interviewtemplate = '<div id="docheader" class="container-fluid two-col-right">' +
             '<div class="row">' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-Interview"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '<div class="col-xs-4"<img src="https://placehold.it/250x208/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
@@ -2039,7 +2043,7 @@ $http.get($attr.pdfData).then(function(resp){
 PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
 var PDF_PATH = $attr.pdfData;
 var PAGE_NUMBER = 2;
-var PAGE_SCALE = 0.33;
+var PAGE_SCALE = 0.25;
 var SVG_NS = 'http://www.w3.org/2000/svg';
 
 function buildSVG(viewport, textContent) {
@@ -2047,6 +2051,7 @@ function buildSVG(viewport, textContent) {
   var svg = document.createElementNS(SVG_NS, 'svg:svg');
   svg.setAttribute('width', 94 + 'vw');
   svg.setAttribute('height', 90 + 'vh');
+  svg.setAttribute('class','card card-block img-shadow');
   //svg.setAttribute('width', '50vw');
   //svg.setAttribute('height', '75vh');
   // items are transformed to have 1px font size
@@ -2121,9 +2126,23 @@ function pageLoaded() {
                 var getPageText = function(page) {
                     //var sectionwrap = angular.element(template).appendTo($element);
                     page.getTextContent().then(function(textContent) {
-                        console.log(textContent);
-                        var section = '';
-                        angular.forEach(textContent.items, function(o, key) {
+                         textContent.items.forEach(function (textItem) {
+    // we have to take in account viewport transform, which incudes scale,
+    // rotation and Y-axis flip, and not forgetting to flip text.
+    var tx = PDFJS.Util.transform(
+      PDFJS.Util.transform(viewport.transform, textItem.transform),
+      [1, 0, 0, -1, 0, 0]);
+    var style = textContent.styles[textItem.fontName];
+    // adding text element
+    var text = document.createElementNS('span');
+    text.setAttribute('style', 'transform:matrix(' + tx.join(' ') + ');font-family:'+ style.fontFamily);
+    text.text = textItem.str;
+                        
+                     var p = angular.element('<div class="card card-block"/>');
+                     p.append(text);   
+                        //console.log(textContent);
+                        // var section = '';
+                        // angular.forEach(textContent.items, function(o, key) {
 
                             // var section = '';
                             
@@ -2133,11 +2152,11 @@ function pageLoaded() {
                             //     section = section + ' ' + i.str;
                             //     return section;
                             // });
-                            section = section + ' ' + o.str;
+                            // section = section + ' ' + o.str;
                            
 
-                        });
-                        var string = section;
+                        // });
+                        var string = $(p).html();
     // var regEx = $scope.keywords;
     // var re = new RegExp(regEx, "gi");
     // // for (var i=0; i<string.match(re).length; i++)
@@ -2174,6 +2193,7 @@ function pageLoaded() {
 
                         // });
                     });
+                });
                 };
                 // $document.on('mouseup', function(event) {
                 //     var a = $window.getSelection() || $document.getSelection();

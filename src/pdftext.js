@@ -62,7 +62,7 @@ $http.get($attr.pdfData).then(function(resp){
 PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
 var PDF_PATH = $attr.pdfData;
 var PAGE_NUMBER = 2;
-var PAGE_SCALE = 0.33;
+var PAGE_SCALE = 0.25;
 var SVG_NS = 'http://www.w3.org/2000/svg';
 
 function buildSVG(viewport, textContent) {
@@ -70,6 +70,7 @@ function buildSVG(viewport, textContent) {
   var svg = document.createElementNS(SVG_NS, 'svg:svg');
   svg.setAttribute('width', 94 + 'vw');
   svg.setAttribute('height', 90 + 'vh');
+  svg.setAttribute('class','card card-block img-shadow');
   //svg.setAttribute('width', '50vw');
   //svg.setAttribute('height', '75vh');
   // items are transformed to have 1px font size
@@ -144,9 +145,23 @@ function pageLoaded() {
                 var getPageText = function(page) {
                     //var sectionwrap = angular.element(template).appendTo($element);
                     page.getTextContent().then(function(textContent) {
-                        console.log(textContent);
-                        var section = '';
-                        angular.forEach(textContent.items, function(o, key) {
+                         textContent.items.forEach(function (textItem) {
+    // we have to take in account viewport transform, which incudes scale,
+    // rotation and Y-axis flip, and not forgetting to flip text.
+    var tx = PDFJS.Util.transform(
+      PDFJS.Util.transform(viewport.transform, textItem.transform),
+      [1, 0, 0, -1, 0, 0]);
+    var style = textContent.styles[textItem.fontName];
+    // adding text element
+    var text = document.createElementNS('span');
+    text.setAttribute('style', 'transform:matrix(' + tx.join(' ') + ');font-family:'+ style.fontFamily);
+    text.text = textItem.str;
+                        
+                     var p = angular.element('<div class="card card-block"/>');
+                     p.append(text);   
+                        //console.log(textContent);
+                        // var section = '';
+                        // angular.forEach(textContent.items, function(o, key) {
 
                             // var section = '';
                             
@@ -156,11 +171,11 @@ function pageLoaded() {
                             //     section = section + ' ' + i.str;
                             //     return section;
                             // });
-                            section = section + ' ' + o.str;
+                            // section = section + ' ' + o.str;
                            
 
-                        });
-                        var string = section;
+                        // });
+                        var string = $(p).html();
     // var regEx = $scope.keywords;
     // var re = new RegExp(regEx, "gi");
     // // for (var i=0; i<string.match(re).length; i++)
@@ -197,6 +212,7 @@ function pageLoaded() {
 
                         // });
                     });
+                });
                 };
                 // $document.on('mouseup', function(event) {
                 //     var a = $window.getSelection() || $document.getSelection();
