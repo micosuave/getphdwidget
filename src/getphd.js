@@ -911,7 +911,32 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
+    .directive('pop',['$compile','$templateCache',function($compile,$templateCache){
+        return {
+            restrict: 'A',
+            link: function($scope,$el,$attr,$ctrl){
+                var popdoc = function() {
 
+                var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
+                //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
+                var header = $templateCache.get("{widgetsPath}/getphd/src/titleTemplate.html");
+
+                var skope = angular.element('<iframe/>').attr('height', '90vh').attr('src', $attr.href); 
+
+                angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
+                $('.issuedocpanel').draggable({
+                    stack: '.stacker',
+                    handle: 'h4'
+                }).resizable();
+
+            };
+                $el.on('click', function(e){
+                    e.preventDefault();
+                    popdoc();
+                });      
+            }
+        };
+    }])
     .directive('uploadQ', ['FileUploader', function(FileUploader) {
         return {
             restrict: 'EA',

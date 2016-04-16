@@ -912,7 +912,32 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
+    .directive('pop',['$compile','$templateCache',function($compile,$templateCache){
+        return {
+            restrict: 'A',
+            link: function($scope,$el,$attr,$ctrl){
+                var popdoc = function() {
 
+                var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
+                //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
+                var header = $templateCache.get("{widgetsPath}/getphd/src/titleTemplate.html");
+
+                var skope = angular.element('<iframe/>').attr('height', '90vh').attr('src', $attr.href); 
+
+                angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
+                $('.issuedocpanel').draggable({
+                    stack: '.stacker',
+                    handle: 'h4'
+                }).resizable();
+
+            };
+                $el.on('click', function(e){
+                    e.preventDefault();
+                    popdoc();
+                });      
+            }
+        };
+    }])
     .directive('uploadQ', ['FileUploader', function(FileUploader) {
         return {
             restrict: 'EA',
@@ -1298,7 +1323,7 @@ angular.module('textSizeSlider', [])
                            roarevent.media = roarevent.selflink;
                           //  roarevent.media = '/files/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                          } else {
-                            roarevent.ocrlink = 'https://lexlab.io/ocr/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                            roarevent.ocrlink = 'https://lexlab.io/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename.replace('.pdf','_ocr.pdf');
 
                            roarevent.selflink = 'https://lexlab.io/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                            roarevent.media = roarevent.selflink;
@@ -1345,34 +1370,34 @@ angular.module('textSizeSlider', [])
 var wraptail = ckender;
                     var apptemplate =  '<div class="container-fluid two-col-right">' +
             '<div class="row">' +
-            '<div class="col-xs-8"><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
-            '<div class="col-xs-4"><iframe name="fframe" id="fframe" style="width:350px;height:480px;" src="https://placehold.it/350x480/4682b4/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"><img src="https://placehold.it/350x480/4682b4/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></iframe></div>' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-4"><img src="https://placehold.it/350x480/4682b4/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '</div>' +
-            '</div><p>&nbsp;</p>';
+            '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
                      var ptotemplate = '<div class="container-fluid two-col-left">' +
             '<div class="row">' +
-            '<div class="col-xs-4"><iframe name="fframe" id="fframe" style="width:350px;height:480px;" src="https://placehold.it/350x480/640002/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"><img src="https://placehold.it/350x480/640002/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></iframe><p><img src="https://placehold.it/250x208/640002/fff/&text='+ roarevent.rid + '" class="img img-responsive img-shadow"/></p></div>' +
-            '<div class="col-xs-8"><div class="bs-callout bs-callout-PTO bs-callout-reverse"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-4"><img src="https://placehold.it/350x480/640002/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-PTO bs-callout-reverse"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
-            '</div><p>&nbsp;</p>';
+            '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
                     var noatemplate = '<div class="container-fluid two-col-left">' +
             '<div class="row">' +
-            '<div class="col-xs-4"><iframe name="fframe" id="fframe" style="width:350px;height:480px;" src="https://placehold.it/350x480/7c994f/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"><img src="https://placehold.it/350x480/7c994f/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></iframe></div>' +
-            '<div class="col-xs-8"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-4"><img src="https://placehold.it/250x208/7c994f/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
-            '</div><p>&nbsp;</p>';
+            '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
                     var petitiontemplate = '<div class="container-fluid two-col-right">' +
             '<div class="row">' +
-            '<div class="col-xs-8"><div class="bs-callout bs-callout-Petition"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
-            '<div class="col-xs-4"><iframe name="fframe" id="fframe" style="width:350px;height:480px;" src="https://placehold.it/350x480/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"><img src="https://placehold.it/350x480/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></iframe></div>' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-Petition"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-4"><img src="https://placehold.it/250x208/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '</div>' +
-            '</div><p>&nbsp;</p>';
+            '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
              var interviewtemplate = '<div class="container-fluid two-col-right">' +
             '<div class="row">' +
-            '<div class="col-xs-8"><div class="bs-callout bs-callout-Interview"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
-            '<div class="col-xs-4"><iframe name="fframe" id="fframe" style="width:350px;height:480px;" src="https://placehold.it/350x480/&text='+roarevent.rid+'" class="img img-responsive img-shadow"><img src="https://placehold.it/350x480/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></iframe></div>' +
+            '<div class="col-xs-8"><div class="bs-callout bs-callout-Interview"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+            '<div class="col-xs-4"<img src="https://placehold.it/250x208/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '</div>' +
-            '</div><p>&nbsp;</p>';
+            '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
                 
                      
                          angular.forEach(APPDOCCODES, function(code, key) {
@@ -1433,8 +1458,8 @@ var wraptail = ckender;
                         var n = d.getTime();
                           roarevent.rows= [
                               {columns:[
-                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},styleClass:roarevent.styleClass || 'btn-dark',title:roarevent.title || 'title',type:'iframe',wid:n+100}]},
-                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},styleClass:roarevent.styleClass||'btn-dark',title:roarevent.title || 'title',type:'ckwidget', wid:n+1010}]}
+                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "90vh",url: roarevent.ocrlink || 'http://www.google.com'},styleClass:roarevent.styleClass || 'btn-dark',title:roarevent.title || 'title',type:'iframe',wid:n+100}]},
+                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},height:'90vh',styleClass:roarevent.styleClass||'btn-dark',title:roarevent.title || 'title',type:'ckwidget', wid:n+1010}]}
                               ]}
                           ];
                           //roarevent.content = ckstarter + ckheader + ckender;
@@ -1565,7 +1590,7 @@ var wraptail = ckender;
                     //  buildroar(groupids);
                       $timeout(function () {
                         addpatent(groupids, phd);
-                      }, 1000);
+                      }, 500);
                  };
 
 function addpatent (groupids, phd){
@@ -2007,23 +2032,23 @@ angular.module('llp.pdf', ['LocalStorageModule'])
             var linkfunction = function($scope, $element, $attr, $ctrl) {
                 $scope.pages = [];
                 
-                $scope.keywords = '/(claim(s)?\s+\d+(\W(\s)?\d+)+)?(reject(ed)?(ion)?)?(10\d\(\D\))?/gi';
-                $scope.matches = [];
+                // $scope.keywords = '/(claim(s)?\s+\d+(\W(\s)?\d+)+)?(reject(ed)?(ion)?)?(10\d\(\D\))?/gi';
+                // $scope.matches = [];
 $http.get($attr.pdfData).then(function(resp){
     
 PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
 var PDF_PATH = $attr.pdfData;
 var PAGE_NUMBER = 2;
-var PAGE_SCALE = 0.25;
+var PAGE_SCALE = 0.33;
 var SVG_NS = 'http://www.w3.org/2000/svg';
 
 function buildSVG(viewport, textContent) {
   // Building SVG with size of the viewport (for simplicity)
   var svg = document.createElementNS(SVG_NS, 'svg:svg');
-  //svg.setAttribute('width', viewport.width + 'px');
-  //svg.setAttribute('height', viewport.height + 'px');
-  svg.setAttribute('width', '50vw');
-  svg.setAttribute('height', '75vh');
+  svg.setAttribute('width', 94 + 'vw');
+  svg.setAttribute('height', 90 + 'vh');
+  //svg.setAttribute('width', '50vw');
+  //svg.setAttribute('height', '75vh');
   // items are transformed to have 1px font size
   svg.setAttribute('font-size', 1);
 
@@ -2048,7 +2073,11 @@ function buildSVG(viewport, textContent) {
 function pageLoaded() {
   // Loading document and page text content
   PDFJS.getDocument(PDF_PATH).then(function (pdfDocument) {
-    pdfDocument.getPage(PAGE_NUMBER).then(function (page) {
+    for (var i = 0; i < pdfDocument.numPages; i++) {
+    
+    pdfDocument.getPage(i + 1).then(function(page){
+                    
+    //pdfDocument.getPage(PAGE_NUMBER).then(function (page) {
       var viewport = page.getViewport(PAGE_SCALE);
       page.getTextContent().then(function (textContent) {
         // building SVG and adding that to the DOM
@@ -2056,7 +2085,8 @@ function pageLoaded() {
         $element.append(svg);
       });
     });
-  });
+  }
+    });
 }
 
 // document.addEventListener('DOMContentLoaded', function () {
@@ -2108,13 +2138,13 @@ function pageLoaded() {
 
                         });
                         var string = section;
-    var regEx = $scope.keywords;
-    var re = new RegExp(regEx, "gi");
-    // for (var i=0; i<string.match(re).length; i++)
-    // {
-        string = string.replace(re, function(x){
-            return "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>";
-        });
+    // var regEx = $scope.keywords;
+    // var re = new RegExp(regEx, "gi");
+    // // for (var i=0; i<string.match(re).length; i++)
+    // // {
+    //     string = string.replace(re, function(x){
+    //         return "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>";
+    //     });
         //string.match(re)[i], "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>");
     //$(sectionwrap).append(string);
     $scope.pages.push(string);
@@ -2191,8 +2221,7 @@ function pageLoaded() {
                 //bindToController: true,
                 scope:{
                     pdfData: '@',
-                    pages: '=',
-                    keywords: '='
+                    
                 },
                 link: linkfunction
             };

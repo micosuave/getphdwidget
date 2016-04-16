@@ -55,23 +55,23 @@ angular.module('llp.pdf', ['LocalStorageModule'])
             var linkfunction = function($scope, $element, $attr, $ctrl) {
                 $scope.pages = [];
                 
-                $scope.keywords = '/(claim(s)?\s+\d+(\W(\s)?\d+)+)?(reject(ed)?(ion)?)?(10\d\(\D\))?/gi';
-                $scope.matches = [];
+                // $scope.keywords = '/(claim(s)?\s+\d+(\W(\s)?\d+)+)?(reject(ed)?(ion)?)?(10\d\(\D\))?/gi';
+                // $scope.matches = [];
 $http.get($attr.pdfData).then(function(resp){
     
 PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
 var PDF_PATH = $attr.pdfData;
 var PAGE_NUMBER = 2;
-var PAGE_SCALE = 0.25;
+var PAGE_SCALE = 0.33;
 var SVG_NS = 'http://www.w3.org/2000/svg';
 
 function buildSVG(viewport, textContent) {
   // Building SVG with size of the viewport (for simplicity)
   var svg = document.createElementNS(SVG_NS, 'svg:svg');
-  //svg.setAttribute('width', viewport.width + 'px');
-  //svg.setAttribute('height', viewport.height + 'px');
-  svg.setAttribute('width', '50vw');
-  svg.setAttribute('height', '75vh');
+  svg.setAttribute('width', 94 + 'vw');
+  svg.setAttribute('height', 90 + 'vh');
+  //svg.setAttribute('width', '50vw');
+  //svg.setAttribute('height', '75vh');
   // items are transformed to have 1px font size
   svg.setAttribute('font-size', 1);
 
@@ -96,7 +96,11 @@ function buildSVG(viewport, textContent) {
 function pageLoaded() {
   // Loading document and page text content
   PDFJS.getDocument(PDF_PATH).then(function (pdfDocument) {
-    pdfDocument.getPage(PAGE_NUMBER).then(function (page) {
+    for (var i = 0; i < pdfDocument.numPages; i++) {
+    
+    pdfDocument.getPage(i + 1).then(function(page){
+                    
+    //pdfDocument.getPage(PAGE_NUMBER).then(function (page) {
       var viewport = page.getViewport(PAGE_SCALE);
       page.getTextContent().then(function (textContent) {
         // building SVG and adding that to the DOM
@@ -104,7 +108,8 @@ function pageLoaded() {
         $element.append(svg);
       });
     });
-  });
+  }
+    });
 }
 
 // document.addEventListener('DOMContentLoaded', function () {
@@ -156,13 +161,13 @@ function pageLoaded() {
 
                         });
                         var string = section;
-    var regEx = $scope.keywords;
-    var re = new RegExp(regEx, "gi");
-    // for (var i=0; i<string.match(re).length; i++)
-    // {
-        string = string.replace(re, function(x){
-            return "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>";
-        });
+    // var regEx = $scope.keywords;
+    // var re = new RegExp(regEx, "gi");
+    // // for (var i=0; i<string.match(re).length; i++)
+    // // {
+    //     string = string.replace(re, function(x){
+    //         return "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>";
+    //     });
         //string.match(re)[i], "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>");
     //$(sectionwrap).append(string);
     $scope.pages.push(string);
@@ -239,8 +244,7 @@ function pageLoaded() {
                 //bindToController: true,
                 scope:{
                     pdfData: '@',
-                    pages: '=',
-                    keywords: '='
+                    
                 },
                 link: linkfunction
             };
