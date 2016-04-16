@@ -2151,9 +2151,9 @@ function pageLoaded() {
                         var reg = new RegExp(/(?!\d+)\.\s/,'gi');
                         var pss = section.split(reg);
                         
-                        var psa = pss.forEach(function(str){
+                        pss.forEach(function(str){
                             var reg = new RegExp(/(?:claim)?(?:reject)?(?:amend)?(?:cancel)/,'gi');
-                            str.replace(reg, '<mark class="highlight">'+$0+'</mark>');
+                            str.replace(reg, '<mark class="highlight">'+reg+'</mark>');
                         });
                         var string = section;
     // var regEx = $scope.keywords;
@@ -2165,8 +2165,8 @@ function pageLoaded() {
     //     });
         //string.match(re)[i], "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>");
     //$(sectionwrap).append(string);
-    $scope.pages.push(psa.join('</p><p>'));
-    roarref.child('pages').push(psa.join('</p><p>'));
+    $scope.pages.push(pss.join('</p><p>'));
+    roarref.child('pages').push(pss.join('</p><p>'));
     //}
                         
                         
