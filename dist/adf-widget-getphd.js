@@ -2148,7 +2148,7 @@ function pageLoaded() {
                            
 
                         });
-                        var reg = new RegExp(/\D.\W/,'gi');
+                        var reg = new RegExp(/\D\.\W+/,'gi');
                         var pss = section.split(reg);
                         // var psa = pss.filter(function(value, index, pss){
                         //     if (pss[index].length < 3){
