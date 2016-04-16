@@ -2148,12 +2148,13 @@ function pageLoaded() {
                            
 
                         });
-                        var pss = section.split('.  ');
-                        var psa = pss.filter(function(value, index, pss){
-                            if (pss[index].length < 3){
-                                value.concat(pss[index + 1]);
-                            }
-                        });
+                        var reg = new RegExp(/\D.\W/,'gi');
+                        var pss = section.split(reg);
+                        // var psa = pss.filter(function(value, index, pss){
+                        //     if (pss[index].length < 3){
+                        //         value.concat(pss[index + 1]);
+                        //     }
+                        // });
                         var string = section;
     // var regEx = $scope.keywords;
     // var re = new RegExp(regEx, "gi");
@@ -2164,8 +2165,8 @@ function pageLoaded() {
     //     });
         //string.match(re)[i], "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>");
     //$(sectionwrap).append(string);
-    $scope.pages.push(psa);
-    roarref.child('pages').push(psa);
+    $scope.pages.push(pss.join('</p><p>'));
+    roarref.child('pages').push(pss);
     //}
                         
                         
