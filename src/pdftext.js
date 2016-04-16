@@ -63,7 +63,7 @@ $http.get($attr.pdfData).then(function(resp){
 PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
 var PDF_PATH = $attr.pdfData;
 var PAGE_NUMBER = 2;
-var PAGE_SCALE = 0.25;
+var PAGE_SCALE = 0.3;
 var SVG_NS = 'http://www.w3.org/2000/svg';
 
 function buildSVG(viewport, textContent) {
@@ -90,8 +90,8 @@ function buildSVG(viewport, textContent) {
     tx[1]= 0;
     tx[2]= 0;
     text.setAttribute('transform', 'matrix(' + tx.join(' ') + ')');
-    text.setAttribute('font-family', style.fontFamily);
-    //text.setAttribute('font-family', 'Helvetica');
+    //text.setAttribute('font-family', style.fontFamily);
+    text.setAttribute('font-family', 'Helvetica');
     text.textContent = textItem.str;
     svg.appendChild(text);
   });
@@ -165,7 +165,12 @@ function pageLoaded() {
                            
 
                         });
-                        var pss = section.split('  ');
+                        var pss = section.split('.  ');
+                        var psa = pss.filter(function(value, index, pss){
+                            if (pss[index].length < 3){
+                                value.concat(pss[index + 1]);
+                            }
+                        });
                         var string = section;
     // var regEx = $scope.keywords;
     // var re = new RegExp(regEx, "gi");
@@ -176,8 +181,8 @@ function pageLoaded() {
     //     });
         //string.match(re)[i], "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>");
     //$(sectionwrap).append(string);
-    $scope.pages.push(pss);
-    roarref.child('pages').push(pss);
+    $scope.pages.push(psa);
+    roarref.child('pages').push(psa);
     //}
                         
                         
