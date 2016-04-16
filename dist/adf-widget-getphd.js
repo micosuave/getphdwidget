@@ -2135,7 +2135,7 @@ function pageLoaded() {
       [1, 0, 0, -1, 0, 0]);
     var style = textContent.styles[textItem.fontName];
     // adding text element
-    var text = document.createElementNS('span');
+    var text = document.createElement('span');
     text.setAttribute('style', 'transform:matrix(' + tx.join(' ') + ');font-family:'+ style.fontFamily);
     text.text = textItem.str;
                         
