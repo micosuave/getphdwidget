@@ -434,7 +434,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     $scope.response = resp.data;
                     var googleurl = 'https' +'://'+ 'lexlab.io' + '/proxy/storage.googleapis.com/uspto-pair/applications/'+config.appnum+'.zip';
                     var reedtechurl = 'https' +'://'+ 'lexlab.io' + '/proxy/patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
-                    JSZipUtils.getBinaryContent(googleurl, function(err, data) {
+                    try{JSZipUtils.getBinaryContent(googleurl, function(err, data) {
                         if(err) {
                             $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
                         }else{
@@ -445,7 +445,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             saveAs(blob, config.appnum + '.zip');
                             } 
                         }
-                    });
+                    });}catch(ex){
                     JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
                         if(err) {
                             $('#reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
@@ -458,7 +458,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             }
                         }
                     });
-                });
+                    }finally{}    
+            });
+                
             };
             main.remotezip = function(appnum) {
                 main.error = null;
@@ -1377,31 +1379,31 @@ var wraptail = ckender;
             '<div class="col-xs-8"><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '<div class="col-xs-4"><img src="https://placehold.it/250x208/4682b4/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '</div>' +
-            '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
+            '</div></div><div getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</div>';
                      var ptotemplate = '<div id="docheader" class="container-fluid two-col-left">' +
             '<div class="row">' +
             '<div class="col-xs-4"><img src="https://placehold.it/250x208/640002/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-PTO bs-callout-reverse"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
-            '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
+            '</div></div><div getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</div>';
                     var noatemplate = '<div id="docheader" class="container-fluid two-col-left">' +
             '<div class="row">' +
             '<div class="col-xs-4"><img src="https://placehold.it/250x208/7c994f/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
-            '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
+            '</div></div><div getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</div>';
                     var petitiontemplate = '<div id="docheader" class="container-fluid two-col-right">' +
             '<div class="row">' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-Petition"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '<div class="col-xs-4"><img src="https://placehold.it/250x208/b48200/fff/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '</div>' +
-            '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
+            '</div></div><div getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</div>';
              var interviewtemplate = '<div id="docheader" class="container-fluid two-col-right">' +
             '<div class="row">' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-Interview"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" pop="true" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '<div class="col-xs-4"<img src="https://placehold.it/250x208/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></div>' +
             '</div>' +
-            '</div><p getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</p>';
+            '</div></div><div getpdftext="" pdf-data="'+roarevent.ocrlink+'">&nbsp;</div>';
                 
                      
                          angular.forEach(APPDOCCODES, function(code, key) {
@@ -2036,7 +2038,7 @@ angular.module('llp.pdf', ['LocalStorageModule'])
             var linkfunction = function($scope, $element, $attr, $ctrl) {
                 $scope.pages = [];
                 var id = $attr.pdfData.slice($attr.pdfData.lastIndexOf('/')+1,$attr.pdfData.lastIndexOf('-'));
-                var roarevent = Collection(id);
+                var roarref = Collection(id).$ref();
                 // $scope.keywords = '/(claim(s)?\s+\d+(\W(\s)?\d+)+)?(reject(ed)?(ion)?)?(10\d\(\D\))?/gi';
                 // $scope.matches = [];
 $http.get($attr.pdfData).then(function(resp){
@@ -2154,6 +2156,7 @@ function pageLoaded() {
         //string.match(re)[i], "<span class='highlight'><strong><em><u>" + string.match(re)[i] + "</u></em></strong></span>");
     //$(sectionwrap).append(string);
     $scope.pages.push(string);
+    roarref.child('pages').push(string);
     //}
                         
                         
@@ -2215,17 +2218,14 @@ function pageLoaded() {
                 // }
 
                 //   });
-var newcontent = $('<!DOCTYPE>').html();
-roarevent.content = newcontent;
-roarevent.pages = $scope.pages;
-roarevent.$save();
+
 });
             };
 
             return {
 
                 restrict: "A",
-                template: '<div ng-repeat="page in pages" ng-bind-html="page | highlight: keywords | trustAsHTML" class="card draft-fancy card-block"></div>',
+                template: '<pre ng-repeat="page in pages" ng-bind-html="page | highlight: keywords | trustAsHTML" class="card card-block"></pre>',
                 //controller: "PDFFilesController",
                 //controllerAs: "pdff",
                 //bindToController: true,

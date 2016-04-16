@@ -433,7 +433,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     $scope.response = resp.data;
                     var googleurl = 'https' +'://'+ 'lexlab.io' + '/proxy/storage.googleapis.com/uspto-pair/applications/'+config.appnum+'.zip';
                     var reedtechurl = 'https' +'://'+ 'lexlab.io' + '/proxy/patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
-                    JSZipUtils.getBinaryContent(googleurl, function(err, data) {
+                    try{JSZipUtils.getBinaryContent(googleurl, function(err, data) {
                         if(err) {
                             $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
                         }else{
@@ -444,7 +444,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             saveAs(blob, config.appnum + '.zip');
                             } 
                         }
-                    });
+                    });}catch(ex){
                     JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
                         if(err) {
                             $('#reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
@@ -457,7 +457,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             }
                         }
                     });
-                });
+                    }finally{}    
+            });
+                
             };
             main.remotezip = function(appnum) {
                 main.error = null;
