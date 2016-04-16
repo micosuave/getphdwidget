@@ -184,10 +184,8 @@ var callback = function(data){
        
 var zip = new JSZip(data);
     var blob = zip.generate({type: 'blob'});
-    Upload.upload({url: '/upload/', data: {file: Upload.rename(blob, appnum + '.zip')}})
-    .then(function (resp) {
-            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-        var files = {
+    
+    var files = {
                 tsvfiles: [],
                 pdffiles: []
             };
@@ -213,7 +211,12 @@ var zip = new JSZip(data);
             });
             
 
-            return deferred.resolve(files);
+            
+    
+    Upload.upload({url: '/upload/', data: {file: Upload.rename(blob, appnum + '.zip')}})
+    .then(function (resp) {
+            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+        
     
 
         }, function (resp) {
@@ -242,7 +245,7 @@ var zip = new JSZip(data);
             console.log('progress: ' + progress + '% ' + evt.config.data.file.name);
         });
             
-
+return deferred.resolve(files);
 };
        
        
