@@ -68,6 +68,7 @@ angular.module("fa.droppable", [])
             drop.file = {};
             drop.dropFiles = function (files) {
               console.log('files.files[0]', files.files[0]);
+              $scope.$parent.main.handleFiles(files.files[0]);
               // $timeout(function () {
               //   toastr.info('fetching remote resources...');
               // }, 5000);
@@ -80,9 +81,9 @@ angular.module("fa.droppable", [])
               // $timeout(function () {
               //   toastr.warning('starting the AI engine...')
               // }, 20000);
-              $scope.$on('UPLOADCOMPLETE', function (event) {
-                $scope.$parent.main.handleFiles(files.files[0]);
-              });
+            //   $scope.$on('UPLOADCOMPLETE', function (event) {
+            //     $scope.$parent.main.handleFiles(files.files[0]);
+            //   });
 
 
              

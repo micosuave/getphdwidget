@@ -692,8 +692,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //   rid: 'PHD'
                 // });
                 phd.appnum = appnum;
-                phd.media = 'https://lexlab.io/patents/US' + appnum+'/preview';
-                phd.title = 'PhD for ' + (phd.patent.number || phd.application['Patent Number']);
+                phd.media = 'https://lexlab.io/patents/US' + phd.patent.id +'/preview';
+                phd.title = 'PhD for ' + (phd.patent.id || phd.application['Patent Number']);
                 phd.description = 'USSN ' + phd.application['Application Number'];
                 phd.styleClass = 'Applicant';
                 phd.rid = 'PHD';
@@ -725,12 +725,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 localStorageService.set(phd.application['Application Number'], phd);
                 // $http.post('/getphd/store/' + appnum, phd);
                 phdref.update(phd);
-                $http.get('https://lexlab.io/proxy/lexlab.io/publisher/download/'+phdref.key()).then(function(resp){
-                var blob = new Blob([resp.data],{type: 'blob'});
-                            saveAs(blob, config.APPNUM + '.epub');
+                // $http.get('https://lexlab.io/proxy/lexlab.io/publisher/download/'+phdref.key()).then(function(resp){
+                // var blob = new Blob([resp.data],{type: 'blob'});
+                //             saveAs(blob, config.APPNUM + '.epub');
+                
+                // });
                 alertify.alert('<div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">All files have been successfully processed by LEO and delivered to your account for review.</h6></div>');
                 main.showupload = false;
-                });
 
             };
 
@@ -837,8 +838,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             var roardate = maildate.toDateString();
                             var noatemplate = '<div class="container-fluid two-col-left">' +
                                 '<div class="row two-col-left">' +
-                                '<div class="col-xs-3 col-sidebar"><p><img src="https://lexlab.io/patents/US' + patent.number + '/preview" class="img img-responsive img-shadow"/></p></div>' +
-                                '<div class="col-xs-9 col-main"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + patent.title + '</h4><p>Filed ' + roardate + '</p><p>' + patent.abstract + '</p><cite>' + patent.filename + '&nbsp;&nbsp;<a href="' + patent.media + '" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+                                '<div class="col-xs-4 col-sidebar"><p><img src="https://lexlab.io/patents/US' + patent.number + '/preview" class="img img-responsive img-shadow"/></p></div>' +
+                                '<div class="col-xs-8 col-main"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + patent.title + '</h4><p>Filed ' + roardate + '</p><p>' + patent.abstract + '</p><cite>' + patent.filename + '&nbsp;&nbsp;<a href="' + patent.media + '" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
                                 '</div>' +
                                 '</div>';
                             var wraphead = ckstarter;
@@ -854,7 +855,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 
                             });
-                            patent.content = wraphead + $(poodle).html() + contenttemplate + wraptail;
+                            patent.content = wraphead + $(poodle).html() + contenttemplate + wraptail + '<patentreport patent="'+patent.number+'"></patentreport></body></html>';
                             var a = $rootScope.$new();
                             a.patent = patent;
                             phdobj.content = wraphead + $(angular.element($compile($templateCache.get('{widgetsPath}/getphd/src/phd/patentReport.html'))(a))).html();
@@ -1453,7 +1454,7 @@ var wraptail = ckender;
                                   //alertify.success('text file added for' + roarevent.title);
                                  var refr = Collection(de).$ref();
                                  
-                                  refr.set(roarevent).then(function(ref) {
+                                  refr.set(roarevent, function(err) {
                                         var id = de;
 
                                         refr.update({
@@ -1541,13 +1542,14 @@ var wraptail = ckender;
                      var groupids = [];  
                      var groups = { all: phdall, merits: phdmerits, art: phdart, claims: phdclaims };
                      angular.forEach(groups, function (group, key) {
-                       collections.$add(new Binder(group)).then(function (ref) {
-                         var id = ref.key();
-                         ref.update({
+                       var refr = Collection(phd.patent.id+group.title).$ref();
+                       refr.set(new Binder(group), function (err) {
+                         var id = phd.patent.id+group.title;
+                         refr.update({
                            id: id,
                            timestamp: Firebase.ServerValue.TIMESTAMP
                          });
-                         ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(id);
+                         refr.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(id);
                          //ref.child('roarlist').push(id);
                         // phd.roarmap.collections[id] = id;
                         // phd.roarlist[id] = id;
@@ -1578,13 +1580,14 @@ function addpatent (groupids, phd){
                               ]}
                           ];
             patent.structure = "6-6";
-            collections.$add(patent).then(function (ref) {
-              var id = ref.key();
-              ref.update({
+            var refr = Collection(phd.patent.id).$ref();
+            refr.set(patent, function (err) {
+              var id = phd.patent.id;
+              refr.update({
                 id: id,
                 timestamp: Firebase.ServerValue.TIMESTAMP
               });
-              ref.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
+              refr.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
               var allref = Collection(groupids[0]).$ref();
               var meritsref = Collection(groupids[1]).$ref();
               allref.child('roarlist').child(id).set(id);
@@ -2948,6 +2951,7 @@ angular.module("fa.droppable", [])
             drop.file = {};
             drop.dropFiles = function (files) {
               console.log('files.files[0]', files.files[0]);
+              $scope.$parent.main.handleFiles(files.files[0]);
               // $timeout(function () {
               //   toastr.info('fetching remote resources...');
               // }, 5000);
@@ -2960,9 +2964,9 @@ angular.module("fa.droppable", [])
               // $timeout(function () {
               //   toastr.warning('starting the AI engine...')
               // }, 20000);
-              $scope.$on('UPLOADCOMPLETE', function (event) {
-                $scope.$parent.main.handleFiles(files.files[0]);
-              });
+            //   $scope.$on('UPLOADCOMPLETE', function (event) {
+            //     $scope.$parent.main.handleFiles(files.files[0]);
+            //   });
 
 
              

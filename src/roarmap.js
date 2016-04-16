@@ -369,7 +369,7 @@ var wraptail = ckender;
                                   //alertify.success('text file added for' + roarevent.title);
                                  var refr = Collection(de).$ref();
                                  
-                                  refr.set(roarevent).then(function(ref) {
+                                  refr.set(roarevent, function(err) {
                                         var id = de;
 
                                         refr.update({
@@ -457,13 +457,14 @@ var wraptail = ckender;
                      var groupids = [];  
                      var groups = { all: phdall, merits: phdmerits, art: phdart, claims: phdclaims };
                      angular.forEach(groups, function (group, key) {
-                       collections.$add(new Binder(group)).then(function (ref) {
-                         var id = ref.key();
-                         ref.update({
+                       var refr = Collection(phd.patent.id+group.title).$ref();
+                       refr.set(new Binder(group), function (err) {
+                         var id = phd.patent.id+group.title;
+                         refr.update({
                            id: id,
                            timestamp: Firebase.ServerValue.TIMESTAMP
                          });
-                         ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(id);
+                         refr.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(id);
                          //ref.child('roarlist').push(id);
                         // phd.roarmap.collections[id] = id;
                         // phd.roarlist[id] = id;
@@ -494,13 +495,14 @@ function addpatent (groupids, phd){
                               ]}
                           ];
             patent.structure = "6-6";
-            collections.$add(patent).then(function (ref) {
-              var id = ref.key();
-              ref.update({
+            var refr = Collection(phd.patent.id).$ref();
+            refr.set(patent, function (err) {
+              var id = phd.patent.id;
+              refr.update({
                 id: id,
                 timestamp: Firebase.ServerValue.TIMESTAMP
               });
-              ref.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
+              refr.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
               var allref = Collection(groupids[0]).$ref();
               var meritsref = Collection(groupids[1]).$ref();
               allref.child('roarlist').child(id).set(id);

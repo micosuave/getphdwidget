@@ -691,8 +691,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //   rid: 'PHD'
                 // });
                 phd.appnum = appnum;
-                phd.media = 'https://lexlab.io/patents/US' + appnum+'/preview';
-                phd.title = 'PhD for ' + (phd.patent.number || phd.application['Patent Number']);
+                phd.media = 'https://lexlab.io/patents/US' + phd.patent.id +'/preview';
+                phd.title = 'PhD for ' + (phd.patent.id || phd.application['Patent Number']);
                 phd.description = 'USSN ' + phd.application['Application Number'];
                 phd.styleClass = 'Applicant';
                 phd.rid = 'PHD';
@@ -724,12 +724,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 localStorageService.set(phd.application['Application Number'], phd);
                 // $http.post('/getphd/store/' + appnum, phd);
                 phdref.update(phd);
-                $http.get('https://lexlab.io/proxy/lexlab.io/publisher/download/'+phdref.key()).then(function(resp){
-                var blob = new Blob([resp.data],{type: 'blob'});
-                            saveAs(blob, config.APPNUM + '.epub');
+                // $http.get('https://lexlab.io/proxy/lexlab.io/publisher/download/'+phdref.key()).then(function(resp){
+                // var blob = new Blob([resp.data],{type: 'blob'});
+                //             saveAs(blob, config.APPNUM + '.epub');
+                
+                // });
                 alertify.alert('<div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">All files have been successfully processed by LEO and delivered to your account for review.</h6></div>');
                 main.showupload = false;
-                });
 
             };
 
@@ -836,8 +837,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             var roardate = maildate.toDateString();
                             var noatemplate = '<div class="container-fluid two-col-left">' +
                                 '<div class="row two-col-left">' +
-                                '<div class="col-xs-3 col-sidebar"><p><img src="https://lexlab.io/patents/US' + patent.number + '/preview" class="img img-responsive img-shadow"/></p></div>' +
-                                '<div class="col-xs-9 col-main"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + patent.title + '</h4><p>Filed ' + roardate + '</p><p>' + patent.abstract + '</p><cite>' + patent.filename + '&nbsp;&nbsp;<a href="' + patent.media + '" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+                                '<div class="col-xs-4 col-sidebar"><p><img src="https://lexlab.io/patents/US' + patent.number + '/preview" class="img img-responsive img-shadow"/></p></div>' +
+                                '<div class="col-xs-8 col-main"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + patent.title + '</h4><p>Filed ' + roardate + '</p><p>' + patent.abstract + '</p><cite>' + patent.filename + '&nbsp;&nbsp;<a href="' + patent.media + '" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
                                 '</div>' +
                                 '</div>';
                             var wraphead = ckstarter;
@@ -853,7 +854,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 
                             });
-                            patent.content = wraphead + $(poodle).html() + contenttemplate + wraptail;
+                            patent.content = wraphead + $(poodle).html() + contenttemplate + wraptail + '<patentreport patent="'+patent.number+'"></patentreport></body></html>';
                             var a = $rootScope.$new();
                             a.patent = patent;
                             phdobj.content = wraphead + $(angular.element($compile($templateCache.get('{widgetsPath}/getphd/src/phd/patentReport.html'))(a))).html();
