@@ -2232,8 +2232,8 @@ function pageLoaded() {
 });
             };*/
             
-   .directive('getpdftext', ['$document','Collection','$window',function($document,Collection,$window){         
-
+   .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection',
+        function(extract, $document, $window, $rootScope, $http, Collection) {
             return {
 
                 restrict: "A",
