@@ -272,11 +272,7 @@ function pageLoaded() {
                     var a = $window.getSelection() || $document.getSelection();
                     if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
                         var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
-                        alertify.prompt(text).setting({
-    'label':'Annotate',
-    'type':'color',
-    'onok': function(evt,value){$(text).wrap('<span style="background-color:'+value+'"'); alertify.success(text);}
-  }).show();
+                        alertify.prompt(text).set('type','color').set('onok', function(evt,value){$(text).wrap('<span style="background-color:'+value+'"'); alertify.success(text);}).show();
                     }
                     });
 
