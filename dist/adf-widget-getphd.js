@@ -2286,20 +2286,20 @@ function pageLoaded() {
                                 var reg = new RegExp(/(?!\d+)\.\s/,'gi');
                                 var pss = section.split(reg);
 
-                                var psa = [];
-                                pss.forEach(function(string, index, pss){
+                                // var psa = [];
+                                // pss.forEach(function(string, index, pss){
 
-                                    var regEx = new RegExp(/claim/,'gi');
+                                //     var regEx = new RegExp(/claim/,'gi');
 
-                                    for (var i=0; i<string.match(regEx).length; i++){
-                                        string = string.replace(regEx, function(x){
-                                            return "<mark class='highlight'><strong><em><u>" + string.match(regEx)[i] + "</u></em></strong></mark>";
-                                        });
-                                    }
-                                    psa.push(string);
-                                });
+                                //     for (var i=0; i<string.match(regEx).length; i++){
+                                //         string = string.replace(regEx, function(x){
+                                //             return "<mark class='highlight'><strong><em><u>" + string.match(regEx)[i] + "</u></em></strong></mark>";
+                                //         });
+                                //     }
+                                //     psa.push(string);
+                                // });
 
-                                roarevent.pages.push(psa.join('</p><p class="pagetext">'));
+                                roarevent.pages.push(pss.join('</p><p class="pagetext">'));
                                 roarevent.$save();
                                 });
                             };
