@@ -2261,8 +2261,10 @@ function pageLoaded() {
                     if (angular.isUndefined(roarevent.pages)){
                         roarevent.pages = [];
                         PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
-                    
-                        var pdf = PDFJS.getDocument(roarevent.ocrlink);
+                        roarevent.$loaded().then(function(roar){
+                            
+                        
+                        var pdf = PDFJS.getDocument(roar.ocrlink);
                         pdf.then(function(pdfDocument){getPages(pdfDocument);});
                 
 
@@ -2297,10 +2299,13 @@ function pageLoaded() {
                                 });
                                 
                                 roarevent.pages.push(psa.join('</p><p class="pagetext">'));
-
+                                roarevent.$save();
                                 });
                             };
-                        }
+                        
+
+                        });
+}
                 }
             };
         }
