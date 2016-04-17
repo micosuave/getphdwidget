@@ -2242,6 +2242,7 @@ function pageLoaded() {
                 //controllerAs: "pdff",
                 //bindToController: true,
                 scope:{
+                    query: '='
 
 
                 },
@@ -2254,7 +2255,7 @@ function pageLoaded() {
                     var a = $window.getSelection() || $document.getSelection();
                     if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
                         var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
-                        alertify.alert(text);
+                        alertify.prompt(text);
                     }
                     });
 
@@ -2271,19 +2272,22 @@ function pageLoaded() {
 
                         var getPages = function(pdf) {
                             for (var i = 0; i < pdf.numPages; i++) {
-                                pdf.getPage(i + 1).then(function(page){getPageText(page)});
+                                pdf.getPage(i + 1).then(function(page){getPageText(page, i)});
                             }
                         };
-                        var getPageText = function(page) {
+                        var getPageText = function(page, i) {
                             page.getTextContent().then(function(textContent) {
 
-                                var section = '';
+                                var section = '<p>';
                                 angular.forEach(textContent.items, function(o, key) {
 
+                                    if(o.str.contains('claim')){
+                                        section = section + ' ' + '<mark class="highlight">' + o.str + '</mark>';
+                                    }else{
                                     section = section + ' ' + o.str;
-
+                                    }
                                 });
-                                var reg = new RegExp(/(?!\d+)\.\s/,'gi');
+                                var reg = new RegExp(/(!=[\dg])\.\s/,'gi');
                                 var pss = section.split(reg);
 
                                 // var psa = [];
@@ -2299,7 +2303,7 @@ function pageLoaded() {
                                 //     psa.push(string);
                                 // });
 
-                                roarevent.pages.push(pss.join('</p><p class="pagetext">'));
+                                roarevent.pages[i] = pss.join('</p><p class="pagetext">');
                                 roarevent.$save();
                                 });
                             };
