@@ -59,7 +59,7 @@ angular.module('llp.pdf', ['LocalStorageModule'])
                 // $scope.keywords = '/(claim(s)?\s+\d+(\W(\s)?\d+)+)?(reject(ed)?(ion)?)?(10\d\(\D\))?/gi';
                 // $scope.matches = [];
 $http.get($attr.pdfData).then(function(resp){
-    
+
 PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
 var PDF_PATH = $attr.pdfData;
 var PAGE_NUMBER = 2;
@@ -102,9 +102,9 @@ function pageLoaded() {
   // Loading document and page text content
   PDFJS.getDocument(PDF_PATH).then(function (pdfDocument) {
     for (var i = 0; i < pdfDocument.numPages; i++) {
-    
+
     pdfDocument.getPage(i + 1).then(function(page){
-                    
+
     //pdfDocument.getPage(PAGE_NUMBER).then(function (page) {
       var viewport = page.getViewport(PAGE_SCALE);
       page.getTextContent().then(function (textContent) {
@@ -154,20 +154,20 @@ function pageLoaded() {
                         angular.forEach(textContent.items, function(o, key) {
 
                             // var section = '';
-                            
-                            
+
+
                             // angular.forEach(o, function(i, key) {
                             //     // $(sectionwrap).append(i.str + ' ');
                             //     section = section + ' ' + i.str;
                             //     return section;
                             // });
                             section = section + ' ' + o.str;
-                           
+
 
                         });
                         var reg = new RegExp(/(?!\d+)\.\s/,'gi');
                         var pss = section.split(reg);
-                        
+
                         pss.forEach(function(str){
                             var reg = new RegExp(/(?:claim)?(?:reject)?(?:amend)?(?:cancel)/,'gi');
                             str.replace(reg, '<mark class="highlight">'+reg+'</mark>');
@@ -185,14 +185,14 @@ function pageLoaded() {
     $scope.pages.push(pss.join('</p><p>'));
     roarref.child('pages').push(pss.join('</p><p>'));
     //}
-                        
-                        
-                            
+
+
+
                             //var sentences = string.split('. ');
                             //section.match($scope.keywords)
                         //section.replace(section.match($scope.keywords), '<span class="highlight"><strong><em><u>' + $[1] + '</u></em></strong></span>');
-                            
-                            
+
+
                             // for (var key in sentences){
                             //     if (sentences.hasOwnProperty[key]){
                             //         var sentence = sentences[key];
@@ -204,8 +204,8 @@ function pageLoaded() {
                             // angular.forEach(sentences, function(sentence, key){
                             //     $scope.matches.push(sentence.match(re));
                             // });
-                            
-                            
+
+
                         // textContent.forEach(function(o) {
 
                         // });
@@ -248,7 +248,7 @@ function pageLoaded() {
 
 });
             };*/
-            
+
    .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection',
         function(extract, $document, $window, $rootScope, $http, Collection) {
             return {
@@ -259,14 +259,14 @@ function pageLoaded() {
                 //controllerAs: "pdff",
                 //bindToController: true,
                 scope:{
-                    
-                    
+
+
                 },
                 link: function($scope,$el,$attr,$ctrl){
                     var id = $attr.getpdftext;
                     var roarevent = Collection(id);
                     roarevent.$bindTo($scope, 'roarevent');
-                    
+
                     $document.on('mouseup', function(event) {
                     var a = $window.getSelection() || $document.getSelection();
                     if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
@@ -274,17 +274,17 @@ function pageLoaded() {
                         alertify.alert(text);
                     }
                     });
-                    
+
                     if (angular.isUndefined(roarevent.pages)){
                         $http.get($attr.pdfData).then(function(resp){
                         roarevent.pages = [];
                         PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
                         roarevent.$loaded().then(function(roar){
-                            
-                        
+
+
                         var pdf = PDFJS.getDocument($attr.pdfData);
                         pdf.then(function(pdfDocument){getPages(pdfDocument);});
-                
+
 
                         var getPages = function(pdf) {
                             for (var i = 0; i < pdf.numPages; i++) {
@@ -293,34 +293,34 @@ function pageLoaded() {
                         };
                         var getPageText = function(page) {
                             page.getTextContent().then(function(textContent) {
-                        
+
                                 var section = '';
                                 angular.forEach(textContent.items, function(o, key) {
 
                                     section = section + ' ' + o.str;
-                           
+
                                 });
                                 var reg = new RegExp(/(?!\d+)\.\s/,'gi');
                                 var pss = section.split(reg);
-                        
-                                var psa = [];                   
-                                pss.forEach(function(string, index, pss){                    
-                            
-                                    var regEx = new RegExp(/(claim)?(reject)?(amend)?(cancel)?/,'gi');
-    
+
+                                var psa = [];
+                                pss.forEach(function(string, index, pss){
+
+                                    var regEx = new RegExp(/claim/,'gi');
+
                                     for (var i=0; i<string.match(regEx).length; i++){
                                         string = string.replace(regEx, function(x){
                                             return "<mark class='highlight'><strong><em><u>" + string.match(regEx)[i] + "</u></em></strong></mark>";
                                         });
-                                    }   
+                                    }
                                     psa.push(string);
                                 });
-                                
+
                                 roarevent.pages.push(psa.join('</p><p class="pagetext">'));
                                 roarevent.$save();
                                 });
                             };
-                        
+
 
                         });
 
