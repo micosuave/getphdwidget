@@ -272,7 +272,13 @@ function pageLoaded() {
                     var a = $window.getSelection() || $document.getSelection();
                     if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
                         var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
-                        alertify.prompt(text);
+                        alertify.prompt().setting({
+    'label':'Annotate',
+    'message': text,
+    'title':'Select a color',
+    'type':'color',
+    'onok': function(evt,value){$(text).wrap('<span style="background-color:'+value+'"'); alertify.success(text);}
+  }).show();
                     }
                     });
 
@@ -298,7 +304,7 @@ function pageLoaded() {
                                 var section = '<p>';
                                 angular.forEach(textContent.items, function(o, key) {
 
-                                    if(o.str.contains('claim')){
+                                    if(o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
                                         section = section + ' ' + '<mark class="highlight">' + o.str + '</mark>';
                                     }else{
                                     section = section + ' ' + o.str;
@@ -320,7 +326,7 @@ function pageLoaded() {
                                 //     psa.push(string);
                                 // });
 
-                                roarevent.pages[i] = pss.join('</p><p class="pagetext">');
+                                roarevent.pages.push(pss.join('</p><p class="pagetext">'));
                                 roarevent.$save();
                                 });
                             };
