@@ -276,12 +276,13 @@ function pageLoaded() {
                     });
                     
                     if (angular.isUndefined(roarevent.pages)){
+                        $http.get($attr.pdfData).then(function(resp){
                         roarevent.pages = [];
                         PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
                         roarevent.$loaded().then(function(roar){
                             
                         
-                        var pdf = PDFJS.getDocument(roar.ocrlink);
+                        var pdf = PDFJS.getDocument($attr.pdfData);
                         pdf.then(function(pdfDocument){getPages(pdfDocument);});
                 
 
@@ -322,8 +323,9 @@ function pageLoaded() {
                         
 
                         });
-}
-                }
+
+});
+                    }         }
             };
         }
     ])
