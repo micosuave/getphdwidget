@@ -2289,7 +2289,7 @@ function pageLoaded() {
                                 var psa = [];                   
                                 pss.forEach(function(string, index, pss){                    
                             
-                                    var regEx = new RegExp(/(?:claim)?(?:reject)?(?:amend)?(?:cancel)/,'gi');
+                                    var regEx = new RegExp(/(claim)?(reject)?(amend)?(cancel)?/,'gi');
     
                                     for (var i=0; i<string.match(regEx).length; i++){
                                         string = string.replace(regEx, function(x){
