@@ -39,7 +39,7 @@
                         <uib-tab-heading>Claims <label class="badge">{{patent.claim_total}}</label></uib-tab-heading>
                         <div class="container">
 
-                        <div class="col-sm-6">                        
+                        <div class="col-xs-6">                        
                         <d3pendingtree patent="{{patent.id}}" pattern="{{query || ''}}" tree="tree"></d3pendingtree>
                            <input id="patterninput" class="" ng-model="query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
                 <!--<a style="position:absolute;right:0;top:4;" class="btn fa fa-close" ng-click="config.query = null"></a>-->
@@ -64,7 +64,7 @@
             </ul>-->
         </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-xs-6">
                 <div id="info"></div>
               <div ui-tree="treeOptions"  class="">
                         <ol ui-tree-nodes max-depth="6" ng-model="tree.claims">
@@ -103,11 +103,14 @@
                     <uib-tab class="panel-heading" heading="Citations">
                         <table class="table table-responsive table-stripped table-condensed table-hover">
                             <thead>
-                                
+                                <th>Claims</th>
+                                <th>ID#</th>
+                                <th>Details</th>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="citation in patent.references">
-                                    <td><label class="badge label label-NOA">{{citation}}</label></td>
+                                    <td><img ng-src="/patents/US{{citation | strip}}/preview" class="img img-responsive img-shadow" style="width:150px;height:150px;" />
+                                    <td><label class="label label-pill label-NOA">{{citation}}</label></td>
                                     <td><patent-citation patent="{{citation | strip}}"></patent-citation></td>
                                 </tr>
                             </tbody>

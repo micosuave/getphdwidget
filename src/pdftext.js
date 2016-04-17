@@ -274,6 +274,50 @@ function pageLoaded() {
                         alertify.alert(text);
                     }
                     });
+                    
+                    if (angular.isUndefined(roarevent.pages)){
+                        roarevent.pages = [];
+                        PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
+                    
+                        var pdf = PDFJS.getDocument(roarevent.ocrlink);
+                        pdf.then(function(pdfDocument){getPages(pdfDocument);});
+                
+
+                        var getPages = function(pdf) {
+                            for (var i = 0; i < pdf.numPages; i++) {
+                                pdf.getPage(i + 1).then(function(page){getPageText(page)});
+                            }
+                        };
+                        var getPageText = function(page) {
+                            page.getTextContent().then(function(textContent) {
+                        
+                                var section = '';
+                                angular.forEach(textContent.items, function(o, key) {
+
+                                    section = section + ' ' + o.str;
+                           
+                                });
+                                var reg = new RegExp(/(?!\d+)\.\s/,'gi');
+                                var pss = section.split(reg);
+                        
+                                var psa = [];                   
+                                pss.forEach(function(string, index, pss){                    
+                            
+                                    var regEx = new RegExp(/(?:claim)?(?:reject)?(?:amend)?(?:cancel)/,'gi');
+    
+                                    for (var i=0; i<string.match(regEx).length; i++){
+                                        string = string.replace(regEx, function(x){
+                                            return "<mark class='highlight'><strong><em><u>" + string.match(regEx)[i] + "</u></em></strong></mark>";
+                                        });
+                                    }   
+                                    psa.push(string);
+                                });
+                                
+                                roarevent.pages.push(psa.join('</p><p class="pagetext">'));
+
+                                });
+                            };
+                        }
                 }
             };
         }
