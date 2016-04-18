@@ -1,15 +1,15 @@
 <div class="panel panel-primary" style="margin:0rem;margin-left:-0.75rem;overflow:visible;">
     <div class="panelhead2 panel-heading btn-primary btn-glass clearfix" style="margin-right:-1rem;border-top-left-radius:0rem;border-bottom-left-radius:0rem;border-top-right-radius:2rem;border-bottom-right-radius:2rem;">
-        
-       
+
+
         <img src="/llp_core/img/GoldLion.svg" class="img lionlogofilter pull-left" style="width:auto;height: 50px;align-self:flex-start;position:absolute;margin-top:-10px;">
-        
+
         <div class="pull-right" style="display:flex;flex-direction:column;align-items:flex-start;justify-content:space-around;align-self:flex-end;">
           <img src="/llp_core/img/GoldLogoLong.svg" class="img" style="height:25px;">
-  
+
           <img src="/llp_core/img/GoldPhdLogoLong.svg" class="img" style="height:10px;padding-left:2px;">
         </div>
-        
+
         <!--<h6 class="panel-title" style="color:#ffa;"><img src="https://lexlab.firebaseapp.com/img/GoldPhdLogoLong.svg" class="img img-rounded img-thumbnail" style="width:auto;height:100%;" /> </h6>-->
     </div>
     <div class="panel-body" style="overflow:scroll;">
@@ -20,8 +20,8 @@
             <h4>{{response.title}} <small class="text-muted">{{response.claim_total}} Claims</small></h4>
             <p class="text-muted text-left" style="text-align:left;font-size:10px;">{{response.abstract}}</p>
         </blockquote>
-        
-        
+
+
     <blockquote class="bs-callout bs-callout-success card-header" style="text-align:left;margin:0;">
         <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="patentnumber" class="card-text text-muted"><strong>Enter US Patent Number</strong></label></h4>
      <div class="input-group">
@@ -30,23 +30,9 @@
        <!--<iframe name="testframe" id="testframe" style="visibility: hidden;width:auto;height:1px;"></iframe>-->
     </div>
 </blockquote>
-          
-     <blockquote class="bs-callout bs-callout-warning card-header" style="text-align:left;margin:0;">
-         <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="publishedapplication" class="card-text text-muted"><strong>Enter Year of Publication and Published Application Number</strong></label></h4>
-         
-    <div class="input-group">
-       
-                <input type="number" placeholder="YYYY" style="max-width:10rem;padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;border-top-left-radius:1rem;border-bottom-left-radius:1rem;" ng-model="config.IPAYEAR" maxlength="4">
 
-         
-        <input type="text" placeholder="# PA" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;" ng-model="config.IPANUM" >
-     <button class="btn btn-default" ng-click="main.getpublishedapplication(config.IPAYEAR, config.IPANUM)"><span class="text-warning fa fa-download fa-2x"></span></button>
-        
-        
-    </div>
-    
-    </blockquote>
-    
+
+
     <blockquote class="bs-callout bs-callout-danger card-header" style="text-align:left;margin:0;">
     <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="" class="card-text text-muted">Enter US Application Serial Number</label></h4>
               <div class="input-group">
@@ -64,6 +50,22 @@
      <!--<iframe name="testframegoog" id="testframegoog" style="visibility: hidden;width:auto;height:1px;"></iframe>-->
           <!--</div>-->
           </div>
+    </blockquote>
+
+    <blockquote class="bs-callout bs-callout-warning card-header" style="text-align:left;margin:0;">
+         <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="publishedapplication" class="card-text text-muted"><strong>Enter Year of Publication and Published Application Number</strong></label></h4>
+
+    <div class="input-group">
+
+                <input type="number" placeholder="YYYY" style="max-width:10rem;padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;border-top-left-radius:1rem;border-bottom-left-radius:1rem;" ng-model="config.IPAYEAR" maxlength="4">
+
+
+        <input type="text" placeholder="# PA" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;" ng-model="config.IPANUM" >
+     <button class="btn btn-default" ng-click="main.getpublishedapplication(config.IPAYEAR, config.IPANUM)"><span class="text-warning fa fa-download fa-2x"></span></button>
+
+
+    </div>
+
     </blockquote>
       <!--<pre ng-if="main.remoteresp" ng-bind="main.remoteresp" class="card card-fancy card-block "></pre> -->
 </div><!--panelbody-->

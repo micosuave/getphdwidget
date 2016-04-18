@@ -321,7 +321,7 @@ function pageLoaded() {
                                 // });
 
                                 roarevent.pages.push(pss.join('</p><p class="pagetext">'));
-                                roarevent.$save();
+                                //roarevent.$save();
                                 });
                             };
 

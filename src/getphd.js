@@ -421,9 +421,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 // };
                 if (provider === 'reedtech') { winreed(); }
                 else { wingoog(); }
-               
+
             };
-            
+
             main.remoteconfig = function(pnum) {
                 $('#googlebutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
                 $('#reedtechbutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
@@ -442,7 +442,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             var zip = new JSZip(data);
                             var blob = zip.generate({type: 'blob'});
                             saveAs(blob, config.appnum + '.zip');
-                            } 
+                            }
                         }
                     });}catch(ex){
                     JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
@@ -457,9 +457,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             }
                         }
                     });
-                    }finally{}    
+                    }finally{}
             });
-                
+
             };
             main.remotezip = function(appnum) {
                 main.error = null;
@@ -467,7 +467,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 main.progress = 0;
                 main.progresstwo = 0;
                 main.extractedfiles = 0;
-                
+
                 config.appnum = appnum;
                 extractzip(appnum, main, uploader)
                     .then(function(files) {
@@ -532,7 +532,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
 
             main.format = function(ref){
-              return ref.replace('US:','');  
+              return ref.replace('US:','');
             };
 
             main.buffer = function(file) {
@@ -729,7 +729,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 // $http.get('https://lexlab.io/proxy/lexlab.io/publisher/download/'+phdref.key()).then(function(resp){
                 // var blob = new Blob([resp.data],{type: 'blob'});
                 //             saveAs(blob, config.APPNUM + '.epub');
-                
+
                 // });
                 alertify.alert('<div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">All files have been successfully processed by LEO and delivered to your account for review.</h6></div>');
                 main.showupload = false;
@@ -839,8 +839,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             var roardate = maildate.toDateString();
                             var noatemplate = '<div class="container-fluid two-col-left">' +
                                 '<div class="row two-col-left">' +
-                                '<div class="col-xs-4 col-sidebar"><p><img src="https://lexlab.io/patents/US' + patent.number + '/preview" class="img img-responsive img-shadow"/></p></div>' +
-                                '<div class="col-xs-8 col-main"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + patent.title + '</h4><p>Filed ' + roardate + '</p><p>' + patent.abstract + '</p><cite>' + patent.filename + '&nbsp;&nbsp;<a href="' + patent.media + '" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
+                                '<div class="col-xs-4 col-sidebar"><a pop="true" src="https://lexlab.io/patents/US' + patent.number + '/preview"><img src="https://lexlab.io/patents/US' + patent.number + '/preview" class="img img-responsive img-shadow"/></a></div>' +
+                                '<div class="col-xs-8 col-main"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + patent.title + '</h4><p>Filed ' + roardate + '</p><p>' + patent.abstract + '</p><cite>' + patent.filename + '&nbsp;&nbsp;<a pop="true" href="' + patent.media + '" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
                                 '</div>' +
                                 '</div>';
                             var wraphead = ckstarter;
@@ -923,7 +923,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
                 //var header = $templateCache.get("{widgetsPath}/getphd/src/titleTemplate.html");
                 var header = $('#docheader').html();
-                var skope = angular.element('<iframe/>').attr('height', '90vh').attr('src', $attr.href); 
+                var skope = angular.element('<iframe/>').attr('height', '90vh').attr('src', $attr.href);
 
                 angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
                 $('.issuedocpanel').draggable({
@@ -939,7 +939,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $el.on('click', function(e){
                     e.preventDefault();
                     popdoc();
-                });      
+                });
             }
         };
     }])
