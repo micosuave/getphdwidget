@@ -779,7 +779,6 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
          return {
            restrict:'EA',
            scope:{
-               roarevent: '='
 
            },
            template:'<div class="container-fluid two-col-right"><div class="row"><div class="col-xs-8"><div class="bs-callout bs-callout-{{roarevent.styleClass}}"><h4>{{roarevent.title}}</h4><p>Filed {{roardate()}}</p><cite>{{roarevent.filename}}&nbsp;&nbsp;<a pop="true" href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div><div class="col-xs-4"><img ng-src="https://placehold.it/350x480/{{background()}}/fff/&text={{roarevent.rid}}" class="img img-responsive img-shadow"/></div></div></div><div getpdftext="{{roarevent.id}}" pdf-data="{{roarevent.ocrlink}}" class="card card-block"><p ng-bind-html="page | trustASHTML"></p><footer><p>{{$index}}</p></footer></div>',
@@ -788,9 +787,9 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
            //bindToController: true,
            link: function($scope,$element,$attrs,$ctrl){
                 var roarid = $attrs.roarid;
-                if(roarid){
+
                     var roarevent = Collection(roarid);
-                    roarevent.$bindTo($scope, 'roarevent');
+                    $scope.roarevent=roarevent;
 
 
                 $scope.roardate = roardate;
@@ -827,8 +826,8 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
                     }
 
                     return template;
-                }
-           }  }
+                };
+           }
 
          };
 
