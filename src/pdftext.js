@@ -254,7 +254,7 @@ function pageLoaded() {
             return {
 
                 restrict: "A",
-                template: '<pre ng-repeat="page in roarevent.pages" ng-bind-html="page | highlight: query | trustAsHTML" class="card card-block" style="line-height:1.5;font-size:14px;"></pre>',
+                template: '<div ng-repeat="page in roarevent.pages" class="card card-block" style="line-height:1.5;font-size:14px;"><p ng-bind-html="page |highlight: query | trustAsHTML"></p><footer><p>{{$index}}</p></footer></div>',
                 //controller: "PDFFilesController",
                 //controllerAs: "pdff",
                 //bindToController: true,
