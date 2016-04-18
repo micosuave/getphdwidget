@@ -853,9 +853,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                             });
                             patent.content = wraphead + $(poodle).html() + contenttemplate + wraptail + '<patentreport patent="'+patent.number+'"></patentreport></body></html>';
-                            var a = $rootScope.$new();
-                            a.patent = patent;
-                            phdobj.content = wraphead + $(angular.element($compile($templateCache.get('{widgetsPath}/getphd/src/phd/patentReport.html'))(a))).html();
+                            //var a = $rootScope.$new();
+                            //a.patent = patent;
+                            //phdobj.content = wraphead + $(angular.element($compile($templateCache.get('{widgetsPath}/getphd/src/phd/patentReport.html'))(a))).html();
                             deferred.resolve(patent);
                         });
                     });
