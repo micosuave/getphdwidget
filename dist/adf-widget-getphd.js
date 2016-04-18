@@ -434,7 +434,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     $scope.response = resp.data;
                     var googleurl = 'https' +'://'+ 'lexlab.io' + '/proxy/storage.googleapis.com/uspto-pair/applications/'+config.appnum+'.zip';
                     var reedtechurl = 'https' +'://'+ 'lexlab.io' + '/proxy/patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
-                    try{JSZipUtils.getBinaryContent(googleurl, function(err, data) {
+                    JSZipUtils.getBinaryContent(googleurl, function(err, data) {
                         if(err) {
                             $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
                         }else{
@@ -443,9 +443,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             var zip = new JSZip(data);
                             var blob = zip.generate({type: 'blob'});
                             saveAs(blob, config.appnum + '.zip');
-                            }
+                            };
                         }
-                    });}catch(ex){
+                    });
                     JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
                         if(err) {
                             $('#reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
@@ -455,10 +455,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             var zip = new JSZip(data);
                             var blob = zip.generate({type: 'blob'});
                             saveAs(blob, config.appnum + '.zip');
-                            }
+                            };
                         }
                     });
-                    }finally{}
+
             });
 
             };
@@ -601,12 +601,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     });
 
 
-            },
-                function(reason) {
-
-                    console.log(reason.message);
-
-                };
+            };
             main.pop = function(link) {
                 var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
                 //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
@@ -1085,7 +1080,7 @@ angular.module("adf.widget.getphd").run(["$templateCache", function($templateCac
 $templateCache.put("{widgetsPath}/getphd/src/editgallery.html","<form role=form><div class=form-group><label for=sample>Interval, in milliseconds:</label> <input type=number class=form-control ng-model=config.interval><br>Enter a negative number or 0 to stop the interval.</div><div class=form-group><label>Disable Slide Looping</label> <input type=checkbox ng-model=config.nowrap></div><div class=form-group><label>Pause on Hover?</label> <input type=checkbox ng-model=config.pauseonhover></div><div class=form-group><label>Disable Transition</label> <input type=checkbox ng-model=config.transition></div></form>");
 $templateCache.put("{widgetsPath}/getphd/src/gallery.html","<div style=\"min-height: 305px\"><uib-carousel interval=config.interval no-pause={{config.pauseonhover}} no-transition={{config.transition}} no-wrap={{config.nowrap}}><uib-slide ng-repeat=\"slide in gallery.slides\" active={slide.active} index=slide.index><img ng-src={{slide.media}} style=margin:auto;><div class=carousel-caption><h4>Slide {{slide.$index}}</h4><p>{{slide.title}}</p></div></uib-slide></uib-carousel></div>");
 $templateCache.put("{widgetsPath}/getphd/src/titleTemplate.html","<div class=card-header style=z-index:1;padding:0px;><h4 class=\"bs-callout bs-callout-primary\"><span style=color:steelblue;>{{config.title || roarevent.title}}</span><br><div class=row style=width:100%;><small>{{roarevent.date | date}}</small> <span class=pull-right style=position:absolute;right:5px;font-size:12px;><a title=notes ng-click=note(roarevent)><i class=\"fa fa-pencil\" style=color:steelblue;></i></a><a title=\"reload widget content\" ng-click=reload()><i class=\"fa fa-refresh\" style=color:steelblue;></i></a> <a title=\"change widget location\" class=adf-move><i class=\"fa fa-arrows\" style=color:steelblue;></i></a> <a title=\"collapse widget\" ng-show=\"options.collapsible && !widgetState.isCollapsed\" ng-click=\"widgetState.isCollapsed = !widgetState.isCollapsed\"><i class=\"fa fa-minus\" style=color:steelblue;></i></a> <a title=\"expand widget\" ng-show=\"options.collapsible && widgetState.isCollapsed\" ng-click=\"widgetState.isCollapsed = !widgetState.isCollapsed\"><i class=\"fa fa-plus\" style=color:steelblue;></i></a> <a title=\"copy to clipboard\" ng-click=edit(roarevent.id)><i class=\"fa fa-copy\" style=color:steelblue;></i></a> <a title=\"fullscreen widget\" ng-click=openFullScreen(roarevent.id) ng-show=\"options.maximizable || true\"><i class=\"fa fa-expand\" style=color:steelblue;></i></a> <a title=\"remove widget\" ng-click=remove() onclick=$(this).parent().parent().parent().parent().parent().remove()><i class=\"fa fa-close\" style=color:steelblue;></i></a></span></div></h4></div>");
-$templateCache.put("{widgetsPath}/getphd/src/view.html","<div ng-controller=\"MainCtrl as main\"><div class=\"card card-primary card-block btn-glass drop-target\" nv-file-drop uploader=uploader drop-files=handleFiles(files) style=\"border: 2px dashed blue;margin: 5px;\" ng-if=main.showupload><div ng-controller=pageslideCtrl><button class=\"row btn btn-glass btn-primary img img-rounded\" style=width:100%;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row; ng-click=main.toggle() ng-class=\"{\'btn-success\': (main.progress == 100),\'btn-danger\':(main.progress === \'failed\')}\"><uib-progressbar class=\"btn-glass fa fa-3x active stripped\" ng-class=\"{\'active\':(main.progress < 100)}\" ng-if=main.progress value=main.progress style=height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch; type={{main.progresstype}}></uib-progressbar><i class=\"fa fa-upload fa-3x\">{{main.progress}}<span ng-show=main.progress>%</span></i> <img src=https://lexlab.firebaseapp.com/img/GoldLogoLong.svg class=\"pop img img-rounded pull-right\" style=max-height:100px; ng-if=!main.progress></button><div class=\"row btn btn-glass btn-info\" style=position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row; ng-if=main.progresstwo><uib-progressbar class=\"btn-glass fa fa-3x active striped\" ng-class=\"{\'active\':(main.progresstwo < 100)}\" value=main.progresstwo max=main.extractedfiles style=height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch; type={{main.progresstype}}></uib-progressbar><i class=\"fa fa-fw fa-3x fa-spinner fa-spin\"></i><i class=\"fa fa-3x\">{{main.progresstwo}}/{{main.extractedfiles}}</i></div><div pageslide ps-open=main.checked ps-key-listener=true ps-side=\"{{main.side || \'left\'}}\" ps-class=\"{{main.styleClass || \'card-dark btn-glass\'}}\" ps-size=\"{{main.size || \'400\'}}\" style=overflow-x:visible;overflow-y:scroll;><div ng-include=\"\'/getphdwidget/src/phd/step-1.html\'\"></div><hr></div></div></div><div class=\"card card-fancy card-rounded card-block card-thick\" style=\"text-align: left;color: #444;\" ng-if=phd.file><button class=\"alert btn-glass btn-primary img card-rounded row\" style=\"position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);\" ng-click=main.collapse()><div style=display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;><h4 class=\"card-title ng-binding display-4\" style=\"margin-bottom:0;color: #fff;\">US {{phd.patent.number | number:0 }}</h4><h5 class=\"card-subtitle ng-binding\" style=color:#ddd;><span class=lead>USSN {{phd.application[\'Application Number\']}}</span></h5></div><img src=/llp_core/img/GoldLion.svg class=\"img lionlogofilter\" style=\"width:75px;height: auto;\"><div style=display:flex;flex-direction:column;align-items:flex-start;justify-content:space-around;><img src=/llp_core/img/GoldLogoLong.svg class=img style=height:45px;> <img src=/llp_core/img/GoldPhdLogoLong.svg class=img style=height:25px;padding-left:2px;></div></button><div uib-collapse=collapsereport class=\"card clearfix\" style=padding:0;margin:0;><blockquote class=\"bs-callout bs-callout-NOA\" style=\"margin: 0;\"><h4>{{phd.application[\'Title of Invention\']}}</h4><p style=font-size:10px;><cite>{{phd.application[\'First Named Inventor\']}} <small><emphasis>Issued&nbsp&nbsp&nbsp&nbsp<span editable-text=\"phd.application[\'Issue Date of Patent\']\">{{phd.application[\'Issue Date of Patent\']}}</span></emphasis></small></cite></p></blockquote><uib-tabset class=tabbable justified=true type=pills><uib-tab active=main.tabs[0].isActive disabled=main.tabs[0].disabled select=\"main.tabs[0].isActive = true\" deselect=\"main.tabs[0].isActive = false\" style=\"margin: 0 5px;\"><uib-tab-heading class=text-Petition>PTO Metadata</uib-tab-heading><uib-tab-content ng-if=main.tabs[0].isActive><uib-tabset class=\"tabbable tabs-left\"><uib-tab><uib-tab-heading>USSN {{phd.application[\'Application Number\']}}</uib-tab-heading><uib-tabset class=tabbable><uib-tab ng-repeat=\"file in phd.file\" heading=\"{{file.label | uppercase}}\"><uib-tab-content><pre class=\"card card-block card-fancy\" ng-bind=file.file></pre></uib-tab-content></uib-tab></uib-tabset></uib-tab><uib-tab ng-if=phd.application><uib-tab-heading ng-style>APPLICATION</uib-tab-heading><uib-tab-content><table class=\"card card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"(key, value) in phd.application\"><td><strong>{{::key}}</strong></td><td>{{::value}}</td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab class=text-info ng-if=phd.attorney><uib-tab-heading ng-style>ATTORNEY</uib-tab-heading><uib-tab-content><table class=\"card card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"(key, line) in phd.attorney track by $index\"><td ng-repeat=\"(key, value) in line track by $index\">{{::value}}</td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab class=text-success ng-if=phd.continuity><uib-tab-heading ng-style>CONTINUITY</uib-tab-heading><uib-tab-content><table class=\"card card-block table table-striped table-condensed table-hover table-responsive\"><tbody><tr ng-repeat=\"(key,line) in phd.continuity track by $index\"><td ng-repeat=\"(key, value) in line track by $index\">{{::value}}</td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab ng-if=phd.foreign><uib-tab-heading class=text-warning ng-style>FOREIGN PRIORITY</uib-tab-heading><uib-tab-content><table class=\"table table-stripped table-condensed table-hover table-responsive\"><thead><tr><th><strong>Country</strong></th><th><strong>Priority</strong></th><th><strong>Priority Date</strong></th></tr></thead><tbody><tr ng-repeat=\"p in phd.foreign\"><td ng-bind=\"::p[\'Country\']\"></td><td ng-bind=\"::p[\'Priority\']\"></td><td ng-bind=\"::p[\'Priority Date\'] | date\"></td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab ng-if=phd.term><uib-tab-heading>PATENT TERM ADJUSTMENTS</uib-tab-heading><uib-tab-content><table class=\"card card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"(key, line) in phd.term track by $index\"><td ng-repeat=\"(key,value) in line track by $index\">{{::value}}</td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab ng-if=phd.transaction><uib-tab-heading ng-style>TRANSACTION</uib-tab-heading><uib-tab-content><table class=\"table table-striped table-hover table-condensed table-responsive\"><thead><tr><th><strong>Date</strong></th><th><strong>Transaction Description</strong></th></tr></thead><tbody><tr ng-repeat=\"trans in phd.transaction\"><td>{{::trans[\'Date\']}}</td><td>{{::trans[\'Transaction Description\']}}</td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab ng-if=phd.imagefile><uib-tab-heading ng-style>IMAGE FILE WRAPPER</uib-tab-heading><uib-tab-content><input type=text ng-model=main.query placeholder=search... class=pull-right><table class=\"table table-hover table-condensed table-responsive\"><thead><tr><th ng-click=\"main.dog = \'Mail\\ Room\\ Date\'; maybe = !maybe\"><strong>Mail Room Date<i class=fa ng-if=\"main.dog == \'Mail Room Date\'\" ng-class=\"{\'fa-chevron-up\':maybe,\'fa-chevron-down\': !maybe}\"></i></strong></th><th ng-click=\"main.dog = \'Document\\ Code\'; maybe = !maybe\"><strong>Document Code<i class=fa ng-if=\"main.dog == \'Document Code\'\" ng-class=\"{\'fa-chevron-up\':maybe,\'fa-chevron-down\': !maybe}\"></i></strong></th><th ng-click=\"main.dog = \'Document\\ Description\'; maybe = !maybe\"><strong>Document Description<i class=fa ng-if=\"main.dog == \'Document Description\'\" ng-class=\"{\'fa-chevron-up\':maybe,\'fa-chevron-down\': !maybe}\"></i></strong></th><th ng-click=\"main.dog = \'Document\\ Category\'; maybe = !maybe\"><strong>Document Category<i class=fa ng-if=\"main.dog == \'Document Category\'\" ng-class=\"{\'fa-chevron-up\':maybe,\'fa-chevron-down\': !maybe}\"></i></strong></th><th ng-click=\"main.dog = \'Page\\ Count\'; maybe = !maybe\"><strong>Page Count<i class=fa ng-if=\"main.dog == \'Page Count\'\" ng-class=\"{\'fa-chevron-up\':maybe,\'fa-chevron-down\': !maybe}\"></i></strong></th><th ng-click=\"main.dog = \'Filename\'; maybe = !maybe\"><strong>Filename<i class=fa ng-if=\"main.dog == \'Filename\'\" ng-class=\"{\'fa-chevron-up\':maybe,\'fa-chevron-down\': !maybe}\"></i></strong></th></tr></thead><tbody><tr ng-repeat=\"roarevent in phd.imagefile | filter: main.query | orderBy: main.dog : maybe\"><td ng-bind=\"roarevent[\'Mail Room Date\']\"></td><td ng-bind=\"roarevent[\'Document Code\']\"></td><td ng-bind=\"roarevent[\'Document Description\']\"></td><td ng-bind=\"roarevent[\'Document Category\']\"></td><td ng-bind=\"roarevent[\'Page Count\']\"></td><td><a ng-click=main.popdoc(roarevent)>{{roarevent[\'Filename\']}}</a></td></tr></tbody></table></uib-tab-content></uib-tab></uib-tabset></uib-tab-content></uib-tab><uib-tab class=\"btn-glass NOA\" active=main.tabs[1].isActive disable=main.tabs[1].disabled select=\"main.tabs[2].isActive = true\" deselect=\"main.tabs[1].isActive = false\" style=\"margin: 0 5px;\"><uib-tab-heading class=text-NOA ng-style>US {{(phd.patent.number | number:0) || (config.IPAYEAR + \"&nbsp;/&nbsp;\" + config.IPANUM) }}</uib-tab-heading><uib-tab-content ng-if=main.tabs[2].isActive ng-controller=\"MainCtrl as main\"><blockquote cite={{phd.patent.media}} style=\"margin: 25px;margin-top:35px;\"><h4><strong ng-bind=tree.title></strong> - <small>{{tree.claim_total}} Claims</small></h4><p ng-bind-html=\"tree.abstract | highlight: query | trustAsHTML\"></p><cite>{{phd.patent.filename}}<a class=\"fa fa-external-link fa-border\" ng-click=main.poppatent(phd.patent)></a></cite></blockquote><div class=\"row showscroll\" style=\"margin: 5px 5px;overflow-x:scroll;\"><a ng-repeat=\"link in tree.drawings\" ng-click=main.pop(link) class=btn style=margin:2px;><img ng-src={{tree.thumbnails[$index]}} class=\"img img-shadow\"></a></div><div class=row><div class=col-sm-6><d3pendingtree id=\"a{{phd.patent.number || config.IPAYEAR + config.IPANUM}}\" class={{query}} tree=tree pattern={{query}} patent=\"{{phd.patent.number || config.IPAYEAR + config.IPANUM}}\"></d3pendingtree><input id=patterninput ng-model=query type=search style=margin:10px; ng-model-options=\"{updateOn: \'default blur\',debounce: {\'default\':250,\'blur\':0}}\"> <a style=position:absolute;right:0;top:4; class=\"btn fa fa-close\" ng-click=\"config.query = null\"></a><div class=col-sm-3><ul class=list-unstyled><li><input type=checkbox ng-model=dim> <small>Dim non-matches</small></li></ul><rendertree tree={{phd}} pattern={{query}} patent=\"{{\'8382656\'}}\"></rendertree></div><div class=col-sm-3></div></div><div class=col-sm-6><div id=info></div><div ui-tree=treeOptions><ol ui-tree-nodes max-depth=6 ng-model=tree.claims><li ui-tree-node class=\"card card-block\" ng-repeat=\"node in tree.claims\" ng-include=\"\'claim_renderer.html\'\" style=padding-right:0rem;padding-bottom:0.1rem; ng-hide=\"!treeFilter(node, query, supportedFields) && !dim\"></li></ol></div><script type=text/ng-template id=claim_renderer.html><div ui-tree-handle class=\"tree-node tree-node-content\"> <div class=\"tree-node-content flextoprow \" style=\"position:relative;\"> <a class=\"btn btn-xs pull-left\" data-nodrag ng-click=\"toggle(this)\" ng-if=\"node.children && (node.children.length > 0)\"><span class=\"fa \" ng-class=\"{\'fa-chevron-right\': collapsed, \'fa-chevron-down\': !collapsed}\" style=\"color:steelblue;transition:all 0.25s ease;\"></span></a> <!--<input type=\"text\" ng-model=\"node.text\" ng-change=\"node.$save();\" ng-model-options=\"{ updateOn: \'default blur\', debounce: {\'default\': 1000, \'blur\': 0} }\" style=\"padding: 0.5rem;color:#444;\" ng-if=\"config.editable\">--> <!--<a class=\"btn showonhover\" data-nodrag ng-if=\"config.editable\" ng-click=\"remove(this);\"><span class=\"fa fa-close text-danger \"></span></a>--> <!--<a class=\"btn \" data-nodrag ng-if=\"config.editable\" ng-click=\"toc.newsubsection(this)\" style=\"\"><span class=\"fa fa-plus text-success\"></span></a>--> <div ng-bind-html=\"node.text | highlight: query \" ng-class=\"{\'filtered-out\':(!treeFilter(node, query, supportedFields) && dim)}\"></div> <!--<a class=\"gototarget btn\" data-nodrag ui-sref=\"{{parentstate}}.righttab({tabid: node.id})\" style=\"\"> <span ng-if=\"!config.editable\" class=\"pull-left\">{{node.text}}</span><i style=\"position:absolute;right:0;\">&nbsp;</i></a>--> </div> </div> <ol ui-tree-nodes=\"\" ng-model=\"node.children\" ng-class=\"{\'hidden\': collapsed}\" style=\"\"> <li class=\"card card-block img-shadow\" ng-repeat=\"node in node.children\" ui-tree-node ng-include=\"\'claim_renderer.html\'\" style=\"padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;\" ng-hide=\"!treeFilter(node, query, supportedFields) && !dim\" > </li> </ol></script></div></div><patentreport patent={{phd.patent.id}}></patentreport></uib-tab-content></uib-tab></uib-tabset></div></div></div>");
+$templateCache.put("{widgetsPath}/getphd/src/view.html","<div ng-controller=\"MainCtrl as main\"><div class=\"card card-primary card-block btn-glass drop-target\" nv-file-drop uploader=uploader drop-files=handleFiles(files) style=\"border: 2px dashed blue;margin: 5px;\" ng-if=main.showupload><div ng-controller=pageslideCtrl><button class=\"row btn btn-glass btn-primary img img-rounded\" style=width:100%;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row; ng-click=main.toggle() ng-class=\"{\'btn-success\': (main.progress == 100),\'btn-danger\':(main.progress === \'failed\')}\"><uib-progressbar class=\"btn-glass fa fa-3x active stripped\" ng-class=\"{\'active\':(main.progress < 100)}\" ng-if=main.progress value=main.progress style=height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch; type={{main.progresstype}}></uib-progressbar><i class=\"fa fa-upload fa-3x\">{{main.progress}}<span ng-show=main.progress>%</span></i> <img src=https://lexlab.firebaseapp.com/img/GoldLogoLong.svg class=\"pop img img-rounded pull-right\" style=max-height:100px; ng-if=!main.progress></button><div class=\"row btn btn-glass btn-info\" style=position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row; ng-if=main.progresstwo><uib-progressbar class=\"btn-glass fa fa-3x active striped\" ng-class=\"{\'active\':(main.progresstwo < 100)}\" value=main.progresstwo max=main.extractedfiles style=height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch; type={{main.progresstype}}></uib-progressbar><i class=\"fa fa-fw fa-3x fa-spinner fa-spin\"></i><i class=\"fa fa-3x\">{{main.progresstwo}}/{{main.extractedfiles}}</i></div><div pageslide ps-open=main.checked ps-key-listener=true ps-side=\"{{main.side || \'left\'}}\" ps-class=\"{{main.styleClass || \'card-dark btn-glass\'}}\" ps-size=\"{{main.size || \'400\'}}\" style=overflow-x:visible;overflow-y:scroll;><div ng-include=\"\'/getphdwidget/src/phd/step-1.html\'\"></div><hr></div></div></div><div class=\"card card-fancy card-rounded card-block card-thick\" style=\"text-align: left;color: #444;\" ng-if=phd.file><button class=\"alert btn-glass btn-primary img card-rounded row\" style=\"position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);\" ng-click=main.collapse()><div style=display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;><h4 class=\"card-title ng-binding display-4\" style=\"margin-bottom:0;color: #fff;\">US {{phd.patent.number | number:0 }}</h4><h5 class=\"card-subtitle ng-binding\" style=color:#ddd;><span class=lead>USSN {{phd.application[\'Application Number\']}}</span></h5></div><img src=/llp_core/img/GoldLion.svg class=\"img lionlogofilter\" style=\"width:75px;height: auto;\"><div style=display:flex;flex-direction:column;align-items:flex-start;justify-content:space-around;><img src=/llp_core/img/GoldLogoLong.svg class=img style=height:45px;> <img src=/llp_core/img/GoldPhdLogoLong.svg class=img style=height:25px;padding-left:2px;></div></button><div uib-collapse=collapsereport class=\"card clearfix\" style=padding:0;margin:0;><blockquote class=\"bs-callout bs-callout-NOA\" style=\"margin: 0;\"><h4>{{phd.application[\'Title of Invention\']}}</h4><p style=font-size:10px;><cite>{{phd.application[\'First Named Inventor\']}} <small><emphasis>Issued&nbsp&nbsp&nbsp&nbsp<span editable-text=\"phd.application[\'Issue Date of Patent\']\">{{phd.application[\'Issue Date of Patent\']}}</span></emphasis></small></cite></p></blockquote><uib-tabset class=tabbable justified=true type=pills><uib-tab active=main.tabs[0].isActive disabled=main.tabs[0].disabled select=\"main.tabs[0].isActive = true\" deselect=\"main.tabs[0].isActive = false\" style=\"margin: 0 5px;\"><uib-tab-heading class=text-Petition>PTO Metadata</uib-tab-heading><uib-tab-content ng-if=main.tabs[0].isActive><uib-tabset class=\"tabbable tabs-left\"><uib-tab><uib-tab-heading>USSN {{phd.application[\'Application Number\']}}</uib-tab-heading><uib-tabset class=tabbable><uib-tab ng-repeat=\"file in phd.file\" heading=\"{{file.label | uppercase}}\"><uib-tab-content><pre class=\"card card-block card-fancy\" ng-bind=file.file></pre></uib-tab-content></uib-tab></uib-tabset></uib-tab><uib-tab ng-if=phd.application><uib-tab-heading ng-style>APPLICATION</uib-tab-heading><uib-tab-content><table class=\"card card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"(key, value) in phd.application\"><td><strong>{{::key}}</strong></td><td>{{::value}}</td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab class=text-info ng-if=phd.attorney><uib-tab-heading ng-style>ATTORNEY</uib-tab-heading><uib-tab-content><table class=\"card card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"(key, line) in phd.attorney track by $index\"><td ng-repeat=\"(key, value) in line track by $index\">{{::value}}</td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab class=text-success ng-if=phd.continuity><uib-tab-heading ng-style>CONTINUITY</uib-tab-heading><uib-tab-content><table class=\"card card-block table table-striped table-condensed table-hover table-responsive\"><tbody><tr ng-repeat=\"(key,line) in phd.continuity track by $index\"><td ng-repeat=\"(key, value) in line track by $index\">{{::value}}</td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab ng-if=phd.foreign><uib-tab-heading class=text-warning ng-style>FOREIGN PRIORITY</uib-tab-heading><uib-tab-content><table class=\"table table-stripped table-condensed table-hover table-responsive\"><thead><tr><th><strong>Country</strong></th><th><strong>Priority</strong></th><th><strong>Priority Date</strong></th></tr></thead><tbody><tr ng-repeat=\"p in phd.foreign\"><td ng-bind=\"::p[\'Country\']\"></td><td ng-bind=\"::p[\'Priority\']\"></td><td ng-bind=\"::p[\'Priority Date\'] | date\"></td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab ng-if=phd.term><uib-tab-heading>PATENT TERM ADJUSTMENTS</uib-tab-heading><uib-tab-content><table class=\"card card-block table table-striped table-hover table-condensed table-responsive\"><tbody><tr ng-repeat=\"(key, line) in phd.term track by $index\"><td ng-repeat=\"(key,value) in line track by $index\">{{::value}}</td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab ng-if=phd.transaction><uib-tab-heading ng-style>TRANSACTION</uib-tab-heading><uib-tab-content><table class=\"table table-striped table-hover table-condensed table-responsive\"><thead><tr><th><strong>Date</strong></th><th><strong>Transaction Description</strong></th></tr></thead><tbody><tr ng-repeat=\"trans in phd.transaction\"><td>{{::trans[\'Date\']}}</td><td>{{::trans[\'Transaction Description\']}}</td></tr></tbody></table></uib-tab-content></uib-tab><uib-tab ng-if=phd.imagefile><uib-tab-heading ng-style>IMAGE FILE WRAPPER</uib-tab-heading><uib-tab-content><input type=text ng-model=main.query placeholder=search... class=pull-right><table class=\"table table-hover table-condensed table-responsive\"><thead><tr><th ng-click=\"main.dog = \'Mail\\ Room\\ Date\'; maybe = !maybe\"><strong>Mail Room Date<i class=fa ng-if=\"main.dog == \'Mail Room Date\'\" ng-class=\"{\'fa-chevron-up\':maybe,\'fa-chevron-down\': !maybe}\"></i></strong></th><th ng-click=\"main.dog = \'Document\\ Code\'; maybe = !maybe\"><strong>Document Code<i class=fa ng-if=\"main.dog == \'Document Code\'\" ng-class=\"{\'fa-chevron-up\':maybe,\'fa-chevron-down\': !maybe}\"></i></strong></th><th ng-click=\"main.dog = \'Document\\ Description\'; maybe = !maybe\"><strong>Document Description<i class=fa ng-if=\"main.dog == \'Document Description\'\" ng-class=\"{\'fa-chevron-up\':maybe,\'fa-chevron-down\': !maybe}\"></i></strong></th><th ng-click=\"main.dog = \'Document\\ Category\'; maybe = !maybe\"><strong>Document Category<i class=fa ng-if=\"main.dog == \'Document Category\'\" ng-class=\"{\'fa-chevron-up\':maybe,\'fa-chevron-down\': !maybe}\"></i></strong></th><th ng-click=\"main.dog = \'Page\\ Count\'; maybe = !maybe\"><strong>Page Count<i class=fa ng-if=\"main.dog == \'Page Count\'\" ng-class=\"{\'fa-chevron-up\':maybe,\'fa-chevron-down\': !maybe}\"></i></strong></th><th ng-click=\"main.dog = \'Filename\'; maybe = !maybe\"><strong>Filename<i class=fa ng-if=\"main.dog == \'Filename\'\" ng-class=\"{\'fa-chevron-up\':maybe,\'fa-chevron-down\': !maybe}\"></i></strong></th></tr></thead><tbody><tr ng-repeat=\"roarevent in phd.imagefile | filter: main.query | orderBy: main.dog : maybe\"><td ng-bind=\"roarevent[\'Mail Room Date\']\"></td><td ng-bind=\"roarevent[\'Document Code\']\"></td><td ng-bind=\"roarevent[\'Document Description\']\"></td><td ng-bind=\"roarevent[\'Document Category\']\"></td><td ng-bind=\"roarevent[\'Page Count\']\"></td><td><a ng-click=main.popdoc(roarevent)>{{roarevent[\'Filename\']}}</a></td><doc-header roarid=\"{{roarevent[\'Filename\'].slice(0,roarevent[\'Filename\'].lastIndexOf(\'-\'))}}\"></doc-header></tr></tbody></table></uib-tab-content></uib-tab></uib-tabset></uib-tab-content></uib-tab><uib-tab class=\"btn-glass NOA\" active=main.tabs[1].isActive disable=main.tabs[1].disabled select=\"main.tabs[2].isActive = true\" deselect=\"main.tabs[1].isActive = false\" style=\"margin: 0 5px;\"><uib-tab-heading class=text-NOA ng-style>US {{(phd.patent.number | number:0) || (config.IPAYEAR + \"&nbsp;/&nbsp;\" + config.IPANUM) }}</uib-tab-heading><uib-tab-content ng-if=main.tabs[2].isActive ng-controller=\"MainCtrl as main\"><blockquote cite={{phd.patent.media}} style=\"margin: 25px;margin-top:35px;\"><h4><strong ng-bind=tree.title></strong> - <small>{{tree.claim_total}} Claims</small></h4><p ng-bind-html=\"tree.abstract | highlight: query | trustAsHTML\"></p><cite>{{phd.patent.filename}}<a class=\"fa fa-external-link fa-border\" ng-click=main.poppatent(phd.patent)></a></cite></blockquote><div class=\"row showscroll\" style=\"margin: 5px 5px;overflow-x:scroll;\"><a ng-repeat=\"link in tree.drawings\" ng-click=main.pop(link) class=btn style=margin:2px;><img ng-src={{tree.thumbnails[$index]}} class=\"img img-shadow\"></a></div><div class=row><div class=col-sm-6><d3pendingtree id=\"a{{phd.patent.number || config.IPAYEAR + config.IPANUM}}\" class={{query}} tree=tree pattern={{query}} patent=\"{{phd.patent.number || config.IPAYEAR + config.IPANUM}}\"></d3pendingtree><input id=patterninput ng-model=query type=search style=margin:10px; ng-model-options=\"{updateOn: \'default blur\',debounce: {\'default\':250,\'blur\':0}}\"> <a style=position:absolute;right:0;top:4; class=\"btn fa fa-close\" ng-click=\"config.query = null\"></a><div class=col-sm-3><ul class=list-unstyled><li><input type=checkbox ng-model=dim> <small>Dim non-matches</small></li></ul><rendertree tree={{phd}} pattern={{query}} patent=\"{{\'8382656\'}}\"></rendertree></div><div class=col-sm-3></div></div><div class=col-sm-6><div id=info></div><div ui-tree=treeOptions><ol ui-tree-nodes max-depth=6 ng-model=tree.claims><li ui-tree-node class=\"card card-block\" ng-repeat=\"node in tree.claims\" ng-include=\"\'claim_renderer.html\'\" style=padding-right:0rem;padding-bottom:0.1rem; ng-hide=\"!treeFilter(node, query, supportedFields) && !dim\"></li></ol></div><script type=text/ng-template id=claim_renderer.html><div ui-tree-handle class=\"tree-node tree-node-content\"> <div class=\"tree-node-content flextoprow \" style=\"position:relative;\"> <a class=\"btn btn-xs pull-left\" data-nodrag ng-click=\"toggle(this)\" ng-if=\"node.children && (node.children.length > 0)\"><span class=\"fa \" ng-class=\"{\'fa-chevron-right\': collapsed, \'fa-chevron-down\': !collapsed}\" style=\"color:steelblue;transition:all 0.25s ease;\"></span></a> <!--<input type=\"text\" ng-model=\"node.text\" ng-change=\"node.$save();\" ng-model-options=\"{ updateOn: \'default blur\', debounce: {\'default\': 1000, \'blur\': 0} }\" style=\"padding: 0.5rem;color:#444;\" ng-if=\"config.editable\">--> <!--<a class=\"btn showonhover\" data-nodrag ng-if=\"config.editable\" ng-click=\"remove(this);\"><span class=\"fa fa-close text-danger \"></span></a>--> <!--<a class=\"btn \" data-nodrag ng-if=\"config.editable\" ng-click=\"toc.newsubsection(this)\" style=\"\"><span class=\"fa fa-plus text-success\"></span></a>--> <div ng-bind-html=\"node.text | highlight: query \" ng-class=\"{\'filtered-out\':(!treeFilter(node, query, supportedFields) && dim)}\"></div> <!--<a class=\"gototarget btn\" data-nodrag ui-sref=\"{{parentstate}}.righttab({tabid: node.id})\" style=\"\"> <span ng-if=\"!config.editable\" class=\"pull-left\">{{node.text}}</span><i style=\"position:absolute;right:0;\">&nbsp;</i></a>--> </div> </div> <ol ui-tree-nodes=\"\" ng-model=\"node.children\" ng-class=\"{\'hidden\': collapsed}\" style=\"\"> <li class=\"card card-block img-shadow\" ng-repeat=\"node in node.children\" ui-tree-node ng-include=\"\'claim_renderer.html\'\" style=\"padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;\" ng-hide=\"!treeFilter(node, query, supportedFields) && !dim\" > </li> </ol></script></div></div><patentreport patent={{phd.patent.id}}></patentreport></uib-tab-content></uib-tab></uib-tabset></div></div></div>");
 $templateCache.put("{widgetsPath}/getphd/src/phd/epubform.html","");
 $templateCache.put("{widgetsPath}/getphd/src/phd/patentReport.html","<div class=\"container-fluid bs two-col-left card-fancy\"><div class=row><div class=\"col-xs-4 col-sm-3 col-1\"><div class=card><img ng-src=\"/patents/US{{patent.id || \'7654321\'}}/preview\" class=\"img img-responsive img-shadow\"><div class=card-block><h2 class=\"card-title text-NOA\">US <strong ng-bind=\"patent.id | number:0\">1,234,567</strong><small ng-bind=patent.issued|date></small></h2><div class=row><em><label ng-bind=patent.application_number>12/345,678</label></em></div><p ng-bind=patent.description class=card-text style=text-align:justify;>Do nulla id sint reprehenderit esse. Quis sunt duis consequat sit sint duis officia veniam qui. Occaecat ipsum esse officia qui et reprehenderit tempor. Aliqua officia qui occaecat veniam commodo esse magna fugiat reprehenderit duis. Adipisicing laborum ex commodo velit.</p></div></div></div><div class=\"card col-xs-8 col-sm-9\"><div><uib-tabset class=\"panel panel-default\"><uib-tab class=panel-heading heading=Abstract><div class=\"bs-callout bs-callout-reverse bs-callout-NOA\"><h4 ng-bind=patent.title>Reprehenderit aute proident cupidatat exercitation officia incididunt culpa ullamco.</h4><p ng-bind=patent.abstract>Culpa enim minim amet proident sunt aliqua ex irure ex sunt eiusmod ut consectetur. Minim esse in tempor reprehenderit esse cupidatat adipisicing ipsum eiusmod. Ea commodo nisi enim esse et ut. Minim laborum irure eiusmod Lorem consequat duis labore deserunt ullamco velit enim ut. Aliquip tempor non amet aliqua cillum sit amet commodo aliqua sint nisi. Fugiat ex irure qui et in qui velit commodo ipsum. Non cupidatat laboris culpa ipsum culpa velit.</p></div></uib-tab><uib-tab class=panel-heading><uib-tab-heading>Drawings <label class=badge>{{patent.drawings.length}}</label></uib-tab-heading><div class=\"row showscroll\" style=\"margin: 5px 5px;overflow-x:scroll;\"><a ng-repeat=\"link in patent.drawings\" pop=true ng-click=main.pop(link) class=btn style=margin:2px;><img ng-src={{patent.thumbnails[$index]}} class=\"img img-shadow\"></a></div></uib-tab><uib-tab class=panel-heading heading=Description><div class=\"card card-block\" style=\"text-size: 11px!important;\" ng-bind-html=\"patent.text | trustAsHTML\"></div></uib-tab><uib-tab class=panel-heading><uib-tab-heading>Claims <label class=badge>{{patent.claim_total}}</label></uib-tab-heading><div class=container><div class=col-xs-6><d3pendingtree patent={{patent.id}} pattern=\"{{query || \'\'}}\" tree=tree></d3pendingtree><input id=patterninput ng-model=query type=search style=margin:10px; ng-model-options=\"{updateOn: \'default blur\',debounce: {\'default\':250,\'blur\':0}}\"><div class=col-sm-3><ul class=list-unstyled><li><input type=checkbox ng-model=dim> <small>Dim non-matches</small></li></ul></div><div class=col-sm-3></div></div><div class=col-xs-6><div id=info></div><div ui-tree=treeOptions><ol ui-tree-nodes max-depth=6 ng-model=patent.claims><li ui-tree-node class=\"card card-block\" ng-repeat=\"node in patent.claims\" ng-include=\"\'claim_renderer.html\'\" style=padding-right:0rem;padding-bottom:0.1rem; ng-hide=\"!treeFilter(node, query, supportedFields) && !dim\"></li></ol></div><script type=text/ng-template id=claim_renderer.html><div ui-tree-handle class=\"tree-node tree-node-content\"> <div class=\"tree-node-content flextoprow \" style=\"position:relative;\"> <a class=\"btn btn-xs pull-left\" data-nodrag ng-click=\"toggle(this)\" ng-if=\"node.children && (node.children.length > 0)\"><span class=\"fa \" ng-class=\"{\'fa-chevron-right\': collapsed, \'fa-chevron-down\': !collapsed}\" style=\"color:steelblue;transition:all 0.25s ease;\"></span></a> <!--<input type=\"text\" ng-model=\"node.text\" ng-change=\"node.$save();\" ng-model-options=\"{ updateOn: \'default blur\', debounce: {\'default\': 1000, \'blur\': 0} }\" style=\"padding: 0.5rem;color:#444;\" ng-if=\"config.editable\">--> <!--<a class=\"btn showonhover\" data-nodrag ng-if=\"config.editable\" ng-click=\"remove(this);\"><span class=\"fa fa-close text-danger \"></span></a>--> <!--<a class=\"btn \" data-nodrag ng-if=\"config.editable\" ng-click=\"toc.newsubsection(this)\" style=\"\"><span class=\"fa fa-plus text-success\"></span></a>--> <div ng-bind-html=\"node.text | highlight: query \" ng-class=\"{\'filtered-out\':(!treeFilter(node, query, supportedFields) && dim)}\"></div> <!--<a class=\"gototarget btn\" data-nodrag ui-sref=\"{{parentstate}}.righttab({tabid: node.id})\" style=\"\"> <span ng-if=\"!config.editable\" class=\"pull-left\">{{node.text}}</span><i style=\"position:absolute;right:0;\">&nbsp;</i></a>--> </div> </div> <ol ui-tree-nodes=\"\" ng-model=\"node.children\" ng-class=\"{\'hidden\': collapsed}\" style=\"\"> <li class=\"card card-block img-shadow\" ng-repeat=\"node in node.children\" ui-tree-node ng-include=\"\'claim_renderer.html\'\" style=\"padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;\" ng-hide=\"!treeFilter(node, query, supportedFields) && !dim\" > </li> </ol></script></div></div></uib-tab><uib-tab class=panel-heading heading=\"File History\"><roargrid application=\"{{patent.application_number | strip}}\" patent={{patent.id}}></roargrid></uib-tab><uib-tab class=panel-heading heading=Citations><table class=\"table table-responsive table-stripped table-condensed table-hover\"><thead><th>Claims</th><th>ID#</th><th>Details</th></thead><tbody><tr ng-repeat=\"citation in patent.references\"><td><img ng-src=\"/patents/US{{citation | strip}}/preview\" class=\"img img-hover img-responsive img-shadow\" style=width:150px;height:150px;></td><td><label class=\"label label-pill label-NOA\">{{citation}}</label></td><td><patent-citation patent=\"{{citation | strip}}\"></patent-citation></td></tr></tbody></table></uib-tab></uib-tabset></div></div></div></div>");
 $templateCache.put("{widgetsPath}/getphd/src/phd/step-1.html","<div class=\"panel panel-primary\" style=margin:0rem;margin-left:-0.75rem;overflow:visible;><div class=\"panelhead2 panel-heading btn-primary btn-glass clearfix\" style=margin-right:-1rem;border-top-left-radius:0rem;border-bottom-left-radius:0rem;border-top-right-radius:2rem;border-bottom-right-radius:2rem;><img src=/llp_core/img/GoldLion.svg class=\"img lionlogofilter pull-left\" style=\"width:auto;height: 50px;align-self:flex-start;position:absolute;margin-top:-10px;\"><div class=pull-right style=display:flex;flex-direction:column;align-items:flex-start;justify-content:space-around;align-self:flex-end;><img src=/llp_core/img/GoldLogoLong.svg class=img style=height:25px;> <img src=/llp_core/img/GoldPhdLogoLong.svg class=img style=height:10px;padding-left:2px;></div></div><div class=panel-body style=overflow:scroll;><blockquote class=\"bs-callout bs-callout-primary card-header\" style=margin:0; ng-hide=response><p class=\"text-muted text-left\" style=text-align:left;font-size:10px;>Use the following fields to directly download U.S. utility patents and published patent applications from Google Patents, and to directly download .zip files of their prosecution histories from the <a href=\"https://www.uspto.gov/\" uib-tooltip=\"United States Patent & Trademark Office official site\" tooltip-trigger=mouseenter>USPTO</a> public data-proxy-repositors, <a href=\"https://www.google.com/patents/\" uib-tooltip=\"Google Patents\" tooltip-trigger=mouseenter>Google</a> & <a href=\"http://www.reedtech.com/\" uib-tooltip=ReedTech tooltip-trigger=mouseenter>ReedTech</a>. To automatically parse a prosecution history, drag the downloaded .zip file over the Patent PhD panel to the right on the main screen, and drop the file within the dropzone once it has become marked by a dotted border. The .zip file will then automatically upload to our servers, where LEO will generate a Patent PhD Report and return it to the main display screen for your review.</p></blockquote><blockquote class=\"bs-callout bs-callout-Applicant card-header\" style=margin:0; ng-show=response><h4>{{response.title}} <small class=text-muted>{{response.claim_total}} Claims</small></h4><p class=\"text-muted text-left\" style=text-align:left;font-size:10px;>{{response.abstract}}</p></blockquote><blockquote class=\"bs-callout bs-callout-NOA card-header\" style=text-align:left;margin:0;><h4 class=card-title style=text-align:left;font-size:12px;><label for=patentnumber class=\"card-text text-muted\"><strong>Enter US Patent Number</strong></label></h4><div class=input-group><input type=number placeholder=\"Patent #\" style=\"padding:0.75rem;font-size:14px;font-family:\'Helvetica\',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);\" ng-model=config.PNUM ng-blur=main.remoteconfig(config.PNUM)> <button class=\"btn btn-default right\" tooltip-trigger=mouseenter uib-tooltip=\"Download Patent\" ng-click=main.getpatentdownload(config.PNUM);><span class=\"text-success fa fa-2x fa-download\"></span></button></div></blockquote><blockquote class=\"bs-callout bs-callout-Petition card-header\" style=text-align:left;margin:0;><h4 class=card-title style=text-align:left;font-size:12px;><label for=publishedapplication class=\"card-text text-muted\"><strong>Enter Year of Publication and Published Application Number</strong></label></h4><div class=input-group><input type=number placeholder=YYYY style=\"max-width:10rem;padding:0.75rem;font-size:14px;font-family:\'Helvetica\',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;border-top-left-radius:1rem;border-bottom-left-radius:1rem;\" ng-model=config.IPAYEAR maxlength=4> <input type=text placeholder=\"# PA\" style=\"padding:0.75rem;font-size:14px;font-family:\'Helvetica\',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;\" ng-model=config.IPANUM> <button class=\"btn btn-default\" ng-click=\"main.getpublishedapplication(config.IPAYEAR, config.IPANUM)\"><span class=\"text-warning fa fa-download fa-2x\"></span></button></div></blockquote><blockquote class=\"bs-callout bs-callout-PTO card-header\" style=text-align:left;margin:0;><h4 class=card-title style=text-align:left;font-size:12px;><label class=\"card-text text-muted\">Enter US Application Serial Number</label></h4><div class=input-group><form name=application><input type=text placeholder=\"Application #\" ng-model=config.appnum style=\"padding:0.75rem;font-size:14px;font-family:\'Helvetica\',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);\" ng-pattern=\\d+> <button class=\"btn btn-default right\" ng-click=\"main.getfilehistory(config.appnum,\'reedtech\')\" uib-tooltip=\"DOWNLOAD FROM REEDTECH\" tooltip-placement=right title=\"DOWNLOAD FILE HISTORY FROM REEDTECH\" tooltip-animation=true><span id=reedtechbutton class=\"fa fa-2x fa-file-zip-o text-danger\"></span></button> <button class=\"btn btn-default right\" ng-click=\"main.getfilehistory(config.appnum,\'google\')\" uib-tooltip=\"DOWNLOAD FROM GOOGLE\" tooltip-placement=right title=\"DOWNLOAD FILE HISTORY FROM GOOGLE\" tooltip-animation=true><span id=googlebutton class=\"text-danger fa fa-2x fa-file-zip-o\"></span></button> <button class=\"btn btn-default\" ng-click=main.remotezip(config.appnum) uib-tooltip=\"TRY AUTO DOWNLOAD **experimental\" tooltip-placement=right title=\"TRY AUTO DOWNLOAD* (**experimental**)\" tooltip-animation=true><span class=\"text-primary fa fa-2x fa-chrome\"></span></button></form></div></blockquote></div></div>");
@@ -1160,8 +1155,8 @@ angular.module('textSizeSlider', [])
 
                             roarevent.mimeType = file.mimeType || null;
                           }
-                        
-                         // 
+
+                         //
                          //roarevent.description = file.DocumentDescription;
                          roarevent.description = file['Document Description'] || null;
                          roarevent.filename = file['Filename'] || file.name || file.filename;
@@ -1218,7 +1213,7 @@ angular.module('textSizeSlider', [])
                               ]}
                           ];
                          roarevent.structure = "6-6";
-                         return deferred.resolve(roarevent);  
+                         return deferred.resolve(roarevent);
                         } else {
                           var filename = file.Filename || file.name || file.filename;
                           roarevent.name = filename;
@@ -1245,11 +1240,11 @@ angular.module('textSizeSlider', [])
                          roarevent.structure = "3-9";
                          return deferred.resolve(roarevent);
                         }
-               
-                          
+
+
                          };
              };
-         
+
      }])
      .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$mocks', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'FIREBASE_URL','filepickerService','$location','$ACTIVEROAR','$dashboards','CLAIMDOCS','ckstarter','ckender','ckheader','$http','$filter',
          function($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $mocks, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, FIREBASE_URL, filepickerService, $location,$ACTIVEROAR,$dashboards, CLAIMDOCS, ckstarter,ckender,ckheader, $http,$filter) {
@@ -1270,15 +1265,15 @@ angular.module('textSizeSlider', [])
                  var deferred = $q.defer();
 
 
-               
+
                  var matter = Matter($stateParams.matterId, $stateParams.groupId);
                  //var collections = Collections();
                  var dashboards = Collection($stateParams.pageid);
                  var dashboardsref = dashboards.$ref();
                 //  var phdref = Collection(phd.id).$ref();
                  var projref = Collection($stateParams.pId).$ref();
-                
-             
+
+
 
                  function hello(phd) {
                     //  var check = checkforexistingphd();
@@ -1290,7 +1285,7 @@ angular.module('textSizeSlider', [])
 
                    buildcollections(phd);
 
-                     
+
                  };
                  hello(phd);
                  return deferred.promise;
@@ -1314,7 +1309,7 @@ angular.module('textSizeSlider', [])
                          var mailmonth = maildate.getMonth();
                          var mailday = maildate.getDate();
                          var roardate = maildate.toDateString();
-                         
+
                          var filename = file.Filename || null;
                          var appnumsubstring = filename.slice(0, filename.indexOf("-"));
                          var appdatesubstring = filename.slice((filename.indexOf("-") + 1), (filename.indexOf("-") + 11));
@@ -1323,7 +1318,7 @@ angular.module('textSizeSlider', [])
                         var de = filename.slice(0,filename.lastIndexOf('-'));
                         roarevent.id = de;
                          if ($location.host() === 'localhost') {
-                        
+
                            roarevent.ocrlink = '/ocr/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
 
                            roarevent.selflink = '/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
@@ -1355,11 +1350,11 @@ angular.module('textSizeSlider', [])
                                  }
                              });
                          });
-                     
-                       
+
+
                        var appfunction = function(roarevent, roarevents, controller, phd){
-                          
-                           
+
+
                            var template = '<script>var app = angular.module("ckapp").controller("AppCtrl", ["$scope", "$compile","$templateCache", "$http", "Collection","$window","$document","$location",function($scope, $compile,$templateCache, $http, Collection,$window,$document,$location){var app = this;'+
                                     'app = ' + controller + ';' +
                                     'app.patent = ' + phd.patent + ';' +
@@ -1372,7 +1367,7 @@ angular.module('textSizeSlider', [])
                                     '});</script>';
                                 return template;
                             };
-                       
+
                         var wraphead = ckstarter;
 var wraptail = ckender;
                     var apptemplate =  '<div id="docheader" class="container-fluid two-col-right">' +
@@ -1405,8 +1400,8 @@ var wraptail = ckender;
             '<div class="col-xs-4"<img src="https://placehold.it/250x150/&text='+roarevent.rid+'" class="img img-responsive img-hover img-shadow"/></div>' +
             '</div>' +
             '</div><div getpdftext="'+roarevent.id+'" pdf-data="'+roarevent.ocrlink+'">&nbsp;</div>';
-                
-                     
+
+
                          angular.forEach(APPDOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'Applicant';
@@ -1415,7 +1410,7 @@ var wraptail = ckender;
                                   roarevent.data = wraphead + apptemplate + wraptail;
                                   //+ appfunction(roarevent, phd.imagefile, main, phd);
                                      phd.content += ptotemplate;
-                                 
+
                              }
                          });
                          angular.forEach(PTODOCCODES, function(code, key) {
@@ -1435,7 +1430,7 @@ var wraptail = ckender;
                                  //+ appfunction(roarevent, phd.imagefile, main, phd);
                                  roarevent.data = wraphead + interviewtemplate + wraptail;
                                  //+ appfunction(roarevent, phd.imagefile, main, phd);
-                                    phd.content += interviewtemplate; 
+                                    phd.content += interviewtemplate;
                             }
                          });
                          angular.forEach(NOADOCCODES, function(code, key) {
@@ -1472,7 +1467,7 @@ var wraptail = ckender;
                           //roarevent.content = ckstarter + ckheader + ckender;
                           roarevent.structure = "4-8";
                           roarevent.isActive = false;
-                         
+
 
                           // filepicker.storeUrl(roarevent.selflink,
                           //   { filename: roarevent.filename },
@@ -1482,10 +1477,10 @@ var wraptail = ckender;
                           //       { format: 'txt' },
                           //       function (new_Blob) {
                           //         roarevent.txt = new_Blob.url;
-                                  
+
                                   //alertify.success('text file added for' + roarevent.title);
                                  var refr = Collection(de).$ref();
-                                 
+
                                   refr.set(roarevent, function(err) {
                                         var id = de;
 
@@ -1497,30 +1492,30 @@ var wraptail = ckender;
                                           refr.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
                                           //p.filelist.push(id);
                                           //phdref.child('roarmap').child('roarlist').push(id);
-                                          //roarmap.roarevents.push(id);  
+                                          //roarmap.roarevents.push(id);
                                           phd.roarmap.roarlist[id] = id;
                                           main.progresstwo++;
                                           allref.child('roarlist').child(id).set(id);
-                                              
-                                          
+
+
                                         angular.forEach(MERITSDOCS, function(code, key) {
                                             if (roarevent.doccode === code) {
-                                              
+
                                                 //p.meritslist.push(id);
                                                // dashboardsref.child('roarlist').push(id);
-                                                
+
                                                 meritsref.child('roarlist').child(id).set(id);
-                                                
-                                                
+
+
                                                 $log.info('merits', id);
                                             }
                                         });
-                                       
+
                                         angular.forEach(ARTDOCS, function(code, key) {
                                             if (roarevent.doccode === code) {
-                                              
+
                                               //p.artlist.push(id);
-                                              
+
                                               artref.child('roarlist').child(id).set(id);
                                                 $log.info('art', id);
                                             }
@@ -1531,12 +1526,12 @@ var wraptail = ckender;
                                             $log.info('claims', id);
                                           }
                                         });
-                                       
+
                                     });
-                            
+
                          }
-                         
-                         
+
+
                          });
                      return deferred.resolve(groupids);
                     //  $timeout(function() {
@@ -1552,7 +1547,7 @@ var wraptail = ckender;
                        var binder = this;
                             binder = {
                               name: 'USSN ' + phd.application['Application Number'],
-                             
+
                               rid: options.rid,
                                title: options.title + ' - ' + 'USSN ' + phd.application['Application Number'],
                               collection_type: 'source',
@@ -1563,7 +1558,7 @@ var wraptail = ckender;
                               content_type: 'collection',
                               /*titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargrid-title.html',*/
                               rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',title: options.rid + ' - ' + 'USSN ' + phd.application['Application Number'],styleClass: options.styleClass || 'btn-dark',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]
-                              
+
                           };
                         return binder;
                      };
@@ -1571,7 +1566,7 @@ var wraptail = ckender;
                      phdmerits = { rid: 'PHD2', title: 'MERITS', styleClass: 'PTO', icon: 'fa-balance-scale' },
                      phdart = { rid: 'PHD3', title: 'ART', styleClass: 'Petition', icon: 'fa-leaf' },
                      phdclaims = { rid: 'PHD4', title: 'CLAIMS', styleClass: 'Applicant', icon: 'fa-sitemap'};
-                     var groupids = [];  
+                     var groupids = [];
                      var groups = { all: phdall, merits: phdmerits, art: phdart, claims: phdclaims };
                      angular.forEach(groups, function (group, key) {
                        var refr = Collection(phd.patent.id+group.title).$ref();
@@ -1589,8 +1584,8 @@ var wraptail = ckender;
                         //  phdref.child('roarlist').push(id);
                         // dashboardsref.child('roarlist').push(id);
                         //  projref.child('roarlist').push(id);
-                       
-                        
+
+
                          return groupids.push(id);
                        });
                      });
@@ -1634,7 +1629,7 @@ function addpatent (groupids, phd){
                 //  function buildcollections(p) {
                 //    var d = new Date();
                 //         var n = d.getTime();
-                   
+
                 //    var newcollection = {
                 //          name: 'USSN ' + phd.application['Application Number'],
                 //          title: 'USSN ' + phd.application['Application Number'],
@@ -1678,9 +1673,9 @@ function addpatent (groupids, phd){
                 //          rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]}],
                 //          roarlist: p.artlist
                 //      };
-                     
-                    
-                     
+
+
+
 
                 //     var cray = [newcollection, newmerits, newart];
 
@@ -1696,17 +1691,17 @@ function addpatent (groupids, phd){
 
                 //                  ref.update({
                 //                    id: cId,
-                                     
+
                 //                      timestamp: Firebase.ServerValue.TIMESTAMP
-                                     
+
 
                 //                  });
                 //                  ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(cId);
                 //                  phdref.child('roarmap').child('collections').push(cId);
                 //                  phdref.child('roarlist').push(cId);
-                                 
+
                 //                  dashboardsref.child('roarlist').push(cId);
-                              
+
                 //              });
 
 
@@ -1743,7 +1738,7 @@ function addpatent (groupids, phd){
          return function(inputarray, patent){
              var output = [];
             //  return output;
-           
+
                            angular.forEach(inputarray, function (file, key) {
                        //$timeout(function () {
                          if (angular.isUndefined(file.Filename)||(file['Mail Room Date'] === '')||(file['Filename'] === '')) {
@@ -1757,13 +1752,13 @@ function addpatent (groupids, phd){
                          var mailmonth = maildate.getMonth();
                          var mailday = maildate.getDate();
                          var roardate = maildate.toDateString();
-                         
+
                          var filename = file.Filename || null;
                          var appnumsubstring = filename.slice(0, filename.indexOf("-"));
                          var appdatesubstring = filename.slice((filename.indexOf("-") + 1), (filename.indexOf("-") + 11));
                          var doccode = filename.slice((filename.lastIndexOf("-") + 1), (filename.indexOf(".pdf")));
                          roarevent.content_type = 'document';
-                         
+
                         //  if ($location.host() === 'localhost') {
                         //    roarevent.selflink = '/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                         //    roarevent.media = roarevent.selflink;
@@ -1793,8 +1788,8 @@ function addpatent (groupids, phd){
                                  }
                              });
                          });
-                   
-                       
+
+
                        var card =             '<div class="col-xs-4 col-1"><div class="card"><img src="https://placehold.it/300x225/640002/fff/&text=R" class="img img-responsive img-shadow"/><div class="card-block"><h4 class="card-title">Title</h4><p class="card-text">Do nulla id sint reprehenderit esse. Quis sunt duis consequat sit sint duis officia veniam qui. Occaecat ipsum esse officia qui et reprehenderit tempor. Aliqua officia qui occaecat veniam commodo esse magna fugiat reprehenderit duis. Adipisicing laborum ex commodo velit.</p></div></div></div>';
 
                         var wraphead = ckstarter;
@@ -1804,11 +1799,11 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
                         var apptemplate =  '<div class="container-fluid two-col-right">' +
             '<div class="row">' +
             '<div id="col-xs-4" class="col-xs-9" ><div class="bs-callout bs-callout-Applicant"><h4>'+ roarevent.title+'</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite>'+  '</div></div>' +
-            '<div id="col-xs-4" class="col-xs-3"  onmouseenter="$(\'#col-xs-9\').toggleClass(\'col-xs-9 col-xs-3\');$(\'#col-xs-3\').toggleClass(\'col-xs-9 col-xs-3\')"><p><iframe name="fframe" src="' + frametemplate +  '" class="img img-responsive img-shadow" style="background-image:url('+old+');"></iframe></p></div>' + 
+            '<div id="col-xs-4" class="col-xs-3"  onmouseenter="$(\'#col-xs-9\').toggleClass(\'col-xs-9 col-xs-3\');$(\'#col-xs-3\').toggleClass(\'col-xs-9 col-xs-3\')"><p><iframe name="fframe" src="' + frametemplate +  '" class="img img-responsive img-shadow" style="background-image:url('+old+');"></iframe></p></div>' +
             '</div>' +
             '</div><p>&nbsp;</p>';
                      var ptotemplate = '<div class="container-fluid two-col-left">' +
-            '<div class="row">' + 
+            '<div class="row">' +
             '<div class="col-xs-4"><p><img src="https://placehold.it/250x208/640002/fff/&text='+ roarevent.rid + '" class="img img-responsive img-shadow"/></p></div>' +
             '<div class="col-xs-8"><div class="bs-callout bs-callout-PTO bs-callout-reverse"><h4>'+ roarevent.title + '</h4><p>Filed '+roardate+'</p><cite>'+roarevent.filename+'&nbsp;&nbsp;<a href="'+roarevent.media+'" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
             '</div>' +
@@ -1831,18 +1826,18 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
             '<div class="col-xs-4"><p><img src="https://placehold.it/250x208/&text='+roarevent.rid+'" class="img img-responsive img-shadow"/></p></div>' +
             '</div>' +
             '</div><p>&nbsp;</p>';
-            
-                   
-                     
+
+
+
                          angular.forEach(APPDOCCODES, function(code, key) {
                              if (doccode === code) {
                                  roarevent.styleClass = 'Applicant';
                                  roarevent.content = wraphead + apptemplate + wraptail;
-                                 
-                                 
+
+
                              }
-                             
-                             
+
+
                          });
                          angular.forEach(PTODOCCODES, function(code, key) {
                              if (doccode === code) {
@@ -1868,7 +1863,7 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
                                  roarevent.content = wraphead + petitiontemplate + wraptail;
                              }
                          });
-                         
+
                          var d = new Date();
                         var n = d.getTime();
                           roarevent.rows= [
@@ -1880,26 +1875,26 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
                           //roarevent.content = ckstarter + ckheader + ckender;
                           roarevent.structure = "6-6";
                           roarevent.isActive = false;
-                    
+
                          output.push(roarevent);
                          }  });
-             
+
              return output;
          }
      }]).filter('strip', function(){
          return function(input){
             var regex = new RegExp(/\D/);
             if (input && angular.isString(input)){var output = input.replace(regex, '');}
-            return output;  
+            return output;
          };
      }).directive('docHeader',['$window','$document','$compile','$templateCache','Collection', function($window,$document,$compile,$templateCache,Collection){
          return {
            restrict:'EA',
            scope:{
                roarevent: '='
-              
+
            },
-           template:'<div class="container-fluid two-col-right"><div class="row"><div class="col-xs-8"><div class="bs-callout bs-callout-{{roarevent.styleClass}}"><h4>{{roarevent.title}}</h4><p>Filed {{roardate()}}</p><cite>{{roarevent.filename}}&nbsp;&nbsp;<a href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div><div class="col-xs-4"><iframe name="fframe" id="fframe" style="width:350px;height:480px;" ng-src="https://placehold.it/350x480/{{background() ||"4682b4"}}/fff/&text="{{roarevent.rid}}" class="img img-responsive img-shadow"><img src="https://placehold.it/350x480/{{background()||\'4682b4\'}}/fff/&text={{roarevent.rid}}" class="img img-responsive img-shadow"/></iframe></div></div></div><div getpdftext ng-repeat="page in pages" class="card card-block"><p ng-bind-html="page | trustASHTML"></p><footer><p>{{$index}}</p></footer></div>',
+           template:'<div class="container-fluid two-col-right"><div class="row"><div class="col-xs-8"><div class="bs-callout bs-callout-{{roarevent.styleClass}}"><h4>{{roarevent.title}}</h4><p>Filed {{roardate()}}</p><cite>{{roarevent.filename}}&nbsp;&nbsp;<a pop="true" href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div><div class="col-xs-4"><img ng-src="https://placehold.it/350x480/{{background()}}/fff/&text={{roarevent.rid}}" class="img img-responsive img-shadow"/></div></div></div><div getpdftext="{{roarevent.id}}" pdf-data="{{roarevent.ocrlink}}" class="card card-block"><p ng-bind-html="page | trustASHTML"></p><footer><p>{{$index}}</p></footer></div>',
            //controller:'ROARCtrl',
            //controllerAs:'roarevent',
            //bindToController: true,
@@ -1908,10 +1903,10 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
                 if(roarid){
                     var roarevent = Collection(roarid);
                     roarevent.$bindTo($scope, 'roarevent');
-                
-                
+
+
                 $scope.roardate = roardate;
-                
+
                 var roardate = function(){
                          var roarevent = roarevent;
                          var maildate = new Date(roarevent['Mail Room Date']);
@@ -1919,7 +1914,7 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
                         //  var mailmonth = maildate.getMonth();
                         //  var mailday = maildate.getDate();
                          var roardate = maildate.toDateString();
-                         
+
                 };
                 $scope.background = background;
                 var background = function(){
@@ -1942,13 +1937,13 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
                         template = '7c994f';
                         break;
                     }
-                    
+
                     return template;
-                }    
+                }
            }  }
-             
+
          };
-         
+
      }]);
 
                 /*var apptemplate =  '<div class="container-fluid two-col-right">' +
@@ -1982,6 +1977,7 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
             '</div>' +
             '</div><p>&nbsp;</p>';
             */
+
 angular.module('llp.pdf', ['LocalStorageModule'])
     .config(["localStorageServiceProvider", function(localStorageServiceProvider) {
         localStorageServiceProvider.setPrefix('adf.getphd');
@@ -2282,8 +2278,9 @@ function pageLoaded() {
                                 var section = '<p>';
                                 angular.forEach(textContent.items, function(o, key) {
 
-                                    if(o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
-                                        section = section + ' ' + '<mark class="highlight">' + o.str + '</mark>';
+                                    if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
+                                        section = section + ' ' + '<mark class="highlight" uib-tooltip="'+o.str+'  '+key+'">' + o.str + '</mark>';
+
                                     }else{
                                     section = section + ' ' + o.str;
                                     }

@@ -433,7 +433,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     $scope.response = resp.data;
                     var googleurl = 'https' +'://'+ 'lexlab.io' + '/proxy/storage.googleapis.com/uspto-pair/applications/'+config.appnum+'.zip';
                     var reedtechurl = 'https' +'://'+ 'lexlab.io' + '/proxy/patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
-                    try{JSZipUtils.getBinaryContent(googleurl, function(err, data) {
+                    JSZipUtils.getBinaryContent(googleurl, function(err, data) {
                         if(err) {
                             $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
                         }else{
@@ -442,9 +442,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             var zip = new JSZip(data);
                             var blob = zip.generate({type: 'blob'});
                             saveAs(blob, config.appnum + '.zip');
-                            }
+                            };
                         }
-                    });}catch(ex){
+                    });
                     JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
                         if(err) {
                             $('#reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
@@ -454,10 +454,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             var zip = new JSZip(data);
                             var blob = zip.generate({type: 'blob'});
                             saveAs(blob, config.appnum + '.zip');
-                            }
+                            };
                         }
                     });
-                    }finally{}
+
             });
 
             };
@@ -600,12 +600,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     });
 
 
-            },
-                function(reason) {
-
-                    console.log(reason.message);
-
-                };
+            };
             main.pop = function(link) {
                 var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
                 //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');

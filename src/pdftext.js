@@ -298,8 +298,9 @@ function pageLoaded() {
                                 var section = '<p>';
                                 angular.forEach(textContent.items, function(o, key) {
 
-                                    if(o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
-                                        section = section + ' ' + '<mark class="highlight">' + o.str + '</mark>';
+                                    if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
+                                        section = section + ' ' + '<mark class="highlight" uib-tooltip="'+o.str+'  '+key+'">' + o.str + '</mark>';
+
                                     }else{
                                     section = section + ' ' + o.str;
                                     }
