@@ -781,7 +781,7 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
            scope:{
 
            },
-           template:'<div class="container-fluid two-col-right"><div class="row"><div class="col-xs-8"><div class="bs-callout bs-callout-{{roarevent.styleClass}}"><h4>{{roarevent.title}}</h4><p>Filed {{roardate()}}</p><cite>{{roarevent.filename}}&nbsp;&nbsp;<a pop="true" href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div><div class="col-xs-4"><img ng-src="https://placehold.it/350x480/{{background()}}/fff/&text={{roarevent.rid}}" class="img img-responsive img-shadow"/></div></div></div><div getpdftext="{{roarevent.id}}" pdf-data="{{roarevent.ocrlink}}" class="card card-block"></div>',
+           template:'<div class="container-fluid two-col-right"><div class="row"><div class="col-xs-8"><div class="bs-callout bs-callout-{{roarevent.styleClass}}"><h4>{{roarevent.title}}</h4><p>Filed {{roardate}}</p><cite>{{roarevent.filename}}&nbsp;&nbsp;<a pop="true" href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div><div class="col-xs-4"><img ng-src="{{\'https://placehold.it/350x480/\'+background+\'/fff/&text=\'+roarevent.rid\'}}" class="img img-responsive img-shadow"/></div></div></div><div getpdftext="{{roarevent.id}}" pdf-data="{{roarevent.ocrlink}}" class="card card-block"></div>',
            //controller:'ROARCtrl',
            //controllerAs:'roarevent',
            //bindToController: true,
@@ -800,13 +800,13 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
                         //  var mailyear = maildate.getFullYear();
                         //  var mailmonth = maildate.getMonth();
                         //  var mailday = maildate.getDate();
-                         var roardate = maildate.toDateString();
+                         return maildate.toDateString();
 
                 };
-                $scope.roardate = roardate;
+                $scope.roardate = roardate();
                   var background = function(){
                     var template;
-                    var styleClass = roarevent.$loaded().styleClass;
+                    var styleClass = roarevent.styleClass;
                     switch (styleClass){
                         case 'Applicant':
                         template = '4682b4';
@@ -827,7 +827,7 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
 
                     return template;
                 };
-                $scope.background = background;
+                $scope.background = background();
 
            }
 
