@@ -233,7 +233,10 @@
                         <!--<td ><a ng-href="https://lexlab.io/files/public/uspto/{{phd.appnum}}/{{phd.appnum}}-image_file_wrapper/{{roarevent['Filename']}}" target="_popup" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=yes,width=500,left=150,height=700,top=150'); return false;">{{roarevent['Filename']}}</a></td>-->
 
 
-<doc-header roarid="{{roarevent['Filename'].slice(0,roarevent['Filename'].lastIndexOf('-'))}}"></doc-header>
+
+                    </tr>
+                    <tr ng-repeat="roarevent in phd.imagefile | filter: main.query | orderBy: main.dog : maybe" >
+                        <td><doc-header roarid="{{main.format(roarevent['Filename'])}}"></doc-header></td>
 
                     </tr>
                 </tbody>

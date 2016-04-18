@@ -532,7 +532,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
 
             main.format = function(ref){
-              return ref.replace('US:','');
+              return ref.slice(0,ref.lastIndexOf('-'));
             };
 
             main.buffer = function(file) {
