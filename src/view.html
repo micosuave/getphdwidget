@@ -235,12 +235,13 @@
 
 
                     </tr>
-                    <tr ng-repeat="roarevent in phd.imagefile | filter: main.query | orderBy: main.dog : maybe" >
-                        <td col-span="6"><doc-header roarid="{{main.format(roarevent['Filename'])}}"></doc-header></td>
 
-                    </tr>
                 </tbody>
             </table>
+                    <div ng-repeat="roarevent in phd.imagefile | filter: main.query " >
+                        <doc-header roarid="{{main.format(roarevent['Filename'])}}"></doc-header>
+
+                    </div>
            </uib-tab-content>
         </uib-tab>
 
