@@ -16,13 +16,13 @@
         <blockquote class="bs-callout bs-callout-primary card-header" style="margin:0;" ng-hide="response">
             <p class="text-muted text-left" style="text-align:left;font-size:10px;">Use the following fields to directly download U.S. utility patents and published patent applications from Google Patents, and to directly download .zip files of their prosecution histories from the <a href="https://www.uspto.gov/"  uib-tooltip="United States Patent & Trademark Office official site" tooltip-trigger="mouseenter">USPTO</a> public data-proxy-repositors, <a href="https://www.google.com/patents/"  uib-tooltip="Google Patents" tooltip-trigger="mouseenter">Google</a> & <a href="http://www.reedtech.com/"  uib-tooltip="ReedTech" tooltip-trigger="mouseenter">ReedTech</a>.  To automatically parse a prosecution history, drag the downloaded .zip file over the Patent PhD panel to the right on the main screen, and drop the file within the dropzone once it has become marked by a dotted border.  The .zip file will then automatically upload to our servers, where LEO will generate a Patent PhD Report and return it to the main display screen for your review.</p>
         </blockquote>
-        <blockquote class="bs-callout bs-callout-primary card-header" style="margin:0;" ng-show="response">
+        <blockquote class="bs-callout bs-callout-Applicant card-header" style="margin:0;" ng-show="response">
             <h4>{{response.title}} <small class="text-muted">{{response.claim_total}} Claims</small></h4>
             <p class="text-muted text-left" style="text-align:left;font-size:10px;">{{response.abstract}}</p>
         </blockquote>
 
 
-    <blockquote class="bs-callout bs-callout-success card-header" style="text-align:left;margin:0;">
+    <blockquote class="bs-callout bs-callout-NOA card-header" style="text-align:left;margin:0;">
         <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="patentnumber" class="card-text text-muted"><strong>Enter US Patent Number</strong></label></h4>
      <div class="input-group">
         <input type="number" placeholder="Patent #" class="" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.PNUM" ng-blur="main.remoteconfig(config.PNUM)">
@@ -31,9 +31,25 @@
     </div>
 </blockquote>
 
+ <blockquote class="bs-callout bs-callout-Petition card-header" style="text-align:left;margin:0;">
+         <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="publishedapplication" class="card-text text-muted"><strong>Enter Year of Publication and Published Application Number</strong></label></h4>
+
+    <div class="input-group">
+
+                <input type="number" placeholder="YYYY" style="max-width:10rem;padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;border-top-left-radius:1rem;border-bottom-left-radius:1rem;" ng-model="config.IPAYEAR" maxlength="4">
 
 
-    <blockquote class="bs-callout bs-callout-danger card-header" style="text-align:left;margin:0;">
+        <input type="text" placeholder="# PA" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;" ng-model="config.IPANUM" >
+     <button class="btn btn-default" ng-click="main.getpublishedapplication(config.IPAYEAR, config.IPANUM)"><span class="text-warning fa fa-download fa-2x"></span></button>
+
+
+    </div>
+
+    </blockquote>
+      <!--<pre ng-if="main.remoteresp" ng-bind="main.remoteresp" class="card card-fancy card-block "></pre> -->
+
+
+    <blockquote class="bs-callout bs-callout-PTO card-header" style="text-align:left;margin:0;">
     <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="" class="card-text text-muted">Enter US Application Serial Number</label></h4>
               <div class="input-group">
             <form name="application">
@@ -52,24 +68,6 @@
           </div>
     </blockquote>
 
-    <blockquote class="bs-callout bs-callout-warning card-header" style="text-align:left;margin:0;">
-         <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="publishedapplication" class="card-text text-muted"><strong>Enter Year of Publication and Published Application Number</strong></label></h4>
+         </div><!--panelbody-->
 
-    <div class="input-group">
-
-                <input type="number" placeholder="YYYY" style="max-width:10rem;padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;border-top-left-radius:1rem;border-bottom-left-radius:1rem;" ng-model="config.IPAYEAR" maxlength="4">
-
-
-        <input type="text" placeholder="# PA" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;" ng-model="config.IPANUM" >
-     <button class="btn btn-default" ng-click="main.getpublishedapplication(config.IPAYEAR, config.IPANUM)"><span class="text-warning fa fa-download fa-2x"></span></button>
-
-
-    </div>
-
-    </blockquote>
-      <!--<pre ng-if="main.remoteresp" ng-bind="main.remoteresp" class="card card-fancy card-block "></pre> -->
-</div><!--panelbody-->
-       <!--<div class="panel-footer">         -->
-                    <!--<button class="btn btn-dark btn-sm " ng-click="$scope.$parent.toggle()">Close</button>-->
-       <!--</div>-->
 </div><!--panel-->
