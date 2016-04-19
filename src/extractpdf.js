@@ -82,28 +82,28 @@ angular.module("llp.extractpdf", [])
               files.pdffiles.push({ label: file.name, file: file });
               main.extractedfiles++;
             });
-           
+
 
             return deferred.resolve(files);
 
         };
-       
+
         reader.readAsArrayBuffer(zipfile);
-       
+
         return deferred.promise;
     }
 
     function extractpdf(zipfile, appnum, main) {
         return unzip(zipfile, appnum, main);
-       
+
     }
 
     return extractpdf;
 }]).factory("extractzip", ["$q","Upload","$http","$location","toastr", function($q,Upload,$http, $location,toastr) {
     function unzip(apnum, main, uploader) {
-        
+
         var deferred = $q.defer();
-        
+
         var porter = function(){
             return $location.host() === 'localhost' ? ':8080' : '/proxy/'
         };
@@ -112,19 +112,11 @@ angular.module("llp.extractpdf", [])
             //return $location.protocol() + '://' + $location.host() + porter();
         };
         var googleurl = 'storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
-                    var reedtechurl = 'patents.reedtech.com/downloads/pair/'+apnum+'.zip'; 
-                  
+                    var reedtechurl = 'patents.reedtech.com/downloads/pair/'+apnum+'.zip';
+
                     JSZipUtils.getBinaryContent((prefix() + googleurl), function(err, data) {
                         if(err) {
                             alertify.error('Attempt to download from Google has failed! Attempting ReedTech...');
-                        } 
-  
-                        else{
-                            // $('#googlebutton').addClass('fa-check text-success').removeClass('text-danger fa-file-zip-o');
-                            try{  
-                            callback(data);
-                             }
-                catch(ex){
                         alertify.log('attempting ReedTech...');
                         JSZipUtils.getBinaryContent((prefix() + reedtechurl), function(err, data){
                             if(err){
@@ -133,14 +125,17 @@ angular.module("llp.extractpdf", [])
                             // $('#reedtechbutton').setClass('fa-check text-success').removeClass('text-danger fa-file-zip-o');
                             else{
                                 callback(data);
-                            }       
+                            }
                         });
-                }
-                finally{
-                    
-                }
+                      }
+
+                        else{
+                            // $('#googlebutton').addClass('fa-check text-success').removeClass('text-danger fa-file-zip-o');
+                                                       callback(data);
+
+
                         }});
-               
+
 var callback = function(data){
         var appnum = apnum;
 
@@ -180,11 +175,11 @@ var callback = function(data){
         }];
 
 
-       
-       
+
+
 var zip = new JSZip(data);
     var blob = zip.generate({type: 'blob'});
-    
+
     var files = {
                 tsvfiles: [],
                 pdffiles: []
@@ -209,15 +204,15 @@ var zip = new JSZip(data);
               files.pdffiles.push({ label: file.name, file: file });
               main.extractedfiles++;
             });
-            
 
-            
-    
+
+
+
     Upload.upload({url: '/upload/', data: {file: Upload.rename(blob, appnum + '.zip')}})
     .then(function (resp) {
             console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-        
-    
+
+
 
         }, function (resp) {
             console.log('Error status: ' + resp.status);
@@ -241,20 +236,20 @@ var zip = new JSZip(data);
                 else if (progress > 40 && progress < 66) { main.progresstype = 'warning'; }
                 else if (progress > 97) { main.progresstype = 'success'; }
                 else { main.progresstype = 'info'; }
-            
+
             console.log('progress: ' + progress + '% ' + evt.config.data.file.name);
         });
-            
+
 return deferred.resolve(files);
 };
-       
-       
+
+
         return deferred.promise;
     }
 
     function extractzip( appnum, main, uploader) {
         return unzip( appnum, main, uploader);
-        
+
     }
 
     return extractzip;
