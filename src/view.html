@@ -49,7 +49,7 @@
     </button>
 
 <div uib-collapse="collapsereport" class="card clearfix" style="padding:0;margin:0;">
- <blockquote class="bs-callout bs-callout-NOA" style="margin: 0;" ><h4>{{phd.application['Title of Invention']}}</h4><p style="font-size:10px;"><cite>{{phd.application['First Named Inventor']}} <small><emphasis>Issued&nbsp&nbsp&nbsp&nbsp<span editable-text="phd.application['Issue Date of Patent']" >{{phd.application['Issue Date of Patent']}}</span></emphasis></small></cite></p></blockquote>
+ <blockquote class="bs-callout bs-callout-NOA" style="margin: 0;" ><h4>{{phd.application['Title of Invention']}}</h4><p style="font-size:10px;"><cite>{{phd.application['First Named Inventor']}} <small><emphasis>Issued {{phd.patent.issued | date}}</emphasis></small></cite></p></blockquote>
 
 
 
@@ -78,7 +78,7 @@
 
         <uib-tab class="" ng-if="phd.application">
 
-            <uib-tab-heading class="" style="" ng-style="" >APPLICATION</uib-tab-heading>
+            <uib-tab-heading >APPLICATION</uib-tab-heading>
             <!--<h4 class="card-header card-title pull-right">Application Data</h4>-->
             <uib-tab-content>
             <table class="card card-block table table-striped table-hover table-condensed table-responsive">
@@ -93,7 +93,7 @@
             </table>
             </uib-tab-content>
         </uib-tab>
-        <uib-tab class="text-info" ng-if="phd.attorney">
+        <uib-tab  ng-if="phd.attorney">
 
             <uib-tab-heading class="" ng-style="" >ATTORNEY</uib-tab-heading>
             <!--<h4 class="card-header card-title pull-right">Attorney Data</h4>-->
@@ -109,7 +109,7 @@
             </table>
             </uib-tab-content>
         </uib-tab>
-        <uib-tab class="text-success" ng-if="phd.continuity">
+        <uib-tab  ng-if="phd.continuity">
 
             <uib-tab-heading class="" style="" ng-style="">CONTINUITY</uib-tab-heading>
             <!--<h4 class="card-header card-title pull-right">Continuity Data</h4>-->
@@ -145,7 +145,7 @@
         <uib-tab class="" ng-if="phd.foreign">
 
             <!-- <pre ng-bind="main.phd.foreign | json:4"></pre> -->
-            <uib-tab-heading class="text-warning" style="" ng-style="">FOREIGN PRIORITY</uib-tab-heading>
+            <uib-tab-heading ng-style="">FOREIGN PRIORITY</uib-tab-heading>
             <!--<h4 class="card-header card-title pull-right">Foreign Priority</h4>-->
             <uib-tab-content>
             <table class=" table table-stripped table-condensed table-hover table-responsive">
@@ -183,7 +183,7 @@
             </uib-tab>
         <uib-tab class="" ng-if="phd.transaction">
             <!-- <pre ng-bind="main.transaction | json:4"></pre> -->
-            <uib-tab-heading class=""style="" ng-style="">TRANSACTION</uib-tab-heading>
+            <uib-tab-heading >TRANSACTION</uib-tab-heading>
             <!--<h4 class="card-header card-title pull-right">Transaction Data</h4>-->
             <uib-tab-content>
             <table class="table table-striped table-hover table-condensed table-responsive">
@@ -238,10 +238,10 @@
 
                 </tbody>
             </table>
-                    <div ng-repeat="roarevent in phd.imagefile  " class="card card-block">
+                    <!--<div ng-repeat="roarevent in phd.imagefile  " class="card card-block">
                         <doc-header roarid="{{main.format(roarevent['Filename'])}}"></doc-header>
 
-                    </div>
+                    </div>-->
            </uib-tab-content>
         </uib-tab>
 
@@ -303,8 +303,8 @@
       </uib-tab-content>
    </uib-tab>-->
 
-        <uib-tab class="btn-glass NOA" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[2].isActive = true" deselect="main.tabs[1].isActive = false" style="margin: 0 5px;">
-           <uib-tab-heading class="text-NOA" ng-style="">US {{(phd.patent.number | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
+        <uib-tab class="" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[2].isActive = true" deselect="main.tabs[1].isActive = false" style="margin: 0 5px;">
+           <uib-tab-heading class="" ng-style="">US {{(phd.patent.number | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
 
             <uib-tab-content ng-if="main.tabs[2].isActive" ng-controller="MainCtrl as main">
 
@@ -338,7 +338,6 @@
                     <input type="checkbox" ng-model="dim"> <small>Dim non-matches</small>
                 </li>
             </ul>
-            <rendertree tree="{{phd}}" pattern="{{query}}" patent="{{'8382656'}}"></rendertree>
         </div>
         <div class="col-sm-3">
             <!--<ul class="list-unstyled">
