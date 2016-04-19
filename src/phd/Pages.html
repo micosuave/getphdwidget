@@ -1,9 +1,9 @@
 <label class="fa fa-tags text-info"></label>
-<label ng-repeat="tag in matches | groupBy: 'tag.str'" class="fa fa-tag"> {{tag[0].str}} </label>
+<label ng-repeat="tag in matches" class="fa fa-tag"> {{tag.str}} </label>
 
-<div  class="card card-block" style="line-height:1.5;font-size:14px;"><input type="text" ng-model="query" placeholder="search" class="" />
-   <uib-pager total-items="pages.length" items-per-page="1" ng-model="currentPage"></uib-pager>
- <p ng-bind-html="pages[currentPage - 1] | highlight: query | trustAsHTML"></p>
+<div  ng-repeat="page in pages" class="card card-block" style="line-height:1.5;font-size:14px;"><input type="text" ng-model="query" placeholder="search" class="" />
+   <!--<uib-pager total-items="pages.length" items-per-page="1" ng-model="currentPage"></uib-pager>-->
+ <p ng-bind-html="page | highlight: query | trustAsHTML"></p>
     <footer style="display:flex;justify-content:center;">
         <p style="align-self:center;color:#444;">{{currentPage}}</p>
     </footer>
