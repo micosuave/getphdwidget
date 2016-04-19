@@ -1,0 +1,8 @@
+<label class="fa fa-tags text-info"></label>
+<label ng-repeat="tag in matches | unique: 'tag.str'" class="fa fa-tag"> {{tag.str}} |</label>
+<div ng-repeat="page in pages" class="card card-block" style="line-height:1.5;font-size:14px;"><input type="text" ng-model="query" placeholder="search" class="" />
+    <p ng-bind-html="page | highlight: query | trustAsHTML"></p>
+    <footer style="display:flex;justify-content:center;">
+        <p style="align-self:center;color:#444;">{{$index}}</p>
+    </footer>
+</div>

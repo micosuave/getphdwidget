@@ -7,46 +7,46 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     localStorageServiceProvider.setPrefix('adf.getphd');
 
     dashboardProvider
-        .widget('carousel', {
-            title: 'Carousel',
-            description: 'Display items in a carousel',
-            templateUrl: '{widgetsPath}/getphd/src/gallery.html',
-            icon: 'fa-picture',
-            iconurl: 'img/lexlab.svg',
-            styleClass: 'info ',
-            frameless: false,
-            reload: true,
-            controller: 'GalleryCarouselController',
-            controllerAs: 'gallery',
-            edit: {
-                templateUrl: '{widgetsPath}/getphd/src/editgallery.html',
-                controller: 'GalleryCarouselController',
-                controllerAs: 'gallery',
-                modalSize: 'lg',
-                reload: true
-                //immediate: true
-            }
-        })
-        .widget('gallery', {
-            title: 'Gallery',
-            description: 'Plain Image with thumnnails & caption',
-            templateUrl: '{widgetsPath}/getphd/src/galleryplain.html',
-            icon: 'fa-picture',
-            iconurl: 'img/lexlab.svg',
-            styleClass: 'info ',
-            frameless: false,
-            reload: true,
-            controller: 'GalleryController',
-            controllerAs: 'gallery',
-            edit: {
-                templateUrl: '{widgetsPath}/getphd/src/editgalleryplain.html',
-                controller: 'GalleryController',
-                controllerAs: 'gallery',
-                modalSize: 'lg',
-                reload: true
-                //immediate: true
-            }
-        })
+        // .widget('carousel', {
+        //     title: 'Carousel',
+        //     description: 'Display items in a carousel',
+        //     templateUrl: '{widgetsPath}/getphd/src/gallery.html',
+        //     icon: 'fa-picture',
+        //     iconurl: 'img/lexlab.svg',
+        //     styleClass: 'info ',
+        //     frameless: false,
+        //     reload: true,
+        //     controller: 'GalleryCarouselController',
+        //     controllerAs: 'gallery',
+        //     edit: {
+        //         templateUrl: '{widgetsPath}/getphd/src/editgallery.html',
+        //         controller: 'GalleryCarouselController',
+        //         controllerAs: 'gallery',
+        //         modalSize: 'lg',
+        //         reload: true
+        //         //immediate: true
+        //     }
+        // })
+        // .widget('gallery', {
+        //     title: 'Gallery',
+        //     description: 'Plain Image with thumnnails & caption',
+        //     templateUrl: '{widgetsPath}/getphd/src/galleryplain.html',
+        //     icon: 'fa-picture',
+        //     iconurl: 'img/lexlab.svg',
+        //     styleClass: 'info ',
+        //     frameless: false,
+        //     reload: true,
+        //     controller: 'GalleryController',
+        //     controllerAs: 'gallery',
+        //     edit: {
+        //         templateUrl: '{widgetsPath}/getphd/src/editgalleryplain.html',
+        //         controller: 'GalleryController',
+        //         controllerAs: 'gallery',
+        //         modalSize: 'lg',
+        //         reload: true
+        //         //immediate: true
+        //     }
+        // })
         .widget('getphd', {
             title: '+PhD',
             description: 'import a patent prosecution history',

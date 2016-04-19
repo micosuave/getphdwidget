@@ -781,30 +781,22 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
            scope:{
 
            },
-           template:'<div class="container-fluid two-col-right"><div class="row"><div class="col-xs-8"><div class="bs-callout bs-callout-{{roarevent.styleClass}}"><h4>{{roarevent.title}}</h4><p>Filed {{roardate}}</p><cite>{{roarevent.filename}}&nbsp;&nbsp;<a pop="true" href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div><div class="col-xs-4"><img ng-src="{{\'https://placehold.it/350x480/\'+background+\'/fff/&text=\'+roarevent.rid\'}}" class="img img-responsive img-shadow"/></div></div></div><div getpdftext="{{roarevent.id}}" pdf-data="{{roarevent.ocrlink}}" class="card card-block"></div>',
+           template:'<div class="container-fluid two-col-right"><div class="row"><div class="col-xs-8"><div class="bs-callout bs-callout-{{roarevent.styleClass}}"><h4>{{roarevent.title}}</h4><p>Filed {{roardate}}</p><cite>{{roarevent.filename}}&nbsp;&nbsp;<a pop="true" href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div><div class="col-xs-4"><img ng-src="{{background}}" class="img img-responsive img-shadow"/></div></div></div><div getpdftext="{{::roarevent.id}}" pdf-data="{{::roarevent.ocrlink}}" roarevent="roarevent" class="card card-block"></div>',
            //controller:'ROARCtrl',
            //controllerAs:'roarevent',
            //bindToController: true,
            link: function($scope,$element,$attrs,$ctrl){
                 var roarid = $attrs.roarid;
 
-                    var roarevent = Collection(roarid);
+                Collection(roarid).$loaded().then(function(roarevent){
                     $scope.roarevent=roarevent;
 
 
+var maildate = new Date(roarevent['Mail Room Date']);
 
-
-                var roardate = function(){
-                         var roarevent = roarevent;
-                         var maildate = new Date(roarevent['Mail Room Date']);
-                        //  var mailyear = maildate.getFullYear();
-                        //  var mailmonth = maildate.getMonth();
-                        //  var mailday = maildate.getDate();
-                         return maildate.toDateString();
-
-                };
-                $scope.roardate = roardate();
+                $scope.roardate = maildate.toDateString();
                   var background = function(){
+
                     var template;
                     var styleClass = roarevent.styleClass;
                     switch (styleClass){
@@ -827,13 +819,26 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
 
                     return template;
                 };
-                $scope.background = background();
+                $scope.background = 'https://placehold.it/250x150/'+background()+'/fff/&text='+$scope.roarevent.rid;
 
-           }
 
+           });
+         }
          };
-
-     }]);
+     }]).directive('patentreport', ['$http', 'ckstarter', 'ckender', function ($http, ckstarter, ckender) {
+        return {
+            restrict: 'EA',
+            templateUrl: '{widgetsPath}/getphd/src/phd/patentReport.html',
+            scope: {
+            },
+            link: function ($scope, $element, $attr, $ctrl) {
+                var numbr = $attr.patent;
+                $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + numbr).then(function (resp) {
+                    $scope.patent = resp.data;
+                });
+            }
+        };
+    }]);
 
                 /*var apptemplate =  '<div class="container-fluid two-col-right">' +
             '<div class="row">' +

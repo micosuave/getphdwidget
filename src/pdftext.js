@@ -254,20 +254,24 @@ function pageLoaded() {
             return {
 
                 restrict: "A",
-                template: '<div ng-repeat="page in roarevent.pages" class="card card-block" style="line-height:1.5;font-size:14px;"><p ng-bind-html="page |highlight: query | trustAsHTML"></p><footer><p>{{$index}}</p></footer></div>',
+                templateUrl: '{widgetsPath}/getphd/src/phd/Pages.html',
+                //template: '<label class="fa fa-tags text-info±"></label><label ng-repeat="tag in matches | unique">| {{tag.str}} |</label><div ng-repeat="page in pages" class="card card-block" style="line-height:1.5;font-size:14px;"><input type="text" ng-model="query" placeholder="search" class="" /><p ng-bind-html="page | highlight: query | trustAsHTML"></p><footer style="display:flex;justify-content:center;"><p style="align-self:center;color:#444;" >{{$index}}</p></footer></div>',
                 //controller: "PDFFilesController",
                 //controllerAs: "pdff",
                 //bindToController: true,
-                scope:{
-                    query: '='
 
+                scope:{
+
+                    roarevent: '=?',
+                    getpdftext:'@',
+                    pdfData: '@'
 
                 },
                 link: function($scope,$el,$attr,$ctrl){
                     var id = $attr.getpdftext;
-                    var roarevent = Collection(id);
-                    roarevent.$bindTo($scope, 'roarevent');
-
+                    var roarevent = Collection(id).$loaded();
+                    $scope.roarevent = roarevent;
+                    $scope.pages = roarevent.pages;
                     $document.on('mouseup', function(event) {
                     var a = $window.getSelection() || $document.getSelection();
                     if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
@@ -276,11 +280,12 @@ function pageLoaded() {
                     }
                     });
 
-                    if (angular.isUndefined(roarevent.pages)){
+                    if (angular.isUndefined($scope.pages)){
+                        $scope.pages = [];
+                        $scope.matches = [];
                         $http.get($attr.pdfData).then(function(resp){
-                        roarevent.pages = [];
+
                         PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
-                        roarevent.$loaded().then(function(roar){
 
 
                         var pdf = PDFJS.getDocument($attr.pdfData);
@@ -299,8 +304,8 @@ function pageLoaded() {
                                 angular.forEach(textContent.items, function(o, key) {
 
                                     if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
-                                        section = section + ' ' + '<mark class="highlight" uib-tooltip="'+o.str+'  '+key+'">' + o.str + '</mark>';
-
+                                        section = section + ' ' + '<mark class="highlight" tooltip-trigger="mouseenter" uib-tooltip="'+o.str+'  [@'+key+']">' + o.str + '</mark>';
+                                        $scope.matches.push(o);
                                     }else{
                                     section = section + ' ' + o.str;
                                     }
@@ -321,15 +326,15 @@ function pageLoaded() {
                                 //     psa.push(string);
                                 // });
 
-                                roarevent.pages.push(pss.join('</p><p class="pagetext">'));
-                                roarevent.$save();
+                                $scope.pages.push(pss.join('</p><p class="pagetext">'));
+                                $scope.$apply();
                                 });
                             };
 
 
                         });
 
-});
+
                     }         }
             };
         }
