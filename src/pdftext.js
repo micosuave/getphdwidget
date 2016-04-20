@@ -305,7 +305,7 @@ function pageLoaded() {
 
                                     if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
                                         section = section + ' ' + '<mark class="highlight" tooltip-trigger="mouseenter" uib-tooltip="'+o.str+'  [@'+key+']">' + o.str + '</mark>';
-                                        $scope.matches.push(o);
+                                        $scope.matches.push(o.str);
                                     }else{
                                     section = section + ' ' + o.str;
                                     }

@@ -207,7 +207,7 @@
                         roarevent.id = de;
                          if ($location.host() === 'localhost') {
 
-                           roarevent.ocrlink = '/ocr/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                            roarevent.ocrlink = 'https://lexlab.io/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename.replace('.pdf','_ocr.pdf');
 
                            roarevent.selflink = '/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                            roarevent.media = roarevent.selflink;
