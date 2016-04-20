@@ -68,54 +68,39 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 modalSize: 'lg',
                 reload: true
                 //immediate: true
-            },
+            }
+            /*,
             resolve: {
-                config: ["config", "$firebaseArray", "$rootScope", "FIREBASE_URL",
+                config: ['config', '$firebaseArray', '$rootScope', 'FIREBASE_URL',
                     function(config, $firebaseArray, $rootScope, FIREBASE_URL) {
                         if (config.id) {
                             return config;
                         } else {
-                            var a = $firebaseArray(new Firebase(FIREBASE_URL + 'matters/' + $rootScope.$stateParams.groupId + '/' + $rootScope.$stateParams.matterId + '/content/'));
-                            var b = {};
-                            a.$add({
-                                'name': 'curation'
-                            }).then(function(ref) {
-                                var id = ref.key();
-                                ref.update({
-                                    id: id,
-                                    //projectid: $rootScope.$stateParams.pId || 'projectid',
-                                    //matterId: $rootScope.$stateParams.matterId || 'matterId',
-                                    //groupId: $rootScope.$stateParams.groupId || 'groupId',
-                                    //author: $rootScope.authData.uid || 'userid',
-                                    ispublished: false,
+                            var a = new Firebase(FIREBASE_URL + 'content/');
+                            var b = new Date();
+                            var c = b.getTime();
+                            a.child(c).set({
+                                    id: c,
                                     content_type: 'getphd',
                                     templateUrl: '{widgetsPath}/getphd/src/view.html',
                                     timestamp: Firebase.ServerValue.TIMESTAMP
                                 });
-                                config.id = id;
-                                // alertify.prompt('enter app number', function (resp, text) {
-                                //   if (resp) {
-                                //     config.appnum = text;
+                                config.id = c;
 
-                                //   }
-                                // });
 
                                 return config;
-                            });
-                            return config;
-
-
                         }
+
                     }
                 ]
-            }
+            }*/
 
         });
 
 })
 
-    .controller('MainCtrl', ['Collection', 'extract', 'extractzip', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'config', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams', '$location', '$ACTIVEROAR', '$dashboards', '$interval', 'Collections', '$compile', '$templateCache', '$window', '$document', '$filter','ckstarter','ckender',
-        function(Collection, extract, extractzip, fileReader, $http, parseTSV, $roarmap, $q, $scope, config, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, Collections, $compile, $templateCache, $window, $document, $filter, ckstarter,ckender) {
+    .controller('MainCtrl', ['Collection', 'extract', 'extractzip', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope',  'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams', '$location', '$ACTIVEROAR', '$dashboards', '$interval',  '$compile', '$templateCache', '$window', '$document', '$filter','ckstarter','ckender',
+        function(Collection, extract, extractzip, fileReader, $http, parseTSV, $roarmap, $q, $scope,  PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, $compile, $templateCache, $window, $document, $filter, ckstarter,ckender) {
             var main = this;
             //main.size = 'lg';
             $scope.treeFilter = $filter('uiTreeFilter');
@@ -206,7 +191,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
                 console.info('onWhenAddingFileFailed', item, filter, options);
-                alertify.alert('The file\'s name must end with ".zip" and consist only of numbers -  "(",")",",","/", or " " are not permitted.');
+                alertify.alert('The file\'s name must end with ".zip" and consist only of numbers');
                 this.queue = null;
             };
             uploader.onAfterAddingFile = function(fileItem) {
@@ -395,19 +380,19 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             };
             main.styleClass = 'panel-primary';
-            main.size = "450px";
+            main.size = '450px';
             main.checked = false;
 
 
             main.getpatentdownload = function(pnum) {
-                $(document.createElement("iframe")).attr('name', 'fframe').appendTo('body');
+                $(document.createElement('iframe')).attr('name', 'fframe').appendTo('body');
                 var patgoog = function(pnum) {
                     return $window.open('https://patentimages.storage.googleapis.com/pdfs/US' + pnum + '.pdf', 'fframe', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
                 }
                 patgoog(pnum);
             };
             main.getpublishedapplication = function(y, num) {
-                $(document.createElement("iframe")).attr('name', 'fframe').appendTo('body');
+                $(document.createElement('iframe')).attr('name', 'fframe').appendTo('body');
                 $window.open('https://patentimages.storage.googleapis.com/pdfs/US' + y + num + '.pdf', 'fframe', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
             };
             var wingoog, winreed;
@@ -603,10 +588,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
             main.pop = function(link) {
                 var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
-                //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
+                //var header = angular.element('<h4 class='splash'>' + event.rid + ' - ' + event.name + '<span class='fa fa-close btn btn-xs btn-danger' style='float: right;' onclick='$(this).parent().parent().remove()'></span></h4><h6>' + event.media + '</h6>');
                 var roarevent = { title: link.slice(link.lastIndexOf('/') + 1, link.length) };
                 $scope.roarevent = roarevent;
-                var header = $templateCache.get("{widgetsPath}/getphd/src/titleTemplate.html");
+                var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
 
                 var skope = angular.element('<img/>').attr('class', 'img img-responsive img-shadow').attr('src', link);
 
@@ -635,10 +620,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
             main.poppatent = function(patent) {
                 var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
-                //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
+                //var header = angular.element('<h4 class='splash'>' + event.rid + ' - ' + event.name + '<span class='fa fa-close btn btn-xs btn-danger' style='float: right;' onclick='$(this).parent().parent().remove()'></span></h4><h6>' + event.media + '</h6>');
                 var roarevent = patent;
                 $scope.roarevent = roarevent;
-                var header = $templateCache.get("{widgetsPath}/getphd/src/titleTemplate.html");
+                var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
 
                 var skope = angular.element('<embed/>').attr('class', 'img img-responsive img-shadow').attr('src', patent.media);
 
@@ -653,7 +638,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                 var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
                 //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
-                var header = $templateCache.get("{widgetsPath}/getphd/src/titleTemplate.html");
+                var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
 
                 var skope = angular.element('<iframe/>').attr('height', '680px').attr('src', 'https://lexlab.io/files/public/uspto/' + $scope.phd.appnum + '/' + $scope.phd.appnum + '-image_file_wrapper/' + imgrecord['Filename']);
 
@@ -666,7 +651,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
             main.finalize = function(phd, groupids) {
                 //$scope.phd.title = $scope.phd.application['Title of Invention'];
-                var collections = Collections();
+
                 var appnum = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
                 var phdref = Collection($scope.phd.id).$ref();
                 var dashboards = Collection($stateParams.pageid);
@@ -751,7 +736,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
 
         }
-    ]).directive("ffFileSelect", [function() {
+    ]).directive('ffFileSelect', [function() {
 
         return {
             restrict: 'A',
@@ -761,7 +746,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             scope: false,
             link: function($scope, el, attr, ctrl) {
                 var main = ctrl;
-                el.on("change", function(e) {
+                el.on('change', function(e) {
 
                     main.file = (e.srcElement || e.target).files[0];
                     main.getFile();
@@ -910,15 +895,15 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     }])
     .directive('pop',['$compile','$templateCache',function($compile,$templateCache){
         return {
-            restrict: 'A',
+            restrict: 'AC',
             link: function($scope,$el,$attr,$ctrl){
                 var popdoc = function() {
 
                 var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
                 //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
-                //var header = $templateCache.get("{widgetsPath}/getphd/src/titleTemplate.html");
-                var header = $('#docheader').html();
-                var skope = angular.element('<iframe/>').attr('height', '90vh').attr('src', $attr.href);
+                var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
+                //var header = $('#docheader').html();
+                var skope = angular.element('<iframe/>').attr('height', '60vh').attr('src', $attr.href);
 
                 angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
                 $('.issuedocpanel').draggable({

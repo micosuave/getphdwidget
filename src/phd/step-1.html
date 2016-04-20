@@ -27,6 +27,10 @@
      <div class="input-group">
         <input type="number" placeholder="Patent #" class="" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.PNUM" ng-blur="main.remoteconfig(config.PNUM)">
         <button class="btn btn-default right "  tooltip-trigger="mouseenter" uib-tooltip="Download Patent" ng-click="main.getpatentdownload(config.PNUM);" style=""><span class="text-success fa fa-2x fa-download"></span></button>
+       <bc-keypad
+  bc-number-model="config.PNUM"
+  bc-max-length="{{ vm.neededLength }}"
+></bc-keypad>
        <!--<iframe name="testframe" id="testframe" style="visibility: hidden;width:auto;height:1px;"></iframe>-->
     </div>
 </blockquote>
@@ -67,7 +71,10 @@
           <!--</div>-->
           </div>
     </blockquote>
-
+<bc-keypad
+  bc-number-model="vm.numbers"
+  bc-max-length="{{ vm.neededLength }}"
+></bc-keypad>
          </div><!--panelbody-->
 
 </div><!--panel-->
