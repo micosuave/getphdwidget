@@ -109,9 +109,9 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="citation in patent.references">
-                                    <td><img ng-src="/patents/{{citation | strip}}/preview" class="img img-hover img-responsive img-shadow" style="width:150px;height:150px;" />
+                                    <td><img ng-src="/patents/{{citation}}/preview" class="img img-hover img-responsive img-shadow" style="width:150px;height:150px;" />
                                     <td><label class="label label-pill label-NOA">{{citation}}</label></td>
-                                    <td><patent-citation patent="{{citation | strip}}"></patent-citation></td>
+                                    <td><patent-citation patent="{{citation}}"></patent-citation></td>
                                 </tr>
                             </tbody>
                         </table>

@@ -838,6 +838,23 @@ var maildate = new Date(roarevent['Mail Room Date']);
                 });
             }
         };
+    }])
+    .directive('patentCitation', ['$http','Collection',function($http, Collection){
+        return {
+            restrict: 'EA',
+            templateUrl: '{widgetsPath}/getphd/src/phd/citation.html',
+            scope:{
+
+            },
+
+            link: function($scope,$element,$attrs,$ctrl){
+                var p = this;
+                var id = $attrs.patent;
+                $http.get('/getphd/patents/'+id).then(function(resp){
+                    $scope.p = resp.data;
+                });
+            }
+        };
     }]);
 
                 /*var apptemplate =  '<div class="container-fluid two-col-right">' +
