@@ -249,8 +249,8 @@ function pageLoaded() {
 });
             };*/
 
-   .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection','$text2html',
-        function(extract, $document, $window, $rootScope, $http, Collection,$text2html) {
+   .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection','$txt2html',
+        function(extract, $document, $window, $rootScope, $http, Collection,$txt2html) {
             return {
 
                 restrict: "A",
