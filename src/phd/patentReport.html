@@ -26,7 +26,7 @@
                 </uib-tab>
                 <uib-tab class="panel-heading">                      <uib-tab-heading>Drawings <label class="badge">{{patent.drawings.length}}</label></uib-tab-heading>
 
-                <div class="row showscroll" style="margin: 5px 5px;overflow-x:scroll;">
+                <div class="showscroll" style="margin: 5px 5px;display:flex;flex-wrap:wrap;flex-direction:row;">
                     <a ng-repeat="link in patent.drawings" pop="true" ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{patent.thumbnails[$index]}}" class="img img-shadow"/></a>
                     </div>
 
@@ -101,6 +101,7 @@
 
                     </uib-tab>
                     <uib-tab class="panel-heading" heading="Citations">
+                        <uib-tab-heading>Citations <label class="badge">{{patent.citations.length}}</label></uib-tab-heading>
                         <table class="table table-responsive table-stripped table-condensed table-hover">
                             <thead>
                                 <th>Claims</th>
@@ -109,7 +110,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="citation in patent.references">
-                                    <td><img ng-src="/patents/{{citation}}/preview" class="img img-hover img-responsive img-shadow" style="width:150px;height:150px;" />
+                                    <td><img ng-src="/patents/{{citation}}/preview" class="img img-hover img-responsive img-shadow" style="width:100px;height:100px;" />
                                     <td><label class="label label-pill label-NOA">{{citation}}</label></td>
                                     <td><patent-citation patent="{{citation}}"></patent-citation></td>
                                 </tr>

@@ -1,10 +1,10 @@
 <label class="fa fa-tags text-info"></label>
-<label ng-repeat="tag in matches" class="fa fa-tag"> {{tag.str}} </label>
+<label ng-repeat="tag in matches track by $index | groupBy: 'tag'" class="fa fa-tag"> {{tag}} </label>
 
-<div  ng-repeat="page in pages" class="card card-block" style="line-height:1.5;font-size:14px;"><input type="text" ng-model="query" placeholder="search" class="" />
+<div  ng-repeat="page in pages" class="card card-block" style="line-height:1.5;font-size:14px;">
    <!--<uib-pager total-items="pages.length" items-per-page="1" ng-model="currentPage"></uib-pager>-->
- <p ng-bind-html="page | highlight: query | trustAsHTML"></p>
-    <footer style="display:flex;justify-content:center;">
+ <p ng-bind-html="page | highlight: $parent.query | trustAsHTML"></p>
+    <!--<footer style="display:flex;justify-content:center;">
         <p style="align-self:center;color:#444;">{{$index}}</p>
-    </footer>
+    </footer>-->
 </div>

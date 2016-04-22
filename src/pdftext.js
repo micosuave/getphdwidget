@@ -249,8 +249,8 @@ function pageLoaded() {
 });
             };*/
 
-   .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection',
-        function(extract, $document, $window, $rootScope, $http, Collection) {
+   .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection','$text2html',
+        function(extract, $document, $window, $rootScope, $http, Collection,$text2html) {
             return {
 
                 restrict: "A",
@@ -299,7 +299,7 @@ function pageLoaded() {
                         };
                         var getPageText = function(page, i) {
                             page.getTextContent().then(function(textContent) {
-
+                                console.log(textContent);
                                 var section = '<p>';
                                 angular.forEach(textContent.items, function(o, key) {
 
