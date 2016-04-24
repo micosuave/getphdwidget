@@ -1,12 +1,21 @@
 <div class="container-fluid two-col-right">
-    <div class="row">
-        <div class="col-xs-8">
+
+                  <div class="col-xs-4 col-sm-3 card card-{{roarevent.styleClass}}">
+                      <img ng-src="{{background}}" class="img img-responsive img-shadow"/>
+                  <p class="card-text">
+                      <label ng-repeat="match in matches track by $index | unique" class="fa fa-tag"><a ng-href="#{{match}}">{{match}}</a></label></p>
+
+                  </div>
+
+        <div class="col-xs-8 col-sm-9">
             <div class="bs-callout bs-callout-{{roarevent.styleClass}}">
                 <h4>{{roarevent.title}}</h4>
                 <p ng-if="roardate">Filed {{roardate}}</p>
                 <cite>{{roarevent.filename}}&nbsp;&nbsp;<a pop href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div>
+<div matches="matches" getpdftext="{{::roarevent.id}}" pdf-data="{{::roarevent.ocrlink}}" roarevent="roarevent" class="card card-block"></div>
+
+
         </div>
-        <div class="col-xs-4"><img ng-src="{{background}}" class="img img-responsive img-shadow" /></div>
-    </div>
+        <!--<div class="col-xs-4"><img ng-src="{{background}}" class="img img-responsive img-shadow" /></div>-->
+
 </div>
-<div getpdftext="{{::roarevent.id}}" pdf-data="{{::roarevent.ocrlink}}" roarevent="roarevent" class="card card-block"></div>
