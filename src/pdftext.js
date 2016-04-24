@@ -261,7 +261,7 @@ function pageLoaded() {
                 //bindToController: true,
 
                 scope:{
-
+                    matches:'=?',
                     roarevent: '=?',
                     getpdftext:'@',
                     pdfData: '@'
