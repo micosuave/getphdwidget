@@ -799,10 +799,10 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
 var maildate = new Date(roarevent['Mail Room Date']);
 
                 $scope.roardate = maildate.toDateString();
-                  var background = function(roarevent){
+                  var background = function(styleClass){
 
                     var template;
-                    var styleClass = roarevent.styleClass;
+                    // var styleClass = roarevent.styleClass;
                     switch (styleClass){
                         case 'Applicant':
                         template = '4682b4';
@@ -821,9 +821,9 @@ var maildate = new Date(roarevent['Mail Room Date']);
                         break;
                     }
 
-                    return template;
+                    return 'https://placehold.it/250x150/'+template+'/fff/&text='+$scope.roarevent.rid;
                 };
-                $scope.background = 'https://placehold.it/250x150/'+background(roarevent)+'/fff/&text='+$scope.roarevent.rid;
+                $scope.background = background;
 
 
            });
