@@ -1,7 +1,7 @@
 <div class="container-fluid two-col-right">
 
                   <div class="col-xs-4 col-sm-3 card card-{{roarevent.styleClass}}">
-                      <img ng-src="{{background}}" class="img img-responsive img-shadow"/>
+                      <img ng-src="{{background(roarevent.styleClass)}}" class="img img-responsive img-shadow"/>
                   <p class="card-text">
                       <label ng-repeat="match in matches track by $index | unique" class="fa fa-tag"><a ng-href="#{{$index}}">{{match}}</a></label></p>
 
