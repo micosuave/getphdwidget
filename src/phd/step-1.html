@@ -1,14 +1,14 @@
 <div class="panel panel-primary" style="margin:0rem;margin-left:-0.75rem;overflow:visible;">
-    <div class="panelhead2 panel-heading btn-primary btn-glass clearfix" style="margin-right:-1rem;border-top-left-radius:0rem;border-bottom-left-radius:0rem;border-top-right-radius:2rem;border-bottom-right-radius:2rem;">
+    <div class="panelhead2 panel-heading btn-primary btn-glass clearfix" style="margin-right:-1rem;border-top-left-radius:0rem;border-bottom-left-radius:0rem;border-top-right-radius:2rem;border-bottom-right-radius:2rem;display:flex;justify-content:flex-start;align-items:center;align-content:center;">
 
 
-        <img src="/llp_core/img/GoldLion.svg" class="img lionlogofilter pull-left" style="width:auto;height: 50px;align-self:flex-start;position:absolute;margin-top:-10px;">
 
         <div class="pull-right" style="display:flex;flex-direction:column;align-items:flex-start;justify-content:space-around;align-self:flex-end;">
           <img src="/llp_core/img/GoldLogoLong.svg" class="img" style="height:25px;">
 
           <img src="/llp_core/img/GoldPhdLogoLong.svg" class="img" style="height:10px;padding-left:2px;">
         </div>
+        <img src="/llp_core/img/GoldLion.svg" class="img lionlogofilter pull-left" style="width:auto;height: 50px;align-self:flex-start;margin-left:75px;;margin-top:-10px;">
 
         <!--<h6 class="panel-title" style="color:#ffa;"><img src="https://lexlab.firebaseapp.com/img/GoldPhdLogoLong.svg" class="img img-rounded img-thumbnail" style="width:auto;height:100%;" /> </h6>-->
     </div>
@@ -59,8 +59,8 @@
               <div class="input-group">
             <form name="application">
               <input class="" type="text" placeholder="Application #" ng-model="config.appnum" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-pattern="\d+" >
-                <button class="btn btn-default right" ng-click="main.getfilehistory(config.appnum,'reedtech')" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="right" title="DOWNLOAD FILE HISTORY FROM REEDTECH" tooltip-animation="true"><span id="reedtechbutton" class="fa fa-2x fa-file-zip-o text-danger"></span>ReedTech</button>
-                  <button class="btn btn-default  right" ng-click="main.getfilehistory(config.appnum,'google')" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="right" title="DOWNLOAD FILE HISTORY FROM GOOGLE" tooltip-animation="true"><span id="googlebutton" class="text-danger fa fa-2x fa-file-zip-o"></span>Google</button>
+                <button class="btn btn-default right text-PTO" ng-click="main.getfilehistory(config.appnum,'reedtech')" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="right" title="DOWNLOAD FILE HISTORY FROM REEDTECH" tooltip-animation="true"><span id="reedtechbutton" class="fa fa-2x fa-file-zip-o text-PTO"></span>ReedTech</button>
+                  <button class="btn btn-default  right text-PTO" ng-click="main.getfilehistory(config.appnum,'google')" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="right" title="DOWNLOAD FILE HISTORY FROM GOOGLE" tooltip-animation="true"><span id="googlebutton" class="text-PTO fa fa-2x fa-file-zip-o"></span>Google</button>
                 <button class="btn btn-default " ng-click="main.remotezip(config.appnum)" uib-tooltip="TRY AUTO DOWNLOAD **experimental" tooltip-placement="right" title="TRY AUTO DOWNLOAD* (**experimental**)" tooltip-animation="true" style="width:35px;height:35px;"><img src="/llp_core/img/GoldLion.svg" style="width:35px;height:35px;"></button>
            </form>
     <!--<div class="input-group-addon">-->
