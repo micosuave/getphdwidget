@@ -263,15 +263,15 @@ function pageLoaded() {
                 scope:{
                     matches:'=?',
                     roarevent: '=?',
-                    getpdftext:'@',
+                   // getpdftext:'@',
                     pdfData: '@'
 
                 },
                 link: function($scope,$el,$attr,$ctrl){
                     var id = $attr.getpdftext;
-                    var roarevent = Collection(id).$loaded();
-                    $scope.roarevent = roarevent;
-                    $scope.pages = roarevent.pages;
+                   Collection(id).$loaded().then(function(roarevent){
+                   $scope.roarevent = roarevent;
+                    $scope.pages = $scope.roarevent.pages;
                     $document.on('mouseup', function(event) {
                     var a = $window.getSelection() || $document.getSelection();
                     if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
@@ -335,10 +335,10 @@ function pageLoaded() {
                         });
 
 
-                    }         }
-            };
-        }
-    ]).factory('$txt2html',[function(){
+                   }         });
+            }
+        };
+        }]).factory('$txt2html',[function(){
         return function( text, enterMode ) {
             var isEnterBrMode = enterMode == CKEDITOR.ENTER_BR,
                 // CRLF -> LF
