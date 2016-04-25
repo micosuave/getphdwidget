@@ -304,7 +304,7 @@ function pageLoaded() {
                                 angular.forEach(textContent.items, function(o, key) {
 
                                     if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
-                                        section =  $compile($sce.trustAsHtml(section + ' ' +'<a id="'+$scope.matches.length+'"><mark class="highlight" tooltip-trigger="mouseenter" uib-tooltip="'+o.str+'  [@'+key+']">' + o.str + '</mark></a>'))($scope);
+                                        section = section + ' ' +'<a id="'+$scope.matches.length+'"><mark class="highlight" tooltip-trigger="mouseenter" uib-tooltip="'+o.str+'  [@'+key+']">' + o.str + '</mark></a>';
                                         $scope.matches.push(o.str);
                                     }else{
                                     section = section + ' ' + o.str;
