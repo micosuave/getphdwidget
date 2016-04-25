@@ -3,7 +3,7 @@
 
 <div  ng-repeat="page in pages" class="card card-block" style="line-height:1.5;font-size:14px;">
    <!--<uib-pager total-items="pages.length" items-per-page="1" ng-model="currentPage"></uib-pager>-->
- <ng-annotate-text text="page | highlight: $parent.query | trustAsHTML"></ng-annotate-text>
+ <p ng-bind-html="page | highlight: $parent.query | trustAsHTML"></p>
     <footer style="display:flex;justify-content:center;">
         <p style="align-self:center;color:#444;">{{$index + 1}}</p>
     </footer>

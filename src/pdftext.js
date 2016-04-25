@@ -249,8 +249,8 @@ function pageLoaded() {
 });
             };*/
 
-   .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection','$txt2html',
-        function(extract, $document, $window, $rootScope, $http, Collection,$txt2html) {
+   .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection','$txt2html','$sce','$compile',
+        function(extract, $document, $window, $rootScope, $http, Collection,$txt2html, $sce, $compile) {
             return {
 
                 restrict: "A",
@@ -304,7 +304,7 @@ function pageLoaded() {
                                 angular.forEach(textContent.items, function(o, key) {
 
                                     if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
-                                        section = section + ' ' + '<mark class="highlight" tooltip-trigger="mouseenter" uib-tooltip="'+o.str+'  [@'+key+']">' + o.str + '</mark>';
+                                        section = section + ' ' + $compile($sce.trustAsHtml('<a id="'+$scope.matches.length+'"><mark class="highlight" tooltip-trigger="mouseenter" uib-tooltip="'+o.str+'  [@'+key+']">' + o.str + '</mark></a>'));
                                         $scope.matches.push(o.str);
                                     }else{
                                     section = section + ' ' + o.str;
