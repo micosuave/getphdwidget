@@ -267,22 +267,111 @@ function pageLoaded() {
                     pdfData: '@'
 
                 },
+                controller: ['$scope','ROARAnnotations',function($scope, ROARAnnotations){
+
+                    $scope.onAnnotate = function($annotation) {
+             console.log($annotation);
+            $scope.roarevent.annotations[$index].push($annotation);
+            alertify.success($annotation);
+        };
+        $scope.onAnnotateDelete = function($annotation) {
+            // annotations.$remove($annotation).then(function(ref){
+            //      console.log(ref);
+            // });
+            $scope.roarevent.annotations[$annotation.$id] = null;
+
+
+        };
+
+        $scope.onAnnotateError = function($ex) {
+            if ($ex.message === "NG_ANNOTATE_TEXT_PARTIAL_NODE_SELECTED") {
+                return alertify.error("Invalid selection.");
+            } else {
+                return alertify.error($ex);
+            }
+        };
+
+        $scope.onPopupShow = function($el) {
+            var firstInput;
+            firstInput = $el.find("input, textarea").eq(0).focus();
+            var a = window.getSelection();
+            if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
+                        var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
+                        $scope.data.selection = text;
+                }
+            // if (selection) {
+            //     $scope.data.selection = selection;
+            // }
+
+            $('.ng-annotate-text-popup').draggable({
+                scroll: true,
+                cursor: 'move',
+                handle: '.roareventcardtab',
+                stack: '.ng-annotate-text-popup',
+                constrain: 'scroll'
+            }).resizable();
+            return firstInput && firstInput[0].select();
+        };
+
+        $scope.hasPoints = function(points) {
+            var _isNaN;
+            _isNaN = Number.isNaN || isNaN;
+            return typeof points === "number" && points !== 0 && !_isNaN(points);
+        };
+
+        $scope.hasComment = function(comment) {
+            return typeof comment === "string" && comment.length > 0;
+        };
+
+        $scope.annotationsAsFlatList = function(annotations) {
+
+            if (annotations == null) {
+                annotations = $scope.roarevent.annotations;
+            }
+            if (!annotations.length) {
+                return [];
+            } else {
+                return annotations.map(function(annotation) {
+                    var arr;
+                    arr = [];
+                    if ($scope.hasPoints(annotation.data.points) && $scope.hasComment(annotation.data.comment)) {
+                     arr.push(annotation);
+                    }
+                    if (annotation.children && annotation.children.length) {
+                     arr = arr.concat($scope.annotationsAsFlatList(annotation.children));
+                    }
+                    // arr.push(annotation);
+                    return arr;
+                }).reduce(function(prev, current) {
+                    return prev.concat(current);
+                });
+            }
+        };
+        $scope.clearPopups = function() {
+            return $scope.$broadcast("ngAnnotateText.clearPopups");
+        };
+
+                }],
                 link: function($scope,$el,$attr,$ctrl){
                     var id = $attr.getpdftext;
                    Collection(id).$loaded().then(function(roarevent){
                    $scope.roarevent = roarevent;
                     $scope.pages = $scope.roarevent.pages;
-                    $document.on('mouseup', function(event) {
-                    var a = $window.getSelection() || $document.getSelection();
-                    if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
-                        var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
-                        alertify.prompt(text).set('type','color').set('onok', function(evt,value){$(text).wrap('<span style="background-color:'+value+'"'); alertify.success(text);}).show();
+
+                    if (angular.isUndefined($scope.roarevent.annotations)){
+                        $scope.roarevent.annotations = [];
                     }
-                    });
+                    // $document.on('mouseup', function(event) {
+                    // var a = $window.getSelection() || $document.getSelection();
+                    // if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
+                    //     var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
+                    //     alertify.prompt(text).set('type','color').set('onok', function(evt,value){$(text).wrap('<span style="background-color:'+value+'"'); alertify.success(text);}).show();
+                    // }
+                    // });
 
                     if (angular.isUndefined($scope.pages)){
-                        $scope.pages = [];
-                        $scope.matches = [];
+                        $scope.roarevent.pages = [];
+                        $scope.roarevent.matches = [];
                         $http.get($attr.pdfData).then(function(resp){
 
                         PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
@@ -304,8 +393,8 @@ function pageLoaded() {
                                 angular.forEach(textContent.items, function(o, key) {
 
                                     if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
-                                        section = section + ' ' +'<a id="'+$scope.matches.length+'"><mark class="highlight" tooltip-trigger="mouseenter" uib-tooltip="'+o.str+'  [@'+key+']">' + o.str + '</mark></a>';
-                                        $scope.matches.push(o.str);
+                                        section = section + ' ' +'<a id="'+$scope.roarevent.matches.length+'"><mark class="highlight" tooltip-trigger="mouseenter" uib-tooltip="'+o.str+'  [@'+key+']">' + o.str + '</mark></a>';
+                                        $scope.roarevent.matches.push(o.str);
                                     }else{
                                     section = section + ' ' + o.str;
                                     }
@@ -326,9 +415,10 @@ function pageLoaded() {
                                 //     psa.push(string);
                                 // });
 
-                                $scope.pages.push(pss.join('</p><p class="pagetext">'));
-                                $scope.$apply();
+                                $scope.roarevent.pages.push(pss.join('</p><p class="pagetext">'));
+$scope.roarevent.$save();
                                 });
+
                             };
 
 
@@ -387,4 +477,68 @@ function pageLoaded() {
         var pdff = this;
         pdff.name = 'PDFFilesController';
 
+    }]).controller("AnnotationController", ['$scope','$timeout',function($scope, $timeout) {
+        // $scope.roarevents = ROARevents($stateParams.matterId);
+        $scope.annotationColours = [{
+            name: "Red",
+            value: "red"
+        }, {
+            name: "Green",
+            value: "green"
+        }, {
+            name: "Blue",
+            value: "blue"
+        }, {
+            name: "Yellow",
+            value: "yellow"
+        }, {
+            name: "Pink",
+            value: "pink"
+        }, {
+            name: "Aqua",
+            value: "aqua"
+        }];
+
+        $scope.templates = [{
+            type: "red",
+            comment: "102b",
+            points: -1
+        }, {
+            type: "aqua",
+            comment: "112 2nd¶",
+            points: -1
+        }];
+
+        $scope.selection = window.getSelection();
+
+        $scope.useTemplate = function(template) {
+            if (template.type !== null) {
+                $scope.$annotation.type = template.type;
+            }
+            if (template.comment !== null) {
+                $scope.$annotation.data.comment = template.comment;
+            }
+            if (template.points !== null) {
+                $scope.$annotation.data.points = template.points;
+            }
+            $scope.$close();
+        };
+
+        $scope.useColor = function(color) {
+            if (color.value !== null) {
+                $scope.$annotation.type = color.value;
+            }
+        };
+
+        $scope.isActiveColor = function(color) {
+            return color && color.value === $scope.$annotation.type;
+        };
+
+        $scope.close = function() {
+            return $scope.$close();
+        };
+
+        $scope.reject = function() {
+            return $scope.$reject();
+        };
     }]);

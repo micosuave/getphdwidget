@@ -1,10 +1,25 @@
 <!--<label class="fa fa-tags text-info"></label>-->
 <!--<label ng-repeat="tag in matches track by $index | groupBy: 'tag'" class="fa fa-tag"> {{tag}} </label>-->
 
-<div  ng-repeat="page in pages" class="card card-block" style="line-height:1.5;font-size:14px;">
+<div  ng-repeat="page in roarevent.pages" class="card card-block" style="line-height:1.5;font-size:14px;">
    <!--<uib-pager total-items="pages.length" items-per-page="1" ng-model="currentPage"></uib-pager>-->
- <p ng-bind-html="page | highlight: $parent.query | trustAsHTML"></p>
-    <footer style="display:flex;justify-content:center;">
+ <!--<p ng-bind-html="page | highlight: $parent.query | trustAsHTML"></p>-->
+    <ng-annotate-text text="page" class="eventdigest card" style="background-color: #fff;padding: 1rem;border-radius: 0.2rem;" annotations="roarevent.annotations[$index]" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
+    tooltip-controller="'AnnotationController'" tooltip-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation-tooltip.tpl.html'" on-annotate="onAnnotate" on-annotate-delete="onAnnotateDelete" on-annotate-error="onAnnotateError"
+    on-popup-show="onPopupShow" on-popup-hide="onPopupHide" popup-offset="50">
+
+    </ng-annotate-text>
+    <ul>
+        <li ng-repeat="a in annotationsAsFlatList(roarevent.annotations[$index]) track by $index">
+            {{a.data.comment}}
+            <span ng-if="a.data.points">
+              ({{a.data.points}}
+              <ng-pluralize
+                  count="a.data.points"
+                  when="{'-1': 'point', '1': 'point', 'other': 'points'}"></ng-pluralize>)
+            </span>
+        </li>
+    </ul> <footer style="display:flex;justify-content:center;">
         <p style="align-self:center;color:#444;">{{$index + 1}}</p>
     </footer>
 </div>

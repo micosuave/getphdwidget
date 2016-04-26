@@ -22,6 +22,7 @@
             <div class="bs-callout bs-callout-reverse bs-callout-NOA">
                 <h4 ng-bind="patent.title">Reprehenderit aute proident cupidatat exercitation officia incididunt culpa ullamco.</h4>
                 <p ng-bind="patent.abstract">Culpa enim minim amet proident sunt aliqua ex irure ex sunt eiusmod ut consectetur. Minim esse in tempor reprehenderit esse cupidatat adipisicing ipsum eiusmod. Ea commodo nisi enim esse et ut. Minim laborum irure eiusmod Lorem consequat duis labore deserunt ullamco velit enim ut. Aliquip tempor non amet aliqua cillum sit amet commodo aliqua sint nisi. Fugiat ex irure qui et in qui velit commodo ipsum. Non cupidatat laboris culpa ipsum culpa velit.</p>
+                <d3lib data="{{$parent.$parent.patent.claims}}"></d3lib>
                 </div>
                 </uib-tab>
                 <uib-tab class="panel-heading">                      <uib-tab-heading>Drawings <label class="badge">{{patent.drawings.length}}</label></uib-tab-heading>
@@ -42,6 +43,8 @@
                         <div class="col-xs-6">
                         <d3pendingtree patent="{{patent.id}}" pattern="{{query || ''}}" tree="tree"></d3pendingtree>
                            <input id="patterninput" class="" ng-model="query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
+
+
                 <!--<a style="position:absolute;right:0;top:4;" class="btn fa fa-close" ng-click="config.query = null"></a>-->
 
                 <div class="col-sm-3">
