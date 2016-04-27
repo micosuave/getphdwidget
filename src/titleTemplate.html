@@ -1,37 +1,37 @@
 
-<div class="card-header" style="z-index:1;padding:0px;">
-    
-    <h4 class="bs-callout bs-callout-primary" style="">
+<div class="card bs-callout bs-callout-{{roarevent.styleClass || 'primary'}}" style="z-index:1;padding:0px;">
+
+    <h4 class="" style="">
         <!-- <img src="img/GoldLogoLong.svg" class="img pull-left"> -->
-        
-          <span style="color:steelblue;">{{config.title || roarevent.title}}</span>
-        
+
+          <span style="">{{config.title || roarevent.title || ''}}</span>
+
           <br>
 <div class="row" style="width:100%;">
-<small class="">{{roarevent.date | date}}</small>
-      
+<small class="">{{(roarevent.date | date)||''}}</small>
 
- <span class="pull-right" style="position:absolute;right:5px;font-size:12px;"> 
 
-<a href title="notes" ng-click="note(roarevent)" ><i class="fa fa-pencil" style="color:steelblue;"></i></a>
+ <span class="pull-right" style="position:absolute;right:5px;font-size:12px;">
+
+<a href title="notes" ng-click="note(roarevent)" ><i class="fa fa-pencil" style="margin:5px;"></i></a>
 
 <!--<a href title="mail" ng-click="$publish(this)"><i class="fa fa-send" style="color:steelblue;"></i></a>-->
 
  <!--<a href title="comment" ng-click="note(roarevent.id)"><i class="fa fa-comments-o" style="color:steelblue;"></i></a>-->
 
- <a href title="reload widget content"  ng-click="reload()"> <i class="fa fa-refresh" style="color:steelblue;"></i> </a>  
+ <a href title="reload widget content"  ng-click="reload()"> <i class="fa fa-refresh" style="margin:5px;"></i> </a>
 
- <a href title="change widget location" class="adf-move" > <i class="fa fa-arrows" style="color:steelblue;"></i> </a>  
+ <a href title="change widget location" class="adf-move" > <i class="fa fa-arrows" style="margin:5px;"></i> </a>
 
- <a href title="collapse widget" ng-show="options.collapsible && !widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-minus" style="color:steelblue;"></i> </a>  
+ <a href title="collapse widget" ng-show="options.collapsible && !widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-minus" style="margin:5px;"></i> </a>
 
- <a href title="expand widget" ng-show="options.collapsible && widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-plus" style="color:steelblue;"></i> </a>  
+ <a href title="expand widget" ng-show="options.collapsible && widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-plus" style="margin:5px;"></i> </a>
 
- <a href title="copy to clipboard" ng-click="edit(roarevent.id)" > <i class="fa fa-copy" style="color:steelblue;"></i> </a> 
+ <a href title="copy to clipboard" ng-click="edit(roarevent.id)" > <i class="fa fa-copy" style="margin:5px;"></i> </a>
 
- <a href title="fullscreen widget" ng-click="openFullScreen(roarevent.id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="color:steelblue;"></i> </a>  
+ <a href title="fullscreen widget" ng-click="openFullScreen(roarevent.id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="margin:5px;"></i> </a>
 
- <a href title="remove widget" ng-click="remove()" onclick="$(this).parent().parent().parent().parent().parent().remove()"> <i class="fa fa-close" style="color:steelblue;"></i> </a> 
+ <a href title="remove widget" ng-click="remove()" onclick="$(this).parent().parent().parent().parent().parent().remove()"> <i class="fa fa-close" style="margin:5px;"></i> </a>
 
  </span>
 </div>
