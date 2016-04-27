@@ -270,15 +270,18 @@ function pageLoaded() {
                 controller: ['$scope','ROARAnnotations',function($scope, ROARAnnotations){
 
                     $scope.onAnnotate = function($annotation) {
-             console.log($annotation);
-            $scope.roarevent.annotations[$index].push($annotation);
-            alertify.success($annotation);
+             ROARAnnotations($scope.roarevent.id)
+                    .$add($annotation);
+//            $scope.roarevent.annotations.push($annotation);
+
         };
         $scope.onAnnotateDelete = function($annotation) {
-            // annotations.$remove($annotation).then(function(ref){
+            ROARAnnotations($scope.roarevent.id)
+                    .$remove($annotation);
+            //.then(function(ref){
             //      console.log(ref);
             // });
-            $scope.roarevent.annotations[$annotation.$id] = null;
+            //$scope.roarevent.annotations[$annotation.$id] = null;
 
 
         };
@@ -358,9 +361,9 @@ function pageLoaded() {
                    $scope.roarevent = roarevent;
                     $scope.pages = $scope.roarevent.pages;
 
-                    if (angular.isUndefined($scope.roarevent.annotations)){
-                        $scope.roarevent.annotations = [];
-                    }
+                    // if (angular.isUndefined($scope.roarevent.annotations)){
+                    //     $scope.roarevent.annotations = [];
+                    // }
                     // $document.on('mouseup', function(event) {
                     // var a = $window.getSelection() || $document.getSelection();
                     // if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
