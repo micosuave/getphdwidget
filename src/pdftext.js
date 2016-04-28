@@ -278,12 +278,7 @@ function pageLoaded() {
 
         };
         $scope.onAnnotateDelete = function($annotation) {
-            ROARAnnotations($scope.roarevent.id)
-                    .$remove($annotation);
-            //.then(function(ref){
-            //      console.log(ref);
-            // });
-            //$scope.roarevent.annotations[$annotation.$id] = null;
+           $scope.roarevent.$save();
 
 
         };

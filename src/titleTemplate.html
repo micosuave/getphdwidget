@@ -2,27 +2,25 @@
 <div class="bs-callout bs-callout-{{roarevent.styleClass || 'primary'}}" style="z-index:1;padding:0px;">
 
     <h4 class="" style="">
-        <!-- <img src="img/GoldLogoLong.svg" class="img pull-left"> -->
-
-          <span style="margin-left:25px;">{{config.title || roarevent.title || ''}}</span>
+          <span style="margin-left:25px;" ng-bind="roarevent.title"></span>
 
           <br>
 <div class="row" style="width:100%;">
-<small class="" style="margin-left:50px;" >{{(roarevent.date | date)||''}}</small>
+<small class="" style="margin-left:50px;" ng-bind="roarevent.date | date"></small>
 
 
  <span class="pull-right" style="position:absolute;right:5px;font-size:12px;">
 
-<a href title="notes" ng-click="note(roarevent)" ><i class="fa fa-pencil" style="margin:5px;"></i></a>
+<!--<a href title="notes" ng-click="note(roarevent)" ><i class="fa fa-pencil" style="margin:5px;"></i></a>-->
 
 <!--<a href title="mail" ng-click="$publish(this)"><i class="fa fa-send" style="color:steelblue;"></i></a>-->
 
  <!--<a href title="comment" ng-click="note(roarevent.id)"><i class="fa fa-comments-o" style="color:steelblue;"></i></a>-->
 
- <a href title="reload widget content"  ng-click="reload()"> <i class="fa fa-refresh" style="margin:5px;"></i> </a>
+ <!--<a href title="reload widget content"  ng-click="reload()"> <i class="fa fa-refresh" style="margin:5px;"></i> </a>-->
 
- <a href title="change widget location" class="adf-move" > <i class="fa fa-arrows" style="margin:5px;"></i> </a>
-
+ <!--<a href title="change widget location" class="adf-move" > <i class="fa fa-arrows" style="margin:5px;"></i> </a>-->
+<a  clipboard text="roarevent.media" on-copied="alertify.success('copied!');" on-error="alertify.error(err,'uh oh!')" onclick="alertify.success('copied!')"><i class="fa fa-link" style="margin:5px;"></i></a>
  <a href title="collapse widget" ng-show="options.collapsible && !widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-minus" style="margin:5px;"></i> </a>
 
  <a href title="expand widget" ng-show="options.collapsible && widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-plus" style="margin:5px;"></i> </a>
