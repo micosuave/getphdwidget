@@ -2371,7 +2371,7 @@ function pageLoaded() {
 
                     if (angular.isUndefined($scope.pages)){
                         $scope.roarevent.pages = [];
-                        $scope.roarevent.matches = [];
+                        // $scope.roarevent.matches = [];
                         $http.get($attr.pdfData).then(function(resp){
 
                         PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
