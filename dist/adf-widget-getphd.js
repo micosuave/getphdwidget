@@ -2392,12 +2392,12 @@ function pageLoaded() {
                                 var section = '<p>';
                                 angular.forEach(textContent.items, function(o, key) {
 
-                                    if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
+                                   /* if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
                                         section = section + ' ' +'<a id="'+$scope.roarevent.matches.length+'"><mark class="highlight" tooltip-trigger="mouseenter" uib-tooltip="'+o.str+'  [@'+key+']">' + o.str + '</mark></a>';
                                         $scope.roarevent.matches.push(o.str);
-                                    }else{
+                                    }else{*/
                                     section = section + ' ' + o.str;
-                                    }
+                                    //}
                                 });
                                 var reg = new RegExp(/(!=[\dg])\.\s/,'gi');
                                 var pss = section.split(reg);
@@ -2481,22 +2481,22 @@ $scope.roarevent.$save();
         // $scope.roarevents = ROARevents($stateParams.matterId);
         $scope.annotationColours = [{
             name: "Red",
-            value: "red"
+            value: "#660000"
         }, {
             name: "Green",
-            value: "green"
+            value: "#006600"
         }, {
             name: "Blue",
-            value: "blue"
+            value: "steelblue"
         }, {
             name: "Yellow",
             value: "yellow"
         }, {
             name: "Pink",
-            value: "pink"
+            value: "rgba(0,0,0,0.5)"
         }, {
             name: "Aqua",
-            value: "aqua"
+            value: "orange"
         }];
 
         $scope.templates = [{
