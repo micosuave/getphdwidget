@@ -1085,14 +1085,21 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
-    .controller('PatentWidgetCtrl',['$scope','config','$http', function($scope, config,$http){
+    .controller('PatentWidgetCtrl',['$scope','config','$http','Collection', function($scope, config,$http,Collection){
         var p = this;
         $scope.config = config;
         if (config.pnum){
             p.id = config.pnum;
-
+        try{
+            Collection(p.id).$loaded().then(function(data){
+                $scope.patent = data;
+            });
+        }catch(ex){
         $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + p.id).then(function (resp) {
                     $scope.patent = resp.data;
                 });
+        }finally{
+            alertify.success('loaded!');
+        }
         }
     }]);
