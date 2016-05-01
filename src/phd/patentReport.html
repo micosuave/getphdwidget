@@ -33,15 +33,15 @@
 
               </uib-tab>
                     <uib-tab class="panel-heading" heading="Description">
-                <div class="card card-block " style="text-size: 11px!important;" ng-bind-html="patent.text | trustAsHTML">
-                </div>
+                <pre class="card card-block " style="text-size: 11px!important;" ng-bind-html="patent.text | trustAsHTML">
+                </pre>
                     </uib-tab>
                     <uib-tab class="panel-heading">
-                        <uib-tab-heading>Claims <label class="badge">{{patent.claim_total}}</label></uib-tab-heading>
+                        <uib-tab-heading>Claims <label class="label label-pill">{{patent.claim_total}}</label></uib-tab-heading>
                         <div class="container">
 
                         <div class="col-xs-6">
-                        <d3pendingtree patent="{{patent.id}}" pattern="{{query || ''}}" tree="tree"></d3pendingtree>
+                        <d3pendingtree patent="{{patent.id}}" pattern="{{query || '\s'}}" tree="tree"></d3pendingtree>
                            <input id="patterninput" class="" ng-model="query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
 
 
@@ -98,24 +98,21 @@
 
                 </div>
                     </uib-tab>
-                    <uib-tab class="panel-heading" heading="File History">
 
-                        <roargrid application="{{patent.application_number | strip}}" patent="{{patent.id}}"></roargrid>
-
-                    </uib-tab>
                     <uib-tab class="panel-heading" heading="Citations">
-                        <uib-tab-heading>Citations <label class="badge">{{patent.references.length}}</label></uib-tab-heading>
+                        <uib-tab-heading>Citations <label class="label label-pill">{{patent.references.length}}</label></uib-tab-heading>
                         <table class="table table-responsive table-stripped table-condensed table-hover">
                             <thead>
-                                <th>Claims</th>
+                                <th>Thumbnail</th>
                                 <th>ID#</th>
+                                <th>Title</th>
                                 <th>Details</th>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="citation in patent.references">
-                                    <td><img ng-src="/patents/{{citation}}/preview" class="img img-hover img-responsive img-shadow" style="width:100px;height:100px;" /></td>
-                                    <td><label class="label label-pill label-NOA">{{citation}}</label></td>
-                                    <td><patent-citation patent="{{citation}}"></patent-citation></td>
+                                    <td><img ng-src="/patents/{{citation}}/preview" class="img img-hover img-responsive img-shadow" style="width:35px;height:35px;margin:5px;" /></td>
+                                    <td><em>{{citation}}</em></td>
+                                    <td col-span="2"><patent-citation patent="{{citation}}"></patent-citation></td>
                                 </tr>
                             </tbody>
                         </table>

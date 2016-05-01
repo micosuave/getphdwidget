@@ -1,7 +1,7 @@
 <div class="bs-callout bs-callout-NOA">
-    <h4 class="card-title">{{p.title}}</h4>
-    <small class="text-muted>">{{p.application}}</small>
-    <p>{{p.description}}</p>
-    <img ng-src="/patents/{{$parent.citation}}/preview" class="img img-responsive img-shadow pull-right" style="width:100px;height:100px;" />
+    <h4 class="card-title">{{p.title || 'Title'}}</h4>
+    <small class="text-muted>">{{p.application || 'Application Number'}}</small>
+    <p>{{p.description || 'Description'}}</p>
+    <img ng-src="/patents/{{$parent.citation}}/preview" class="img img-responsive img-shadow" style="width:35px;height:35px;margin:5px;" />
 
 </div>

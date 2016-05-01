@@ -227,6 +227,7 @@
                          roarevent.rid = phd.imagefile.length - phd.imagefile.indexOf(file);
                          //roarevent.file = file;
                          //roarevent.collections.push(roarmap.collections[0]);
+                         roarevent.patentid = phd.patent.id;
                          roarevent.doccode = file['Document Code'] || null;
                          //roarevent.collections.push(phd.roarmap.collections[0].id);
                          angular.forEach(DOCNAMES, function(code, key) {
@@ -444,7 +445,7 @@ var wraptail = ckender;
                               rid: options.rid,
                                title: options.title + ' - ' + 'USSN ' + phd.application['Application Number'],
                               collection_type: 'source',
-                              description: 'for US ' + phd.application['Patent Number'],
+                              description: 'for US ' + phd.patent.id,
                               styleClass: options.styleClass,
                               icon: options.icon,
                               app: phd.application['Application Number'],
