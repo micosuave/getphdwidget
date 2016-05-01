@@ -48,6 +48,29 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         //         //immediate: true
         //     }
         // })
+        .widget('patent', {
+            title:'PatentDigest',
+            description:'analysis of patent or published application',
+            templateUrl: '{widgetsPath}/getphd/src/phd/patentReport.html',
+             controller: 'PatentWidgetCtrl',
+            controllerAs: 'p',
+            frameless: false,
+            reload: false,
+            //collapsed: true,
+            //immediate: true,
+            icon: 'fa-ge',
+            iconurl: 'img/logolong.png',
+            styleClass: 'NOA panel panel-NOA',
+            //titleTemplateUrl: '{widgetsPath}/getphd/src/titleTemplate.html',
+            edit: {
+                templateUrl: '{widgetsPath}/getphd/src/edit.html',
+                controller: 'PatentWdigetCtrl',
+                controllerAs: 'p',
+                modalSize: 'lg',
+                reload: true,
+                immediate: true
+            }
+        })
         .widget('getphd', {
             title: '+PhD',
             description: 'import a patent prosecution history',
@@ -1062,9 +1085,20 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 }
             }
         };
+    }])
+    .controller('PatentWidgetCtrl',['$scope','config', function($scope, config){
+        var p = this;
+        $scope.config = config;
+        if (config.pnum){
+            p.id = config.pnum;
+
+        $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + p.id).then(function (resp) {
+                    $scope.patent = resp.data;
+                });
+        }
     }]);
 
-angular.module("adf.widget.getphd").run(["$templateCache", function($templateCache) {$templateCache.put("{widgetsPath}/getphd/src/edit.html","<form role=form><div class=form-group><label for=sample>Application #</label> <input type=text class=form-control id=sample ng-model=config.appnum placeholder=\"Enter Application #\"></div></form>");
+angular.module("adf.widget.getphd").run(["$templateCache", function($templateCache) {$templateCache.put("{widgetsPath}/getphd/src/edit.html","<form role=form><fieldset class=material><input type=text placeholder=1234567 ng-model=config.pnum><hr><label>Enter a Patent Number</label></fieldset><div class=form-group><label for=sample>Application #</label> <input type=text class=form-control id=sample ng-model=config.appnum placeholder=\"Enter Application #\"></div></form>");
 $templateCache.put("{widgetsPath}/getphd/src/editgallery.html","<form role=form><div class=form-group><label for=sample>Interval, in milliseconds:</label> <input type=number class=form-control ng-model=config.interval><br>Enter a negative number or 0 to stop the interval.</div><div class=form-group><label>Disable Slide Looping</label> <input type=checkbox ng-model=config.nowrap></div><div class=form-group><label>Pause on Hover?</label> <input type=checkbox ng-model=config.pauseonhover></div><div class=form-group><label>Disable Transition</label> <input type=checkbox ng-model=config.transition></div></form>");
 $templateCache.put("{widgetsPath}/getphd/src/gallery.html","<div style=\"min-height: 305px\"><uib-carousel interval=config.interval no-pause={{config.pauseonhover}} no-transition={{config.transition}} no-wrap={{config.nowrap}}><uib-slide ng-repeat=\"slide in gallery.slides\" active={slide.active} index=slide.index><img ng-src={{slide.media}} style=margin:auto;><div class=carousel-caption><h4>Slide {{slide.$index}}</h4><p>{{slide.title}}</p></div></uib-slide></uib-carousel></div>");
 $templateCache.put("{widgetsPath}/getphd/src/titleTemplate.html","<div class=\"bs-callout bs-callout-{{roarevent.styleClass || \'primary\'}}\" style=z-index:1;padding:0px;><h4><span style=margin-left:25px; ng-bind=roarevent.title></span><br><div class=row style=width:100%;><small style=margin-left:50px; ng-bind=\"roarevent.date | date\"></small> <span class=pull-right style=position:absolute;right:5px;font-size:12px;><a clipboard text=roarevent.media on-copied=\"alertify.success(\'copied!\');\" on-error=\"alertify.error(err,\'uh oh!\')\" onclick=\"alertify.success(\'copied!\')\"><i class=\"fa fa-link\" style=margin:5px;></i></a> <a title=\"collapse widget\" ng-show=\"options.collapsible && !widgetState.isCollapsed\" ng-click=\"widgetState.isCollapsed = !widgetState.isCollapsed\"><i class=\"fa fa-minus\" style=margin:5px;></i></a> <a title=\"expand widget\" ng-show=\"options.collapsible && widgetState.isCollapsed\" ng-click=\"widgetState.isCollapsed = !widgetState.isCollapsed\"><i class=\"fa fa-plus\" style=margin:5px;></i></a> <a title=\"copy to clipboard\" ng-click=edit(roarevent.id)><i class=\"fa fa-copy\" style=margin:5px;></i></a> <a title=\"fullscreen widget\" ng-click=openFullScreen(roarevent.id) ng-show=\"options.maximizable || true\"><i class=\"fa fa-expand\" style=margin:5px;></i></a> <a title=\"pop out\" ng-click=openpreview(roarevent)><i class=\"fa fa-external-link\" style=margin:5px;></i></a> <a title=\"remove widget\" ng-click=remove() onclick=$(this).parent().parent().parent().parent().parent().remove()><i class=\"fa fa-close\" style=margin:5px;></i></a></span></div></h4></div>");

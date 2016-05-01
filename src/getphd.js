@@ -47,6 +47,29 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         //         //immediate: true
         //     }
         // })
+        .widget('patent', {
+            title:'PatentDigest',
+            description:'analysis of patent or published application',
+            templateUrl: '{widgetsPath}/getphd/src/phd/patentReport.html',
+             controller: 'PatentWidgetCtrl',
+            controllerAs: 'p',
+            frameless: false,
+            reload: false,
+            //collapsed: true,
+            //immediate: true,
+            icon: 'fa-ge',
+            iconurl: 'img/logolong.png',
+            styleClass: 'NOA panel panel-NOA',
+            //titleTemplateUrl: '{widgetsPath}/getphd/src/titleTemplate.html',
+            edit: {
+                templateUrl: '{widgetsPath}/getphd/src/edit.html',
+                controller: 'PatentWdigetCtrl',
+                controllerAs: 'p',
+                modalSize: 'lg',
+                reload: true,
+                immediate: true
+            }
+        })
         .widget('getphd', {
             title: '+PhD',
             description: 'import a patent prosecution history',
@@ -1061,4 +1084,15 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 }
             }
         };
+    }])
+    .controller('PatentWidgetCtrl',['$scope','config', function($scope, config){
+        var p = this;
+        $scope.config = config;
+        if (config.pnum){
+            p.id = config.pnum;
+
+        $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + p.id).then(function (resp) {
+                    $scope.patent = resp.data;
+                });
+        }
     }]);
