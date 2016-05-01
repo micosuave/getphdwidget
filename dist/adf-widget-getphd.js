@@ -1996,8 +1996,14 @@ var maildate = new Date(roarevent['Mail Room Date']);
                 var id = $attrs.patent;
                 var digets = new RegExp(/\d/ig);
                 var candidates = id.split('*');
-                var matches = candidates.match(digets)
-                $http.get('/getphd/patents/'+matches.join('')).then(function(resp){
+                var result = '';
+                candidates.forEach(function(val, index, arry){
+                    if (digets.test(val) === true){
+                        result += val;
+                    }
+                });
+//                  var matches = candidates.match(digets)
+                $http.get('/getphd/patents/'+result).then(function(resp){
                     $scope.p = resp.data;
                 });
             }
