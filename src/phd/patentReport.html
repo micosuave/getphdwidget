@@ -22,10 +22,10 @@
             <div class="bs-callout bs-callout-reverse bs-callout-NOA">
                 <h4 ng-bind="patent.title">Reprehenderit aute proident cupidatat exercitation officia incididunt culpa ullamco.</h4>
                 <p ng-bind="patent.abstract">Culpa enim minim amet proident sunt aliqua ex irure ex sunt eiusmod ut consectetur. Minim esse in tempor reprehenderit esse cupidatat adipisicing ipsum eiusmod. Ea commodo nisi enim esse et ut. Minim laborum irure eiusmod Lorem consequat duis labore deserunt ullamco velit enim ut. Aliquip tempor non amet aliqua cillum sit amet commodo aliqua sint nisi. Fugiat ex irure qui et in qui velit commodo ipsum. Non cupidatat laboris culpa ipsum culpa velit.</p>
-                <d3lib data="{{$parent.$parent.patent.claims}}"></d3lib>
+                <!--<d3lib data="{{$parent.$parent.patent.claims}}"></d3lib>-->
                 </div>
                 </uib-tab>
-                <uib-tab class="panel-heading">                      <uib-tab-heading>Drawings <label class="badge">{{patent.drawings.length}}</label></uib-tab-heading>
+                <uib-tab class="panel-heading">                      <uib-tab-heading>Drawings <label class="label label-pill label-success">{{patent.drawings.length}}</label></uib-tab-heading>
 
                 <div class="showscroll" style="margin: 5px 5px;display:flex;flex-wrap:wrap;flex-direction:row;">
                     <a ng-repeat="link in patent.drawings" pop="true" ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{patent.thumbnails[$index]}}" class="img img-shadow"/></a>
@@ -37,11 +37,11 @@
                 </pre>
                     </uib-tab>
                     <uib-tab class="panel-heading">
-                        <uib-tab-heading>Claims <label class="label label-pill">{{patent.claim_total}}</label></uib-tab-heading>
+                        <uib-tab-heading>Claims <label class="label label-pill label-info">{{patent.claim_total}}</label></uib-tab-heading>
                         <div class="container">
 
                         <div class="col-xs-6">
-                        <d3pendingtree patent="{{patent.id}}" pattern="{{query || '\s'}}" tree="tree"></d3pendingtree>
+                        <d3pendingtree patent="{{patent.id}}" pattern="{{query || '\s'}}" tree="scree"></d3pendingtree>
                            <input id="patterninput" class="" ng-model="query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
 
 
@@ -57,6 +57,7 @@
                     <input type="checkbox" ng-model="dim"> <small>Dim non-matches</small>
                 </li>
             </ul>
+
         </div>
         <div class="col-sm-3">
             <!--<ul class="list-unstyled">
@@ -66,6 +67,8 @@
                 </li>
             </ul>-->
         </div>
+            <d3pendingtree data="patent.claimhistory"></d3pendingtree>
+
                 </div>
                 <div class="col-xs-6">
                 <div id="info"></div>
@@ -102,12 +105,12 @@
                     <uib-tab class="panel-heading" heading="Citations">
                         <uib-tab-heading>Citations <label class="label label-pill">{{patent.references.length}}</label></uib-tab-heading>
                         <table class="table table-responsive table-stripped table-condensed table-hover">
-                            <thead>
+                            <!--<thead>
                                 <th>Thumbnail</th>
                                 <th>ID#</th>
                                 <th>Title</th>
                                 <th>Details</th>
-                            </thead>
+                            </thead>-->
                             <tbody>
                                 <tr ng-repeat="citation in patent.references">
                                     <td><img ng-src="/patents/{{citation}}/preview" class="img img-hover img-responsive img-shadow" style="width:35px;height:35px;margin:5px;" /></td>
@@ -116,6 +119,37 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </uib-tab>
+                    <uib-tab heading="Issues/Rejections">
+                    <uib-tab-content>
+                        <div ng-repeat="date in patent.rejectionhistory" class="card-block">
+                        <table  class="table table-responsive table-stripped table-hover">
+                            <thead>{{date | date:long}}</thead>
+
+                            <thead>
+                                <th>#</th>
+                                <th>Type</th>
+                                <th>Reference</th>
+                                <th>Claims Affected</th>
+                                <th>Full Text</th>
+
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="rejection in date | orderBy: ['id','type'] : maybe">
+                                    <td>{{rejection.id}}</td>
+                                    <td>{{rejection.type}}</td>
+                                    <td>{{rejection.primary_reference.id[0]|number}}</td>
+                                    <td><span ng-repeat="c in rejection.claims_affected">{{c}}&nbsp</span></td>
+                                    <td><ng-annotate-text text="rejection.fulltext"></ng-annotate-text></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <hr>
+                        <br>
+                        </div>
+                    </uib-tab-content>
                     </uib-tab>
                 </uib-tabset>
                 </div>
