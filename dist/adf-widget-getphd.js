@@ -1994,7 +1994,10 @@ var maildate = new Date(roarevent['Mail Room Date']);
             link: function($scope,$element,$attrs,$ctrl){
                 var p = this;
                 var id = $attrs.patent;
-                $http.get('/getphd/patents/'+id).then(function(resp){
+                var digets = new RegExp(/\d/ig);
+                var candidates = id.split('*');
+                var matches = candidates.match(digets)
+                $http.get('/getphd/patents/'+matches.join('')).then(function(resp){
                     $scope.p = resp.data;
                 });
             }
