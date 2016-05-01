@@ -64,7 +64,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             //titleTemplateUrl: '{widgetsPath}/getphd/src/titleTemplate.html',
             edit: {
                 templateUrl: '{widgetsPath}/getphd/src/edit.html',
-                controller: 'PatentWdigetCtrl',
+                controller: 'PatentWidgetCtrl',
                 controllerAs: 'p',
                 modalSize: 'lg',
                 reload: true,
