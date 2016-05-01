@@ -122,9 +122,9 @@
                     </uib-tab>
                     <uib-tab heading="Issues/Rejections">
                     <uib-tab-content>
-                        <div ng-repeat="date in patent.rejectionhistory" class="card-block">
+                        <div ng-repeat="(key, date) in patent.rejectionhistory" class="card card-fancy card-block">
                         <table  class="table table-responsive table-stripped table-hover">
-                            <thead>{{date | date:long}}</thead>
+                            <thead>{{key | date:long}}</thead>
 
                             <thead>
                                 <th>#</th>
@@ -139,7 +139,7 @@
                                 <tr ng-repeat="rejection in date | orderBy: ['id','type'] : maybe">
                                     <td>{{rejection.id}}</td>
                                     <td>{{rejection.type}}</td>
-                                    <td>{{rejection.primary_reference.id[0]|number}}</td>
+                                    <td>{{rejection.primary_reference.name}} - {{rejection.primary_reference.id|number}}</td>
                                     <td><span ng-repeat="c in rejection.claims_affected">{{c}}&nbsp</span></td>
                                     <td><ng-annotate-text text="rejection.fulltext"></ng-annotate-text></td>
                                 </tr>
