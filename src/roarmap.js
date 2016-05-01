@@ -840,9 +840,18 @@ var maildate = new Date(roarevent['Mail Room Date']);
             },
             link: function ($scope, $element, $attr, $ctrl) {
                 var numbr = $attr.patent;
-                $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + numbr).then(function (resp) {
-                    $scope.patent = resp.data;
+                try{ Collection(numbr).$loaded().then(function(data){
+                    $scope.patent = data;
                 });
+                }catch(ex){
+                    $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + numbr).then(function (resp) {
+                        $scope.patent = resp.data;
+                    });
+                }
+                finally{
+                    alertify.success('loaded!');
+                }
+
             }
         };
     }])
@@ -860,6 +869,7 @@ var maildate = new Date(roarevent['Mail Room Date']);
                 var digets = new RegExp(/\d/ig);
                 var candidates = id.split('*');
                 var result = '';
+
                 candidates.forEach(function(val, index, arry){
                     if (digets.test(val) === true){
                         result += val;
