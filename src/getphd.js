@@ -1085,7 +1085,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
-    .controller('PatentWidgetCtrl',['$scope','config', function($scope, config){
+    .controller('PatentWidgetCtrl',['$scope','config','$http', function($scope, config,$http){
         var p = this;
         $scope.config = config;
         if (config.pnum){
