@@ -124,31 +124,23 @@
                     <uib-tab-heading>Issues/Rejections <label class="label label-pill label-danger">{{patent.rejectionhistory[0].length}}</label></uib-tab-heading>
 
 
-                        <div ng-repeat="(key, date) in patent.rejectionhistory" class="card">
+                        <div ng-repeat="(key, date) in patent.rejectionhistory" class="card card-PTO ">
                         <div class="card-header"><h4 class="card-title">{{key | date:long}} <a class="fa fa-ellipsis-v fa-pull-right" ng-click="this.isCollapsed = !this.isCollapsed"></a></h4></div>
                         <div class="card-block" uib-collapse="isCollapsed">
-                        <table  class="table table-condensed table-stripped table-hover">
-                                <tr>
-                                    <td><strong>#</strong></td>
-                                    <td><strong>Type</strong></td>
-                                    <td><strong>Reference</strong></td>
-                                    <td><strong>Claims Affected</strong></td>
-                                    <td><strong>Full Text</strong></td>
 
-                                </tr>
-                                <tr  ng-repeat="rejection in date | orderBy: ['id','type'] : maybe" style="display:flex;flex-direction:row;max-height:100px;overflow:scroll;">
-                                    <td>{{rejection.id}}</td>
-                                    <td colorkey="{{rejection.type | trim}}" class="btn sub-independent">{{rejection.type}}</td>
-                                    <td>over {{rejection.primary_reference.name}} <br><span ng-if="rejection.secondary_references">in view of <span ng-repeat="ref in rejection.secondary_references">{{ref.name}}&nbsp;</span></span></td>
-                                    <td><span ng-repeat="c in rejection.claims_affected">{{c}}&nbsp</span></td>
-                                    <td ><ng-annotate-text text="rejection.fulltext | highlight: query" class="card-block" style="" annotations="rejection.annotations" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
+                                <div  ng-repeat="rejection in date | orderBy: ['id','type'] : maybe" style="display:flex;flex-direction:row;max-height:100px;" class="card badger badger-left badger-PTO" data-badger="{{rejection.id}}">
+
+                                    <div colorkey="{{rejection.type | trim}}" class="btn sub-independent btn-circle">{{rejection.type}}</div>
+                                    <label>over <strong>{{rejection.primary_reference.name}}</strong> <br><span ng-if="rejection.secondary_references"><em>in view of </em><span ng-repeat="ref in rejection.secondary_references">{{ref.name}}&nbsp;</span></span></label>
+                                    <div style="display:flex;flex-wrap:wrap;flex-direction:row;justify-content:space-between;align-items:center;align-content:center;"><span ng-repeat="c in rejection.claims_affected">{{c}}</span></div>
+                                    <div><ng-annotate-text text="rejection.fulltext | highlight: query" class="card-block" style="" annotations="rejection.annotations" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
     tooltip-controller="'AnnotationController'" tooltip-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation-tooltip.tpl.html'" on-annotate="onAnnotate" on-annotate-delete="onAnnotateDelete" on-annotate-error="onAnnotateError"
     on-popup-show="onPopupShow" on-popup-hide="onPopupHide" popup-offset="50">
 
-    </ng-annotate-text></td>
-                                </tr>
+    </ng-annotate-text></div>
+                                </div>
 
-                        </table>
+
                         </div>
                         </div>
 
