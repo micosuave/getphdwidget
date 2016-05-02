@@ -212,7 +212,7 @@
                 <thead>
 
                     <tr>
-                        <!--<th ng-click="reverse = !reverse" class="fa " ng-class="{'fa-chevron-up': reverse,'fa-chevron-down': !reverse}">#</th>-->
+                        <th ng-click="reverse = !reverse" class="fa " ng-class="{'fa-chevron-up': reverse,'fa-chevron-down': !reverse}">#</th>
                         <th ng-click="main.dog = 'Mail\ Room\ Date'; maybe = !maybe"><strong>Mail Room Date<i class="fa" ng-if="main.dog == 'Mail Room Date'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
                         <th ng-click="main.dog = 'Document\ Code'; maybe = !maybe"><strong>Document Code<i class="fa" ng-if="main.dog == 'Document Code'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
                         <th ng-click="main.dog = 'Document\ Description'; maybe = !maybe"><strong>Document Description<i class="fa" ng-if="main.dog == 'Document Description'" ng-class="{'fa-chevron-up':maybe,'fa-chevron-down': !maybe}"></i></strong></th>
@@ -223,7 +223,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="roarevent in phd.imagefile | filter: main.query | orderBy: main.dog : maybe" class="">
-                        <!--<th class=""> <a ng-click="pdfToPlainText(roarevent['Filename'])" getpdftext><i class="fa fa-file-pdf"> {{$index}}</i></a></th>-->
+                        <th class=""> <a ng-click="main.pushtoqueue(roarevent)"><i class="fa fa-file-pdf"> {{$index}}</i></a></th>
                         <td ng-bind="roarevent['Mail Room Date']"></td>
                         <td ng-bind="roarevent['Document Code']"></td>
                         <td ng-bind="roarevent['Document Description']"></td>

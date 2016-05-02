@@ -643,6 +643,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 }
                 //                roar.openmodal(this);
             };
+            main.pushtoqueue = function(record){
+              var queue = $firequeue();
+              var application = record['Filename'].slice(0,record['Filename'].indexOf('-'));
+              var id = record['Filename'].slice(0,record['Filename'].lastIndexOf('-'));
+              queue.$add({'id':id,'name':id,'file':'/opt/files/public/uspto/'+application+'/'+application+'-image_file_wrapper/'+record['Filename']});
+
+            };
             main.poppatent = function(patent) {
                 var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
                 //var header = angular.element('<h4 class='splash'>' + event.rid + ' - ' + event.name + '<span class='fa fa-close btn btn-xs btn-danger' style='float: right;' onclick='$(this).parent().parent().remove()'></span></h4><h6>' + event.media + '</h6>');
