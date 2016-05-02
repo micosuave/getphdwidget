@@ -103,7 +103,7 @@
                     </uib-tab>
 
                     <uib-tab class="" heading="Citations">
-                        <uib-tab-heading>Citations <label class="label label-pill">{{patent.references.length}}</label></uib-tab-heading>
+                        <uib-tab-heading>Citations <label class="label label-pill label-warning">{{patent.references.length}}</label></uib-tab-heading>
                         <table class="table table-responsive table-stripped table-condensed table-hover">
                             <!--<thead>
                                 <th>Thumbnail</th>
@@ -121,12 +121,12 @@
                         </table>
                     </uib-tab>
                     <uib-tab >
-                    <uib-tab-heading>Issues/Rejections <label class="label label-pill label-danger">{{patent.rejectionhistory.length}}</label></uib-tab-heading>
+                    <uib-tab-heading>Issues/Rejections <label class="label label-pill label-danger">{{patent.rejectionhistory[0].length}}</label></uib-tab-heading>
 
 
-                        <div ng-repeat="(key, date) in patent.rejectionhistory" class="panel panel-danger">
-                        <div class="panel-heading"><h4 class="panel-title">{{key | date:long}} <a class="fa fa-ellipsis-v fa-pull-right" ng-click="this.isCollapsed = !this.isCollapsed"></a></h4></div>
-                        <div class="panel-body" uib-collapse="isCollapsed">
+                        <div ng-repeat="(key, date) in patent.rejectionhistory" class="card">
+                        <div class="card-header"><h4 class="card-title">{{key | date:long}} <a class="fa fa-ellipsis-v fa-pull-right" ng-click="this.isCollapsed = !this.isCollapsed"></a></h4></div>
+                        <div class="card-block" uib-collapse="isCollapsed">
                         <table  class="table table-condensed table-stripped table-hover">
                                 <tr>
                                     <td><strong>#</strong></td>
@@ -136,9 +136,9 @@
                                     <td><strong>Full Text</strong></td>
 
                                 </tr>
-                                <tr  ng-repeat="rejection in date | orderBy: ['id','type'] : maybe" style="display:flex;flex-direction:row;">
+                                <tr  ng-repeat="rejection in date | orderBy: ['id','type'] : maybe" style="display:flex;flex-direction:row;max-height:100px;overflow:scroll;">
                                     <td>{{rejection.id}}</td>
-                                    <td colorkey="{{rejection.type | trim}}">{{rejection.type}}</td>
+                                    <td colorkey="{{rejection.type | trim}}" class="btn sub-independent">{{rejection.type}}</td>
                                     <td>over {{rejection.primary_reference.name}} <br><span ng-if="rejection.secondary_references">in view of <span ng-repeat="ref in rejection.secondary_references">{{ref.name}}&nbsp;</span></span></td>
                                     <td><span ng-repeat="c in rejection.claims_affected">{{c}}&nbsp</span></td>
                                     <td ><ng-annotate-text text="rejection.fulltext | highlight: query" class="card-block" style="" annotations="rejection.annotations" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
@@ -147,7 +147,7 @@
 
     </ng-annotate-text></td>
                                 </tr>
-                            </tbody>
+
                         </table>
                         </div>
                         </div>
