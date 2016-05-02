@@ -123,8 +123,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 }])
 
-    .controller('MainCtrl', ['Collection', 'extract', 'extractzip', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope',  'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams', '$location', '$ACTIVEROAR', '$dashboards', '$interval',  '$compile', '$templateCache', '$window', '$document', '$filter','ckstarter','ckender',
-        function(Collection, extract, extractzip, fileReader, $http, parseTSV, $roarmap, $q, $scope,  PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, $compile, $templateCache, $window, $document, $filter, ckstarter,ckender) {
+    .controller('MainCtrl', ['Collection', 'extract', 'extractzip', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope',  'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams', '$location', '$ACTIVEROAR', '$dashboards', '$interval',  '$compile', '$templateCache', '$window', '$document', '$filter','ckstarter','ckender','$firequeue',
+        function(Collection, extract, extractzip, fileReader, $http, parseTSV, $roarmap, $q, $scope,  PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, $compile, $templateCache, $window, $document, $filter, ckstarter,ckender,$firequeue) {
             var main = this;
             //main.size = 'lg';
             $scope.treeFilter = $filter('uiTreeFilter');
