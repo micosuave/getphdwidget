@@ -4,10 +4,10 @@
             <div class="card">
                 <img ng-src="/patents/US{{patent.id || '7654321'}}/preview" class="img img-responsive img-shadow"/>
                 <div class="card-block">
-                    <h2 class="card-title text-NOA">US <strong ng-bind="patent.id | number:0">1,234,567</strong><small ng-bind="patent.issued|date"></small></h2>
+                    <h2 class="card-title text-NOA">US <strong ng-bind="patent.id | number:0">1,234,567</strong><small ng-bind="patent.issued|date" class="pull-right"></small></h2>
                     <div class="row">
                         <em>
-                        <label ng-bind="patent.application_number">12/345,678</label>
+                        <label ng-bind="patent.application_number | appnum">12/345,678</label>
                         </em>
                     </div>
                     <p ng-bind="patent.description" class="card-text" style="text-align:justify;">Do nulla id sint reprehenderit esse. Quis sunt duis consequat sit sint duis officia veniam qui. Occaecat ipsum esse officia qui et reprehenderit tempor. Aliqua officia qui occaecat veniam commodo esse magna fugiat reprehenderit duis. Adipisicing laborum ex commodo velit.</p>
@@ -17,7 +17,7 @@
         <div class="card col-xs-8 col-sm-9">
              <div class="">
                 <uib-tabset class="panel panel-default">
-                                        <uib-tab class="panel-heading" heading="Abstract">
+                                        <uib-tab class="" heading="Abstract">
 
             <div class="bs-callout bs-callout-reverse bs-callout-NOA">
                 <h4 ng-bind="patent.title">Reprehenderit aute proident cupidatat exercitation officia incididunt culpa ullamco.</h4>
@@ -25,18 +25,18 @@
                 <!--<d3lib data="{{$parent.$parent.patent.claims}}"></d3lib>-->
                 </div>
                 </uib-tab>
-                <uib-tab class="panel-heading">                      <uib-tab-heading>Drawings <label class="label label-pill label-success">{{patent.drawings.length}}</label></uib-tab-heading>
+                <uib-tab class="">                      <uib-tab-heading>Drawings <label class="label label-pill label-success">{{patent.drawings.length}}</label></uib-tab-heading>
 
                 <div class="showscroll" style="margin: 5px 5px;display:flex;flex-wrap:wrap;flex-direction:row;">
                     <a ng-repeat="link in patent.drawings" pop="true" ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{patent.thumbnails[$index]}}" class="img img-shadow"/></a>
                     </div>
 
               </uib-tab>
-                    <uib-tab class="panel-heading" heading="Description">
+                    <uib-tab class="" heading="Description">
                 <pre class="card card-block " style="text-size: 11px!important;" ng-bind-html="patent.text | trustAsHTML">
                 </pre>
                     </uib-tab>
-                    <uib-tab class="panel-heading">
+                    <uib-tab class="">
                         <uib-tab-heading>Claims <label class="label label-pill label-info">{{patent.claim_total}}</label></uib-tab-heading>
                         <div class="container">
 
@@ -102,7 +102,7 @@
                 </div>
                     </uib-tab>
 
-                    <uib-tab class="panel-heading" heading="Citations">
+                    <uib-tab class="" heading="Citations">
                         <uib-tab-heading>Citations <label class="label label-pill">{{patent.references.length}}</label></uib-tab-heading>
                         <table class="table table-responsive table-stripped table-condensed table-hover">
                             <!--<thead>
@@ -121,33 +121,36 @@
                         </table>
                     </uib-tab>
                     <uib-tab heading="Issues/Rejections">
-                    <uib-tab-content>
-                        <div ng-repeat="(key, date) in patent.rejectionhistory" class="card card-fancy card-block">
-                        <table  class="table table-responsive table-stripped table-hover">
-                            <thead>{{key | date:long}}</thead>
-
+                    <uib-tab-content class="tab-pane">
+                        <div ng-repeat="(key, date) in patent.rejectionhistory" class="panel panel-danger">
+                        <div class="panel-heading"><h4 class="panel-title">{{key | date:long}} <a class="fa fa-ellipsis-v fa-pull-right" ng-click="{{$index}}isCollapsed = !{{$index}}isCollapsed1"></a></h4></div>
+                        <div class="panel-body" uib-collapse="{{$index}}isCollapsed">
+                        <table  class="table table-condensed table-stripped table-hover">
                             <thead>
+
                                 <th>#</th>
                                 <th>Type</th>
                                 <th>Reference</th>
                                 <th>Claims Affected</th>
-                                <th>Full Text</th>
+                                <th colspan="2">Full Text</th>
 
                             </thead>
 
                             <tbody>
-                                <tr ng-repeat="rejection in date | orderBy: ['id','type'] : maybe">
+                                <tr colorkey="{{rejection.type | trim}}" ng-repeat="rejection in date | orderBy: ['id','type'] : maybe" style="display:flex;flex-direction:row;">
                                     <td>{{rejection.id}}</td>
                                     <td>{{rejection.type}}</td>
                                     <td>{{rejection.primary_reference.name}} - {{rejection.primary_reference.id|number}}</td>
                                     <td><span ng-repeat="c in rejection.claims_affected">{{c}}&nbsp</span></td>
-                                    <td><ng-annotate-text text="rejection.fulltext"></ng-annotate-text></td>
+                                    <td colspan="2"><ng-annotate-text text="rejection.fulltext | highlight: query" class="card-block" style="" annotations="rejection.annotations" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
+    tooltip-controller="'AnnotationController'" tooltip-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation-tooltip.tpl.html'" on-annotate="onAnnotate" on-annotate-delete="onAnnotateDelete" on-annotate-error="onAnnotateError"
+    on-popup-show="onPopupShow" on-popup-hide="onPopupHide" popup-offset="50">
+
+    </ng-annotate-text></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <br>
-                        <hr>
-                        <br>
+                        </div>
                         </div>
                     </uib-tab-content>
                     </uib-tab>
