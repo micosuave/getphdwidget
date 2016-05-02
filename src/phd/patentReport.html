@@ -67,8 +67,7 @@
                 </li>
             </ul>-->
         </div>
-            <d3pendingtree data="patent.claimhistory"></d3pendingtree>
-            <pre ng-bind="patent.claimhistory | json:4"></pre>
+
                 </div>
                 <div class="col-xs-6">
                 <div id="info"></div>
@@ -120,31 +119,7 @@
                             </tbody>
                         </table>
                     </uib-tab>
-                    <uib-tab >
-                    <uib-tab-heading>Issues/Rejections <label class="label label-pill label-danger">{{patent.rejectionhistory[0].length}}</label></uib-tab-heading>
 
-
-                        <div ng-repeat="(key, date) in patent.rejectionhistory" class="card card-PTO ">
-                        <div class="card-header"><h4 class="card-title">{{key | date:long}} <a class="fa fa-ellipsis-v fa-pull-right" ng-click="this.isCollapsed = !this.isCollapsed"></a></h4></div>
-                        <div class="card-block" uib-collapse="isCollapsed">
-
-                                <div  ng-repeat="rejection in date | orderBy: ['id','type'] : maybe" style="display:flex;flex-direction:row;max-height:100px;" class="card" data-badger="{{rejection.type}}">
-
-                                    <div colorkey="{{rejection.type | trim}}" class="img-avatar" style="display:flex;align-items:center;align-content:center;">{{rejection.type}}</div>
-                                    <div style="min-width:100px;height:100px;"> <small>over <strong>{{rejection.primary_reference.name}}</strong> <br><span ng-if="rejection.secondary_references"><em>in view of </em><span ng-repeat="ref in rejection.secondary_references">{{ref.name}}&nbsp;</span></span></small></div>
-                                    <div style="min-width: 150px;height:100px;"><span ng-repeat="c in rejection.claims_affected" style="width:25%;float:left;">{{c}}</span></div>
-                                    <div style="overflow:scroll;text-overflow:ellipsis;"><ng-annotate-text text="rejection.fulltext | highlight: query" class="" style="" annotations="rejection.annotations" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
-    tooltip-controller="'AnnotationController'" tooltip-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation-tooltip.tpl.html'" on-annotate="onAnnotate" on-annotate-delete="onAnnotateDelete" on-annotate-error="onAnnotateError"
-    on-popup-show="onPopupShow" on-popup-hide="onPopupHide" popup-offset="50">
-
-    </ng-annotate-text></div>
-                                </div>
-
-
-                        </div>
-                        </div>
-
-                    </uib-tab>
                 </uib-tabset>
                 </div>
                 </div>
