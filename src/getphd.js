@@ -1104,6 +1104,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         }catch(ex){
         $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + p.id).then(function (resp) {
                     $scope.patent = resp.data;
+                    $scope.claims = {children: resp.data.claims};
                 });
         }finally{
             alertify.success('loaded!');

@@ -5,14 +5,15 @@
                 <img ng-src="{{patent.drawings[0]}}" class="img img-responsive img-shadow img-thumbnail" style="max-height:300px;width:auto;"/>
                 <div class="card-block">
                     <h2 class="card-title text-NOA">US <a class="pop text-NOA" ng-href="{{patent.media}}"><strong ng-bind="patent.id | number:0"></strong></a></h2>
-                    <small><label>Issued:</label> {{patent.issued|date}}</small>
 
 
-                        <small><label>USSN</label> <em>{{patent.application_number | application}}</em></small>
 
+                        <small><label>USSN</label> <em>{{patent.application_number | application}}</em><br></small>
 
+                    <small><label>Issued:</label> {{patent.issued|date}}<br></small>
                     <small><label>Title:</label> {{patent.title}}<br></small>
-                    <small><label>Inventor:</label> {{patent.inventor}}<br></small>
+                    <small><label>Inventor(s):</label> {{patent.inventor}}<br></small>
+                    <small><label>Filed:</label> {{patent.dateSubmitted|date}}<br></small>
                     <small><label>Original Assignee:</label> {{patent.assignee}}</small>
                     <!--<p ng-bind="patent.description" class="card-text" style="text-align:justify;">Do nulla id sint reprehenderit esse. Quis sunt duis consequat sit sint duis officia veniam qui. Occaecat ipsum esse officia qui et reprehenderit tempor. Aliqua officia qui occaecat veniam commodo esse magna fugiat reprehenderit duis. Adipisicing laborum ex commodo velit.</p>-->
                     </div>
@@ -42,7 +43,7 @@
                     </uib-tab>
                     <uib-tab class="">
                         <uib-tab-heading>Claims <label class="label label-pill label-info">{{patent.claim_total}}</label></uib-tab-heading>
-                        <d3pending set="patent.claims" pattern="{{query}}"></d3pending>
+                        <d3pending set="claims" pattern="{{query}}"></d3pending>
                         <d3pendingtree patent="{{patent.id}}" pattern="{{query}}" tree="tree"></d3pendingtree>
 
                     </uib-tab>
