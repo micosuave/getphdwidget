@@ -92,11 +92,11 @@
 <uib-tab-content style="width:98%;margin:1%;height:98%;overflow:scroll;">
                         <table ng-bind-html="patent.backward_citations | citationcheck| highlight: query| trustAsHTML" class="card img-shadow card-block" style="color:#444 !important;"></table>
 
-                        <table ng-bind-html="patent.forward_citations | citationcheck | highlight: query | trustAsHTML" class="card img-shadow card-block" style="color:444 !important;" ng-if="patent.forward_citations"></table>
+                        <table ng-bind-html="patent.forward_citations | citationcheck | highlight: query | trustAsHTML" class="card img-shadow card-block" style="color:#444 !important;"></table>
 </uib-tab-content>
                     </uib-tab>
 <uib-tab heading="Corrections/Fees/Assignments">
-                            <table ng-bind-html="patent.legal | highlight: query | trustAsHTML" class="card img-shadow card-block" style="color:444 !important;" ng-if="patent.legal"></table>
+                            <table ng-bind-html="patent.legal | highlight: query | trustAsHTML" class="card img-shadow card-block" style="color:#444 !important;" ></table>
 
 </uib-tab>
                 </uib-tabset>
