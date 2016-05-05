@@ -21,19 +21,25 @@
                 <div class="card-block">
                     <h2 class="card-title text-NOA">US <a class="pop text-NOA" ng-href="{{patent.media}}"><strong ng-bind="patent.id | number:0"></strong></a></h2>
 
+<table >
+    <tbody>
+        <tr>
+<td><label>Issued:</label></td><td> {{patent.issued|date}}</td></tr>
 
-<small><label>Issued:</label> {{patent.issued|date}}<br></small>
-
-                        <small><label>USSN</label> <em>{{patent.application_number | application}}</em><br></small>
-<small><label>Filed:</label> {{patent.dateSubmitted|date}}<br></small>
+                        <tr><td><label>USSN</label></td><td>{{patent.application_number | application}}</td></tr>
+<tr><td><label>Filed:</label></td><td> {{patent.dateSubmitted|date}}</td></tr>
 
 
-                    <small><label>Title:</label> {{patent.title}}<br></small>
+                    <tr><td><label>Title:</label></td><td> {{patent.title}}</td></tr>
 
-                    <small><label>Inventor(s):</label> {{patent.inventor}}<br></small>
+                    <tr><td><label>Inventor(s):</label></td><td> {{patent.inventor}}</td></tr>
 
-                    <small><label>Original Assignee:</label> {{patent.assignee}}</small>
+                    <tr><td><label>Original Assignee:</label></td><td> {{patent.assignee}}</td></tr>
+
+    </tbody>
+</table>
                     <!--<p ng-bind="patent.description" class="card-text" style="text-align:justify;">Do nulla id sint reprehenderit esse. Quis sunt duis consequat sit sint duis officia veniam qui. Occaecat ipsum esse officia qui et reprehenderit tempor. Aliqua officia qui occaecat veniam commodo esse magna fugiat reprehenderit duis. Adipisicing laborum ex commodo velit.</p>-->
+                    <!--<div ng-bind-html="patent.classifications | highlight: query | trustAsHTML"></div>-->
                     </div>
                     </div>
                     </div>
@@ -49,7 +55,7 @@
                 </div>
                 </uib-tab>
                 <uib-tab class="">                      <uib-tab-heading>Drawings
-                    <!--<label class="label label-pill label-success">{{patent.drawings.length}}</label>-->
+                    <label class="label label-pill label-success">{{patent.drawings.length}}</label>
                     </uib-tab-heading>
 
                 <div class="showscroll" style="margin: 5px 5px;display:flex;flex-wrap:wrap;flex-direction:row;">
@@ -59,8 +65,8 @@
               </uib-tab>
                     <uib-tab class="" heading="Description">
                         <uib-tab-content style="width:98%;margin:1%;height:98%;overflow:scroll;">
-                <pre class="card card-block " style="text-size: 14px!important;" ng-bind-html="patent.text | trustAsHTML">
-                </pre>
+                <p class="card card-block " ng-bind-html="patent.text | trustAsHTML">
+                </p>
                         </uib-tab-content>
                     </uib-tab>
                     <uib-tab class="">
@@ -68,22 +74,31 @@
                             <label class="label label-pill label-info">{{patent.claim_total}}</label>
                             </uib-tab-heading>
                         <uib-tab-content style="width:98%;margin:1%;height:98%;overflow:scroll;">
-                        <d3pending set="claims" pattern="{{query}}"></d3pending>
-                        <d3pendingtree patent="{{patent.id}}" pattern="{{query}}" tree="tree"></d3pendingtree>
+                      <fieldset class="material">
+                          <input ng-model="query" id="patterninput">
+                          <hr>
+                          <label>Search</label>
+                      </fieldset>
+                        <!--<d3pending set="claims" pattern="{{query}}"></d3pending>-->
+                        <d3pendingtree patent="{{config.PNUM}}" pattern="{{query}}" tree="tree"></d3pendingtree>
+                    <claimtree tree="tree" query="query"></claimtree>
                         </uib-tab-content>
                     </uib-tab>
 
                     <uib-tab class="" heading="Citations">
                         <uib-tab-heading>Citations
-                            <!--<label class="label label-pill label-warning">{{patent.references.length}}</label>-->
+                            <label class="label label-pill label-warning">{{patent.references.length}}</label>
                         </uib-tab-heading>
 <uib-tab-content style="width:98%;margin:1%;height:98%;overflow:scroll;">
-                        <div ng-bind-html="patent.backward_citations | highlight: query| trustAsHTML" class="card img-shadow card-block" style="color:#444 !important;"></div>
+                        <table ng-bind-html="patent.backward_citations | citationcheck| highlight: query| trustAsHTML" class="card img-shadow card-block" style="color:#444 !important;"></table>
 
-                        <div ng-bind-html="patent.forward_citations | highlight: query | trustAsHTML" class="card img-shadow card-block" style="color:444 !important;" ng-if="patent.forward_citations"></div>
+                        <table ng-bind-html="patent.forward_citations | citationcheck | highlight: query | trustAsHTML" class="card img-shadow card-block" style="color:444 !important;" ng-if="patent.forward_citations"></table>
 </uib-tab-content>
                     </uib-tab>
+<uib-tab heading="Corrections/Fees/Assignments">
+                            <table ng-bind-html="patent.legal | highlight: query | trustAsHTML" class="card img-shadow card-block" style="color:444 !important;" ng-if="patent.legal"></table>
 
+</uib-tab>
                 </uib-tabset>
                 </div>
                 </div>

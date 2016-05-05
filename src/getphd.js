@@ -706,7 +706,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 // });
                 phd.appnum = appnum;
                 phd.media = 'https://lexlab.io/patents/US' + phd.patent.id +'/preview';
-                phd.title = 'PhD for ' + (phd.patent.id || phd.application['Patent Number']);
+                phd.title = 'PhD for ' + $filter('number')(phd.patent.id );
                 phd.description = 'USSN ' + phd.application['Application Number'];
                 phd.styleClass = 'Applicant';
                 phd.rid = 'PHD';
@@ -1129,4 +1129,30 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             p.showform = false;
         }
 
-    }]);
+    }])
+    .directive('claimtree', function(){
+        return {
+          restrict: 'E',
+          templateUrl: '/getphdwidget/src/phd/claimtree.html',
+          scope: {
+              tree: '=',
+              query: '='
+          },
+          link: function($scope, $element, $attr){
+
+          }
+        };
+    })
+    .filter('citationcheck', function(){
+        return function(input){
+            var check = function(input){
+                var regex = new RegExp(/\<a\s/ig);
+                var matches = input.match(regex);
+                // matches.forEach(function(value, index, arra){
+                //     input.replace(regex, '<a pop ');
+                // })
+                return input.replace(regex, '<a pop ');
+            };
+            return check(input);
+        };
+    });
