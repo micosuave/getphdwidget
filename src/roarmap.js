@@ -400,7 +400,7 @@ var wraptail = ckender;
 
                                                 meritsref.child('roarlist').child(id).set(id);
 
-
+                                                main.pushtoqueue(file);
                                                 $log.info('merits', id);
                                             }
                                         });

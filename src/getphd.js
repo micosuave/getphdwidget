@@ -464,9 +464,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         url: googleurl
                     };
                     $http(optionsg).then(function(resp){
-                        if (resp.status !== '200'){
+                        if (resp.status !== 200){
                             $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
-                        }else if(resp.status ==='200'){
+                        }else if(resp.status == 200){
                            $('#googlebutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
                             wingoog = function(){
                               $window.open('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
@@ -474,9 +474,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         }
                     });
                     $http(optionsr).then(function(resp){
-                        if (resp.status !== '200'){
+                        if (resp.status !== 200){
                             $('#reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
-                        }else if(resp.status ==='200'){
+                        }else if(resp.status ==200){
                            $('#reedtechbutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
                             winreed = function(){
                                 $window.open('https://patents.reedtech.com/downloads/pair/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
