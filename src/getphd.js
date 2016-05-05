@@ -53,7 +53,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             templateUrl: '{widgetsPath}/getphd/src/phd/patentReport.html',
              controller: 'PatentWidgetCtrl',
             controllerAs: 'p',
-            frameless: true,
+            frameless: false,
             reload: false,
             //collapsed: true,
             //immediate: true,
@@ -1094,20 +1094,39 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     }])
     .controller('PatentWidgetCtrl',['$scope','config','$http','Collection', function($scope, config,$http,Collection){
         var p = this;
-        $scope.config = config;
-        if (config.pnum){
-            p.id = config.pnum;
-        try{
-            Collection(p.id).$loaded().then(function(data){
-                $scope.patent = data;
-            });
-        }catch(ex){
-        $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + p.id).then(function (resp) {
+        p.getdata = function(input){
+        $http.get('/getphd/patents/' + input).then(function (resp) {
+                    p.showconfig = false;
+                    p.showform = false;
                     $scope.patent = resp.data;
-                    $scope.claims = {children: resp.data.claims};
+                    $scope.claims = {class: 'super-independent',id:'claims',text: 'claims',name:'claims',children: resp.data.claims};
                 });
-        }finally{
-            alertify.success('loaded!');
+            };
+        $scope.config = config;
+        if (config.PNUM !== null){
+            // p.id = config.pnum;
+            // p.showconfig = false;
+        // try{
+        //     Collection(p.id).$loaded().then(function(data){
+        //         $scope.patent = data;
+        //          $scope.claims = {children:data.claims};
+        //     });
+        // }catch(ex){
+
+            try{
+                p.getdata(config.PNUM);
+            }
+            catch(ex){
+                var combo = config.IPAYEAR + config.IPANUM;
+                p.getdata(combo);
+            }
+            finally{
+                alertify.success('loaded');
+            }
         }
+        else{
+            p.showconfig = true;
+            p.showform = false;
         }
+
     }]);

@@ -1,19 +1,37 @@
+ <div class="card card-primary card-block btn-glass drop-target" style="border: 2px dashed blue;margin: 5px;" ng-show="p.showconfig">
 
-    <div class="container-fluid card-fancy" style="width:98%;margin:1%;height:98%;overflow:scroll;">
+                <button class="row btn btn-glass btn-primary img img-rounded " style="width:100%;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;" ng-click="p.showform = !p.showform" ng-class="{'btn-success': (main.progress == 100),'btn-danger':(main.progress === 'failed')}">
+        <img src="https://lexlab.firebaseapp.com/img/GoldLion.svg" class=" img img-rounded pull-right" style="max-height:100px;" ng-if="!main.progress" />
+        <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
+    </button>
+
+
+    <div pageslide ps-open="p.showform" ps-key-listener="true" ps-side="left"  ps-class="card-dark btn-glass" ps-size="400px" style="overflow-x:visible;overflow-y:scroll;">
+
+                    <div ng-include="'/getphdwidget/src/phd/step-3.html'"></div>
+                                   <hr>
+
+                </div>
+
+</div>
+    <div class="container-fluid card-fancy" style="width:98%;margin:1%;height:98%;overflow:scroll;" ng-if="!p.showconfig">
         <div class="col-xs-4 col-sm-3 col-1">
             <div class="card">
-                <img ng-src="{{patent.drawings[0]}}" class="img img-responsive img-shadow img-thumbnail" style="max-height:300px;width:auto;"/>
+                <img ng-src="/patents/US{{patent.id}}/preview" class="img img-responsive img-shadow" style="max-height:300px;width:auto;" ng-dblclick="p.showform = !p.showform"/>
                 <div class="card-block">
                     <h2 class="card-title text-NOA">US <a class="pop text-NOA" ng-href="{{patent.media}}"><strong ng-bind="patent.id | number:0"></strong></a></h2>
 
 
+<small><label>Issued:</label> {{patent.issued|date}}<br></small>
 
                         <small><label>USSN</label> <em>{{patent.application_number | application}}</em><br></small>
+<small><label>Filed:</label> {{patent.dateSubmitted|date}}<br></small>
 
-                    <small><label>Issued:</label> {{patent.issued|date}}<br></small>
+
                     <small><label>Title:</label> {{patent.title}}<br></small>
+
                     <small><label>Inventor(s):</label> {{patent.inventor}}<br></small>
-                    <small><label>Filed:</label> {{patent.dateSubmitted|date}}<br></small>
+
                     <small><label>Original Assignee:</label> {{patent.assignee}}</small>
                     <!--<p ng-bind="patent.description" class="card-text" style="text-align:justify;">Do nulla id sint reprehenderit esse. Quis sunt duis consequat sit sint duis officia veniam qui. Occaecat ipsum esse officia qui et reprehenderit tempor. Aliqua officia qui occaecat veniam commodo esse magna fugiat reprehenderit duis. Adipisicing laborum ex commodo velit.</p>-->
                     </div>
@@ -30,7 +48,9 @@
                 <!--<d3lib data="{{$parent.$parent.patent.claims}}"></d3lib>-->
                 </div>
                 </uib-tab>
-                <uib-tab class="">                      <uib-tab-heading>Drawings <label class="label label-pill label-success">{{patent.drawings.length}}</label></uib-tab-heading>
+                <uib-tab class="">                      <uib-tab-heading>Drawings
+                    <!--<label class="label label-pill label-success">{{patent.drawings.length}}</label>-->
+                    </uib-tab-heading>
 
                 <div class="showscroll" style="margin: 5px 5px;display:flex;flex-wrap:wrap;flex-direction:row;">
                     <a ng-repeat="link in patent.drawings" pop="true" ng-click="main.pop(link)"  class="btn" style="margin:2px;"><img ng-src="{{patent.thumbnails[$index]}}" class="img img-shadow"/></a>
@@ -38,22 +58,30 @@
 
               </uib-tab>
                     <uib-tab class="" heading="Description">
-                <pre class="card card-block " style="text-size: 11px!important;" ng-bind-html="patent.text | trustAsHTML">
+                        <uib-tab-content style="width:98%;margin:1%;height:98%;overflow:scroll;">
+                <pre class="card card-block " style="text-size: 14px!important;" ng-bind-html="patent.text | trustAsHTML">
                 </pre>
+                        </uib-tab-content>
                     </uib-tab>
                     <uib-tab class="">
-                        <uib-tab-heading>Claims <label class="label label-pill label-info">{{patent.claim_total}}</label></uib-tab-heading>
+                        <uib-tab-heading>Claims
+                            <label class="label label-pill label-info">{{patent.claim_total}}</label>
+                            </uib-tab-heading>
+                        <uib-tab-content style="width:98%;margin:1%;height:98%;overflow:scroll;">
                         <d3pending set="claims" pattern="{{query}}"></d3pending>
                         <d3pendingtree patent="{{patent.id}}" pattern="{{query}}" tree="tree"></d3pendingtree>
-
+                        </uib-tab-content>
                     </uib-tab>
 
                     <uib-tab class="" heading="Citations">
-                        <uib-tab-heading>Citations <label class="label label-pill label-warning">{{patent.references.length}}</label></uib-tab-heading>
-                        <div ng-bind-html="patent.backward_citations | highlight: query| trustAsHTML"></div>
-                        Refeneced By
-                        <div ng-bind-html="patent.forward_citations | highlight: query | trustAsHTML"></div>
+                        <uib-tab-heading>Citations
+                            <!--<label class="label label-pill label-warning">{{patent.references.length}}</label>-->
+                        </uib-tab-heading>
+<uib-tab-content style="width:98%;margin:1%;height:98%;overflow:scroll;">
+                        <div ng-bind-html="patent.backward_citations | highlight: query| trustAsHTML" class="card img-shadow card-block" style="color:#444 !important;"></div>
 
+                        <div ng-bind-html="patent.forward_citations | highlight: query | trustAsHTML" class="card img-shadow card-block" style="color:444 !important;" ng-if="patent.forward_citations"></div>
+</uib-tab-content>
                     </uib-tab>
 
                 </uib-tabset>
@@ -62,4 +90,4 @@
 
                 </div>
 
-    </div>
+
