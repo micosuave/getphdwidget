@@ -447,19 +447,20 @@ var wraptail = ckender;
                               collection_type: 'source',
                               description: 'for US ' + phd.patent.id,
                               styleClass: options.styleClass,
+                              sortOrder: options.sortOrder,
                               icon: options.icon,
                               app: phd.application['Application Number'],
                               content_type: 'collection',
                               /*titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargrid-title.html',*/
-                              rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',title: options.rid + ' - ' + 'USSN ' + phd.application['Application Number'],styleClass: options.styleClass || 'btn-dark',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]
+                              rows:[{styleClass:'row leather',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',title: options.rid + ' - ' + 'USSN ' + phd.application['Application Number'],styleClass: options.styleClass || 'btn-dark',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]
 
                           };
                         return binder;
                      };
-                   var phdall = { rid: 'PHD1', title: 'ALL', styleClass: 'NOA', icon: 'fa-legal' },
-                     phdmerits = { rid: 'PHD4', title: 'MERITS', styleClass: 'PTO', icon: 'fa-balance-scale' },
-                     phdart = { rid: 'PHD2', title: 'ART', styleClass: 'Petition', icon: 'fa-leaf' },
-                     phdclaims = { rid: 'PHD3', title: 'CLAIMS', styleClass: 'Applicant', icon: 'fa-sitemap'};
+                   var phdall = { rid: 'PHD1', title: 'ALL', styleClass: 'NOA', icon: 'fa-legal', sortOrder: 1 },
+                     phdmerits = { rid: 'PHD4', title: 'MERITS', styleClass: 'PTO', icon: 'fa-balance-scale', sortOrder: 4 },
+                     phdart = { rid: 'PHD2', title: 'ART', styleClass: 'Petition', icon: 'fa-leaf', sortOrder: 2 },
+                     phdclaims = { rid: 'PHD3', title: 'CLAIMS', styleClass: 'Applicant', icon: 'fa-sitemap', sortOrder: 3};
                      var groupids = [];
                      var groups = { all: phdall, merits: phdmerits, art: phdart, claims: phdclaims };
                      angular.forEach(groups, function (group, key) {
@@ -777,9 +778,14 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
          }
      }).filter('strip', function(){
          return function(input){
-            var regex = new RegExp(/\D/);
-            if (input && angular.isString(input)){var output = input.replace(regex, '');}
+             if (input !== (null || undefined)){
+            var regex = new RegExp(/\D/ig);
+            var output = input.replace(regex, '');
             return output;
+             }
+             else{
+                 return input;
+             }
          };
      }).directive('docHeader',['$window','$document','$compile','$templateCache','Collection', function($window,$document,$compile,$templateCache,Collection){
          return {

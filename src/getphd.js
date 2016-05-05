@@ -437,36 +437,65 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $('#reedtechbutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
                 $http.get('/getphd/patents/' + pnum).then(function(resp) {
                     var data = resp.data;
-                    config.appnum = resp.data.application_number.slice(3,resp.data.application_number.length).replace('/','').replace(',','');
+//                    config.appnum = resp.data.application_number.slice(3,resp.data.application_number.length).replace('/','').replace(',','');
+                    config.appnum = resp.data.application_number.replace(/\D/ig, '');
                     $scope.response = resp.data;
                     var googleurl = 'https' +'://'+ 'lexlab.io' + '/proxy/storage.googleapis.com/uspto-pair/applications/'+config.appnum+'.zip';
                     var reedtechurl = 'https' +'://'+ 'lexlab.io' + '/proxy/patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
-                    JSZipUtils.getBinaryContent(googleurl, function(err, data) {
-                        if(err) {
+                    var optionsr = {
+                        method: 'HEAD',
+                        url: reedtechurl
+                    };
+                    // JSZipUtils.getBinaryContent(googleurl, function(err, data) {
+                    //     if(err) {
+                    //         $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
+                    //     }else{
+                    //         $('#googlebutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                    //         wingoog = function(){
+                    //           $window.open('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
+                    //         var zip = new JSZip(data);
+                    //         var blob = zip.generate({type: 'blob'});
+                    //         saveAs(blob, config.appnum + '.zip');
+                    //         };
+                    //     }
+                    // });
+                    var optionsg = {
+                        method: 'HEAD',
+                        url: googleurl
+                    };
+                    $http(optionsg).then(function(resp){
+                        if (resp.status !== '200'){
                             $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
-                        }else{
-                            $('#googlebutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                        }else if(resp.status ==='200'){
+                           $('#googlebutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
                             wingoog = function(){
                               $window.open('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
-                            var zip = new JSZip(data);
-                            var blob = zip.generate({type: 'blob'});
-                            saveAs(blob, config.appnum + '.zip');
                             };
                         }
                     });
-                    JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
-                        if(err) {
+                    $http(optionsr).then(function(resp){
+                        if (resp.status !== '200'){
                             $('#reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
-                        }else{
-                            $('#reedtechbutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                        }else if(resp.status ==='200'){
+                           $('#reedtechbutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
                             winreed = function(){
                                 $window.open('https://patents.reedtech.com/downloads/pair/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
-                            var zip = new JSZip(data);
-                            var blob = zip.generate({type: 'blob'});
-                            saveAs(blob, config.appnum + '.zip');
                             };
                         }
                     });
+                    // JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
+                    //     if(err) {
+                    //         $('#reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
+                    //     }else{
+                    //         $('#reedtechbutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                    //         winreed = function(){
+                    //             $window.open('https://patents.reedtech.com/downloads/pair/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
+                    //         var zip = new JSZip(data);
+                    //         var blob = zip.generate({type: 'blob'});
+                    //         saveAs(blob, config.appnum + '.zip');
+                    //         };
+                    //     }
+                    // });
 
             });
 
@@ -691,8 +720,17 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //  var phdref = Collection(phd.id).$ref();
                 var projref = Collection($stateParams.pId).$ref();
 
-
-
+                var d = new Date();
+                var dd = d.getTime();
+                var patentdigest = {
+                    id: dd,
+                    title: 'US ' + $filter('number')(phd.patent.id, 0),
+                    rid: 'PHD5',
+                    styleClass: 'NOA',
+                    sortOrder: 5,
+                    rows:[{styleClass: 'leather',columns: [{cid:dd+5,style: 'col-sm-12', widgets:[{config: {id: dd, PNUM: phd.patent.id},type: 'patent', styleClass: 'NOA',wid: dd+10 }]}]}]
+                }
+                Collection(dd).$ref().set(patentdigest);
 
 
 
@@ -734,6 +772,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //     dashboardsref.child('rows').set(rows);
 
                 //   });
+                phd.roarlist[dd] = dd;
                 phd.content = phd.content + ckender;
                 localStorageService.set(phd.application['Application Number'], phd);
                 // $http.post('/getphd/store/' + appnum, phd);
@@ -1092,17 +1131,61 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
-    .controller('PatentWidgetCtrl',['$scope','config','$http','Collection', function($scope, config,$http,Collection){
+    .controller('PatentWidgetCtrl',['$scope','config','$http','Collection','$q','$filter', function($scope, config,$http,Collection,$q,$filter){
         var p = this;
         p.getdata = function(input){
-        $http.get('/getphd/patents/' + input).then(function (resp) {
-                    p.showconfig = false;
-                    p.showform = false;
-                    $scope.patent = resp.data;
-                    $scope.claims = {class: 'super-independent',id:'claims',text: 'claims',name:'claims',children: resp.data.claims};
+            var deferred = $q.defer();
+                $http.get('/getphd/patents/' + input).then(function (resp) {
+                    return deferred.resolve(resp.data);
                 });
-            };
+                return deferred.promise;
+        };
+
+        var collection = Collection(config.id);
+       $scope.collection = collection;
         $scope.config = config;
+       p.getp = function(input){
+           try {
+               Collection(input).$loaded().then(function(pdata){
+                   var trop = $filter('strip')(pdata.pub);
+                   config.IPAYEAR = trop.slice(0,4);
+                   config.IPANUM = trop.slice(4,trop.length);
+                   Collection(trop).$loaded().then(function(apdata){
+                    if (apdata.id !== trop){
+                        p.getdata(trop).then(function(apdata1){
+                              p.showconfig = false;
+                    p.showform = false;
+                    pdata.application_data = apdata1;
+                    $scope.patent = pdata;
+                    p.claims = {class: 'super-independent',id:'claims',text: 'claims',name:'claims',children: apdata.claims};
+
+                        })
+                    }else{
+                       p.showconfig = false;
+                    p.showform = false;
+                    pdata.application_data = apdata;
+                    $scope.patent = pdata;
+                    p.claims = {class: 'super-independent',id:'claims',text: 'claims',name:'claims',children: apdata.claims};
+                    }
+                   })
+               })
+           }
+           catch(ex){
+            p.getdata(input).then(function(pdata){
+                    var trop = $filter('strip')(pdata.pub);
+                    p.getdata(trop).then(function(apdata){
+                   p.showconfig = false;
+                    p.showform = false;
+                    pdata.application_data = apdata;
+                    $scope.patent = pdata;
+                    p.claims = {class: 'super-independent',id:'claims',text: 'claims',name:'claims',children: apdata.claims};
+
+                });
+                });
+           }
+           finally{}
+       };
+
         if (config.PNUM !== null){
             // p.id = config.pnum;
             // p.showconfig = false;
@@ -1114,7 +1197,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         // }catch(ex){
 
             try{
-                p.getdata(config.PNUM);
+                p.getp(config.PNUM);
             }
             catch(ex){
                 var combo = config.IPAYEAR + config.IPANUM;
@@ -1147,7 +1230,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         return function(input){
             var check = function(input){
                 var regex = new RegExp(/\<a\s/ig);
-                var matches = input.match(regex);
+                //var matches = input.match(regex);
                 // matches.forEach(function(value, index, arra){
                 //     input.replace(regex, '<a pop ');
                 // })

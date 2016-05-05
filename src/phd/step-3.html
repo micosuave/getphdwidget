@@ -22,16 +22,16 @@
             <p class="text-muted text-left" style="text-align:left;font-size:10px;">{{response.abstract}}</p>
         </blockquote>-->
 
-
-    <blockquote class="bs-callout bs-callout-NOA card-header" style="text-align:left;margin:0;">
+<div class="card-block">
+    <blockquote class="card-header bs-callout bs-callout-NOA" style="text-align:left;margin:0;">
         <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="patentnumber" class="card-text text-muted"><strong>Enter US Patent Number</strong></label></h4>
      <fieldset class="material Applicant" style="max-width:80%;">
-        <input type="number" placeholder="Patent #"   ng-model="config.PNUM">
+        <input type="number" placeholder="Patent #"   ng-blur="collection.$save()" ng-model="config.PNUM">
         <hr>
         <label>Enter a Patent Number</label>
 
     </fieldset>
-            <button class="input-group-addon btn btn-default right "  tooltip-trigger="mouseenter" uib-tooltip="Download Patent" ng-click="p.getdata(config.PNUM);" style=""><span class="text-success fa fa-5x fa-download"></span></button>
+            <button class="input-group-addon btn btn-default right "  tooltip-trigger="mouseenter" uib-tooltip="Download Patent" ng-click="p.getp(config.PNUM);" style=""><span class="text-success fa fa-5x fa-download"></span></button>
 
      <!--<div class="input-group">-->
         <!--<input type="number" placeholder="Patent #" class="" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.PNUM" ng-blur="main.remoteconfig(config.PNUM)">-->
@@ -43,7 +43,7 @@
     <!--</div>-->
 </blockquote>
 
- <blockquote class="bs-callout bs-callout-Petition card-header" style="text-align:left;margin:0;">
+ <blockquote class="card-header bs-callout bs-callout-Petition" style="text-align:left;margin:0;">
          <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="publishedapplication" class="card-text text-muted"><strong>Enter Year of Publication and Published Application Number</strong></label></h4>
 
     <div class="input-group">
@@ -64,7 +64,7 @@
     </div>
 
     </blockquote>
-
+</div>
 
 <!--
          </div>

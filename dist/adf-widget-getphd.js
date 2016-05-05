@@ -438,36 +438,65 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $('#reedtechbutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
                 $http.get('/getphd/patents/' + pnum).then(function(resp) {
                     var data = resp.data;
-                    config.appnum = resp.data.application_number.slice(3,resp.data.application_number.length).replace('/','').replace(',','');
+//                    config.appnum = resp.data.application_number.slice(3,resp.data.application_number.length).replace('/','').replace(',','');
+                    config.appnum = resp.data.application_number.replace(/\D/ig, '');
                     $scope.response = resp.data;
                     var googleurl = 'https' +'://'+ 'lexlab.io' + '/proxy/storage.googleapis.com/uspto-pair/applications/'+config.appnum+'.zip';
                     var reedtechurl = 'https' +'://'+ 'lexlab.io' + '/proxy/patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
-                    JSZipUtils.getBinaryContent(googleurl, function(err, data) {
-                        if(err) {
+                    var optionsr = {
+                        method: 'HEAD',
+                        url: reedtechurl
+                    };
+                    // JSZipUtils.getBinaryContent(googleurl, function(err, data) {
+                    //     if(err) {
+                    //         $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
+                    //     }else{
+                    //         $('#googlebutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                    //         wingoog = function(){
+                    //           $window.open('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
+                    //         var zip = new JSZip(data);
+                    //         var blob = zip.generate({type: 'blob'});
+                    //         saveAs(blob, config.appnum + '.zip');
+                    //         };
+                    //     }
+                    // });
+                    var optionsg = {
+                        method: 'HEAD',
+                        url: googleurl
+                    };
+                    $http(optionsg).then(function(resp){
+                        if (resp.status !== '200'){
                             $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
-                        }else{
-                            $('#googlebutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                        }else if(resp.status ==='200'){
+                           $('#googlebutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
                             wingoog = function(){
                               $window.open('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
-                            var zip = new JSZip(data);
-                            var blob = zip.generate({type: 'blob'});
-                            saveAs(blob, config.appnum + '.zip');
                             };
                         }
                     });
-                    JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
-                        if(err) {
+                    $http(optionsr).then(function(resp){
+                        if (resp.status !== '200'){
                             $('#reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
-                        }else{
-                            $('#reedtechbutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                        }else if(resp.status ==='200'){
+                           $('#reedtechbutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
                             winreed = function(){
                                 $window.open('https://patents.reedtech.com/downloads/pair/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
-                            var zip = new JSZip(data);
-                            var blob = zip.generate({type: 'blob'});
-                            saveAs(blob, config.appnum + '.zip');
                             };
                         }
                     });
+                    // JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
+                    //     if(err) {
+                    //         $('#reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
+                    //     }else{
+                    //         $('#reedtechbutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                    //         winreed = function(){
+                    //             $window.open('https://patents.reedtech.com/downloads/pair/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
+                    //         var zip = new JSZip(data);
+                    //         var blob = zip.generate({type: 'blob'});
+                    //         saveAs(blob, config.appnum + '.zip');
+                    //         };
+                    //     }
+                    // });
 
             });
 
@@ -692,8 +721,17 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //  var phdref = Collection(phd.id).$ref();
                 var projref = Collection($stateParams.pId).$ref();
 
-
-
+                var d = new Date();
+                var dd = d.getTime();
+                var patentdigest = {
+                    id: dd,
+                    title: 'US ' + $filter('number')(phd.patent.id, 0),
+                    rid: 'PHD5',
+                    styleClass: 'NOA',
+                    sortOrder: 5,
+                    rows:[{styleClass: 'leather',columns: [{cid:dd+5,style: 'col-sm-12', widgets:[{config: {id: dd, PNUM: phd.patent.id},type: 'patent', styleClass: 'NOA',wid: dd+10 }]}]}]
+                }
+                Collection(dd).$ref().set(patentdigest);
 
 
 
@@ -735,6 +773,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //     dashboardsref.child('rows').set(rows);
 
                 //   });
+                phd.roarlist[dd] = dd;
                 phd.content = phd.content + ckender;
                 localStorageService.set(phd.application['Application Number'], phd);
                 // $http.post('/getphd/store/' + appnum, phd);
@@ -1093,17 +1132,61 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
-    .controller('PatentWidgetCtrl',['$scope','config','$http','Collection', function($scope, config,$http,Collection){
+    .controller('PatentWidgetCtrl',['$scope','config','$http','Collection','$q','$filter', function($scope, config,$http,Collection,$q,$filter){
         var p = this;
         p.getdata = function(input){
-        $http.get('/getphd/patents/' + input).then(function (resp) {
-                    p.showconfig = false;
-                    p.showform = false;
-                    $scope.patent = resp.data;
-                    $scope.claims = {class: 'super-independent',id:'claims',text: 'claims',name:'claims',children: resp.data.claims};
+            var deferred = $q.defer();
+                $http.get('/getphd/patents/' + input).then(function (resp) {
+                    return deferred.resolve(resp.data);
                 });
-            };
+                return deferred.promise;
+        };
+
+        var collection = Collection(config.id);
+       $scope.collection = collection;
         $scope.config = config;
+       p.getp = function(input){
+           try {
+               Collection(input).$loaded().then(function(pdata){
+                   var trop = $filter('strip')(pdata.pub);
+                   config.IPAYEAR = trop.slice(0,4);
+                   config.IPANUM = trop.slice(4,trop.length);
+                   Collection(trop).$loaded().then(function(apdata){
+                    if (apdata.id !== trop){
+                        p.getdata(trop).then(function(apdata1){
+                              p.showconfig = false;
+                    p.showform = false;
+                    pdata.application_data = apdata1;
+                    $scope.patent = pdata;
+                    p.claims = {class: 'super-independent',id:'claims',text: 'claims',name:'claims',children: apdata.claims};
+
+                        })
+                    }else{
+                       p.showconfig = false;
+                    p.showform = false;
+                    pdata.application_data = apdata;
+                    $scope.patent = pdata;
+                    p.claims = {class: 'super-independent',id:'claims',text: 'claims',name:'claims',children: apdata.claims};
+                    }
+                   })
+               })
+           }
+           catch(ex){
+            p.getdata(input).then(function(pdata){
+                    var trop = $filter('strip')(pdata.pub);
+                    p.getdata(trop).then(function(apdata){
+                   p.showconfig = false;
+                    p.showform = false;
+                    pdata.application_data = apdata;
+                    $scope.patent = pdata;
+                    p.claims = {class: 'super-independent',id:'claims',text: 'claims',name:'claims',children: apdata.claims};
+
+                });
+                });
+           }
+           finally{}
+       };
+
         if (config.PNUM !== null){
             // p.id = config.pnum;
             // p.showconfig = false;
@@ -1115,7 +1198,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         // }catch(ex){
 
             try{
-                p.getdata(config.PNUM);
+                p.getp(config.PNUM);
             }
             catch(ex){
                 var combo = config.IPAYEAR + config.IPANUM;
@@ -1148,7 +1231,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         return function(input){
             var check = function(input){
                 var regex = new RegExp(/\<a\s/ig);
-                var matches = input.match(regex);
+                //var matches = input.match(regex);
                 // matches.forEach(function(value, index, arra){
                 //     input.replace(regex, '<a pop ');
                 // })
@@ -1158,7 +1241,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         };
     });
 
-angular.module("adf.widget.getphd").run(["$templateCache", function($templateCache) {$templateCache.put("{widgetsPath}/getphd/src/edit.html","<form role=form ng-submit=collection.$save()><fieldset class=\"material Applicant\"><input type=text placeholder=1234567 ng-model=config.pnum><hr><label>Enter a Patent Number</label></fieldset><br><fieldset class=\"material Petition\"><input type=text placeholder=YYYY ng-model=config.IPAYEAR><hr><label>Enter a Published Patent Application YEAR</label></fieldset><fieldset class=\"material Petition\"><input type=text placeholder=1234567 ng-model=config.IPANUM><hr><label>Enter a Published Patent Application Number</label></fieldset></form>");
+angular.module("adf.widget.getphd").run(["$templateCache", function($templateCache) {$templateCache.put("{widgetsPath}/getphd/src/edit.html","<form role=form ng-submit=collection.$save()><fieldset class=\"material Applicant\"><input type=text placeholder=1234567 ng-model=config.PNUM><hr><label>Enter a Patent Number</label></fieldset><br><fieldset class=\"material Petition\"><input type=text placeholder=YYYY ng-model=config.IPAYEAR><hr><label>Enter a Published Patent Application YEAR</label></fieldset><fieldset class=\"material Petition\"><input type=text placeholder=1234567 ng-model=config.IPANUM><hr><label>Enter a Published Patent Application Number</label></fieldset></form>");
 $templateCache.put("{widgetsPath}/getphd/src/editgallery.html","<form role=form><div class=form-group><label for=sample>Interval, in milliseconds:</label> <input type=number class=form-control ng-model=config.interval><br>Enter a negative number or 0 to stop the interval.</div><div class=form-group><label>Disable Slide Looping</label> <input type=checkbox ng-model=config.nowrap></div><div class=form-group><label>Pause on Hover?</label> <input type=checkbox ng-model=config.pauseonhover></div><div class=form-group><label>Disable Transition</label> <input type=checkbox ng-model=config.transition></div></form>");
 $templateCache.put("{widgetsPath}/getphd/src/gallery.html","<div style=\"min-height: 305px\"><uib-carousel interval=config.interval no-pause={{config.pauseonhover}} no-transition={{config.transition}} no-wrap={{config.nowrap}}><uib-slide ng-repeat=\"slide in gallery.slides\" active={slide.active} index=slide.index><img ng-src={{slide.media}} style=margin:auto;><div class=carousel-caption><h4>Slide {{slide.$index}}</h4><p>{{slide.title}}</p></div></uib-slide></uib-carousel></div>");
 $templateCache.put("{widgetsPath}/getphd/src/titleTemplate.html","<div class=\"bs-callout bs-callout-{{roarevent.styleClass || \'primary\'}}\" style=z-index:1;padding:0px;><h4><span style=margin-left:25px; ng-bind=roarevent.title></span><br><div class=row style=width:100%;><small style=margin-left:50px; ng-bind=\"roarevent.date | date\"></small> <span class=pull-right style=position:absolute;right:5px;font-size:12px;><a clipboard text=roarevent.media on-copied=\"alertify.success(\'copied!\');\" on-error=\"alertify.error(err,\'uh oh!\')\" onclick=\"alertify.success(\'copied!\')\"><i class=\"fa fa-link\" style=margin:5px;></i></a> <a title=\"collapse widget\" ng-show=\"options.collapsible && !widgetState.isCollapsed\" ng-click=\"widgetState.isCollapsed = !widgetState.isCollapsed\"><i class=\"fa fa-minus\" style=margin:5px;></i></a> <a title=\"expand widget\" ng-show=\"options.collapsible && widgetState.isCollapsed\" ng-click=\"widgetState.isCollapsed = !widgetState.isCollapsed\"><i class=\"fa fa-plus\" style=margin:5px;></i></a> <a title=\"copy to clipboard\" ng-click=edit(roarevent.id)><i class=\"fa fa-copy\" style=margin:5px;></i></a> <a title=\"fullscreen widget\" ng-click=openFullScreen(roarevent.id) ng-show=\"options.maximizable || true\"><i class=\"fa fa-expand\" style=margin:5px;></i></a> <a title=\"pop out\" ng-click=openpreview(roarevent)><i class=\"fa fa-external-link\" style=margin:5px;></i></a> <a title=\"remove widget\" ng-click=remove() onclick=$(this).parent().parent().parent().parent().parent().remove()><i class=\"fa fa-close\" style=margin:5px;></i></a></span></div></h4></div>");
@@ -1168,10 +1251,10 @@ $templateCache.put("{widgetsPath}/getphd/src/phd/citation.html","<div class=\"bs
 $templateCache.put("{widgetsPath}/getphd/src/phd/claimtree.html","<div ui-tree=treeOptions><ol ui-tree-nodes max-depth=6 ng-model=tree.claims><li ui-tree-node class=\"card card-block\" ng-repeat=\"node in tree.claims\" ng-include=\"\'claim_renderer.html\'\" style=padding-right:0rem;padding-bottom:0.1rem; ng-hide=\"!treeFilter(node, query, supportedFields) && dim\"></li></ol></div><script type=text/ng-template id=claim_renderer.html><div ui-tree-handle class=\"tree-node tree-node-content\"> <div class=\"tree-node-content flextoprow \" style=\"position:relative;\"> <a class=\"btn btn-xs pull-left\" ng-click=\"toggle(this)\" ><span class=\"fa \" ng-class=\"{\'fa-chevron-right\': collapsed, \'fa-chevron-down\': !collapsed}\" style=\"color:steelblue;transition:all 0.25s ease;\" ng-if=\"node.children && (node.children.length > 0)\"></span><span ng-if=\"node.children.length == 0 \" class=\"fa fa-hashtag\"></span></a> <!--<input type=\"text\" ng-model=\"node.text\" ng-change=\"node.$save();\" ng-model-options=\"{ updateOn: \'default blur\', debounce: {\'default\': 1000, \'blur\': 0} }\" style=\"padding: 0.5rem;color:#444;\" ng-if=\"config.editable\">--> <!--<a class=\"btn showonhover\" data-nodrag ng-if=\"config.editable\" ng-click=\"remove(this);\"><span class=\"fa fa-close text-danger \"></span></a>--> <!--<a class=\"btn \" data-nodrag ng-if=\"config.editable\" ng-click=\"toc.newsubsection(this)\" style=\"\"><span class=\"fa fa-plus text-success\"></span></a>--> <div ng-bind-html=\"node.text | highlight: query \" data-nodrag ng-class=\"{\'filtered-out\':(!treeFilter(node, query, supportedFields) && dim)}\" style=\"color:#444 !important;\"></div> <!--<a class=\"gototarget btn\" data-nodrag ui-sref=\"{{parentstate}}.righttab({tabid: node.id})\" style=\"\"> <span ng-if=\"!config.editable\" class=\"pull-left\">{{node.text}}</span><i style=\"position:absolute;right:0;\">&nbsp;</i></a>--> </div> </div> <ol ui-tree-nodes=\"\" ng-model=\"node.children\" ng-class=\"{\'hidden\': collapsed}\" style=\"\"> <li class=\"card card-block img-shadow\" ng-repeat=\"node in node.children\" ui-tree-node ng-include=\"\'claim_renderer.html\'\" style=\"padding-right:0rem;padding-bottom:0.1rem;padding-left:5px;\" ng-hide=\"!treeFilter(node, query, supportedFields) && dim\" > </li> </ol></script>");
 $templateCache.put("{widgetsPath}/getphd/src/phd/docheader.html","<div class=\"container-fluid two-col-right\"><div class=\"col-xs-4 col-sm-3 card card-{{roarevent.styleClass}}\"><img ng-src={{background(roarevent.styleClass)}} class=\"img img-responsive img-shadow\"><h4>{{roarevent.title}}</h4><p class=card-text><label ng-repeat=\"match in roarevent.matches track by $index\" class=\"fa fa-tag\"><a ng-href=#{{$index}}>{{match}}</a></label></p></div><div class=\"col-xs-8 col-sm-9\"><div class=\"bs-callout bs-callout-{{roarevent.styleClass}}\"><h4>{{roarevent.title}}</h4><p ng-if=roardate>Dated {{roardate}}</p><cite>{{roarevent.filename}}&nbsp;&nbsp;<a pop href={{roarevent.media}} target=fframe><i class=\"fa fa-external-link\"></i></a></cite></div><div data-ng-transclude></div></div></div>");
 $templateCache.put("{widgetsPath}/getphd/src/phd/epubform.html","");
-$templateCache.put("{widgetsPath}/getphd/src/phd/patentReport.html","<div class=\"card card-primary card-block btn-glass drop-target\" style=\"border: 2px dashed blue;margin: 5px;\" ng-show=p.showconfig><button class=\"row btn btn-glass btn-primary img img-rounded\" style=width:100%;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row; ng-click=\"p.showform = !p.showform\" ng-class=\"{\'btn-success\': (main.progress == 100),\'btn-danger\':(main.progress === \'failed\')}\"><img src=https://lexlab.firebaseapp.com/img/GoldLion.svg class=\"img img-rounded pull-right\" style=max-height:100px; ng-if=!main.progress></button><div pageslide ps-open=p.showform ps-key-listener=true ps-side=left ps-class=\"card-dark btn-glass\" ps-size=400px style=overflow-x:visible;overflow-y:scroll;><div ng-include=\"\'/getphdwidget/src/phd/step-3.html\'\"></div><hr></div></div><div class=\"container-fluid card-fancy\" style=width:98%;margin:1%;height:98%;overflow:scroll; ng-if=!p.showconfig><div class=\"col-xs-4 col-sm-3 col-1\"><div class=card><img ng-src=/patents/US{{patent.id}}/preview class=\"img img-responsive img-shadow\" style=max-height:300px;width:auto; ng-dblclick=\"p.showform = !p.showform\"><div class=card-block><h2 class=\"card-title text-NOA\">US <a class=\"pop text-NOA\" ng-href={{patent.media}}><strong ng-bind=\"patent.id | number:0\"></strong></a></h2><table><tbody><tr><td><label>Issued:</label></td><td>{{patent.issued|date}}</td></tr><tr><td><label>USSN</label></td><td>{{patent.application_number | application}}</td></tr><tr><td><label>Filed:</label></td><td>{{patent.dateSubmitted|date}}</td></tr><tr><td><label>Title:</label></td><td>{{patent.title}}</td></tr><tr><td><label>Inventor(s):</label></td><td>{{patent.inventor}}</td></tr><tr><td><label>Original Assignee:</label></td><td>{{patent.assignee}}</td></tr></tbody></table></div></div></div><div class=\"card col-xs-8 col-sm-9\"><div><uib-tabset class=\"panel panel-default panel-heading\"><uib-tab heading=Abstract><div class=\"bs-callout bs-callout-reverse bs-callout-NOA\"><h4 ng-bind=patent.title>Reprehenderit aute proident cupidatat exercitation officia incididunt culpa ullamco.</h4><p ng-bind=patent.abstract>Culpa enim minim amet proident sunt aliqua ex irure ex sunt eiusmod ut consectetur. Minim esse in tempor reprehenderit esse cupidatat adipisicing ipsum eiusmod. Ea commodo nisi enim esse et ut. Minim laborum irure eiusmod Lorem consequat duis labore deserunt ullamco velit enim ut. Aliquip tempor non amet aliqua cillum sit amet commodo aliqua sint nisi. Fugiat ex irure qui et in qui velit commodo ipsum. Non cupidatat laboris culpa ipsum culpa velit.</p></div></uib-tab><uib-tab><uib-tab-heading>Drawings <label class=\"label label-pill label-success\">{{patent.drawings.length}}</label></uib-tab-heading><div class=showscroll style=\"margin: 5px 5px;display:flex;flex-wrap:wrap;flex-direction:row;\"><a ng-repeat=\"link in patent.drawings\" pop=true ng-click=main.pop(link) class=btn style=margin:2px;><img ng-src={{patent.thumbnails[$index]}} class=\"img img-shadow\"></a></div></uib-tab><uib-tab heading=Description><uib-tab-content style=width:98%;margin:1%;height:98%;overflow:scroll;><p class=\"card card-block\" ng-bind-html=\"patent.text | trustAsHTML\"></p></uib-tab-content></uib-tab><uib-tab><uib-tab-heading>Claims <label class=\"label label-pill label-info\">{{patent.claim_total}}</label></uib-tab-heading><uib-tab-content style=width:98%;margin:1%;height:98%;overflow:scroll;><fieldset class=material><input ng-model=query id=patterninput><hr><label>Search</label></fieldset><d3pendingtree patent={{config.PNUM}} pattern={{query}} tree=tree></d3pendingtree><claimtree tree=tree query=query></claimtree></uib-tab-content></uib-tab><uib-tab heading=Citations><uib-tab-heading>Citations <label class=\"label label-pill label-warning\">{{patent.references.length}}</label></uib-tab-heading><uib-tab-content style=width:98%;margin:1%;height:98%;overflow:scroll;><table ng-bind-html=\"patent.backward_citations | citationcheck| highlight: query| trustAsHTML\" class=\"card img-shadow card-block table table-condensed table-stripped table-hover table-responsive\" style=\"color:#444 !important;\"></table><table ng-bind-html=\"patent.forward_citations | citationcheck | highlight: query | trustAsHTML\" class=\"card img-shadow card-block table table-condensed table-stripped table-hover table-responsive\" style=\"color:#444 !important;\"></table></uib-tab-content></uib-tab><uib-tab heading=Corrections/Fees/Assignments><table ng-bind-html=\"patent.legal | highlight: query | trustAsHTML\" class=\"card img-shadow card-block table table-condensed table-stripped table-hover table-responsive\" style=\"color:#444 !important;\"></table></uib-tab></uib-tabset></div></div></div>");
+$templateCache.put("{widgetsPath}/getphd/src/phd/patentReport.html","<div class=\"card card-primary card-block btn-glass drop-target\" style=\"border: 2px dashed blue;margin: 5px;\" ng-show=p.showconfig><button class=\"row btn btn-glass btn-primary img img-rounded\" style=width:100%;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row; ng-click=\"p.showform = !p.showform\" ng-class=\"{\'btn-success\': (main.progress == 100),\'btn-danger\':(main.progress === \'failed\')}\"><img src=https://lexlab.firebaseapp.com/img/GoldLion.svg class=\"img img-rounded pull-right\" style=max-height:100px; ng-if=!main.progress></button><div pageslide ps-open=p.showform ps-key-listener=true ps-side=left ps-class=\"card-dark btn-glass\" ps-size=400px style=overflow-x:visible;overflow-y:scroll;><div ng-include=\"\'/getphdwidget/src/phd/step-3.html\'\"></div><hr></div></div><div class=\"container-fluid card-fancy\" style=width:98%;margin:1%;height:98%;overflow:scroll; ng-if=!p.showconfig><div class=\"col-xs-4 col-sm-3 col-1\"><div class=card><img ng-src=/patents/US{{patent.id}}/preview class=\"img img-responsive img-shadow\" style=max-height:300px;width:auto; ng-dblclick=\"p.showform = !p.showform\"><div class=card-block><h2 class=\"card-title text-NOA\">US <a class=\"pop text-NOA\" ng-href={{patent.media}}><strong ng-bind=\"patent.id | number:0\"></strong></a></h2><table><tbody><tr><td><label>Issued:</label></td><td>{{patent.issued|date}}</td></tr><tr><td><label>USSN</label></td><td>{{patent.application_number | application}}</td></tr><tr><td><label>Filed:</label></td><td>{{patent.dateSubmitted|date}}</td></tr><tr><td><label>Title:</label></td><td>{{patent.title}}</td></tr><tr><td><label>Inventor(s):</label></td><td>{{patent.inventor}}</td></tr><tr><td><label>Original Assignee:</label></td><td>{{patent.assignee}}</td></tr></tbody></table></div></div></div><div class=\"card col-xs-8 col-sm-9\"><div><uib-tabset class=\"panel panel-default panel-heading\"><uib-tab heading=Abstract><div class=\"bs-callout bs-callout-reverse bs-callout-NOA\"><h4 ng-bind=patent.title>Reprehenderit aute proident cupidatat exercitation officia incididunt culpa ullamco.</h4><p ng-bind=patent.abstract>Culpa enim minim amet proident sunt aliqua ex irure ex sunt eiusmod ut consectetur. Minim esse in tempor reprehenderit esse cupidatat adipisicing ipsum eiusmod. Ea commodo nisi enim esse et ut. Minim laborum irure eiusmod Lorem consequat duis labore deserunt ullamco velit enim ut. Aliquip tempor non amet aliqua cillum sit amet commodo aliqua sint nisi. Fugiat ex irure qui et in qui velit commodo ipsum. Non cupidatat laboris culpa ipsum culpa velit.</p></div></uib-tab><uib-tab><uib-tab-heading>Drawings <label class=\"label label-pill label-success\">{{patent.drawings.length}}</label></uib-tab-heading><div class=showscroll style=\"margin: 5px 5px;display:flex;flex-wrap:wrap;flex-direction:row;\"><a ng-repeat=\"link in patent.drawings\" pop=true ng-click=main.pop(link) class=btn style=margin:2px;><img ng-src={{patent.thumbnails[$index]}} class=\"img img-shadow\"></a></div></uib-tab><uib-tab heading=Description><uib-tab-content style=width:98%;margin:1%;height:98%;overflow:scroll;><p class=\"card card-block\" ng-bind-html=\"patent.text | trustAsHTML\"></p></uib-tab-content></uib-tab><uib-tab><uib-tab-heading>Claims <label class=\"label label-pill label-success\">{{patent.claim_total}}</label> <label class=\"label label-pill label-info\">{{patent.application_data.claim_total}}</label></uib-tab-heading><uib-tab-content class=container-fluid><uib-tabset type=pills justified=true><uib-tab heading=\"{{patent.pub | published_application}}\"><fieldset class=material><input ng-model=query id=patterninput><hr><label>Search</label></fieldset><d3pendingtree patent={{config.IPAYEAR+config.IPANUM}} pattern={{query}}></d3pendingtree><claimtree tree=patent.application_data query=query></claimtree></uib-tab><uib-tab heading=\"{{patent.id | number:0}}\"><fieldset class=material><input ng-model=query id=patterninput><hr><label>Search</label></fieldset><d3pendingtree patent={{config.PNUM}} pattern={{query}}></d3pendingtree><claimtree tree=patent query=query></claimtree></uib-tab></uib-tabset></uib-tab-content></uib-tab><uib-tab heading=Citations><uib-tab-heading>Citations <label class=\"label label-pill label-warning\">{{patent.references.length}}</label></uib-tab-heading><uib-tab-content style=width:98%;margin:1%;height:98%;overflow:scroll;><table ng-bind-html=\"patent.backward_citations | highlight: query| trustAsHTML\" class=\"card img-shadow card-block table table-condensed table-stripped table-hover table-responsive\" style=\"color:#444 !important;\"></table><table ng-bind-html=\"patent.forward_citations | highlight: query | trustAsHTML\" class=\"card img-shadow card-block table table-condensed table-stripped table-hover table-responsive\" style=\"color:#444 !important;\"></table></uib-tab-content></uib-tab><uib-tab heading=Corrections/Fees/Assignments><table ng-bind-html=\"patent.legal | highlight: query | trustAsHTML\" class=\"card img-shadow card-block table table-condensed table-stripped table-hover table-responsive\" style=\"color:#444 !important;\"></table></uib-tab></uib-tabset></div></div></div>");
 $templateCache.put("{widgetsPath}/getphd/src/phd/step-1.html","<div class=\"panel panel-primary\" style=margin:0rem;margin-left:-0.75rem;overflow:visible;><div class=\"panelhead2 panel-heading btn-primary btn-glass clearfix\" style=margin-right:-1rem;border-top-left-radius:0rem;border-bottom-left-radius:0rem;border-top-right-radius:2rem;border-bottom-right-radius:2rem;display:flex;justify-content:flex-start;align-items:center;align-content:center;><div class=pull-right style=display:flex;flex-direction:column;align-items:flex-start;justify-content:space-around;align-self:flex-end;><img src=/llp_core/img/GoldLogoLong.svg class=img style=height:25px;> <img src=/llp_core/img/GoldPhdLogoLong.svg class=img style=height:10px;padding-left:2px;></div><img src=/llp_core/img/GoldLion.svg class=\"img lionlogofilter pull-left\" style=\"width:auto;height: 50px;align-self:flex-start;margin-left:75px;;margin-top:-10px;\"></div><div class=panel-body style=height:80vh;overflow:scroll;><blockquote class=\"bs-callout bs-callout-primary card-header\" style=margin:0; ng-hide=response><p class=\"text-muted text-left\" style=text-align:left;font-size:10px;>Use the following fields to automatically download U.S. utility patents and published patent applications from Google Patents, and to automatically download prosecution histories from the <a href=\"https://www.uspto.gov/\" uib-tooltip=\"United States Patent & Trademark Office official site\" tooltip-trigger=mouseenter>USPTO</a> public data-proxy-repositors, <a href=\"https://www.google.com/patents/\" uib-tooltip=\"Google Patents\" tooltip-trigger=mouseenter>Google</a> & <a href=\"http://www.reedtech.com/\" uib-tooltip=ReedTech tooltip-trigger=mouseenter>ReedTech</a>. To automatically download and parse a prosecution history, simply click on the LEO (lion) icon at the far-bottom, far-right of this Panel. Alternatively, you can click either of the buttons labelled \"ReedTech\" or \"Google\" to automatically download a .zip file from the respective sources to your Downloads folder. To parse the prosecution history, you can then drag over the Patent PhD Panel to the right of this Panel on the main screen, and drop the file within the dropzone once it has become marked by a dotted border. The .zip file will then automatically upload to our servers. LEO will generate a Patent PhD Report (directly upon selecting the LEO icon, or upon placing a .zip file in the Patent PhD Panel) and return it to the main display screen for your review.</p></blockquote><blockquote class=\"bs-callout bs-callout-Applicant card-header\" style=margin:0; ng-show=response><h4>{{response.title}} <small class=text-muted>{{response.claim_total}} Claims</small></h4><p class=\"text-muted text-left\" style=text-align:left;font-size:10px;>{{response.abstract}}</p></blockquote><blockquote class=\"bs-callout bs-callout-NOA card-header\" style=text-align:left;margin:0;><h4 class=card-title style=text-align:left;font-size:12px;><label for=patentnumber class=\"card-text text-muted\"><strong>Enter US Patent Number</strong></label></h4><fieldset class=\"material Applicant\"><input type=number placeholder=\"Patent #\" ng-model=config.PNUM ng-blur=main.remoteconfig(config.PNUM)><hr><label>Enter a Patent Number</label> <button class=\"btn btn-default right\" tooltip-trigger=mouseenter uib-tooltip=\"Download Patent\" ng-click=main.getpatentdownload(config.PNUM);><span class=\"text-success fa fa-2x fa-download\"></span></button></fieldset></blockquote><blockquote class=\"bs-callout bs-callout-Petition card-header\" style=text-align:left;margin:0;><h4 class=card-title style=text-align:left;font-size:12px;><label for=publishedapplication class=\"card-text text-muted\"><strong>Enter Year of Publication and Published Application Number</strong></label></h4><div class=input-group><input type=number placeholder=YYYY style=\"max-width:10rem;padding:0.75rem;font-size:14px;font-family:\'Helvetica\',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;border-top-left-radius:1rem;border-bottom-left-radius:1rem;\" ng-model=config.IPAYEAR maxlength=4> <input type=text placeholder=\"# PA\" style=\"padding:0.75rem;font-size:14px;font-family:\'Helvetica\',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;\" ng-model=config.IPANUM> <button class=\"btn btn-default\" ng-click=\"main.getpublishedapplication(config.IPAYEAR, config.IPANUM)\"><span class=\"text-warning fa fa-download fa-2x\"></span></button></div></blockquote><blockquote class=\"bs-callout bs-callout-PTO card-header\" style=text-align:left;margin:0;><h4 class=card-title style=text-align:left;font-size:12px;><label class=\"card-text text-muted\">Enter US Application Serial Number</label></h4><div class=input-group><form name=application><input type=text placeholder=\"Application #\" ng-model=config.appnum style=\"padding:0.75rem;font-size:14px;font-family:\'Helvetica\',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);\" ng-pattern=\\d+> <button class=\"btn btn-default right text-PTO\" ng-click=\"main.getfilehistory(config.appnum,\'reedtech\')\" uib-tooltip=\"DOWNLOAD FROM REEDTECH\" tooltip-placement=right title=\"DOWNLOAD FILE HISTORY FROM REEDTECH\" tooltip-animation=true><span id=reedtechbutton class=\"fa fa-2x fa-file-zip-o text-PTO\"></span>ReedTech</button> <button class=\"btn btn-default right text-PTO\" ng-click=\"main.getfilehistory(config.appnum,\'google\')\" uib-tooltip=\"DOWNLOAD FROM GOOGLE\" tooltip-placement=right title=\"DOWNLOAD FILE HISTORY FROM GOOGLE\" tooltip-animation=true><span id=googlebutton class=\"text-PTO fa fa-2x fa-file-zip-o\"></span>Google</button> <button class=\"btn btn-default\" ng-click=main.remotezip(config.appnum) uib-tooltip=\"TRY AUTO DOWNLOAD **experimental\" tooltip-placement=right title=\"TRY AUTO DOWNLOAD* (**experimental**)\" tooltip-animation=true style=width:35px;height:35px;padding:0;><img src=/llp_core/img/GoldLion.svg style=width:35px;height:35px;></button></form></div></blockquote></div></div>");
 $templateCache.put("{widgetsPath}/getphd/src/phd/step-2.html","<div class=\"card card-warning\" style=margin:0.5rem;><div class=card-header><h6 class=card-title>+PhD Step 2 - Download Image File Wrapper</h6></div><div class=card-text><input type=text placeholder=\"Application #\" ng-model=config.appnum><div class=row><a class=\"btn btn-warning fa fa-download\" href=https://storage.googleapis.com/uspto-pair/applications/{{config.appnum}}.zip target=_blank data-toggle=popover data-placement=bottom title=\"DOWNLOAD FROM GOOGLE\" data-content data-animation=true data-trigger=hover style=color:white; onclick=\"window.open(this.href, \'\', \'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150\'); return false;\" ng-click=\"main.remotezip(config.appnum, this.href)\">from Google</a> <a class=\"btn btn-warning fa fa-download\" href=https://patents.reedtech.com/downloads/pair/{{config.appnum}}.zip target=_blank data-toggle=popover data-placement=bottom title=\"DOWNLOAD FROM REEDTECH\" data-content data-animation=true data-trigger=hover style=color:white; onclick=\"window.open(this.href, \'\', \'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=300,top=150\'); return false;\" ng-click=\"main.remotezip(config.appnum, this.href)\">from ReedTech</a></div></div></div>");
-$templateCache.put("{widgetsPath}/getphd/src/phd/step-3.html","<blockquote class=\"bs-callout bs-callout-NOA card-header\" style=text-align:left;margin:0;><h4 class=card-title style=text-align:left;font-size:12px;><label for=patentnumber class=\"card-text text-muted\"><strong>Enter US Patent Number</strong></label></h4><fieldset class=\"material Applicant\" style=max-width:80%;><input type=number placeholder=\"Patent #\" ng-model=config.PNUM><hr><label>Enter a Patent Number</label></fieldset><button class=\"input-group-addon btn btn-default right\" tooltip-trigger=mouseenter uib-tooltip=\"Download Patent\" ng-click=p.getdata(config.PNUM);><span class=\"text-success fa fa-5x fa-download\"></span></button></blockquote><blockquote class=\"bs-callout bs-callout-Petition card-header\" style=text-align:left;margin:0;><h4 class=card-title style=text-align:left;font-size:12px;><label for=publishedapplication class=\"card-text text-muted\"><strong>Enter Year of Publication and Published Application Number</strong></label></h4><div class=input-group><fieldset class=\"material Petition\" style=max-width:33%;><input type=number placeholder=YYYY ng-model=config.IPAYEAR maxlength=4><hr><label>YEAR</label></fieldset><fieldset class=\"material Petition\" style=max-width:50%;><input type=text placeholder=\"# PA\" ng-model=config.IPANUM><hr><label>NUMBER</label></fieldset><button class=\"input-group-addon btn btn-default\" ng-click=p.getdata(config.IPAYEAR+config.IPANUM)><span class=\"text-warning fa fa-download fa-5x\"></span></button></div></blockquote>");}]);
+$templateCache.put("{widgetsPath}/getphd/src/phd/step-3.html","<div class=card-block><blockquote class=\"card-header bs-callout bs-callout-NOA\" style=text-align:left;margin:0;><h4 class=card-title style=text-align:left;font-size:12px;><label for=patentnumber class=\"card-text text-muted\"><strong>Enter US Patent Number</strong></label></h4><fieldset class=\"material Applicant\" style=max-width:80%;><input type=number placeholder=\"Patent #\" ng-blur=collection.$save() ng-model=config.PNUM><hr><label>Enter a Patent Number</label></fieldset><button class=\"input-group-addon btn btn-default right\" tooltip-trigger=mouseenter uib-tooltip=\"Download Patent\" ng-click=p.getp(config.PNUM);><span class=\"text-success fa fa-5x fa-download\"></span></button></blockquote><blockquote class=\"card-header bs-callout bs-callout-Petition\" style=text-align:left;margin:0;><h4 class=card-title style=text-align:left;font-size:12px;><label for=publishedapplication class=\"card-text text-muted\"><strong>Enter Year of Publication and Published Application Number</strong></label></h4><div class=input-group><fieldset class=\"material Petition\" style=max-width:33%;><input type=number placeholder=YYYY ng-model=config.IPAYEAR maxlength=4><hr><label>YEAR</label></fieldset><fieldset class=\"material Petition\" style=max-width:50%;><input type=text placeholder=\"# PA\" ng-model=config.IPANUM><hr><label>NUMBER</label></fieldset><button class=\"input-group-addon btn btn-default\" ng-click=p.getdata(config.IPAYEAR+config.IPANUM)><span class=\"text-warning fa fa-download fa-5x\"></span></button></div></blockquote></div>");}]);
 
 angular.module('textSizeSlider', [])
     .directive('textSizeSlider', ['$document', function($document) {
@@ -1645,19 +1728,20 @@ var wraptail = ckender;
                               collection_type: 'source',
                               description: 'for US ' + phd.patent.id,
                               styleClass: options.styleClass,
+                              sortOrder: options.sortOrder,
                               icon: options.icon,
                               app: phd.application['Application Number'],
                               content_type: 'collection',
                               /*titleTemplateUrl: '/llp_core/modules/roarmap/directive/roargrid/roargrid-title.html',*/
-                              rows:[{styleClass:'row slate',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',title: options.rid + ' - ' + 'USSN ' + phd.application['Application Number'],styleClass: options.styleClass || 'btn-dark',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]
+                              rows:[{styleClass:'row leather',columns:[{cid:n+10,styleClass:'col-sm-12',widgets:[{type:'pagebuilder',title: options.rid + ' - ' + 'USSN ' + phd.application['Application Number'],styleClass: options.styleClass || 'btn-dark',config:{id:'PROMISE',url:'/llp_core/modules/roarmap/directive/roargrid/roargrid.html'}}]}]}]
 
                           };
                         return binder;
                      };
-                   var phdall = { rid: 'PHD1', title: 'ALL', styleClass: 'NOA', icon: 'fa-legal' },
-                     phdmerits = { rid: 'PHD4', title: 'MERITS', styleClass: 'PTO', icon: 'fa-balance-scale' },
-                     phdart = { rid: 'PHD2', title: 'ART', styleClass: 'Petition', icon: 'fa-leaf' },
-                     phdclaims = { rid: 'PHD3', title: 'CLAIMS', styleClass: 'Applicant', icon: 'fa-sitemap'};
+                   var phdall = { rid: 'PHD1', title: 'ALL', styleClass: 'NOA', icon: 'fa-legal', sortOrder: 1 },
+                     phdmerits = { rid: 'PHD4', title: 'MERITS', styleClass: 'PTO', icon: 'fa-balance-scale', sortOrder: 4 },
+                     phdart = { rid: 'PHD2', title: 'ART', styleClass: 'Petition', icon: 'fa-leaf', sortOrder: 2 },
+                     phdclaims = { rid: 'PHD3', title: 'CLAIMS', styleClass: 'Applicant', icon: 'fa-sitemap', sortOrder: 3};
                      var groupids = [];
                      var groups = { all: phdall, merits: phdmerits, art: phdart, claims: phdclaims };
                      angular.forEach(groups, function (group, key) {
@@ -1975,9 +2059,14 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
          }
      }]).filter('strip', function(){
          return function(input){
-            var regex = new RegExp(/\D/);
-            if (input && angular.isString(input)){var output = input.replace(regex, '');}
+             if (input !== (null || undefined)){
+            var regex = new RegExp(/\D/ig);
+            var output = input.replace(regex, '');
             return output;
+             }
+             else{
+                 return input;
+             }
          };
      }).directive('docHeader',['$window','$document','$compile','$templateCache','Collection', function($window,$document,$compile,$templateCache,Collection){
          return {

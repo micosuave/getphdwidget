@@ -71,17 +71,32 @@
                     </uib-tab>
                     <uib-tab class="">
                         <uib-tab-heading>Claims
-                            <label class="label label-pill label-info">{{patent.claim_total}}</label>
+                            <label class="label label-pill label-success">{{patent.claim_total}}</label>
+                            <label class="label label-pill label-info">{{patent.application_data.claim_total}}</label>
                             </uib-tab-heading>
-                        <uib-tab-content style="width:98%;margin:1%;height:98%;overflow:scroll;">
+                        <uib-tab-content class="container-fluid">
+                      <uib-tabset type="pills" justified="true">
+                          <uib-tab heading="{{patent.pub | published_application}}">
                       <fieldset class="material">
                           <input ng-model="query" id="patterninput">
                           <hr>
                           <label>Search</label>
                       </fieldset>
                         <!--<d3pending set="claims" pattern="{{query}}"></d3pending>-->
-                        <d3pendingtree patent="{{config.PNUM}}" pattern="{{query}}" tree="tree"></d3pendingtree>
-                    <claimtree tree="tree" query="query"></claimtree>
+
+                        <d3pendingtree patent="{{config.IPAYEAR+config.IPANUM}}" pattern="{{query}}"></d3pendingtree>
+                        <claimtree tree="patent.application_data" query="query"></claimtree>
+                          </uib-tab>
+                          <uib-tab heading="{{patent.id | number:0}}">
+                        <fieldset class="material">
+                          <input ng-model="query" id="patterninput">
+                          <hr>
+                          <label>Search</label>
+                      </fieldset>
+                        <d3pendingtree patent="{{config.PNUM}}" pattern="{{query}}"></d3pendingtree>
+                    <claimtree tree="patent" query="query"></claimtree>
+                          </uib-tab>
+                      </uib-tabset>
                         </uib-tab-content>
                     </uib-tab>
 
@@ -90,9 +105,9 @@
                             <label class="label label-pill label-warning">{{patent.references.length}}</label>
                         </uib-tab-heading>
 <uib-tab-content style="width:98%;margin:1%;height:98%;overflow:scroll;">
-                        <table ng-bind-html="patent.backward_citations | citationcheck| highlight: query| trustAsHTML" class="card img-shadow card-block table table-condensed table-stripped table-hover table-responsive" style="color:#444 !important;"></table>
+                        <table ng-bind-html="patent.backward_citations | highlight: query| trustAsHTML" class="card img-shadow card-block table table-condensed table-stripped table-hover table-responsive" style="color:#444 !important;"></table>
 
-                        <table ng-bind-html="patent.forward_citations | citationcheck | highlight: query | trustAsHTML" class="card img-shadow card-block table table-condensed table-stripped table-hover table-responsive" style="color:#444 !important;"></table>
+                        <table ng-bind-html="patent.forward_citations | highlight: query | trustAsHTML" class="card img-shadow card-block table table-condensed table-stripped table-hover table-responsive" style="color:#444 !important;"></table>
 </uib-tab-content>
                     </uib-tab>
 <uib-tab heading="Corrections/Fees/Assignments">
