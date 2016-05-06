@@ -391,11 +391,11 @@
 
 
                </uib-tab>
-               <uib-tab >
-                    <uib-tab-heading>Issues/Rejections <label class="label label-pill label-danger">{{patent.rejectionhistory[0].length}}</label></uib-tab-heading>
+               <uib-tab ffbase="{{phd.patent.id}}">
+                    <uib-tab-heading>Issues/Rejections <label class="label label-pill label-danger">{{item.rejectionhistory[0].length}}</label></uib-tab-heading>
 
 
-                        <div ng-repeat="(key, date) in patent.rejectionhistory" class="card card-PTO ">
+                        <div ng-repeat="(key, date) in item.rejectionhistory" class="card card-PTO ">
                         <div class="card-header"><h4 class="card-title">{{key | date:long}} <a class="fa fa-ellipsis-v fa-pull-right" ng-click="this.isCollapsed = !this.isCollapsed"></a></h4></div>
                         <div class="card-block" uib-collapse="isCollapsed">
 
