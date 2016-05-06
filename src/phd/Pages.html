@@ -1,32 +1,15 @@
-<!--<label class="fa fa-tags text-info"></label>-->
-<!--<label ng-repeat="tag in matches track by $index | groupBy: 'tag'" class="fa fa-tag"> {{tag}} </label>-->
-<fieldset class="material">
-        <input type="text" placeholder="John Doe"  ng-model="query">
-        <hr>
-        <label>Search this document</label>
-    </fieldset>
 
-<ng-annotate-text text="roarevent.text | highlight: query" class="card-block" style="background-color: #fff;padding: 1rem;border-radius: 0.2rem;" annotations="roarevent.annotations" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
+<div  ng-repeat="(key, page) in roarevent.pages" class="card card-block" style="line-height:1.5;font-size:14px;">
+  <ng-annotate-text text="page | highlight: query" class="" style="background-color: #fff;padding: 1rem;border-radius: 0.2rem;" annotations="roarevent.annotations[key]" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
     tooltip-controller="'AnnotationController'" tooltip-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation-tooltip.tpl.html'" on-annotate="onAnnotate" on-annotate-delete="onAnnotateDelete" on-annotate-error="onAnnotateError"
     on-popup-show="onPopupShow" on-popup-hide="onPopupHide" popup-offset="50">
 
     </ng-annotate-text>
-<!--<div  ng-repeat="page in roarevent.pages" class="card card-block" style="line-height:1.5;font-size:14px;">
+
+
+
    <!--<uib-pager total-items="pages.length" items-per-page="1" ng-model="currentPage"></uib-pager>-->
  <!--<p ng-bind-html="page | highlight: $parent.query | trustAsHTML"></p>-->
 
-    <!--<ul>
-        <li class="card" ng-repeat="a in annotationsAsFlatList(roarevent.annotations) track by $index">
-            {{a.data.comment}}
-            <span ng-if="a.data.points">
-              ({{a.data.points}}
-              <ng-pluralize
-                  count="a.data.points"
-                  when="{'-1': 'point', '1': 'point', 'other': 'points'}"></ng-pluralize>)
-            </span>
-        </li>
-    </ul>
-    <footer style="display:flex;justify-content:center;">
-        <p style="align-self:center;color:#444;">{{$index + 1}}</p>
-    </footer>
-</div>-->
+
+</div>
