@@ -2548,6 +2548,7 @@ function pageLoaded() {
                    Collection(id).$loaded().then(function(roarevent){
                 //    roarevent.$bindTo($scope, 'roarevent');
                    $scope.roarevent = roarevent;
+                    $scope.pages = roarevent.pagesl
                     // if (angular.isUndefined($scope.roarevent.annotations)){
                     //     $scope.roarevent.annotations = [];
                     //     angular.forEach($scope.roarevent.pages, function(page, key){
