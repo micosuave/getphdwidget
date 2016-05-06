@@ -249,8 +249,8 @@ function pageLoaded() {
 });
             };*/
 
-   .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection','$txt2html','$sce','$compile',
-        function(extract, $document, $window, $rootScope, $http, Collection,$txt2html, $sce, $compile) {
+   .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection','$txt2html','$sce','$compile','toastr',
+        function(extract, $document, $window, $rootScope, $http, Collection,$txt2html, $sce, $compile, toastr) {
             return {
 
                 restrict: "A",
@@ -285,9 +285,9 @@ function pageLoaded() {
 
         $scope.onAnnotateError = function($ex) {
             if ($ex.message === "NG_ANNOTATE_TEXT_PARTIAL_NODE_SELECTED") {
-                return alertify.error("Invalid selection.");
+                return toastr.error("Invalid selection.");
             } else {
-                return alertify.error($ex);
+                return toastr.error($ex);
             }
         };
 
@@ -360,6 +360,10 @@ function pageLoaded() {
 
                     if (angular.isUndefined($scope.roarevent.annotations)){
                         $scope.roarevent.annotations = [];
+                        angular.forEach($scope.roarevent.pages, function(page, key){
+                            var pageannotations = [];
+                            $scope.roarevent.annotations.push(pageannotations);
+                        })
                     }
                     // $document.on('mouseup', function(event) {
                     // var a = $window.getSelection() || $document.getSelection();
@@ -369,7 +373,7 @@ function pageLoaded() {
                     // }
                     // });
 
-                    if (angular.isUndefined($scope.pages)){
+                    if (angular.isUndefined($scope.roarevent.pages)){
                         $scope.roarevent.pages = [];
                         // $scope.roarevent.matches = [];
                         $http.get($attr.pdfData).then(function(resp){
