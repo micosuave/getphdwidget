@@ -355,8 +355,8 @@ function pageLoaded() {
                 link: function($scope,$el,$attr,$ctrl){
                     var id = $attr.getpdftext;
                    Collection(id).$loaded().then(function(roarevent){
-                   roarevent.$bindTo($scope, 'roarevent');
-
+                //    roarevent.$bindTo($scope, 'roarevent');
+                   $scope.roarevent = roarevent;
                     // if (angular.isUndefined($scope.roarevent.annotations)){
                     //     $scope.roarevent.annotations = [];
                     //     angular.forEach($scope.roarevent.pages, function(page, key){
@@ -372,8 +372,8 @@ function pageLoaded() {
                     // }
                     // });
 
-                    if (angular.isUndefined(roarevent.pages)){
-                        roarevent.pages = [];
+                    if (angular.isUndefined($scope.roarevent.pages)){
+                        $scope.roarevent.pages = [];
                         // $scope.roarevent.matches = [];
                         $http.get($attr.pdfData).then(function(resp){
 
@@ -430,9 +430,9 @@ function pageLoaded() {
                                     text: pss.join('</p><p class="pagetext">')
                                 };
 
-                                roarevent.pages.push(pag);
+                                $scope.roarevent.pages.push(pag);
                                 });
-
+$scope.roarevent.$save();
                             };
 
 
