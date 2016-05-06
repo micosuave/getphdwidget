@@ -2593,8 +2593,8 @@ function pageLoaded() {
                                     section = section + ' ' + o.str;
                                     //}
                                 });
-                                var reg = new RegExp(/(!=[\dg])\.\s/,'gi');
-                                var pss = section.split(reg);
+                                // var reg = new RegExp(/(!=[\dg])\.\s/,'gi');
+                                // var pss = section.split(reg);
 
                                 // var psa = [];
                                 // pss.forEach(function(string, index, pss){
@@ -2609,16 +2609,9 @@ function pageLoaded() {
                                 //     psa.push(string);
                                 // });
                                 var pag = {
-                                    annotations: {
-
-                                    },
-                                    headers:{},
-                                    footers:{},
-                                    links:[],
-                                    content:{},
                                     source: page,
                                     id: $scope.roarevent.id + '-' + i,
-                                    text: pss.join('</p><p class="pagetext">')
+                                    text: section
                                 };
 
                                 $scope.roarevent.pages.push(pag);
