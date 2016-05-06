@@ -424,8 +424,7 @@ function pageLoaded() {
                                 };
 
                                 $scope.roarevent.pages.push(pag);
-                               $scope.roarevent.$save();
-                             });
+                         });
 
                             };
 
