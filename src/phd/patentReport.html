@@ -84,7 +84,7 @@
                       </fieldset>
                         <!--<d3pending set="claims" pattern="{{query}}"></d3pending>-->
 
-                        <d3pendingtree patent="{{config.IPAYEAR+config.IPANUM}}" pattern="{{query}}" style="width:75%;"></d3pendingtree>
+                        <d3pendingtree patent="{{config.IPAYEAR+config.IPANUM}}" pattern="{{query}}" style="width:400px;"></d3pendingtree>
                         <claimtree tree="patent.application_data" query="query"></claimtree>
                           </uib-tab>
                           <uib-tab heading="{{patent.id | number:0}}">
@@ -93,7 +93,7 @@
                           <hr>
                           <label>Search</label>
                       </fieldset>
-                        <d3pendingtree patent="{{config.PNUM}}" pattern="{{query}}" style="width:75%;"></d3pendingtree>
+                        <d3pendingtree patent="{{config.PNUM}}" pattern="{{query}}" style="width:400px;"></d3pendingtree>
                     <claimtree tree="patent" query="query"></claimtree>
                           </uib-tab>
                       </uib-tabset>
