@@ -358,13 +358,13 @@ function pageLoaded() {
                    $scope.roarevent = roarevent;
                     $scope.pages = $scope.roarevent.pages;
 
-                    if (angular.isUndefined($scope.roarevent.annotations)){
-                        $scope.roarevent.annotations = [];
-                        angular.forEach($scope.roarevent.pages, function(page, key){
-                            var pageannotations = [];
-                            $scope.roarevent.annotations.push(pageannotations);
-                        })
-                    }
+                    // if (angular.isUndefined($scope.roarevent.annotations)){
+                    //     $scope.roarevent.annotations = [];
+                    //     angular.forEach($scope.roarevent.pages, function(page, key){
+                    //         var pageannotations = [];
+                    //         $scope.roarevent.annotations.push(pageannotations);
+                    //     })
+                    // }
                     // $document.on('mouseup', function(event) {
                     // var a = $window.getSelection() || $document.getSelection();
                     // if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
@@ -418,8 +418,20 @@ function pageLoaded() {
                                 //     }
                                 //     psa.push(string);
                                 // });
+                                var pag = {
+                                    annotations: {
 
-                                $scope.roarevent.pages.push(pss.join('</p><p class="pagetext">'));
+                                    },
+                                    headers:{},
+                                    footers:{},
+                                    links:[],
+                                    content:{},
+                                    source: page,
+                                    id: $scope.roarevent.id + '-' + i,
+                                    text: pss.join('</p><p class="pagetext">')
+                                };
+
+                                $scope.roarevent.pages.push(pag);
 $scope.roarevent.$save();
                                 });
 

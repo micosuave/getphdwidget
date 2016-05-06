@@ -23,9 +23,9 @@
 
         </div>
         <!--<div class="col-xs-4"><img ng-src="{{background}}" class="img img-responsive img-shadow" /></div>-->
-        <div class="col-xs-4 col-sm-3">
+        <div class="col-xs-4 col-sm-3 card pull-left">
             <ul>
-        <li class="card img-shadow" ng-repeat="a in annotationsAsFlatList(roarevent.annotations) track by $index" style="border: 2.5px solid {{a.type}};">
+        <li class="card img-shadow" ng-repeat="a in annotationsAsFlatList(roarevent.pages) track by $index" style="border: 2.5px solid {{a.type}};">
             {{a.data.comment}}
             <span ng-if="a.data.points">
               ({{a.data.points}}
