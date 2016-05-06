@@ -355,8 +355,7 @@ function pageLoaded() {
                 link: function($scope,$el,$attr,$ctrl){
                     var id = $attr.getpdftext;
                    Collection(id).$loaded().then(function(roarevent){
-                   $scope.roarevent = roarevent;
-                    $scope.pages = $scope.roarevent.pages;
+                   roarevent.$bindTo($scope, 'roarevent');
 
                     // if (angular.isUndefined($scope.roarevent.annotations)){
                     //     $scope.roarevent.annotations = [];
@@ -373,10 +372,10 @@ function pageLoaded() {
                     // }
                     // });
 
-                    if (angular.isUndefined($scope.roarevent.pages)){
-                        $scope.roarevent.pages = [];
+                    if (angular.isUndefined(roarevent.pages)){
+                        roarevent.pages = [];
                         // $scope.roarevent.matches = [];
-                        $http.get($attr.pdfData).then(function(resp){
+                        $http.get(roarevent.ocrlink).then(function(resp){
 
                         PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
 
@@ -392,7 +391,7 @@ function pageLoaded() {
                         };
                         var getPageText = function(page, i) {
                             page.getTextContent().then(function(textContent) {
-                                console.log(textContent);
+                                // console.log(textContent);
                                 var section = '<p>';
                                 angular.forEach(textContent.items, function(o, key) {
 
@@ -431,8 +430,7 @@ function pageLoaded() {
                                     text: pss.join('</p><p class="pagetext">')
                                 };
 
-                                $scope.roarevent.pages.push(pag);
-$scope.roarevent.$save();
+                                roarevent.pages.push(pag);
                                 });
 
                             };
