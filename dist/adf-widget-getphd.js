@@ -2685,32 +2685,36 @@ $scope.roarevent.$save();
         // $scope.roarevents = ROARevents($stateParams.matterId);
         $scope.annotationColours = [{
             name: "Red",
-            value: "#660000"
+            value: "red"
         }, {
             name: "Green",
-            value: "#006600"
+            value: "green"
         }, {
             name: "Blue",
-            value: "steelblue"
+            value: "blue"
         }, {
             name: "Yellow",
             value: "yellow"
         }, {
             name: "Pink",
-            value: "rgba(0,0,0,0.5)"
+            value: "pink"
         }, {
             name: "Aqua",
-            value: "orange"
+            value: "aqua"
         }];
 
         $scope.templates = [{
             type: "red",
-            comment: "102b",
+            comment: "@username",
             points: -1
         }, {
             type: "aqua",
-            comment: "112 2nd¶",
-            points: -1
+            comment: "#tag",
+            points: +1
+        },{
+            type: "green",
+            comment: "+1",
+            points: +2
         }];
 
         $scope.selection = window.getSelection();
