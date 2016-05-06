@@ -357,7 +357,7 @@ function pageLoaded() {
                    Collection(id).$loaded().then(function(roarevent){
                 //    roarevent.$bindTo($scope, 'roarevent');
                    $scope.roarevent = roarevent;
-                    $scope.pages = roarevent.pagesl
+                    $scope.pages = roarevent.pages;
                     // if (angular.isUndefined($scope.roarevent.annotations)){
                     //     $scope.roarevent.annotations = [];
                     //     angular.forEach($scope.roarevent.pages, function(page, key){
@@ -391,8 +391,9 @@ function pageLoaded() {
                             }
                         };
                         var getPageText = function(page, i) {
+                            console.log(page);
                             page.getTextContent().then(function(textContent) {
-                                // console.log(textContent);
+                                console.log(textContent);
                                 var section = '<p>';
                                 angular.forEach(textContent.items, function(o, key) {
 
@@ -426,7 +427,7 @@ function pageLoaded() {
 
                                 $scope.roarevent.pages.push(pag);
                          });
-
+                         $scope.roarevent.$save();
                             };
 
 
