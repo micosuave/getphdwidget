@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
-    'fa.droppable', 'llp.parsetsv', 'roar', 'textSizeSlider', 'llp.pdf', 'LocalStorageModule', 'llp.extractpdf', 'firebase',  'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'toastr', 'mentio', 'diff', 'door3.css', 'checklist-model', 'angular-md5', 'angular.filter', 'ngFileUpload'
-]).config(function(dashboardProvider, localStorageServiceProvider) {
+    'fa.droppable', 'llp.parsetsv', 'roar', 'textSizeSlider', 'llp.pdf', 'LocalStorageModule', 'llp.extractpdf', 'firebase', 'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'toastr', 'mentio', 'diff', 'door3.css', 'checklist-model', 'angular-md5', 'angular.filter', 'ngFileUpload'
+]).config(function (dashboardProvider, localStorageServiceProvider) {
 
     localStorageServiceProvider.setPrefix('adf.getphd');
 
@@ -48,10 +48,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         //     }
         // })
         .widget('patent', {
-            title:'PatentDigest',
-            description:'analysis of patent or published application',
+            title: 'PatentDigest',
+            description: 'analysis of patent or published application',
             templateUrl: '{widgetsPath}/getphd/src/phd/patentReport.html',
-             controller: 'PatentWidgetCtrl',
+            controller: 'PatentWidgetCtrl',
             controllerAs: 'p',
             frameless: false,
             reload: false,
@@ -122,8 +122,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 })
 
-    .controller('MainCtrl', ['Collection', 'extract', 'extractzip', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope',  'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams', '$location', '$ACTIVEROAR', '$dashboards', '$interval',  '$compile', '$templateCache', '$window', '$document', '$filter','ckstarter','ckender','$firequeue',
-        function(Collection, extract, extractzip, fileReader, $http, parseTSV, $roarmap, $q, $scope,  PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, $compile, $templateCache, $window, $document, $filter, ckstarter,ckender,$firequeue) {
+    .controller('MainCtrl', ['Collection', 'extract', 'extractzip', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'PHD', 'localStorageService', 'extractpdf', 'pdfToPlainText', '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams', '$location', '$ACTIVEROAR', '$dashboards', '$interval', '$compile', '$templateCache', '$window', '$document', '$filter', 'ckstarter', 'ckender', '$firequeue',
+        function (Collection, extract, extractzip, fileReader, $http, parseTSV, $roarmap, $q, $scope, PHD, localStorageService, extractpdf, pdfToPlainText, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, $compile, $templateCache, $window, $document, $filter, ckstarter, ckender, $firequeue) {
             var main = this;
             //main.size = 'lg';
             $scope.treeFilter = $filter('uiTreeFilter');
@@ -136,14 +136,14 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     $scope.supportedFields.push(propertyName);
             };
             $scope.collapsereport = false;
-            main.collapse = function() {
+            main.collapse = function () {
                 $scope.collapsereport = !$scope.collapsereport;
             };
             //main.showupload = true;
             var config = $scope.$parent.config || $scope.$parent.$parent.config;
 
             var PHD = Collection(config.id) || Collection(config.appnum);
-            PHD.$loaded().then(function(phd) {
+            PHD.$loaded().then(function (phd) {
                 phd.$bindTo($scope, 'phd');
                 if (angular.isUndefined(phd.file)) {
                     main.showupload = true;
@@ -159,10 +159,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             main.$ACTIVEROAR = $ACTIVEROAR;
             main.tabs = [{ isActive: true, disabled: false }, { isActive: false, disabled: false }, { isActive: false, disabled: false }];
 
-            $scope.export2collection = function(eventID) {
+            $scope.export2collection = function (eventID) {
                 var projectId = $stateParams.pId;
                 var out = Collection(projectId);
-                out.$loaded().then(function(output) {
+                out.$loaded().then(function (output) {
                     if (angular.isUndefined(output.roarlist)) {
                         output.roarlist = new Array();
                         output.roarlist.push(eventID);
@@ -173,13 +173,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     }
                 });
             };
-            $scope.publish = function(phd) {
-                angular.forEach(phd.roarmap.collections, function(col, key) {
+            $scope.publish = function (phd) {
+                angular.forEach(phd.roarmap.collections, function (col, key) {
                     $scope.export2collection(col);
                     $scope.export2collection(key);
                 });
                 $scope.export2collection(config.id);
-                $publish(config.id, $scope.phd).then(function(url) { alertify.success('link to post:' + url); });
+                $publish(config.id, $scope.phd).then(function (url) { alertify.success('link to post:' + url); });
             };
 
             // $scope.configured = function () {
@@ -201,29 +201,29 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             // FILTERS
 
-              uploader.filters.push({
+            uploader.filters.push({
                 name: 'customFilter',
                 fn: function (item /*{File|FileLikeObject}*/, options) {
-                  var filename = item.filename || item.name;
+                    var filename = item.filename || item.name;
 
-                  return (filename.indexOf('.zip') > -1 && filename.indexOf('(') == -1 && filename.indexOf(' ') == -1);
+                    return (filename.indexOf('.zip') > -1 && filename.indexOf('(') == -1 && filename.indexOf(' ') == -1);
                 }
-              });
+            });
 
             // CALLBACKS
 
-            uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+            uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
                 console.info('onWhenAddingFileFailed', item, filter, options);
                 alertify.alert('The file\'s name must end with ".zip" and consist only of numbers');
                 this.queue = null;
             };
-            uploader.onAfterAddingFile = function(fileItem) {
+            uploader.onAfterAddingFile = function (fileItem) {
                 console.info('onAfterAddingFile', fileItem);
             };
-            uploader.onAfterAddingAll = function(addedFileItems) {
+            uploader.onAfterAddingAll = function (addedFileItems) {
                 console.info('onAfterAddingAll', addedFileItems);
             };
-            uploader.onBeforeUploadItem = function(item) {
+            uploader.onBeforeUploadItem = function (item) {
 
                 console.info('onBeforeUploadItem', item);
                 main.progress = 0;
@@ -232,7 +232,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 alertify.log('starting upload...');
 
             };
-            uploader.onProgressItem = function(fileItem, progress) {
+            uploader.onProgressItem = function (fileItem, progress) {
                 main.progress = progress;
                 if (progress === 10) {
                     toastr.info('fetching remote resources...');
@@ -253,25 +253,25 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 else { main.progresstype = 'info'; }
                 console.info('onProgressItem', fileItem, progress);
             };
-            uploader.onProgressAll = function(progress) {
+            uploader.onProgressAll = function (progress) {
                 console.info('onProgressAll', progress);
             };
-            uploader.onSuccessItem = function(fileItem, response, status, headers) {
+            uploader.onSuccessItem = function (fileItem, response, status, headers) {
                 console.info('onSuccessItem', fileItem, response, status, headers);
                 alertify.success(response);
                 alertify.success('File uploaded!');
 
                 $rootScope.$broadcast('UPLOADCOMPLETE', response);
             };
-            uploader.onErrorItem = function(fileItem, response, status, headers) {
+            uploader.onErrorItem = function (fileItem, response, status, headers) {
                 console.info('onErrorItem', fileItem, response, status, headers);
                 main.progress = 'failed';
                 main.progresstype = 'danger';
             };
-            uploader.onCancelItem = function(fileItem, response, status, headers) {
+            uploader.onCancelItem = function (fileItem, response, status, headers) {
                 console.info('onCancelItem', fileItem, response, status, headers);
             };
-            uploader.onCompleteItem = function(fileItem, response, status, headers) {
+            uploader.onCompleteItem = function (fileItem, response, status, headers) {
                 console.info('onCompleteItem', fileItem, response, status, headers);
                 alertify.success(response);
                 // main.handleFiles(main.bufferedfile);
@@ -282,7 +282,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                 //         }, 5000);
             };
-            uploader.onCompleteAll = function() {
+            uploader.onCompleteAll = function () {
                 console.info('onCompleteAll');
             };
 
@@ -294,14 +294,14 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 main.progresstwo = 0;
                 main.progressdisplay = 1;
                 main.extractedfiles = length;
-                $interval(function() {
+                $interval(function () {
                     main.progressdisplay++;
                 }, 200, length);
 
 
             };
             main.treeFilter = $filter('uiTreeFilter');
-            main.toggle = function() {
+            main.toggle = function () {
                 main.checked = !main.checked;
             };
             main.phd = {};
@@ -341,10 +341,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 }];
             // var phd = $scope.phd;
 
-            main.parse = function(files) {
+            main.parse = function (files) {
 
                 var deffered = $q.defer();
-                angular.forEach(files, function(file, key) {
+                angular.forEach(files, function (file, key) {
                     try {
                         //main.post(file);
                     } catch (ex) {
@@ -357,7 +357,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             var outerarray = parseTSV(file.file, { skipEmptyLines: true });
 
                             var newobj = {};
-                            angular.forEach(outerarray, function(innerarray, key) {
+                            angular.forEach(outerarray, function (innerarray, key) {
                                 if (innerarray[0] == 'Class / Subclass') {
                                     newobj['Class Subclass'] = innerarray[1];
                                 } else {
@@ -407,19 +407,19 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             main.checked = false;
 
 
-            main.getpatentdownload = function(pnum) {
+            main.getpatentdownload = function (pnum) {
                 $(document.createElement('iframe')).attr('name', 'fframe').appendTo('body');
-                var patgoog = function(pnum) {
+                var patgoog = function (pnum) {
                     return $window.open('https://patentimages.storage.googleapis.com/pdfs/US' + pnum + '.pdf', 'fframe', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
                 }
                 patgoog(pnum);
             };
-            main.getpublishedapplication = function(y, num) {
+            main.getpublishedapplication = function (y, num) {
                 $(document.createElement('iframe')).attr('name', 'fframe').appendTo('body');
                 $window.open('https://patentimages.storage.googleapis.com/pdfs/US' + y + num + '.pdf', 'fframe', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
             };
             var wingoog, winreed;
-            main.getfilehistory = function(appnum, provider) {
+            main.getfilehistory = function (appnum, provider) {
 
                 // var winreed = function(appnum) {
                 //     return $window.open('https://patents.reedtech.com/downloads/pair/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
@@ -432,16 +432,16 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             };
 
-            main.remoteconfig = function(pnum) {
+            main.remoteconfig = function (pnum) {
                 $('#googlebutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
                 $('#reedtechbutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
-                $http.get('/getphd/patents/' + pnum).then(function(resp) {
+                $http.get('/getphd/patents/' + pnum).then(function (resp) {
                     var data = resp.data;
-//                    config.appnum = resp.data.application_number.slice(3,resp.data.application_number.length).replace('/','').replace(',','');
+                    //                    config.appnum = resp.data.application_number.slice(3,resp.data.application_number.length).replace('/','').replace(',','');
                     config.appnum = resp.data.application_number.replace(/\D/ig, '');
                     $scope.response = resp.data;
-                    var googleurl = 'https' +'://'+ 'lexlab.io' + '/proxy/storage.googleapis.com/uspto-pair/applications/'+config.appnum+'.zip';
-                    var reedtechurl = 'https' +'://'+ 'lexlab.io' + '/proxy/patents.reedtech.com/downloads/pair/'+config.appnum+'.zip';
+                    var googleurl = 'https' + '://' + 'lexlab.io' + '/proxy/storage.googleapis.com/uspto-pair/applications/' + config.appnum + '.zip';
+                    var reedtechurl = 'https' + '://' + 'lexlab.io' + '/proxy/patents.reedtech.com/downloads/pair/' + config.appnum + '.zip';
                     var optionsr = {
                         method: 'HEAD',
                         url: reedtechurl
@@ -463,22 +463,22 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         method: 'HEAD',
                         url: googleurl
                     };
-                    $http(optionsg).then(function(resp){
-                        if (resp.status !== 200){
+                    $http(optionsg).then(function (resp) {
+                        if (resp.status !== 200) {
                             $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
-                        }else if(resp.status == 200){
-                           $('#googlebutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
-                            wingoog = function(){
-                              $window.open('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
+                        } else if (resp.status == 200) {
+                            $('#googlebutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                            wingoog = function () {
+                                $window.open('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
                             };
                         }
                     });
-                    $http(optionsr).then(function(resp){
-                        if (resp.status !== 200){
+                    $http(optionsr).then(function (resp) {
+                        if (resp.status !== 200) {
                             $('#reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
-                        }else if(resp.status ==200){
-                           $('#reedtechbutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
-                            winreed = function(){
+                        } else if (resp.status == 200) {
+                            $('#reedtechbutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                            winreed = function () {
                                 $window.open('https://patents.reedtech.com/downloads/pair/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
                             };
                         }
@@ -497,10 +497,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     //     }
                     // });
 
-            });
+                });
 
             };
-            main.remotezip = function(appnum) {
+            main.remotezip = function (appnum) {
                 main.error = null;
                 main.success = null;
                 main.progress = 0;
@@ -509,7 +509,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                 config.appnum = appnum;
                 extractzip(appnum, main, uploader)
-                    .then(function(files) {
+                    .then(function (files) {
                         //    angular.forEach(files.pdffiles, function(file, key){
                         //    uploader.queue.push(file);
                         //    });
@@ -521,16 +521,16 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                         main.parse(files.tsvfiles)
 
-                            .then(function(parsedfiles) {
+                            .then(function (parsedfiles) {
 
                                 //$log.info('TSV Parsed', parsedfiles);
                                 alertify.log('TSV Parsed');
                                 //alertify.log('Building ROARmap...');
                                 $patentsearch(main.phd, config)
-                                    .then(function(patentobj) {
+                                    .then(function (patentobj) {
                                         main.phd.patent = patentobj;
                                         $roarmap(parsedfiles, main.phd, main)
-                                            .then(function(groupids) {
+                                            .then(function (groupids) {
                                                 // $scope.phd.roarmap = roarmap;
                                                 //$scope.phd.roarlist = roarmap.collections;
                                                 alertify.success('ROARmap built!');
@@ -538,24 +538,24 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                                 main.finalize(main.phd, groupids);
 
 
-                                            }, function(reason) {
+                                            }, function (reason) {
                                                 console.log(reason.message);
                                             });
 
-                                    }, function(reason) {
+                                    }, function (reason) {
                                         console.log(reason.message);
                                     });
 
 
 
 
-                            }, function(reason) {
+                            }, function (reason) {
 
                                 console.log(reason.message);
 
                             });
 
-                    }, function(reason) {
+                    }, function (reason) {
 
                         console.log(reason.messsage);
                     });
@@ -570,11 +570,11 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             };
 
-            main.format = function(ref){
-              return ref.slice(0,ref.lastIndexOf('-'));
+            main.format = function (ref) {
+                return ref.slice(0, ref.lastIndexOf('-'));
             };
 
-            main.buffer = function(file) {
+            main.buffer = function (file) {
                 main.bufferedfile = file;
             };
             // main.file = {};
@@ -582,14 +582,14 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             main.info = null;
             main.phd = {};
-            main.handleFiles = function(file) {
+            main.handleFiles = function (file) {
                 main.error = null;
                 main.success = null;
                 main.progresstwo = 0;
                 main.extractedfiles = 0;
                 //toastr.success('starting extraction...');
                 extractpdf(file, config.APPNUM, main)
-                    .then(function(files) {
+                    .then(function (files) {
 
 
                         $log.info('Files extracted', files);
@@ -599,16 +599,16 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                         main.parse(files.tsvfiles)
 
-                            .then(function(parsedfiles) {
+                            .then(function (parsedfiles) {
 
                                 //$log.info('TSV Parsed', parsedfiles);
                                 alertify.log('TSV Parsed');
                                 //alertify.log('Building ROARmap...');
                                 $patentsearch(main.phd.application, config)
-                                    .then(function(patentobj) {
+                                    .then(function (patentobj) {
                                         main.phd.patent = patentobj;
                                         $roarmap(parsedfiles, main.phd, main)
-                                            .then(function(groupids) {
+                                            .then(function (groupids) {
                                                 // $scope.phd.roarmap = roarmap;
                                                 //$scope.phd.roarlist = roarmap.collections;
                                                 alertify.success('ROARmap built!');
@@ -616,31 +616,31 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                                 main.finalize(main.phd, groupids);
 
 
-                                            }, function(reason) {
+                                            }, function (reason) {
                                                 console.log(reason.message);
                                             });
 
-                                    }, function(reason) {
+                                    }, function (reason) {
                                         console.log(reason.message);
                                     });
 
 
 
 
-                            }, function(reason) {
+                            }, function (reason) {
 
                                 console.log(reason.message);
 
                             });
 
-                    }, function(reason) {
+                    }, function (reason) {
 
                         console.log(reason.messsage);
                     });
 
 
             };
-            main.pop = function(link) {
+            main.pop = function (link) {
                 var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
                 //var header = angular.element('<h4 class='splash'>' + event.rid + ' - ' + event.name + '<span class='fa fa-close btn btn-xs btn-danger' style='float: right;' onclick='$(this).parent().parent().remove()'></span></h4><h6>' + event.media + '</h6>');
                 var roarevent = { title: link.slice(link.lastIndexOf('/') + 1, link.length) };
@@ -656,7 +656,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 }).resizable();
 
             };
-            $scope.openFullScreen = function(roareventid) {
+            $scope.openFullScreen = function (roareventid) {
                 // alertify.log(roareventid);
                 // Fullscreen.toggleAll();
                 if ($scope.fullscreen !== true) {
@@ -672,14 +672,14 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 }
                 //                roar.openmodal(this);
             };
-            main.pushtoqueue = function(record){
-              var queue = $firequeue();
-              var application = record['Filename'].slice(0,record['Filename'].indexOf('-'));
-              var id = record['Filename'].slice(0,record['Filename'].lastIndexOf('-'));
-              queue.$add({'id':id,'name':id,'file':'/opt/files/public/uspto/'+application+'/'+application+'-image_file_wrapper/'+record['Filename']});
+            main.pushtoqueue = function (record) {
+                var queue = $firequeue();
+                var application = record['Filename'].slice(0, record['Filename'].indexOf('-'));
+                var id = record['Filename'].slice(0, record['Filename'].lastIndexOf('-'));
+                queue.$add({ 'id': id, 'name': id, 'file': '/opt/files/public/uspto/' + application + '/' + application + '-image_file_wrapper/' + record['Filename'] });
 
             };
-            main.poppatent = function(patent) {
+            main.poppatent = function (patent) {
                 var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
                 //var header = angular.element('<h4 class='splash'>' + event.rid + ' - ' + event.name + '<span class='fa fa-close btn btn-xs btn-danger' style='float: right;' onclick='$(this).parent().parent().remove()'></span></h4><h6>' + event.media + '</h6>');
                 var roarevent = patent;
@@ -695,7 +695,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 }).resizable();
 
             };
-            main.popdoc = function(imgrecord) {
+            main.popdoc = function (imgrecord) {
 
                 var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
                 //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
@@ -710,7 +710,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 }).resizable();
 
             };
-            main.finalize = function(phd, groupids) {
+            main.finalize = function (phd, groupids) {
                 //$scope.phd.title = $scope.phd.application['Title of Invention'];
 
                 var appnum = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
@@ -728,7 +728,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     rid: 'PHD5',
                     styleClass: 'NOA',
                     sortOrder: 5,
-                    rows:[{styleClass: 'leather',columns: [{cid:dd+5,style: 'col-sm-12', widgets:[{config: {id: dd, PNUM: phd.patent.id},type: 'patent', styleClass: 'NOA',wid: dd+10 }]}]}]
+                    rows: [{ styleClass: 'leather', columns: [{ cid: dd + 5, style: 'col-sm-12', widgets: [{ config: { id: dd, PNUM: phd.patent.id }, type: 'patent', styleClass: 'NOA', wid: dd + 10 }] }] }]
                 }
                 Collection(dd).$ref().set(patentdigest);
 
@@ -743,8 +743,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //   rid: 'PHD'
                 // });
                 phd.appnum = appnum;
-                phd.media = 'https://lexlab.io/patents/US' + phd.patent.id +'/preview';
-                phd.title = 'PhD for ' + $filter('number')(phd.patent.id );
+                phd.media = 'https://lexlab.io/patents/US' + phd.patent.id + '/preview';
+                phd.title = 'PhD for ' + $filter('number')(phd.patent.id);
                 phd.description = 'USSN ' + phd.application['Application Number'];
                 phd.styleClass = 'Applicant';
                 phd.rid = 'PHD';
@@ -754,7 +754,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 // dashboardsref.update(phd);
                 //dashboardsref.child('roarlist').child($stateParams.pageid).set($stateParams.pageid);
 
-                angular.forEach(groupids, function(id, key) {
+                angular.forEach(groupids, function (id, key) {
                     /*-- create internal report pages --*/// phdref.child('roarlist').child(id).set(id);
                     phd.roarlist[id] = id;
                     /*-- create pages in tab/binder--*/
@@ -788,12 +788,12 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             };
 
-            main.pdFF = function(filesobj) {
+            main.pdFF = function (filesobj) {
                 var deferred = $q.defer();
-                angular.forEach(filesobj, function(file, key) {
+                angular.forEach(filesobj, function (file, key) {
                     if (file && (file.name.indexOf('.pdf') > -1)) {
 
-                        pdfToPlainText(file).then(function(pdf) {
+                        pdfToPlainText(file).then(function (pdf) {
                             $scope.phd.file.push(pdf);
                         });
                         // pdfToPlainText(file.asArrayBuffer()).then(function(file) {
@@ -808,7 +808,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
 
         }
-    ]).directive('ffFileSelect', [function() {
+    ]).directive('ffFileSelect', [function () {
 
         return {
             restrict: 'A',
@@ -816,9 +816,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             controllerAs: 'main',
             bindToController: true,
             scope: false,
-            link: function($scope, el, attr, ctrl) {
+            link: function ($scope, el, attr, ctrl) {
                 var main = ctrl;
-                el.on('change', function(e) {
+                el.on('change', function (e) {
 
                     main.file = (e.srcElement || e.target).files[0];
                     main.getFile();
@@ -828,9 +828,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
         };
     }])
-    .factory('$patentsearch', ['$q', 'filepickerService', '$http', '$document', 'ckstarter','ckender','$compile','$templateCache','$rootScope',function($q, filepickerService, $http, $document,ckstarter,ckender,$compile,$templateCache,$rootScope) {
+    .factory('$patentsearch', ['$q', 'filepickerService', '$http', '$document', 'ckstarter', 'ckender', '$compile', '$templateCache', '$rootScope', function ($q, filepickerService, $http, $document, ckstarter, ckender, $compile, $templateCache, $rootScope) {
 
-        return function(phdobj, config) {
+        return function (phdobj, config) {
             var deferred = $q.defer();
             if (config.PNUM && config.PNUM > 0) {
                 searchforpatent(phdobj, config.PNUM);
@@ -850,20 +850,20 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 //   media: pdfstorageuri
                 // };
 
-                var googlepage = function(patentnumber) {
+                var googlepage = function (patentnumber) {
                     filepicker.storeUrl(
                         'https://www.google.com/patents/US' + patentnumber,
                         {},
-                        function(Blob) {
+                        function (Blob) {
                             return googlepagetext(Blob);
 
                         });
                 };
-                var googlepagetext = function(Blob) {
+                var googlepagetext = function (Blob) {
                     filepicker.convert(
                         Blob,
                         { format: 'txt' },
-                        function(new_Blob) {
+                        function (new_Blob) {
                             return patent.googletext = new_Blob.url;
                         });
                 };
@@ -872,9 +872,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 filepicker.storeUrl(
                     pdfstorageuri.toString(),
                     { filename: 'US' + patentnumber + '.pdf' },
-                    function(Blob) {
+                    function (Blob) {
 
-                        $http.get('/getphd/patents/' + patentnumber).then(function(resp) {
+                        $http.get('/getphd/patents/' + patentnumber).then(function (resp) {
                             var patent = resp.data;
                             patent.number = patentnumber;
                             patent.media = Blob.url;
@@ -900,7 +900,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             var wraptail = ckender;
                             var contenttemplate = '<p class="card-text">' + patent.text + '</p>';
                             var poodle = angular.element(noatemplate);
-                            angular.forEach(patent.drawings, function(drawingurl, key) {
+                            angular.forEach(patent.drawings, function (drawingurl, key) {
                                 var image = document.createElement('img');
                                 var a = document.createElement('a');
                                 var wrap = $(image).attr('src', patent.thumbnails[key]).wrap($(a).attr('href', drawingurl).attr('target', 'fframe'));
@@ -908,7 +908,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
 
                             });
-                            patent.content = wraphead + $(poodle).html() + contenttemplate + wraptail + '<patentreport patent="'+patent.number+'"></patentreport></body></html>';
+                            patent.content = wraphead + $(poodle).html() + contenttemplate + wraptail + '<patentreport patent="' + patent.number + '"></patentreport></body></html>';
                             //var a = $rootScope.$new();
                             //a.patent = patent;
                             //phdobj.content = wraphead + $(angular.element($compile($templateCache.get('{widgetsPath}/getphd/src/phd/patentReport.html'))(a))).html();
@@ -930,25 +930,25 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
-    .factory('$pdftotxt', ['$q', 'filepickerService', 'Collection', function($q, filepickerService, Collection) {
-        return function(phd) {
+    .factory('$pdftotxt', ['$q', 'filepickerService', 'Collection', function ($q, filepickerService, Collection) {
+        return function (phd) {
             var deferred = $q.defer();
             getxt(phd);
             return deferred.promise;
 
             function getxt(phd) {
                 var meritscollectionid = phd.roarmap.collections[1].id || phd.roarmap.collections[1];
-                Collection(meritscollectionid).$loaded().then(function(collection) {
+                Collection(meritscollectionid).$loaded().then(function (collection) {
                     var mlist = collection.roarlist;
-                    angular.forEach(mlist, function(roarevent, key) {
-                        Collection(key).$loaded().then(function(roarevent) {
+                    angular.forEach(mlist, function (roarevent, key) {
+                        Collection(key).$loaded().then(function (roarevent) {
                             filepicker.storeUrl(roarevent.selflink,
                                 { filename: roarevent.filename },
-                                function(Blob) {
+                                function (Blob) {
                                     filepicker.convert(
                                         Blob,
                                         { format: 'txt' },
-                                        function(new_Blob) {
+                                        function (new_Blob) {
                                             roarevent.txt = new_Blob.url;
                                             roarevent.$save();
                                             alertify.success('text file added for' + roarevent.title);
@@ -965,37 +965,37 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
-    .directive('pop',['$compile','$templateCache',function($compile,$templateCache){
+    .directive('pop', ['$compile', '$templateCache', function ($compile, $templateCache) {
         return {
             restrict: 'AC',
-            link: function($scope,$el,$attr,$ctrl){
-                var popdoc = function() {
+            link: function ($scope, $el, $attr, $ctrl) {
+                var popdoc = function () {
 
-                var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
-                //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
-                var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
-                //var header = $('#docheader').html();
-                var skope = angular.element('<iframe/>').attr('height', '60vh').attr('src', $attr.href);
+                    var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
+                    //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
+                    var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
+                    //var header = $('#docheader').html();
+                    var skope = angular.element('<iframe/>').attr('height', '60vh').attr('src', $attr.href);
 
-                angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
-                $('.issuedocpanel').draggable({
-                    stack: '.stacker',
-                    handle: 'h4'
-                }).resizable();
-                $('img').on('dblclick', function(e){
-                    $('.issuedocpanel').remove();
-                    $scope.$destroy();
-                });
+                    angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
+                    $('.issuedocpanel').draggable({
+                        stack: '.stacker',
+                        handle: 'h4'
+                    }).resizable();
+                    $('img').on('dblclick', function (e) {
+                        $('.issuedocpanel').remove();
+                        $scope.$destroy();
+                    });
 
-            };
-                $el.on('click', function(e){
+                };
+                $el.on('click', function (e) {
                     e.preventDefault();
                     popdoc();
                 });
             }
         };
     }])
-    .directive('uploadQ', ['FileUploader', function(FileUploader) {
+    .directive('uploadQ', ['FileUploader', function (FileUploader) {
         return {
             restrict: 'EA',
             template: '<div class="card"><input type="file" nv-file-select="" uploader="uploader" multiple /> <h3>Upload queue</h3> <p>Queue length: {{ uploader.queue.length }}</p> <table class="table"> <thead> <tr> <th width="50%">Name</th> <th ng-show="uploader.isHTML5">Size</th> <th ng-show="uploader.isHTML5">Progress</th> <th>Status</th> <th>Actions</th> </tr> </thead> <tbody> <tr ng-repeat="item in uploader.queue"> <td><strong>{{ item.file.name }}</strong></td> <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td> <td ng-show="uploader.isHTML5"> <div class="progress" style="margin-bottom: 0;"> <div class="progress-bar" role="progressbar" ng-style="{ \'width\': item.progress + \'%\' }"></div> </div> </td> <td class="text-center"> <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span> <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span> <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span> </td> <td nowrap> <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess"> <span class="glyphicon glyphicon-upload"></span> Upload </button> <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading"> <span class="glyphicon glyphicon-ban-circle"></span> Cancel </button> <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()"> <span class="glyphicon glyphicon-trash"></span> Remove </button> </td> </tr> </tbody> </table> <div> <div> Queue progress: <div class="progress" style=""> <div class="progress-bar" role="progressbar" ng-style="{ \'width\': uploader.progress + \'%\' }"></div> </div> </div> <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length"> <span class="glyphicon glyphicon-upload"></span> Upload all </button> <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading"> <span class="glyphicon glyphicon-ban-circle"></span> Cancel all </button> <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length"> <span class="glyphicon glyphicon-trash"></span> Remove all </button> </div> </div>',
@@ -1003,12 +1003,12 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             controllerAs: 'uploader',
             bindToController: true,
             scope: { url: '@' },
-            link: function($scope, $elem, $attr, $ctrl) {
+            link: function ($scope, $elem, $attr, $ctrl) {
 
             }
 
         };
-    }]).controller('AppController', ['$scope', 'FileUploader', function($scope, FileUploader) {
+    }]).controller('AppController', ['$scope', 'FileUploader', function ($scope, FileUploader) {
         var uploader = $scope.uploader = new FileUploader({
             url: $scope.url || 'https://lexlab.io/upload',
             autoUpload: true
@@ -1018,67 +1018,67 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
         uploader.filters.push({
             name: 'customFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
+            fn: function (item /*{File|FileLikeObject}*/, options) {
                 return this.queue.length < 10;
             }
         });
 
         // CALLBACKS
 
-        uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+        uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
             console.info('onWhenAddingFileFailed', item, filter, options);
         };
-        uploader.onAfterAddingFile = function(fileItem) {
+        uploader.onAfterAddingFile = function (fileItem) {
             console.info('onAfterAddingFile', fileItem);
         };
-        uploader.onAfterAddingAll = function(addedFileItems) {
+        uploader.onAfterAddingAll = function (addedFileItems) {
             console.info('onAfterAddingAll', addedFileItems);
         };
-        uploader.onBeforeUploadItem = function(item) {
+        uploader.onBeforeUploadItem = function (item) {
             console.info('onBeforeUploadItem', item);
         };
-        uploader.onProgressItem = function(fileItem, progress) {
+        uploader.onProgressItem = function (fileItem, progress) {
             console.info('onProgressItem', fileItem, progress);
         };
-        uploader.onProgressAll = function(progress) {
+        uploader.onProgressAll = function (progress) {
             console.info('onProgressAll', progress);
         };
-        uploader.onSuccessItem = function(fileItem, response, status, headers) {
+        uploader.onSuccessItem = function (fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
         };
-        uploader.onErrorItem = function(fileItem, response, status, headers) {
+        uploader.onErrorItem = function (fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
         };
-        uploader.onCancelItem = function(fileItem, response, status, headers) {
+        uploader.onCancelItem = function (fileItem, response, status, headers) {
             console.info('onCancelItem', fileItem, response, status, headers);
         };
-        uploader.onCompleteItem = function(fileItem, response, status, headers) {
+        uploader.onCompleteItem = function (fileItem, response, status, headers) {
             console.info('onCompleteItem', fileItem, response, status, headers);
         };
-        uploader.onCompleteAll = function() {
+        uploader.onCompleteAll = function () {
             console.info('onCompleteAll');
         };
 
         console.info('uploader', uploader);
     }])
-    .controller('GalleryCarouselController', ['$scope', 'config', 'Collection', '$rootScope', '$ACTIVEROAR', function($scope, config, Collection, $rootScope, $ACTIVEROAR) {
+    .controller('GalleryCarouselController', ['$scope', 'config', 'Collection', '$rootScope', '$ACTIVEROAR', function ($scope, config, Collection, $rootScope, $ACTIVEROAR) {
         var gallery = this;
         var config = config;
         $scope.config = config;
         gallery.slides = [];
         if (config.id) {
-            Collection(config.id).$loaded().then(function(collection) {
-                angular.forEach(collection.roarlist, function(item, key) {
-                    Collection(item).$loaded().then(function(slide) {
+            Collection(config.id).$loaded().then(function (collection) {
+                angular.forEach(collection.roarlist, function (item, key) {
+                    Collection(item).$loaded().then(function (slide) {
                         gallery.slides.push(angular.copy(slide));
                     });
                 });
             });
         }
         else {
-            Collection($ACTIVEROAR.page).$loaded().then(function(collection) {
-                angular.forEach(collection.roarlist, function(item, key) {
-                    Collection(item).$loaded().then(function(slide) {
+            Collection($ACTIVEROAR.page).$loaded().then(function (collection) {
+                angular.forEach(collection.roarlist, function (item, key) {
+                    Collection(item).$loaded().then(function (slide) {
                         gallery.slides.push(angular.copy(slide));
                     });
                 });
@@ -1087,13 +1087,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             gallery.slides.push({ title: 'PatentPhD', media: '/llp_core/img/logolong.png' });
         }
     }])
-    .controller('GalleryCarousel', ['', function() { }]).directive('ngThumb', ['$window', function($window) {
+    .controller('GalleryCarousel', ['', function () { }]).directive('ngThumb', ['$window', function ($window) {
         var helper = {
             support: !!($window.FileReader && $window.CanvasRenderingContext2D),
-            isFile: function(item) {
+            isFile: function (item) {
                 return angular.isObject(item) && item instanceof $window.File;
             },
-            isImage: function(file) {
+            isImage: function (file) {
                 var type = '|' + file.type.slice(file.type.lastIndexOf('/') + 1) + '|';
                 return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
             }
@@ -1102,7 +1102,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         return {
             restrict: 'A',
             template: '<canvas/>',
-            link: function(scope, element, attributes) {
+            link: function (scope, element, attributes) {
                 if (!helper.support) return;
 
                 var params = scope.$eval(attributes.ngThumb);
@@ -1131,104 +1131,91 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
-    .controller('PatentWidgetCtrl',['$scope','config','$http','Collection','$q','$filter', function($scope, config,$http,Collection,$q,$filter){
+    .controller('PatentWidgetCtrl', ['$scope', 'config', '$http', 'Collection', '$q', '$filter', function ($scope, config, $http, Collection, $q, $filter) {
         var p = this;
-        p.getdata = function(input){
+        p.getdata = function (input) {
             var deferred = $q.defer();
-                $http.get('/getphd/patents/' + input).then(function (resp) {
-                    return deferred.resolve(resp.data);
-                });
-                return deferred.promise;
+            $http.get('/getphd/patents/' + input).then(function (resp) {
+                return deferred.resolve(resp.data);
+            });
+            return deferred.promise;
+        };
+        p.showconfig = false;
+        p.showform = false;
+        var collection = Collection(config.id);
+        $scope.collection = collection;
+        $scope.config = config;
+        p.configure = function (input) {
+            var trop = $filter('strip')(input);
+            config.IPAYEAR = trop.slice(0, 4);
+            config.IPANUM = trop.slice(4, trop.length);
+            return trop;
+        };
+        p.preparescope = function (apdata, pdata) {
+            pdata.application_data = apdata;
+            $scope.patent = pdata;
+            // p.claims = { class: 'super-independent', id: 'claims', text: 'claims', name: 'claims', children: pdata.claims };
+            p.showform = false;
+            p.showconfig = false;
+        };
+        p.getnew = function (input) {
+            p.getdata(input).then(function (pdata) {
+                if (pdata.pub !== undefined) {
+                    var trop = p.configure(pdata.pub);
+                    p.getdata(trop).then(function (apdata) {
+                        p.preparescope(apdata, pdata);
+                    });
+                }
+                else {
+                    p.preparescope(null, pdata);
+                }
+            });
+        };
+        p.getload = function (input) {
+            Collection(input).$loaded().then(function (pdata) {
+                if (pdata.pub !== undefined) {
+
+
+                    var trop = p.configure(pdata.pub);
+                    Collection(trop).$loaded().then(function (apdata) {
+                        p.preparescope(apdata, pdata);
+                    });
+                } else {
+                    p.preparescope(null, pdata);
+                }
+            });
         };
 
-        var collection = Collection(config.id);
-       $scope.collection = collection;
-        $scope.config = config;
-       p.getp = function(input){
-           try {
-               Collection(input).$loaded().then(function(pdata){
-                   var trop = $filter('strip')(pdata.pub);
-                   config.IPAYEAR = trop.slice(0,4);
-                   config.IPANUM = trop.slice(4,trop.length);
-                   Collection(trop).$loaded().then(function(apdata){
-                    if (apdata.id !== trop){
-                        p.getdata(trop).then(function(apdata1){
-                              p.showconfig = false;
-                    p.showform = false;
-                    pdata.application_data = apdata1;
-                    $scope.patent = pdata;
-                    p.claims = {class: 'super-independent',id:'claims',text: 'claims',name:'claims',children: apdata.claims};
-
-                        })
-                    }else{
-                       p.showconfig = false;
-                    p.showform = false;
-                    pdata.application_data = apdata;
-                    $scope.patent = pdata;
-                    p.claims = {class: 'super-independent',id:'claims',text: 'claims',name:'claims',children: apdata.claims};
-                    }
-                   })
-               })
-           }
-           catch(ex){
-            p.getdata(input).then(function(pdata){
-                    var trop = $filter('strip')(pdata.pub);
-                    p.getdata(trop).then(function(apdata){
-                   p.showconfig = false;
-                    p.showform = false;
-                    pdata.application_data = apdata;
-                    $scope.patent = pdata;
-                    p.claims = {class: 'super-independent',id:'claims',text: 'claims',name:'claims',children: apdata.claims};
-
-                });
-                });
-           }
-           finally{}
-       };
-
-        if (config.PNUM !== null){
-            // p.id = config.pnum;
-            // p.showconfig = false;
-        // try{
-        //     Collection(p.id).$loaded().then(function(data){
-        //         $scope.patent = data;
-        //          $scope.claims = {children:data.claims};
-        //     });
-        // }catch(ex){
-
-            try{
-                p.getp(config.PNUM);
-            }
-            catch(ex){
-                var combo = config.IPAYEAR + config.IPANUM;
-                p.getdata(combo);
-            }
-            finally{
-                alertify.success('loaded');
-            }
-        }
-        else{
-            p.showconfig = true;
-            p.showform = false;
-        }
+        if (config.PNUM > 1) {
+             try {
+                 p.getnew(config.PNUM);
+             }
+             catch (ex) {
+                 var combo = config.IPAYEAR + config.IPANUM;
+                // p.getdata(combo);
+             }
+             finally {
+                 alertify.success('loaded');
+             }
+         }
 
     }])
-    .directive('claimtree', function(){
+    .directive('claimtree', function () {
         return {
-          restrict: 'E',
-          templateUrl: '/getphdwidget/src/phd/claimtree.html',
-          scope: {
-              tree: '=',
-              query: '='
-          },
-          link: function($scope, $element, $attr){
+            restrict: 'E',
+            templateUrl: '/getphdwidget/src/phd/claimtree.html',
+            scope: {
+                tree: '=',
+                query: '='
+            },
+            link: function ($scope, $element, $attr) {
 
-          }
+            }
         };
     })
-    .filter('citationcheck', function(){
-        return function(input){
-            var check = function(input){
+    .filter('citationcheck', function () {
+        return function (input) {
+            var check = function (input) {
                 var regex = new RegExp(/\<a\s/ig);
                 //var matches = input.match(regex);
                 // matches.forEach(function(value, index, arra){
