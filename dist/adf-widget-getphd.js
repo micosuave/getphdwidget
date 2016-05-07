@@ -2461,28 +2461,28 @@ function pageLoaded() {
                 controller: ['$scope', 'ROARAnnotations', function ($scope, ROARAnnotations) {
 
                     $scope.onAnnotate = function ($annotation) {
-                        $scope.roarevent.$save();
-                        angular.forEach($scope.roarevent.pages, function (page, key) {
-                            if (angular.isUndefined(page.annotations)) {
-                                var annotations = [];
-                                page.annotations = annotations;
-                                $scope.roarevent.$save();
-                            } else {
-                                $scope.annotations.push(page.annotations);
-                            }
-                        });
+                        // $scope.roarevent.$save();
+                        // angular.forEach($scope.roarevent.pages, function (page, key) {
+                        //     if (angular.isUndefined(page.annotations)) {
+                        //         var annotations = [];
+                        //         page.annotations = annotations;
+                        //         $scope.roarevent.$save();
+                        //     } else {
+                        //         $scope.annotations.push(page.annotations);
+                        //     }
+                        // });
                     };
                     $scope.onAnnotateDelete = function ($annotation) {
-                        $scope.roarevent.$save();
-                        angular.forEach($scope.roarevent.pages, function (page, key) {
-                            if (angular.isUndefined(page.annotations)) {
-                                var annotations = [];
-                                page.annotations = annotations;
-                                $scope.roarevent.$save();
-                            } else {
-                                $scope.annotations.push(page.annotations);
-                            }
-                        });
+                        // $scope.roarevent.$save();
+                        // angular.forEach($scope.roarevent.pages, function (page, key) {
+                        //     if (angular.isUndefined(page.annotations)) {
+                        //         var annotations = [];
+                        //         page.annotations = annotations;
+                        //         $scope.roarevent.$save();
+                        //     } else {
+                        //         $scope.annotations.push(page.annotations);
+                        //     }
+                        // });
 
                     };
 
@@ -2553,6 +2553,9 @@ function pageLoaded() {
                     $scope.clearPopups = function () {
                         return $scope.$broadcast("ngAnnotateText.clearPopups");
                     };
+                    $scope.$on('$destroy', function(){
+                        $scope.roarevent.$save();
+                    });
 
                 }],
                 link: function ($scope, $el, $attr, $ctrl) {
