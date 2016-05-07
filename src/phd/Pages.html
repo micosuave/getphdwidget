@@ -1,6 +1,6 @@
 
 <div  ng-repeat="(key, page) in roarevent.pages" class="card card-block" style="line-height:1.5;font-size:14px;">
-  <ng-annotate-text text="page.text | highlight: roarevent.query" class="" style="background-color: #fff;padding: 1rem;border-radius: 0.2rem;" annotations="page.annotations" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
+  <ng-annotate-text text="page.text" class="" style="background-color: #fff;padding: 1rem;border-radius: 0.2rem;" annotations="page.annotations" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
     tooltip-controller="'AnnotationController'" tooltip-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation-tooltip.tpl.html'" on-annotate="onAnnotate" on-annotate-delete="onAnnotateDelete" on-annotate-error="onAnnotateError"
     on-popup-show="onPopupShow" on-popup-hide="onPopupHide" popup-offset="50">
 
