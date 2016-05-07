@@ -270,19 +270,21 @@ function pageLoaded() {
                 controller: ['$scope', 'ROARAnnotations', function ($scope, ROARAnnotations) {
 
                     $scope.onAnnotate = function ($annotation) {
-                        // $scope.roarevent.$save();
-                        // angular.forEach($scope.roarevent.pages, function (page, key) {
-                        //     if (angular.isUndefined(page.annotations)) {
-                        //         var annotations = [];
-                        //         page.annotations = annotations;
-                        //         $scope.roarevent.$save();
-                        //     } else {
-                        //         $scope.annotations.push(page.annotations);
-                        //     }
-                        // });
+                        $scope.roarevent.$save();
+                        toastr.success($annotation.data.comment);
+                        $scope.annotations.push($annotation);
+                        angular.forEach($scope.roarevent.pages, function (page, key) {
+                            if (angular.isUndefined(page.annotations)) {
+                                var annotations = [];
+                                page.annotations = annotations;
+                                $scope.roarevent.$save();
+                            } else {
+                                $scope.annotations.push(page.annotations);
+                            }
+                        });
                     };
                     $scope.onAnnotateDelete = function ($annotation) {
-                        // $scope.roarevent.$save();
+                        $scope.roarevent.$save();
                         // angular.forEach($scope.roarevent.pages, function (page, key) {
                         //     if (angular.isUndefined(page.annotations)) {
                         //         var annotations = [];
@@ -420,21 +422,21 @@ function pageLoaded() {
                                     //console.log(page);
                                     page.getTextContent().then(function (textContent) {
                                         //console.log(textContent);
-                                        var rawdata = [];
-                                        var section = '<p>';
+                                        // var rawdata = [];
+                                        var section = '';
                                         angular.forEach(textContent.items, function (o, key) {
 
                                             /* if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
                                                  section = section + ' ' +'<a id="'+$scope.roarevent.matches.length+'"><mark class="highlight" tooltip-trigger="mouseenter" uib-tooltip="'+o.str+'  [@'+key+']">' + o.str + '</mark></a>';
                                                  $scope.roarevent.matches.push(o.str);
                                              }else{*/
-                                            rawdata.push(o);
+                                            //rawdata.push(o);
                                             section = section + ' ' + o.str;
                                             //}
                                         });
 
                                         var pag = {
-                                            source: rawdata,
+                                            annotations: [{id:0,startIndex:0,endIndex:0,type:'aqua'}],
                                             id: $scope.roarevent.id + '-' + i,
                                             text: section
                                         };
