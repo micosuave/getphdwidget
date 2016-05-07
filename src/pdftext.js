@@ -326,7 +326,7 @@ function pageLoaded() {
         $scope.annotationsAsFlatList = function(annotations) {
 
             if (annotations == null) {
-                annotations = $scope.roarevent.annotations;
+                annotations = $scope.annotations;
             }
             if (!annotations.length) {
                 return [];
@@ -358,6 +358,17 @@ function pageLoaded() {
                 //    roarevent.$bindTo($scope, 'roarevent');
                    $scope.roarevent = roarevent;
                     $scope.pages = roarevent.pages;
+                    $scope.annotations = [];
+                    angular.forEach($scope.roarevent.pages, function(page, key){
+                        if (angular.isUndefined(page.annotations)){
+                            var annotations = [];
+                            page.annotations = annotations;
+                            $scope.roarevent.$save();
+                        }else{
+                            $scope.annotations.push(page.annotations);
+                        }
+                    });
+
                     // if (angular.isUndefined($scope.roarevent.annotations)){
                     //     $scope.roarevent.annotations = [];
                     //     angular.forEach($scope.roarevent.pages, function(page, key){
