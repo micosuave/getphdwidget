@@ -394,7 +394,7 @@ function pageLoaded() {
                             //console.log(page);
                             page.getTextContent().then(function(textContent) {
                                 //console.log(textContent);
-                                rawdata = [];
+                                var rawdata = [];
                                 var section = '<p>';
                                 angular.forEach(textContent.items, function(o, key) {
 
