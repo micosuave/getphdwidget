@@ -391,9 +391,10 @@ function pageLoaded() {
                             }
                         };
                         var getPageText = function(page, i) {
-                            console.log(page);
+                            //console.log(page);
                             page.getTextContent().then(function(textContent) {
-                                console.log(textContent);
+                                //console.log(textContent);
+                                rawdata = [];
                                 var section = '<p>';
                                 angular.forEach(textContent.items, function(o, key) {
 
@@ -401,6 +402,7 @@ function pageLoaded() {
                                         section = section + ' ' +'<a id="'+$scope.roarevent.matches.length+'"><mark class="highlight" tooltip-trigger="mouseenter" uib-tooltip="'+o.str+'  [@'+key+']">' + o.str + '</mark></a>';
                                         $scope.roarevent.matches.push(o.str);
                                     }else{*/
+                                    rawdata.push(o);
                                     section = section + ' ' + o.str;
                                     //}
                                 });
@@ -420,7 +422,7 @@ function pageLoaded() {
                                 //     psa.push(string);
                                 // });
                                 var pag = {
-                                    source: page,
+                                    source: rawdata,
                                     id: $scope.roarevent.id + '-' + i,
                                     text: section
                                 };
