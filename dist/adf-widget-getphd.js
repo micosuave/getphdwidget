@@ -2190,11 +2190,11 @@ var maildate = new Date(roarevent['Mail Room Date']);
             */
 
 angular.module('llp.pdf', ['LocalStorageModule'])
-    .config(["localStorageServiceProvider", function(localStorageServiceProvider) {
+    .config(["localStorageServiceProvider", function (localStorageServiceProvider) {
         localStorageServiceProvider.setPrefix('adf.getphd');
     }])
-    .factory('pdfToPlainText', ['$q', function($q) {
-        return function(pdfData) {
+    .factory('pdfToPlainText', ['$q', function ($q) {
+        return function (pdfData) {
             pdfToPlainText(pdfData);
         };
 
@@ -2211,21 +2211,21 @@ angular.module('llp.pdf', ['LocalStorageModule'])
             return deferred.promise;
         };
 
-        var getPages = function(pdf) {
+        var getPages = function (pdf) {
             for (var i = 0; i < pdf.numPages; i++) {
                 pdf.getPage(i + 1).then(getPageText);
             }
             return deffered.resolve(pdFF);
         };
         var pdFF = [];
-        var getPageText = function(page) {
+        var getPageText = function (page) {
 
-            page.getTextContent().then(function(textContent) {
+            page.getTextContent().then(function (textContent) {
                 console.log(textContent);
-                angular.forEach(textContent, function(o, key) {
+                angular.forEach(textContent, function (o, key) {
 
                     var section = '';
-                    angular.forEach(o, function(i, key) {
+                    angular.forEach(o, function (i, key) {
                         // $(sectionwrap).append(i.str + ' ');
                         section = section + i.str;
                         return section;
@@ -2440,8 +2440,8 @@ function pageLoaded() {
 });
             };*/
 
-   .directive('getpdftext', ['extract', '$document', '$window', '$rootScope','$http','Collection','$txt2html','$sce','$compile','toastr',
-        function(extract, $document, $window, $rootScope, $http, Collection,$txt2html, $sce, $compile, toastr) {
+    .directive('getpdftext', ['extract', '$document', '$window', '$rootScope', '$http', 'Collection', '$txt2html', '$sce', '$compile', 'toastr',
+        function (extract, $document, $window, $rootScope, $http, Collection, $txt2html, $sce, $compile, toastr) {
             return {
 
                 restrict: "A",
@@ -2451,285 +2451,284 @@ function pageLoaded() {
                 //controllerAs: "pdff",
                 //bindToController: true,
 
-                scope:{
-                    matches:'=?',
+                scope: {
+                    matches: '=?',
                     roarevent: '=?',
-                   // getpdftext:'@',
+                    // getpdftext:'@',
                     pdfData: '@'
 
                 },
-                controller: ['$scope','ROARAnnotations',function($scope, ROARAnnotations){
+                controller: ['$scope', 'ROARAnnotations', function ($scope, ROARAnnotations) {
 
-                    $scope.onAnnotate = function($annotation) {
-            //  ROARAnnotations($scope.roarevent.id)
-            //         .$add($annotation);
+                    $scope.onAnnotate = function ($annotation) {
+                        $scope.roarevent.$save();
+                        angular.forEach($scope.roarevent.pages, function (page, key) {
+                            if (angular.isUndefined(page.annotations)) {
+                                var annotations = [];
+                                page.annotations = annotations;
+                                $scope.roarevent.$save();
+                            } else {
+                                $scope.annotations.push(page.annotations);
+                            }
+                        });
+                    };
+                    $scope.onAnnotateDelete = function ($annotation) {
+                        $scope.roarevent.$save();
+                        angular.forEach($scope.roarevent.pages, function (page, key) {
+                            if (angular.isUndefined(page.annotations)) {
+                                var annotations = [];
+                                page.annotations = annotations;
+                                $scope.roarevent.$save();
+                            } else {
+                                $scope.annotations.push(page.annotations);
+                            }
+                        });
 
-                        // $scope.roarevent.annotations.push($annotation);
-           $scope.roarevent.$save();
+                    };
 
-        };
-        $scope.onAnnotateDelete = function($annotation) {
-           $scope.roarevent.$save();
+                    $scope.onAnnotateError = function ($ex) {
+                        if ($ex.message === "NG_ANNOTATE_TEXT_PARTIAL_NODE_SELECTED") {
+                            return toastr.error("Invalid selection.");
+                        } else {
+                            return toastr.error($ex);
+                        }
+                    };
 
+                    $scope.onPopupShow = function ($el) {
+                        var firstInput;
+                        firstInput = $el.find("input, textarea").eq(0).focus();
+                        var a = window.getSelection();
+                        if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
+                            var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
+                            $scope.data.selection = text;
+                        }
+                        // if (selection) {
+                        //     $scope.data.selection = selection;
+                        // }
 
-        };
+                        $('.ng-annotate-text-popup').draggable({
+                            scroll: true,
+                            cursor: 'move',
+                            handle: '.roareventcardtab',
+                            stack: '.ng-annotate-text-popup',
+                            constrain: 'scroll'
+                        }).resizable();
+                        return firstInput && firstInput[0].select();
+                    };
 
-        $scope.onAnnotateError = function($ex) {
-            if ($ex.message === "NG_ANNOTATE_TEXT_PARTIAL_NODE_SELECTED") {
-                return toastr.error("Invalid selection.");
-            } else {
-                return toastr.error($ex);
-            }
-        };
+                    $scope.hasPoints = function (points) {
+                        var _isNaN;
+                        _isNaN = Number.isNaN || isNaN;
+                        return typeof points === "number" && points !== 0 && !_isNaN(points);
+                    };
 
-        $scope.onPopupShow = function($el) {
-            var firstInput;
-            firstInput = $el.find("input, textarea").eq(0).focus();
-            var a = window.getSelection();
-            if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
-                        var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
-                        $scope.data.selection = text;
-                }
-            // if (selection) {
-            //     $scope.data.selection = selection;
-            // }
+                    $scope.hasComment = function (comment) {
+                        return typeof comment === "string" && comment.length > 0;
+                    };
 
-            $('.ng-annotate-text-popup').draggable({
-                scroll: true,
-                cursor: 'move',
-                handle: '.roareventcardtab',
-                stack: '.ng-annotate-text-popup',
-                constrain: 'scroll'
-            }).resizable();
-            return firstInput && firstInput[0].select();
-        };
+                    $scope.annotationsAsFlatList = function (annotations) {
 
-        $scope.hasPoints = function(points) {
-            var _isNaN;
-            _isNaN = Number.isNaN || isNaN;
-            return typeof points === "number" && points !== 0 && !_isNaN(points);
-        };
-
-        $scope.hasComment = function(comment) {
-            return typeof comment === "string" && comment.length > 0;
-        };
-
-        $scope.annotationsAsFlatList = function(annotations) {
-
-            if (annotations == null) {
-                annotations = $scope.annotations;
-            }
-            if (!annotations.length) {
-                return [];
-            } else {
-                return annotations.map(function(annotation) {
-                    var arr;
-                    arr = [];
-                    if ($scope.hasPoints(annotation.data.points) && $scope.hasComment(annotation.data.comment)) {
-                     arr.push(annotation);
-                    }
-                    if (annotation.children && annotation.children.length) {
-                     arr = arr.concat($scope.annotationsAsFlatList(annotation.children));
-                    }
-                    // arr.push(annotation);
-                    return arr;
-                }).reduce(function(prev, current) {
-                    return prev.concat(current);
-                });
-            }
-        };
-        $scope.clearPopups = function() {
-            return $scope.$broadcast("ngAnnotateText.clearPopups");
-        };
+                        if (annotations == null) {
+                            annotations = $scope.annotations;
+                        }
+                        if (!annotations.length) {
+                            return [];
+                        } else {
+                            return annotations.map(function (annotation) {
+                                var arr;
+                                arr = [];
+                                if ($scope.hasPoints(annotation.data.points) && $scope.hasComment(annotation.data.comment)) {
+                                    arr.push(annotation);
+                                }
+                                if (annotation.children && annotation.children.length) {
+                                    arr = arr.concat($scope.annotationsAsFlatList(annotation.children));
+                                }
+                                // arr.push(annotation);
+                                return arr;
+                            }).reduce(function (prev, current) {
+                                return prev.concat(current);
+                            });
+                        }
+                    };
+                    $scope.clearPopups = function () {
+                        return $scope.$broadcast("ngAnnotateText.clearPopups");
+                    };
 
                 }],
-                link: function($scope,$el,$attr,$ctrl){
+                link: function ($scope, $el, $attr, $ctrl) {
                     var id = $attr.getpdftext;
-                   Collection(id).$loaded().then(function(roarevent){
-                //    roarevent.$bindTo($scope, 'roarevent');
-                   $scope.roarevent = roarevent;
-                    $scope.pages = roarevent.pages;
-                    $scope.annotations = [];
-                    angular.forEach($scope.roarevent.pages, function(page, key){
-                        if (angular.isUndefined(page.annotations)){
-                            var annotations = [];
-                            page.annotations = annotations;
-                            $scope.roarevent.$save();
-                        }else{
-                            $scope.annotations.push(page.annotations);
-                        }
-                    });
-
-                    // if (angular.isUndefined($scope.roarevent.annotations)){
-                    //     $scope.roarevent.annotations = [];
-                    //     angular.forEach($scope.roarevent.pages, function(page, key){
-                    //         var pageannotations = [];
-                    //         $scope.roarevent.annotations.push(pageannotations);
-                    //     })
-                    // }
-                    // $document.on('mouseup', function(event) {
-                    // var a = $window.getSelection() || $document.getSelection();
-                    // if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
-                    //     var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
-                    //     alertify.prompt(text).set('type','color').set('onok', function(evt,value){$(text).wrap('<span style="background-color:'+value+'"'); alertify.success(text);}).show();
-                    // }
-                    // });
-
-                    if (angular.isUndefined($scope.roarevent.pages)){
-                        $scope.roarevent.pages = [];
-                        // $scope.roarevent.matches = [];
-                        $http.get($attr.pdfData).then(function(resp){
-
-                        PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
-
-
-                        var pdf = PDFJS.getDocument($attr.pdfData);
-                        pdf.then(function(pdfDocument){getPages(pdfDocument);});
-
-
-                        var getPages = function(pdf) {
-                            for (var i = 0; i < pdf.numPages; i++) {
-                                pdf.getPage(i + 1).then(function(page){getPageText(page, i)});
+                    Collection(id).$loaded().then(function (roarevent) {
+                        //    roarevent.$bindTo($scope, 'roarevent');
+                        $scope.roarevent = roarevent;
+                        $scope.pages = roarevent.pages;
+                        $scope.annotations = [];
+                        angular.forEach($scope.roarevent.pages, function (page, key) {
+                            if (angular.isUndefined(page.annotations)) {
+                                var annotations = [];
+                                page.annotations = annotations;
+                                $scope.roarevent.$save();
+                            } else {
+                                $scope.annotations.push(page.annotations);
                             }
-                        };
-                        var getPageText = function(page, i) {
-                            //console.log(page);
-                            page.getTextContent().then(function(textContent) {
-                                //console.log(textContent);
-                                var rawdata = [];
-                                var section = '<p>';
-                                angular.forEach(textContent.items, function(o, key) {
+                        });
 
-                                   /* if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
-                                        section = section + ' ' +'<a id="'+$scope.roarevent.matches.length+'"><mark class="highlight" tooltip-trigger="mouseenter" uib-tooltip="'+o.str+'  [@'+key+']">' + o.str + '</mark></a>';
-                                        $scope.roarevent.matches.push(o.str);
-                                    }else{*/
-                                    rawdata.push(o);
-                                    section = section + ' ' + o.str;
-                                    //}
-                                });
-                                // var reg = new RegExp(/(!=[\dg])\.\s/,'gi');
-                                // var pss = section.split(reg);
+                        // if (angular.isUndefined($scope.roarevent.annotations)){
+                        //     $scope.roarevent.annotations = [];
+                        //     angular.forEach($scope.roarevent.pages, function(page, key){
+                        //         var pageannotations = [];
+                        //         $scope.roarevent.annotations.push(pageannotations);
+                        //     })
+                        // }
+                        // $document.on('mouseup', function(event) {
+                        // var a = $window.getSelection() || $document.getSelection();
+                        // if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
+                        //     var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
+                        //     alertify.prompt(text).set('type','color').set('onok', function(evt,value){$(text).wrap('<span style="background-color:'+value+'"'); alertify.success(text);}).show();
+                        // }
+                        // });
 
-                                // var psa = [];
-                                // pss.forEach(function(string, index, pss){
+                        if (angular.isUndefined($scope.roarevent.pages)) {
+                            $scope.roarevent.pages = [];
+                            // $scope.roarevent.matches = [];
+                            $http.get($attr.pdfData).then(function (resp) {
 
-                                //     var regEx = new RegExp(/claim/,'gi');
+                                PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
 
-                                //     for (var i=0; i<string.match(regEx).length; i++){
-                                //         string = string.replace(regEx, function(x){
-                                //             return "<mark class='highlight'><strong><em><u>" + string.match(regEx)[i] + "</u></em></strong></mark>";
-                                //         });
-                                //     }
-                                //     psa.push(string);
-                                // });
-                                var pag = {
-                                    source: rawdata,
-                                    id: $scope.roarevent.id + '-' + i,
-                                    text: section
+
+                                var pdf = PDFJS.getDocument($attr.pdfData);
+                                pdf.then(function (pdfDocument) { getPages(pdfDocument); });
+
+
+                                var getPages = function (pdf) {
+                                    for (var i = 0; i < pdf.numPages; i++) {
+                                        pdf.getPage(i + 1).then(function (page) { getPageText(page, i) });
+                                    }
+                                };
+                                var getPageText = function (page, i) {
+                                    //console.log(page);
+                                    page.getTextContent().then(function (textContent) {
+                                        //console.log(textContent);
+                                        var rawdata = [];
+                                        var section = '<p>';
+                                        angular.forEach(textContent.items, function (o, key) {
+
+                                            /* if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
+                                                 section = section + ' ' +'<a id="'+$scope.roarevent.matches.length+'"><mark class="highlight" tooltip-trigger="mouseenter" uib-tooltip="'+o.str+'  [@'+key+']">' + o.str + '</mark></a>';
+                                                 $scope.roarevent.matches.push(o.str);
+                                             }else{*/
+                                            rawdata.push(o);
+                                            section = section + ' ' + o.str;
+                                            //}
+                                        });
+
+                                        var pag = {
+                                            source: rawdata,
+                                            id: $scope.roarevent.id + '-' + i,
+                                            text: section
+                                        };
+
+                                        $scope.roarevent.pages.push(pag);
+                                        $scope.roarevent.$save();
+                                    });
+
                                 };
 
-                                $scope.roarevent.pages.push(pag);
-                         $scope.roarevent.$save();
-                        });
 
-                            };
+                            });
 
 
-                        });
-
-
-                   }         });
-            }
-        };
-        }]).factory('$txt2html',[function(){
-        return function( text, enterMode ) {
-            var isEnterBrMode = enterMode == CKEDITOR.ENTER_BR,
-                // CRLF -> LF
-                html = this.htmlEncode( text.replace( /\r\n/g, '\n' ) );
-
-            // Tab -> &nbsp x 4;
-            html = html.replace( /\t/g, '&nbsp;&nbsp; &nbsp;' );
-
-            var paragraphTag = enterMode == CKEDITOR.ENTER_P ? 'p' : 'div';
-
-            // Two line-breaks create one paragraphing block.
-            if ( !isEnterBrMode ) {
-                var duoLF = /\n{2}/g;
-                if ( duoLF.test( html ) ) {
-                    var openTag = '<' + paragraphTag + '>', endTag = '</' + paragraphTag + '>';
-                    html = openTag + html.replace( duoLF, function() {
-                        return endTag + openTag;
-                    } ) + endTag;
+                        }
+                    });
                 }
-            }
+            };
+        }]).factory('$txt2html', [function () {
+            return function (text, enterMode) {
+                var isEnterBrMode = enterMode == CKEDITOR.ENTER_BR,
+                    // CRLF -> LF
+                    html = this.htmlEncode(text.replace(/\r\n/g, '\n'));
 
-            // One <br> per line-break.
-            html = html.replace( /\n/g, '<br>' );
+                // Tab -> &nbsp x 4;
+                html = html.replace(/\t/g, '&nbsp;&nbsp; &nbsp;');
 
-            // Compensate padding <br> at the end of block, avoid loosing them during insertion.
-            if ( !isEnterBrMode ) {
-                html = html.replace( new RegExp( '<br>(?=</' + paragraphTag + '>)' ), function( match ) {
-                    return CKEDITOR.tools.repeat( match, 2 );
-                } );
-            }
+                var paragraphTag = enterMode == CKEDITOR.ENTER_P ? 'p' : 'div';
 
-            // Preserve spaces at the ends, so they won't be lost after insertion (merged with adjacent ones).
-            html = html.replace( /^ | $/g, '&nbsp;' );
+                // Two line-breaks create one paragraphing block.
+                if (!isEnterBrMode) {
+                    var duoLF = /\n{2}/g;
+                    if (duoLF.test(html)) {
+                        var openTag = '<' + paragraphTag + '>', endTag = '</' + paragraphTag + '>';
+                        html = openTag + html.replace(duoLF, function () {
+                            return endTag + openTag;
+                        }) + endTag;
+                    }
+                }
 
-            // Finally, preserve whitespaces that are to be lost.
-            html = html.replace( /(>|\s) /g, function( match, before ) {
-                return before + '&nbsp;';
-            } ).replace( / (?=<)/g, '&nbsp;' );
+                // One <br> per line-break.
+                html = html.replace(/\n/g, '<br>');
 
-            return html;
+                // Compensate padding <br> at the end of block, avoid loosing them during insertion.
+                if (!isEnterBrMode) {
+                    html = html.replace(new RegExp('<br>(?=</' + paragraphTag + '>)'), function (match) {
+                        return CKEDITOR.tools.repeat(match, 2);
+                    });
+                }
 
-        };
-    }])
-    .controller('PDFFilesController', ['$scope', 'extract', '$document', '$window', '$http', 'localStorageService', function($scope, extract, $document, $window, $http, localStorageService) {
+                // Preserve spaces at the ends, so they won't be lost after insertion (merged with adjacent ones).
+                html = html.replace(/^ | $/g, '&nbsp;');
+
+                // Finally, preserve whitespaces that are to be lost.
+                html = html.replace(/(>|\s) /g, function (match, before) {
+                    return before + '&nbsp;';
+                }).replace(/ (?=<)/g, '&nbsp;');
+
+                return html;
+
+            };
+        }])
+    .controller('PDFFilesController', ['$scope', 'extract', '$document', '$window', '$http', 'localStorageService', function ($scope, extract, $document, $window, $http, localStorageService) {
 
         var pdff = this;
         pdff.name = 'PDFFilesController';
 
-    }]).controller("AnnotationController", ['$scope','$timeout',function($scope, $timeout) {
+    }]).controller("AnnotationController", ['$scope', '$timeout', function ($scope, $timeout) {
         // $scope.roarevents = ROARevents($stateParams.matterId);
         $scope.annotationColours = [{
             name: "Red",
             value: "red"
         }, {
-            name: "Green",
-            value: "green"
-        }, {
-            name: "Blue",
-            value: "blue"
-        }, {
-            name: "Yellow",
-            value: "yellow"
-        }, {
-            name: "Pink",
-            value: "pink"
-        }, {
-            name: "Aqua",
-            value: "aqua"
-        }];
+                name: "Green",
+                value: "green"
+            }, {
+                name: "Blue",
+                value: "blue"
+            }, {
+                name: "Yellow",
+                value: "yellow"
+            }, {
+                name: "Pink",
+                value: "pink"
+            }, {
+                name: "Aqua",
+                value: "aqua"
+            }];
 
         $scope.templates = [{
             type: "red",
             comment: "@username",
             points: -1
         }, {
-            type: "aqua",
-            comment: "#tag",
-            points: +1
-        },{
-            type: "green",
-            comment: "+1",
-            points: +2
-        }];
+                type: "aqua",
+                comment: "#tag",
+                points: +1
+            }, {
+                type: "green",
+                comment: "+1",
+                points: +2
+            }];
 
         $scope.selection = window.getSelection();
 
-        $scope.useTemplate = function(template) {
+        $scope.useTemplate = function (template) {
             if (template.type !== null) {
                 $scope.$annotation.type = template.type;
             }
@@ -2742,21 +2741,21 @@ function pageLoaded() {
             $scope.$close();
         };
 
-        $scope.useColor = function(color) {
+        $scope.useColor = function (color) {
             if (color.value !== null) {
                 $scope.$annotation.type = color.value;
             }
         };
 
-        $scope.isActiveColor = function(color) {
+        $scope.isActiveColor = function (color) {
             return color && color.value === $scope.$annotation.type;
         };
 
-        $scope.close = function() {
+        $scope.close = function () {
             return $scope.$close();
         };
 
-        $scope.reject = function() {
+        $scope.reject = function () {
             return $scope.$reject();
         };
     }]);
