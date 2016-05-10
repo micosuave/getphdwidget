@@ -4,18 +4,22 @@
 
 
         <div class="pull-right" style="display:flex;flex-direction:column;align-items:flex-start;justify-content:space-around;align-self:flex-end;">
-          <img src="/llp_core/img/GoldLogoLong.svg" class="img" style="height:25px;">
+            <img src="/llp_core/img/GoldLogoLong.svg" class="img" style="height:25px;">
 
-          <img src="/llp_core/img/GoldPhdLogoLong.svg" class="img" style="height:10px;padding-left:2px;">
+            <img src="/llp_core/img/GoldPhdLogoLong.svg" class="img" style="height:10px;padding-left:2px;">
         </div>
         <img src="/llp_core/img/GoldLion.svg" class="img lionlogofilter pull-left" style="width:auto;height: 50px;align-self:flex-start;margin-left:75px;;margin-top:-10px;">
 
         <!--<h6 class="panel-title" style="color:#ffa;"><img src="https://lexlab.firebaseapp.com/img/GoldPhdLogoLong.svg" class="img img-rounded img-thumbnail" style="width:auto;height:100%;" /> </h6>-->
     </div>
-    <div class="panel-body" style="height:80vh;overflow:scroll;">
+    <div class="panel-body" style="height:90vh;overflow:scroll;">
         <blockquote class="bs-callout bs-callout-primary card-header" style="margin:0;" ng-hide="response">
-            <p class="text-muted text-left" style="text-align:left;font-size:10px;">Use the following fields to automatically download U.S. utility patents and published patent applications from Google Patents, and to automatically download prosecution histories from the <a href="https://www.uspto.gov/"  uib-tooltip="United States Patent & Trademark Office official site" tooltip-trigger="mouseenter">USPTO</a> public data-proxy-repositors, <a href="https://www.google.com/patents/"  uib-tooltip="Google Patents" tooltip-trigger="mouseenter">Google</a> & <a href="http://www.reedtech.com/"  uib-tooltip="ReedTech" tooltip-trigger="mouseenter">ReedTech</a>.  To automatically download and parse a prosecution history, simply click on the LEO (lion) icon at the far-bottom, far-right of this Panel.  Alternatively, you can click either of the buttons labelled "ReedTech" or "Google" to automatically download a .zip file from the respective sources to your Downloads folder.  To parse the prosecution history, you can then drag over the Patent PhD
-            Panel to the right of this Panel on the main screen, and drop the file within the dropzone once it has become marked by a dotted border.  The .zip file will then automatically upload to our servers.  LEO will generate a Patent PhD Report (directly upon selecting the LEO icon, or upon placing a .zip file in the Patent PhD Panel) and return it to the main display screen for your review.</p>
+            <p class="text-muted text-left" style="text-align:left;font-size:10px;">Use the following fields to automatically download U.S. utility patents and published patent applications from Google Patents, and to automatically download prosecution histories from the <a href="https://www.uspto.gov/" uib-tooltip="United States Patent & Trademark Office official site"
+                    tooltip-trigger="mouseenter">USPTO</a> public data-proxy-repositors, <a href="https://www.google.com/patents/" uib-tooltip="Google Patents" tooltip-trigger="mouseenter">Google</a> & <a href="http://www.reedtech.com/" uib-tooltip="ReedTech"
+                    tooltip-trigger="mouseenter">ReedTech</a>. To automatically download and parse a prosecution history, simply click on the LEO (lion) icon at the far-bottom, far-right of this Panel. Alternatively, you can click either of the buttons labelled
+                "ReedTech" or "Google" to automatically download a .zip file from the respective sources to your Downloads folder. To parse the prosecution history, you can then drag over the Patent PhD Panel to the right of this Panel on the main screen,
+                and drop the file within the dropzone once it has become marked by a dotted border. The .zip file will then automatically upload to our servers. LEO will generate a Patent PhD Report (directly upon selecting the LEO icon, or upon placing
+                a .zip file in the Patent PhD Panel) and return it to the main display screen for your review.</p>
         </blockquote>
         <blockquote class="bs-callout bs-callout-Applicant card-header" style="margin:0;" ng-show="response">
             <h4>{{response.title}} <small class="text-muted">{{response.claim_total}} Claims</small></h4>
@@ -23,65 +27,73 @@
         </blockquote>
 
 
-    <blockquote class="bs-callout bs-callout-NOA card-header" style="text-align:left;margin:0;">
-        <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="patentnumber" class="card-text text-muted"><strong>Enter US Patent Number</strong></label></h4>
-     <fieldset class="material Applicant">
-        <input type="number" placeholder="Patent #"   ng-model="config.PNUM" ng-blur="main.remoteconfig(config.PNUM)">
-        <hr>
-        <label>Enter a Patent Number</label>
-        <button class="btn btn-default right "  tooltip-trigger="mouseenter" uib-tooltip="Download Patent" ng-click="main.getpatentdownload(config.PNUM);" style=""><span class="text-success fa fa-2x fa-download"></span></button>
+        <blockquote class="bs-callout bs-callout-NOA card-header" style="text-align:left;margin:0;">
+            <h4 class="card-title" style="text-align:left;font-size:12px;"><label for="patentnumber" class="card-text text-muted"><strong>Enter US Patent Number</strong></label></h4>
+            <fieldset class="material Applicant">
+                <input type="number" placeholder="Patent #" ng-model="config.PNUM" ng-blur="main.remoteconfig(config.PNUM)">
+                <hr>
+                <label>Enter a Patent Number</label>
+            </fieldset>
+            <a class=" pull-right " tooltip-trigger="mouseenter" uib-tooltip="Download Patent" ng-click="main.getpatentdownload(config.PNUM);" style=""><span class="text-success fa fa-2x fa-download"></span></a>
 
-    </fieldset>
-     <!--<div class="input-group">-->
-        <!--<input type="number" placeholder="Patent #" class="" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.PNUM" ng-blur="main.remoteconfig(config.PNUM)">-->
-       <!--<bc-keypad
+            <!--<div class="input-group">-->
+            <!--<input type="number" placeholder="Patent #" class="" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-model="config.PNUM" ng-blur="main.remoteconfig(config.PNUM)">-->
+            <!--<bc-keypad
   bc-number-model="config.PNUM"
   bc-max-length="{{ vm.neededLength }}"
 ></bc-keypad>-->
-       <!--<iframe name="testframe" id="testframe" style="visibility: hidden;width:auto;height:1px;"></iframe>-->
-    <!--</div>-->
-</blockquote>
+            <!--<iframe name="testframe" id="testframe" style="visibility: hidden;width:auto;height:1px;"></iframe>-->
+            <!--</div>-->
+        </blockquote>
 
- <blockquote class="bs-callout bs-callout-Petition card-header" style="text-align:left;margin:0;">
-         <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="publishedapplication" class="card-text text-muted"><strong>Enter Year of Publication and Published Application Number</strong></label></h4>
+        <blockquote class="bs-callout bs-callout-Petition card-header" style="text-align:left;margin:0;">
+            <h4 class="card-title" style="text-align:left;font-size:12px;"><label for="publishedapplication" class="card-text text-muted"><strong>Enter Year of Publication and Published Application Number</strong></label></h4>
 
-    <div class="input-group">
+            <div class="input-group">
+                <fieldset class="material Petition">
+                    <input type="number" placeholder="YYYY" ng-model="config.IPAYEAR" maxlength="4">
+                    <hr>
+                    <label>Enter YYYY</label>
+                </fieldset>
+                <fieldset class="material Petition">
+                    <input type="text" placeholder="#" ng-model="config.IPANUM">
+                    <hr>
+                    <label>Enter Published Application Number</label>
+                </fieldset>
+                <!--<input type="number" placeholder="YYYY" style="max-width:10rem;padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;border-top-left-radius:1rem;border-bottom-left-radius:1rem;" ng-model="config.IPAYEAR" maxlength="4">-->
 
-                <input type="number" placeholder="YYYY" style="max-width:10rem;padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;border-top-left-radius:1rem;border-bottom-left-radius:1rem;" ng-model="config.IPAYEAR" maxlength="4">
+
+                <!--<input type="text" placeholder="# PA" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;" ng-model="config.IPANUM" >-->
+                <a class=" pull-right" ng-click="main.getpublishedapplication(config.IPAYEAR, config.IPANUM)"><span class="text-warning fa fa-download fa-2x"></span></a>
 
 
-        <input type="text" placeholder="# PA" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);border-radius:0px;margin:0;display:inline-block;margin-left:-1px;margin-right:-1px;" ng-model="config.IPANUM" >
-     <button class="btn btn-default" ng-click="main.getpublishedapplication(config.IPAYEAR, config.IPANUM)"><span class="text-warning fa fa-download fa-2x"></span></button>
+            </div>
+
+        </blockquote>
 
 
-    </div>
-
-    </blockquote>
-      <!--<pre ng-if="main.remoteresp" ng-bind="main.remoteresp" class="card card-fancy card-block "></pre> -->
-
-
-    <blockquote class="bs-callout bs-callout-PTO card-header" style="text-align:left;margin:0;">
-    <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="" class="card-text text-muted">Enter US Application Serial Number</label></h4>
-              <div class="input-group">
-            <form name="application">
-              <input class="" type="text" placeholder="Application #" ng-model="config.appnum" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-pattern="\d+" >
-                <button class="btn btn-default right text-PTO" ng-click="main.getfilehistory(config.appnum,'reedtech')" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="right" title="DOWNLOAD FILE HISTORY FROM REEDTECH" tooltip-animation="true"><span id="reedtechbutton" class="fa fa-2x fa-file-zip-o text-PTO"></span>ReedTech</button>
-                  <button class="btn btn-default  right text-PTO" ng-click="main.getfilehistory(config.appnum,'google')" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="right" title="DOWNLOAD FILE HISTORY FROM GOOGLE" tooltip-animation="true"><span id="googlebutton" class="text-PTO fa fa-2x fa-file-zip-o"></span>Google</button>
-                <button class="btn btn-default " ng-click="main.remotezip(config.appnum)" uib-tooltip="TRY AUTO DOWNLOAD **experimental" tooltip-placement="right" title="TRY AUTO DOWNLOAD* (**experimental**)" tooltip-animation="true" style="width:35px;height:35px;padding:0;"><img src="/llp_core/img/GoldLion.svg" style="width:35px;height:35px;"></button>
-           </form>
-    <!--<div class="input-group-addon">-->
-        <!--<iframe name="testframereed" id="testframereed" style="visibility: hidden;width:auto;height:1px;"></iframe>-->
-        <!--<button class="btn btn-default text-warning fa fa-2x fa-google" ng-href="https://storage.googleapis.com/uspto-pair/applications/{{config.appnum}}.zip" target="_blank" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="bottom" title="DOWNLOAD FROM GOOGLE" tooltip-animation="true" -->
-        <!--tooltip-trigger="mouseenter hover" style="" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=50,top=150');" >from Google</button>-->
-        <!--<button class="btn btn-default text-warning input-group-addon fa  fa-2x fa-download" ng-href="https://patents.reedtech.com/downloads/pair/{{config.appnum}}.zip" target="_blank" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="bottom" title="DOWNLOAD FROM REEDTECH"  tooltip-animation="true" tooltip-trigger="mouseenter hover" style="" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=50,top=150');" >from ReedTech</button>-->
-     <!--<iframe name="testframegoog" id="testframegoog" style="visibility: hidden;width:auto;height:1px;"></iframe>-->
-          <!--</div>-->
-          </div>
-    </blockquote>
-<!--<bc-keypad
+        <blockquote class="bs-callout bs-callout-PTO card-header" style="text-align:left;margin:0;">
+            <h4 class="card-title" style="text-align:left;font-size:12px;"><label for="" class="card-text text-muted">Enter US Application Serial Number</label></h4>
+            <div class="input-group">
+                <form name="application">
+                    <fieldset class="material PTO">
+                        <input type="text" placeholder="Application #" ng-model="config.appnum">
+                        <hr>
+                        <label>Enter Application Number</label>
+                    </fieldset>
+                    <!--<input class="" type="text" placeholder="Application #" ng-model="config.appnum" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-pattern="\d+" >-->
+                    <button class="btn btn-default right text-PTO" ng-click="main.getfilehistory(config.appnum,'reedtech')" uib-tooltip="DOWNLOAD FROM REEDTECH" tooltip-placement="right" title="DOWNLOAD FILE HISTORY FROM REEDTECH" tooltip-animation="true"><span id="reedtechbutton" class="fa fa-2x  text-PTO"></span> ReedTech</button>
+                    <button class="btn btn-default  right text-PTO" ng-click="main.getfilehistory(config.appnum,'google')" uib-tooltip="DOWNLOAD FROM GOOGLE" tooltip-placement="right" title="DOWNLOAD FILE HISTORY FROM GOOGLE" tooltip-animation="true"><span id="googlebutton" class="text-PTO fa fa-2x "></span> Google</button>
+                    <button class="btn btn-default " ng-click="main.remotezip(config.appnum)" uib-tooltip="TRY AUTO DOWNLOAD **experimental" tooltip-placement="right" title="TRY AUTO DOWNLOAD* (**experimental**)" tooltip-animation="true" style="width:35px;height:35px;padding:0;"><img src="/llp_core/img/GoldLion.svg" style="width:35px;height:35px;"></button>
+                </form>
+            </div>
+        </blockquote>
+        <!--<bc-keypad
   bc-number-model="vm.numbers"
   bc-max-length="{{ vm.neededLength }}"
 ></bc-keypad>-->
-         </div><!--panelbody-->
+    </div>
+    <!--panelbody-->
 
-</div><!--panel-->
+</div>
+<!--panel-->
