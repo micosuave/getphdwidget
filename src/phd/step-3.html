@@ -26,7 +26,7 @@
     <blockquote class="card-header bs-callout bs-callout-NOA img-shadow" style="text-align:left;margin:1.5vmin;">
         <h4 class="card-title"style="text-align:left;font-size:12px;"><label for="patentnumber" class="card-text text-muted"><strong>Enter US Patent Number</strong></label></h4>
      <fieldset class="material Applicant" style="max-width:80%;">
-        <input type="number" placeholder="Patent #"   ng-blur="collection.$save()" ng-model="config.PNUM">
+        <input type="text" placeholder="Patent #"   ng-blur="collection.$save()" ng-model="config.PNUM">
         <hr>
         <label>Enter a Patent Number</label>
 
@@ -48,7 +48,7 @@
 
     <div class="input-group">
         <fieldset class="material Petition" style="max-width:33%;">
-                <input type="number" placeholder="YYYY" style="" ng-model="config.IPAYEAR" maxlength="4">
+                <input type="text" placeholder="YYYY" style="" ng-model="config.IPAYEAR" maxlength="4">
                 <hr>
                 <label>YEAR</label>
         </fieldset>
