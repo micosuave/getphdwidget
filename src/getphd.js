@@ -1131,7 +1131,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
-    .controller('PatentWidgetCtrl', ['$scope', 'config', '$http', 'Collection', '$q', '$filter', function ($scope, config, $http, Collection, $q, $filter) {
+    .controller('PatentWidgetCtrl', ['$scope', 'config', '$http', 'Collection', '$q', '$filter','$sanitize',
+    function ($scope, config, $http, Collection, $q, $filter,$sanitize) {
         var p = this;
         p.getdata = function (input) {
             var deferred = $q.defer();
@@ -1140,6 +1141,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             });
             return deferred.promise;
         };
+        p.sanitize = $sanitize;
         p.showconfig = false;
         p.showform = false;
         var config = $scope.$parent.config || $scope.$parent.$parent.config;
@@ -1226,5 +1228,15 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 return input.replace(regex, '<a pop ');
             };
             return check(input);
+        };
+    }).directive('capturelinks',function(){
+        return {
+            restrict:'A',
+            link: function($scope, $element, $attr){
+                var links = $('a');
+                links.on('click', function(event){
+                    event.preventDefault();
+                });
+            }
         };
     });

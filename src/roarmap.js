@@ -779,7 +779,7 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
      }).filter('strip', function(){
          return function(input){
              if (input !== (null || undefined)){
-            var regex = new RegExp(/\D/ig);
+            var regex = new RegExp(/[(US):,\/]/ig);
             var output = input.replace(regex, '');
             return output;
              }
@@ -872,17 +872,8 @@ var maildate = new Date(roarevent['Mail Room Date']);
             link: function($scope,$element,$attrs,$ctrl){
                 //var p = this;
                 var id = $attrs.patent;
-                var digets = new RegExp(/\d/ig);
-                var candidates = id.split('*');
-                var result = '';
 
-                candidates.forEach(function(val, index, arry){
-                    if (digets.test(val) === true){
-                        result += val;
-                    }
-                });
-//                  var matches = candidates.match(digets)
-                $http.get('/getphd/patents/'+result).then(function(resp){
+                $http.get('/getphd/patents/'+id).then(function(resp){
                     $scope.p = resp.data;
                 });
             }
