@@ -1142,8 +1142,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         };
         p.showconfig = false;
         p.showform = false;
+        var config = $scope.$parent.config || $scope.$parent.$parent.config;
         var collection = Collection(config.id);
-        $scope.collection = collection;
+        collection.$bindTo($scope, 'collection');
+        //$scope.collection = collection;
         $scope.config = config;
         p.configure = function (input) {
             var trop = $filter('strip')(input);
@@ -1186,7 +1188,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             });
         };
 
-        if (config.PNUM > 1) {
+        if (config.PNUM > 1000000) {
              try {
                  p.getnew(config.PNUM);
              }
