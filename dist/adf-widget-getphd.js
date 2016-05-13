@@ -2061,7 +2061,7 @@ var frametemplate = 'http://localhost:3000/patents/US' + patent;
      }]).filter('strip', function(){
          return function(input){
              if (input !== (null || undefined)){
-            var regex = new RegExp(/[(US):,\/]/ig);
+            var regex = new RegExp(/\D/ig);
             var output = input.replace(regex, '');
             return output;
              }
