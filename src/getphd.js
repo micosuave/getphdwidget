@@ -1240,6 +1240,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         };
     }).controller('MetadataController', function(Collection, config, $scope){
       var config = $scope.$parent.config || $scope.$parent.$parent.config;
+      $scope.config = config;
       $scope.onSubmit = function(model){
         Collection(config.id).$save(model);
       };
