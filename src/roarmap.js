@@ -354,12 +354,12 @@ var wraptail = ckender;
                         var n = d.getTime();
                           roarevent.rows= [
                               {columns:[
-                                  {cid:n+10,styleClass:'col-sm-4',widgets:[{config:{height: "90vh",url: roarevent.ocrlink || 'http://www.google.com'},styleClass:roarevent.styleClass || 'btn-dark',title:roarevent.title || 'title',type:'iframe',wid:n+100}]},
-                                  {cid:n+1000,styleClass:'col-sm-8',widgets:[{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:roarevent.title || 'title',type:'ckwidget', wid:n+1010}]}
+                                  {cid:n+10,styleClass:'col-sm-12',widgets:[{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:'Metadata',type:'metadata', wid:n+101},{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:'Text',type:'text', wid:n+105},{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:'LexPad',type:'ckwidget', wid:n+1010},{config:{height: "90vh",url: roarevent.ocrlink || 'http://www.google.com'},styleClass:roarevent.styleClass || 'btn-dark',title:'LexFrame',type:'iframe',wid:n+100}]},
+                                  {cid:n+1000,styleClass:'col-sm-8',widgets:[]}
                               ]}
                           ];
                           //roarevent.content = ckstarter + ckheader + ckender;
-                          roarevent.structure = "4-8";
+                          roarevent.structure = "1";
                           roarevent.isActive = false;
 
 
@@ -383,7 +383,10 @@ var wraptail = ckender;
 
                                             timestamp: Firebase.ServerValue.TIMESTAMP
                                         });
-                                          refr.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
+                                          refr.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(id);
+                                          refr.child('rows').child('0').child('columns').child('0').child('widgets').child('1').child('config').child('id').set(id);
+                                          refr.child('rows').child('0').child('columns').child('0').child('widgets').child('2').child('config').child('id').set(id);
+                                          refr.child('rows').child('0').child('columns').child('0').child('widgets').child('3').child('config').child('id').set(id);
                                           //p.filelist.push(id);
                                           //phdref.child('roarmap').child('roarlist').push(id);
                                           //roarmap.roarevents.push(id);
