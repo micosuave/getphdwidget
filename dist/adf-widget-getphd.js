@@ -2199,9 +2199,18 @@ var maildate = new Date(roarevent['Mail Room Date']);
                 //var p = this;
                 var id = $attrs.patent;
 
-                $http.get('/getphd/patents/'+id).then(function(resp){
-                    $scope.p = resp.data;
+                try{ Collection(numbr).$loaded().then(function(data){
+                    $scope.p = data;
                 });
+                }catch(ex){
+                    $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + numbr).then(function (resp) {
+                        $scope.p = resp.data;
+                    });
+                }
+                finally{
+                    // alertify.success('loaded!');
+                }
+
             }
         };
     }]);
