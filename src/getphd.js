@@ -1238,7 +1238,32 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 });
             }
         };
-    }).controller('MetadataController', function(Collection, config, $scope, $stateParams){
+    }).directive('rejectionset', function(){
+      return {
+        restrict: 'EA',
+        templateUrl: '{widgetsPath}/getphd/src/rejectionset.html',
+        scope: {
+          set: '='
+        },
+        link: function($scope, $element, $attr, $ctrl){
+
+        }
+      };
+    }).directive('rejection', function(){
+      return {
+        restrict: 'EA',
+        templateUrl: '{widgetsPath}/getphd/src/rejection.html',
+        scope: {
+          rejection: '='
+        },
+        link: function($scope, $element, $attr, $ctrl){
+
+        }
+      };
+    })
+
+
+    .controller('MetadataController', function(Collection, config, $scope, $stateParams){
       var config = $scope.$parent.config || $scope.$parent.$parent.config;
       $scope.config = config;
       var pId = $stateParams.pId;
