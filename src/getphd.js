@@ -1238,9 +1238,12 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 });
             }
         };
-    }).controller('MetadataController', function(Collection, config, $scope){
+    }).controller('MetadataController', function(Collection, config, $scope, $stateParams){
       var config = $scope.$parent.config || $scope.$parent.$parent.config;
       $scope.config = config;
+      var pId = $stateParams.pId;
+      var tree = Collection(pId);
+      $scope.tree = tree;
       $scope.onSubmit = function(model){
         Collection(config.id).$save(model);
       };

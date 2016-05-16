@@ -1,0 +1,25 @@
+<form role="form">
+    <div class="form-group" ui-tree >
+
+
+        <label for="draftid">Select Document</label>
+<ol ui-tree-nodes ng-model="tree.roarlist">
+    <li  ui-tree-node ng-repeat="node in tree.roarlist" ng-include="'quicklinkid'" node="{{node}}" data-collapsed="true">
+    </li>
+</ol>
+
+
+
+<script type="text/ng-template" id="quicklinkid">
+    <div class="card card-rounded" ng-class="{'text-success': (config.id === node.id)}">
+    <a class="btn btn-xs" ng-click="toggle(this)" ng-if="node.roarlist" style=""><span class="fa " ng-class="{'fa-chevron-right': collapsed, 'fa-chevron-down': !collapsed}" style="color:steelblue;transition:all 0.25s ease;"></span></a>
+
+   <a ng-click="config.id = node.id;$close();" ng-class="{'text-success': (config.id === node.id)}" class=""><span class="fa fa-stack fa-pull-left fa-border"><span class="fa fa-stack-2x fa-file-o"><span class="fa fa-stack-1x" style="font-size: 10px;vertical-align:bottom;">{{node.rid}}</span></span></span>&nbsp;&nbsp;{{node.title}}<br><small class="text-muted">{{node.date | date}}</small></a>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.roarlist" ng-class="{hidden: collapsed}" style="">
+        <li class="" ng-repeat="(key, node) in node.roarlist" ui-tree-node ng-include="'quicklinkid'" style="padding-right:0rem;padding-bottom:0.1rem;" node="{{node.id || node.$id || node.$value || node}}" data-collapsed="true">
+        </li>
+    </ol>
+</script>
+     </div>
+</form>
