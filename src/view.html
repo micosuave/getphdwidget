@@ -307,7 +307,7 @@
            <uib-tab-heading class="" ng-style="">Patent Digest for US {{(phd.patent.number | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
 
             <uib-tab-content ng-if="main.tabs[2].isActive" ng-controller="MainCtrl as main">
-              <patent-digest patent="{{phd.patent.id}}"></patent-digest>
+              <patentreport patent="{{phd.patent.id}}"></patentreport>
               </uib-tab-content>
               </uib-tab>
               <uib-tab heading="Claim/Rejection History">
