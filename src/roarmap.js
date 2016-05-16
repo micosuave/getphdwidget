@@ -847,6 +847,11 @@ var maildate = new Date(roarevent['Mail Room Date']);
             },
             link: function ($scope, $element, $attr, $ctrl) {
                 var numbr = $attr.patent;
+                if ($attr.pnum){
+                  $scope.config = {
+                    PNUM: $attr.pnum
+                  }
+                }
                 try{ Collection(numbr).$loaded().then(function(data){
                     $scope.patent = data;
                 });
