@@ -304,10 +304,15 @@
    </uib-tab>-->
 
         <uib-tab class="" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[2].isActive = true" deselect="main.tabs[1].isActive = false" style="margin: 0 5px;">
-           <uib-tab-heading class="" ng-style="">US {{(phd.patent.number | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
+           <uib-tab-heading class="" ng-style="">Patent Digest for US {{(phd.patent.number | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
 
             <uib-tab-content ng-if="main.tabs[2].isActive" ng-controller="MainCtrl as main">
-
+              <patent-digest patent="{{phd.patent.id}}"></patent-digest>
+              </uib-tab-content>
+              </uib-tab>
+              <uib-tab heading="Claim/Rejection History">
+              <uib-tabset justified="true">
+                <uib-tab heading="Issued Claims">
                 <blockquote class="" cite="{{phd.patent.media}}" style="margin: 25px;margin-top:35px;"><h4 ><strong ng-bind="tree.title"> </strong> - <small>{{tree.claim_total}} Claims</small>
 </h4><p ng-bind-html="tree.abstract | highlight: query | trustAsHTML"   > </p>
 
@@ -391,7 +396,7 @@
                 </div>-->
             </uib-tab-content>
            </uib-tab>
-           <uib-tab heading="Claims">
+           <uib-tab heading="Claim History-at-a-Glance">
                 <d3historytree patent="{{phd.patent.id}}"></d3historytree>
 
 
@@ -421,6 +426,8 @@
                         </div>
 
                     </uib-tab>
+    </uib-tabset>
+    </uib-tab>
     </uib-tabset>
 </div>
 </div>
