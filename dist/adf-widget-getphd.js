@@ -1385,11 +1385,9 @@ angular.module('textSizeSlider', [])
                         var n = d.getTime();
                          roarevent.rows = [
                               {columns:[
-                                  {cid:n+10,styleClass:'col-sm-6',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
-                                  {cid:n+1000,styleClass:'col-sm-6',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'ckwidget', wid:n+15,styleClass:roarevent.styleClass || 'btn-dark'}]}
-                              ]}
+                                  {cid:n+10,styleClass:'col-sm-12',widgets:[{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:'Metadata',type:'metadata', wid:n+101},{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:'Text',type:'text', wid:n+105},{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:'LexPad',type:'ckwidget', wid:n+1010},{config:{height: "90vh",url: roarevent.media || 'http://www.google.com'},styleClass:roarevent.styleClass || 'btn-dark',title:'LexFrame',type:'iframe',wid:n+100}]} ]}
                           ];
-                         roarevent.structure = "6-6";
+                         roarevent.structure = "1";
                          return deferred.resolve(roarevent);
                         } else {
                           var filename = file.Filename || file.name || file.filename;
@@ -1410,8 +1408,8 @@ angular.module('textSizeSlider', [])
                           roarevent.content = "<!DOCTYPE html><html><head><title></title><link href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css\" rel= \"stylesheet\" /><link href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css\" rel=\"stylesheet\"/><link href=\"//lexlab.io/llp_core/dist/app.full.min.css\" rel= \"stylesheet \" /><link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/tether-select/1.1.1/css/select-theme-default.css\"/><script src= \"https://code.jquery.com/jquery-2.2.0.min.js \"></script><script src= \"https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js \"></script><script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js\"></script><script src=\"https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js\"></script><script src=\"https://cdnjs.cloudflare.com/ajax/libs/tether-select/1.1.1/js/select.min.js\"></script><script src= \"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js \"></script><base href= \"/ \" target= \"fframe \" /></head><body class= \"dark-bg \"><div class= \"container-fluid \"><div class= \"row \"><div class= \"col-xs-12 \"><div class= \"card card-block \" style= \"padding:10px 20px; \"><p style= \"text-align:center \"><img alt= \" \" class= \" img-shadow img-responsive \" src= \""+ file.url + "\" style= \"width: 100%; height: auto; \" /></p><p>&nbsp;</p></div></div></div></div><footer class= \"navbar-fixed-bottom \"><p style= \"padding-left:30px;margin-left:30px;text-indent:20px; \">&nbsp;&nbsp;&nbsp;&nbsp;CONTAINS MATERIAL SUBJECT TO PROTECTIVE ORDER</p></footer></body></html>";
                           roarevent.rows = [
                               {columns:[
-                                  {cid:n+10,styleClass:'col-sm-3',widgets:[{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
-                                  {cid:n+1000,styleClass:'col-sm-9',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'ckwidget', wid:n+15,styleClass:roarevent.styleClass || 'btn-dark'}]}
+                                  {cid:n+10,styleClass:'col-sm-3',widgets:[{config:{id:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'ckwidget', wid:n+15,styleClass:roarevent.styleClass || 'btn-dark'},{config:{id:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'ckwidget', wid:n+15,styleClass:roarevent.styleClass || 'btn-dark'},{config:{id:'PROMISE'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'ckwidget', wid:n+15,styleClass:roarevent.styleClass || 'btn-dark'},{config:{height: "30em",url: roarevent.media || 'http://www.google.com'},title:roarevent.title || 'title',titleTemplateUrl:'{widgetsPath}/testwidget/src/title.html',type:'iframe',wid:n+100,styleClass:roarevent.styleClass || 'btn-dark'}]},
+                                  {cid:n+1000,styleClass:'col-sm-9',widgets:[]}
                               ]}
                           ];
                          roarevent.structure = "3-9";
@@ -1643,8 +1641,8 @@ var wraptail = ckender;
                         var n = d.getTime();
                           roarevent.rows= [
                               {columns:[
-                                  {cid:n+10,styleClass:'col-sm-12',widgets:[{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:'Metadata',type:'metadata', wid:n+101},{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:'Text',type:'text', wid:n+105},{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:'LexPad',type:'ckwidget', wid:n+1010},{config:{height: "90vh",url: roarevent.ocrlink || 'http://www.google.com'},styleClass:roarevent.styleClass || 'btn-dark',title:'LexFrame',type:'iframe',wid:n+100}]},
-                                  {cid:n+1000,styleClass:'col-sm-8',widgets:[]}
+                                  {cid:n+10,styleClass:'col-sm-12',widgets:[{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:'Metadata',type:'metadata', wid:n+101},{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:'Text',type:'text', wid:n+105},{config:{id:'PROMISE',height:'90vh'},styleClass:roarevent.styleClass||'btn-dark',title:'LexPad',type:'ckwidget', wid:n+1010},{config:{height: "90vh",url: roarevent.ocrlink || 'http://www.google.com'},styleClass:roarevent.styleClass || 'btn-dark',title:'LexFrame',type:'iframe',wid:n+100}]}
+
                               ]}
                           ];
                           //roarevent.content = ckstarter + ckheader + ckender;
