@@ -7,46 +7,45 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     localStorageServiceProvider.setPrefix('adf.getphd');
 
     dashboardProvider
-        // .widget('carousel', {
-        //     title: 'Carousel',
-        //     description: 'Display items in a carousel',
-        //     templateUrl: '{widgetsPath}/getphd/src/gallery.html',
-        //     icon: 'fa-picture',
-        //     iconurl: 'img/lexlab.svg',
-        //     styleClass: 'info ',
-        //     frameless: false,
-        //     reload: true,
-        //     controller: 'GalleryCarouselController',
-        //     controllerAs: 'gallery',
-        //     edit: {
-        //         templateUrl: '{widgetsPath}/getphd/src/editgallery.html',
-        //         controller: 'GalleryCarouselController',
-        //         controllerAs: 'gallery',
-        //         modalSize: 'lg',
-        //         reload: true
-        //         //immediate: true
-        //     }
-        // })
-        // .widget('gallery', {
-        //     title: 'Gallery',
-        //     description: 'Plain Image with thumnnails & caption',
-        //     templateUrl: '{widgetsPath}/getphd/src/galleryplain.html',
-        //     icon: 'fa-picture',
-        //     iconurl: 'img/lexlab.svg',
-        //     styleClass: 'info ',
-        //     frameless: false,
-        //     reload: true,
-        //     controller: 'GalleryController',
-        //     controllerAs: 'gallery',
-        //     edit: {
-        //         templateUrl: '{widgetsPath}/getphd/src/editgalleryplain.html',
-        //         controller: 'GalleryController',
-        //         controllerAs: 'gallery',
-        //         modalSize: 'lg',
-        //         reload: true
-        //         //immediate: true
-        //     }
-        // })
+        .widget('metadata', {
+            title: 'Metadata',
+            description: 'metadata for this document/collection',
+            templateUrl: '{widgetsPath}/getphd/src/metadata.html',
+            icon: 'fa-code',
+            iconurl: '/llp_core/img/lexlab.svg',
+            styleClass: 'info',
+            frameless: false,
+            reload: true,
+            controller: 'MetadataController',
+            controllerAs: 'meta',
+            edit: {
+                templateUrl: '{widgetsPath}/getphd/src/metadata.html',
+                controller: 'MetadataController',
+                controllerAs: 'meta',
+                modalSize: 'lg',
+                reload: true
+            }
+        })
+        .widget('text', {
+            title: 'TextAnnotator',
+            description: 'full search and annotate a document',
+            templateUrl: '{widgetsPath}/getphd/src/fulltext.html',
+            icon: 'fa-file-o',
+            iconurl: '/llp_core/img/lexlab.svg',
+            styleClass: 'info ',
+            frameless: false,
+            reload: true,
+            controller: 'TextController',
+            controllerAs: 'text',
+            edit: {
+                templateUrl: '{widgetsPath}/getphd/src/editfulltext.html',
+                controller: 'TextController',
+                controllerAs: 'text',
+                modalSize: 'lg',
+                reload: true
+                //immediate: true
+            }
+        })
         .widget('patent', {
             title: 'PatentDigest',
             description: 'analysis of patent or published application',
@@ -1239,4 +1238,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 });
             }
         };
+    }).controller('MetadataController', function(Collection, config, $scope){
+      var config = $scope.$parent.config || $scope.$parent.$parent.config;
+      $scope.onSubmit = function(model){
+        Collection(config.id).$save(model);
+      };
     });

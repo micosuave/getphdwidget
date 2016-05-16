@@ -504,9 +504,9 @@ function pageLoaded() {
         var pdff = this;
         pdff.name = 'PDFFilesController';
 
-    }]).controller("AnnotationController", ['$scope', '$timeout', function ($scope, $timeout) {
+    }]).controller("AnnotationController", ['$scope', '$timeout', 'Profile',function ($scope, $timeout, Profile) {
         // $scope.roarevents = ROARevents($stateParams.matterId);
-
+        var profile = Profile();
         $scope.annotationColours = [{
             name: "Red",
             value: "red"
@@ -526,7 +526,7 @@ function pageLoaded() {
                 name: "Aqua",
                 value: "aqua"
             }];
-            //$scope.templates = profile.annotationtemplates;
+            $scope.templates = profile.annotationtemplates;
         /*$scope.templates = [{
             type: "red",
             comment: "@username",

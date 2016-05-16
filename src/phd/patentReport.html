@@ -75,14 +75,32 @@
                         </uib-tab-content>
                     </uib-tab>
                     <uib-tab class="">
-                        <uib-tab-heading>Claims
-                            <label class="label label-pill label-success">{{patent.claim_total}}</label>
+                        <uib-tab-heading>{{patent.claim_total}}&nbsp;&nbsp;Claims
+                            <!--<label class="label label-pill label-info">{{patent.claim_total}}</label>-->
                             <!--<label class="label label-pill label-info">{{patent.application_data.claim_total}}</label>-->
                             </uib-tab-heading>
                         <uib-tab-content class="container-fluid">
                       <!--<uib-tabset type="pills" justified="true">-->
                           <!--<uib-tab heading="{{patent.pub | published_application}}">-->
-                      <div class="row">
+
+
+
+                     <uib-tabset>
+                       <uib-tab heading="Issued">
+                       <div class="col-sm-6" style="transform:scale3d(0.9,0.9,0.9)translateX(-40px);">
+                        <d3pendingtree patent="{{config.PNUM}}" pattern="{{query}}" tree="tree" style="width:400px;"></d3pendingtree>
+                       </div>
+                       <div class="col-sm-6">
+                    <claimtree tree="tree.claims" query="query" style="position:absolute;"></claimtree>
+                          </div>
+
+                       </uib-tab>
+                       <uib-tab heading="{{patent.pub | published_application}}" ng-if="patent.application_data">
+                        <uib-tab-heading>
+                                                      {{patent.pub | published_application}}<label class="label label-pill label-info">{{patent.application_data.claim_total}}</label>
+
+                        </uib-tab-heading>
+                        <div class="row">
                           <div class="col-sm-6">
                       <h6>{{patent.pub | published_application}}</h6>
                       <fieldset class="material PTO">
@@ -114,6 +132,8 @@
                     <claimtree tree="tree.claims" query="query" style="position:absolute;"></claimtree>
                           </div>
                         </div>
+                        </uib-tab>
+                        </uib-tabset>
                         </uib-tab-content>
                     </uib-tab>
 
