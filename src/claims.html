@@ -4,7 +4,7 @@
 <uib-tab-content class="card-block card-columns">
   <div class="col-sm-8 card card-Applicant" ng-repeat="claim in node.claims track by $index" >
 
-<textarea class="card-block" style="font-size:16px;color:#444;" ng-model="node.claims[$index]" ng-model-options="{updateOn:'default blur',debounce:{'default':5000,'blur':0}}" cols="250" rows="6"></textarea>
+<textarea class="card-block" style="font-size:16px;color:#444;" ng-model="node.claims[$index]" ng-model-options="{updateOn:'default blur',debounce:{'default':5000,'blur':0}}" cols="100" rows="6"></textarea>
 <a class="fa fa-close text-danger" ng-click="node.claims[$index]=null"></a>
 
   <a ng-click="node.claims.unshift('NewClaimText')" class="text-warning fa fa-plus"></a>
