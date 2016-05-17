@@ -1,11 +1,11 @@
   <!--<input type="submit" class="btn btn-primary" >-->
-
+<label class="badge bg-Applicant pull-right">{{roarevent.date | date}}</label>
 <!--<form name="claimset" ng-submit="onSubmit(claimset)">-->
-  <div class="col-sm-6 card" ng-repeat="claim in roarevent.claims">
+  <div class="col-sm-6 card" ng-repeat="claim in roarevent.claims" style="display:flex;align-content:center;flex-flow:row nowrap;justify-content:space-between;">
     <!--<p editable-textarea="roarevent.claims[$index]" e-pattern="/^\d+\./" e-rows="6" e-cols="80" e-required onbeforesave="roarevent.claims[$index] = $data;" ng-bind-html="claim | highlight: query | trustAsHTML"></p>-->
-<textarea ng-model="roarevent.claims[$index]" ng-model-options="{updateOn:'default blur',debounce:{'default':5000,'blur':0}}" col="80" rows="6"></textarea>
+<textarea class="Applicant" ng-model="roarevent.claims[$index]" ng-model-options="{updateOn:'default blur',debounce:{'default':5000,'blur':0}}" col="250" rows="6"></textarea>
 <a class="fa fa-close text-danger" ng-click="roarevent.claims[$index]=null"></a>
-  <button ng-click="roarevent.claims.unshift('NewClaimText')" class="btn btn-warning fa fa-plus"></button>
+  <a ng-click="roarevent.claims.unshift('NewClaimText')" class="text-warning fa fa-plus"></a>
 
   </div>
   <!--</form>-->
