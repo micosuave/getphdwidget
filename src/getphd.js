@@ -1282,7 +1282,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     })
 
 
-    .controller('MetadataController', function(Collection, config, $scope, $stateParams){
+    .controller('MetadataController', function(filepickerService, $firequeue, $rootScope, Collection, config, $scope, $stateParams, Upload, $http, toastr){
       var config = $scope.$parent.config || $scope.$parent.$parent.config;
       $scope.config = config;
       var pId = $stateParams.pId;
@@ -1291,4 +1291,83 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       $scope.onSubmit = function(model){
         Collection(config.id).$save(model);
       };
+       $scope.pushtoqueue = function (record) {
+                var queue = $firequeue();
+                var id = record.id ;
+                var name = record.filename || record.title;
+                var userid = $rootScope.authData.uid;
+                queue.$add({ 'id': id, 'name': name, 'file': '/opt/files/'+userid+'/'+name });
+
+            };
+      $scope.importFile = function(roarevent){
+var blob = {
+  url: roarevent.media,
+  filename: roarevent.filename,
+  mimetype: roarevent.mimetype,
+  isWriteable: true,
+  size: 100
+};
+var cuturl = roarevent.media.replace('https://','');
+var dialog = filepickerService.read(
+
+  'https://lexlab.io/proxy/'+cuturl,
+  {base64encode: true},
+  function(data){
+    filepickerService.write(
+      blob,
+      data,
+      function(Blob){
+    // console.log(Blob.url);
+//   }
+// );
+//         filepickerService.exportFile(
+//   roarevent.media,
+//   {
+//     mimetype:roarevent.mimetype,
+//     suggestedFilename: roarevent.title
+//   },
+//   function(Blob){
+//     console.log(Blob.url);
+     Upload.upload({url: '/upload/', data: {file: Blob}})
+    .then(function (resp) {
+          dialog.close();
+            console.log(resp);
+            $scope.pushtoqueue(roarevent);
+            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+
+
+
+        }, function (resp) {
+            console.log('Error status: ' + resp.status);
+        }, function (evt) {
+            var progress = parseInt(100.0 * evt.loaded / evt.total);
+            $scope.progress = progress;
+                if (progress === 10) {
+                    toastr.info('fetching remote resources...');
+                }
+                if (progress === 30) {
+                    toastr.info('loading relevant data schemas...');
+                }
+                if (progress === 55) {
+                    toastr.warning('compiling templates...');
+                }
+                if (progress === 75) {
+                    toastr.warning('starting the AI engine...')
+                }
+
+                if (progress <= 40) { $scope.progresstype = 'danger'; }
+                else if (progress > 40 && progress < 66) { $scope.progresstype = 'warning'; }
+                else if (progress > 97) { $scope.progresstype = 'success'; }
+                else { $scope.progresstype = 'info'; }
+
+            console.log('progress: ' + progress + '% ' + evt.config.data.file.name);
+        });
+  }
+);
+}
+    );
+
+
+      };
+
     });
