@@ -142,7 +142,7 @@
                             <label class="label label-pill label-warning">{{patent.references.length}}</label>
                         </uib-tab-heading>
 <uib-tab-content style="width:98%;margin:1%;height:98%;overflow:scroll;">
-                        <div patent-citation patent="{{ref | strip}}" ng-repeat="ref in patent.references"></div>
+                        <div patent-citation ref="ref" ng-repeat="ref in patent.references"></div>
 
 
                         <!--<table capturelinks ng-bind-html="p.sanitize(patent.backward_citations)" class="card img-shadow card-block table table-condensed table-stripped table-hover table-responsive" style="color:#444 !important;"></table>

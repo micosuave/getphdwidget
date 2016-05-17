@@ -872,18 +872,18 @@ var maildate = new Date(roarevent['Mail Room Date']);
             restrict: 'EA',
             templateUrl: '{widgetsPath}/getphd/src/phd/citation.html',
             scope:{
-
+              ref: '='
             },
 
             link: function($scope,$element,$attrs,$ctrl){
                 //var p = this;
-                var id = $attrs.patent;
-
-                try{ Collection(numbr).$loaded().then(function(data){
+                // var id = $attrs.patent;
+                var ref = $scope.ref;
+                try{ Collection(ref).$loaded().then(function(data){
                     $scope.p = data;
                 });
                 }catch(ex){
-                    $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + numbr).then(function (resp) {
+                    $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + ref).then(function (resp) {
                         $scope.p = resp.data;
                     });
                 }

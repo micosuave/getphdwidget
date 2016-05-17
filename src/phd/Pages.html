@@ -1,4 +1,4 @@
-<div ng-repeat="(key, page) in roarevent.pages" class="card card-block" style="line-height:1.5;font-size:14px;">
+<div ng-repeat="(key, page) in roarevent.pages |orderBy: ['page']" class="card card-block" style="line-height:1.5;font-size:14px;">
 
     <fieldset class="material">
       <input ng-model="$parent.query" placeholder="Search" type="text">

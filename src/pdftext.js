@@ -384,6 +384,9 @@ function pageLoaded() {
                             } else {
                                 $scope.annotations.push(page.annotations);
                             }
+                            var text= page.text;
+                            text.replace(/Application\/Control.*?Art\sUnit:.?\d+\s/ig, '<br><hr class="bg-PTO" style="display:inline-block;width:100%;">$&<hr class="text-PTO" style="display:inline-block;width:50%;margin-left:25%;margin-right:25%:"><br>');
+                            text.replace(/c[li]aims?\s((\s?\d+\s?[,-]?)*)(?:((and)(\s?\d+\s?[,-]?)*)((\sis\s)|(\sare\s))((rejected)|(objected)).*?35\sU\.S\.C\.\s\d+\(?[a-g]?\)?).*?((\d(,\d{3}){2})|(\d{4}\/\d+))\sto\s(\w+)/ig, '<br>$&');
                         });
 
                         // if (angular.isUndefined($scope.roarevent.annotations)){
