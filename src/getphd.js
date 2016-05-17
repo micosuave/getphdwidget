@@ -26,6 +26,25 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 reload: true
             }
         })
+        .widget('claims', {
+          title: 'Claims',
+            description: 'view or edit a set of claims',
+            templateUrl: '{widgetsPath}/getphd/src/claims.html',
+            icon: 'fa-code',
+            iconurl: '/llp_core/img/lexlab.svg',
+            styleClass: 'info',
+            frameless: false,
+            reload: true,
+            controller: 'ClaimWidgetController',
+            controllerAs: 'cwc',
+            edit: {
+                templateUrl: '{widgetsPath}/getphd/src/editfulltext.html',
+                controller: 'TextController',
+                controllerAs: 'text',
+                modalSize: 'lg',
+                reload: true
+            }
+        })
         .widget('text', {
             title: 'TextAnnotator',
             description: 'full search and annotate a document',

@@ -1,0 +1,11 @@
+  <!--<input type="submit" class="btn btn-primary" >-->
+
+<!--<form name="claimset" ng-submit="onSubmit(claimset)">-->
+  <div class="col-sm-6 card" ng-repeat="claim in roarevent.claims">
+    <!--<p editable-textarea="roarevent.claims[$index]" e-pattern="/^\d+\./" e-rows="6" e-cols="80" e-required onbeforesave="roarevent.claims[$index] = $data;" ng-bind-html="claim | highlight: query | trustAsHTML"></p>-->
+<textarea ng-model="roarevent.claims[$index]" ng-model-options="{updateOn:'default blur',debounce:{'default':5000,'blur':0}}" col="80" rows="6"></textarea>
+<a class="fa fa-close text-danger" ng-click="roarevent.claims[$index]=null"></a>
+  <button ng-click="roarevent.claims.unshift('NewClaimText')" class="btn btn-warning fa fa-plus"></button>
+
+  </div>
+  <!--</form>-->

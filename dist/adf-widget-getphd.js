@@ -27,6 +27,25 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 reload: true
             }
         })
+        .widget('claims', {
+          title: 'Claims',
+            description: 'view or edit a set of claims',
+            templateUrl: '{widgetsPath}/getphd/src/claims.html',
+            icon: 'fa-code',
+            iconurl: '/llp_core/img/lexlab.svg',
+            styleClass: 'info',
+            frameless: false,
+            reload: true,
+            controller: 'ClaimWidgetController',
+            controllerAs: 'cwc',
+            edit: {
+                templateUrl: '{widgetsPath}/getphd/src/editfulltext.html',
+                controller: 'TextController',
+                controllerAs: 'text',
+                modalSize: 'lg',
+                reload: true
+            }
+        })
         .widget('text', {
             title: 'TextAnnotator',
             description: 'full search and annotate a document',
@@ -1275,7 +1294,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       };
     }]);
 
-angular.module("adf.widget.getphd").run(["$templateCache", function($templateCache) {$templateCache.put("{widgetsPath}/getphd/src/edit.html","<form role=form ng-submit=collection.$save()><fieldset class=\"material Applicant\"><input type=text placeholder=1234567 ng-model=config.PNUM><hr><label>Enter a Patent Number</label></fieldset><br><fieldset class=\"material Petition\"><input type=text placeholder=YYYY ng-model=config.IPAYEAR><hr><label>Enter a Published Patent Application YEAR</label></fieldset><fieldset class=\"material Petition\"><input type=text placeholder=1234567 ng-model=config.IPANUM><hr><label>Enter a Published Patent Application Number</label></fieldset></form>");
+angular.module("adf.widget.getphd").run(["$templateCache", function($templateCache) {$templateCache.put("{widgetsPath}/getphd/src/claims.html","<div class=\"col-sm-6 card\" ng-repeat=\"claim in roarevent.claims\"><textarea ng-model=roarevent.claims[$index] ng-model-options=\"{updateOn:\'default blur\',debounce:{\'default\':5000,\'blur\':0}}\" col=80 rows=6></textarea> <a class=\"fa fa-close text-danger\" ng-click=\"roarevent.claims[$index]=null\"></a> <button ng-click=\"roarevent.claims.unshift(\'NewClaimText\')\" class=\"btn btn-warning fa fa-plus\"></button></div>");
+$templateCache.put("{widgetsPath}/getphd/src/edit.html","<form role=form ng-submit=collection.$save()><fieldset class=\"material Applicant\"><input type=text placeholder=1234567 ng-model=config.PNUM><hr><label>Enter a Patent Number</label></fieldset><br><fieldset class=\"material Petition\"><input type=text placeholder=YYYY ng-model=config.IPAYEAR><hr><label>Enter a Published Patent Application YEAR</label></fieldset><fieldset class=\"material Petition\"><input type=text placeholder=1234567 ng-model=config.IPANUM><hr><label>Enter a Published Patent Application Number</label></fieldset></form>");
 $templateCache.put("{widgetsPath}/getphd/src/editfulltext.html","<form role=form><div class=form-group ui-tree><label for=draftid>Select Document</label><ol ui-tree-nodes ng-model=tree.roarlist><li ui-tree-node ng-repeat=\"node in tree.roarlist\" ng-include=\"\'quicklinkid\'\" node={{node}} data-collapsed=true></li></ol><script type=text/ng-template id=quicklinkid><div class=\"card card-rounded\" ng-class=\"{\'text-success\': (config.id === node.id)}\"> <a class=\"btn btn-xs\" ng-click=\"toggle(this)\" ng-if=\"node.roarlist\" style=\"\"><span class=\"fa \" ng-class=\"{\'fa-chevron-right\': collapsed, \'fa-chevron-down\': !collapsed}\" style=\"color:steelblue;transition:all 0.25s ease;\"></span></a> <a ng-click=\"config.id = node.id;$close();\" ng-class=\"{\'text-success\': (config.id === node.id)}\" class=\"\"><span class=\"fa fa-stack fa-pull-left fa-border\"><span class=\"fa fa-stack-2x fa-file-o\"><span class=\"fa fa-stack-1x\" style=\"font-size: 10px;vertical-align:bottom;\">{{node.rid}}</span></span></span>&nbsp;&nbsp;{{node.title}}<br><small class=\"text-muted\">{{node.date | date}}</small></a> </div> <ol ui-tree-nodes=\"\" ng-model=\"node.roarlist\" ng-class=\"{hidden: collapsed}\" style=\"\"> <li class=\"\" ng-repeat=\"(key, node) in node.roarlist\" ui-tree-node ng-include=\"\'quicklinkid\'\" style=\"padding-right:0rem;padding-bottom:0.1rem;\" node=\"{{node.id || node.$id || node.$value || node}}\" data-collapsed=\"true\"> </li> </ol></script></div></form>");
 $templateCache.put("{widgetsPath}/getphd/src/editgallery.html","<form role=form><div class=form-group><label for=sample>Interval, in milliseconds:</label> <input type=number class=form-control ng-model=config.interval><br>Enter a negative number or 0 to stop the interval.</div><div class=form-group><label>Disable Slide Looping</label> <input type=checkbox ng-model=config.nowrap></div><div class=form-group><label>Pause on Hover?</label> <input type=checkbox ng-model=config.pauseonhover></div><div class=form-group><label>Disable Transition</label> <input type=checkbox ng-model=config.transition></div></form>");
 $templateCache.put("{widgetsPath}/getphd/src/fulltext.html","<doc-header class=\"container-fluid card two-col-right\" roarid={{roarevent.id}}><div getpdftext={{roarevent.id}} pdf-data={{roarevent.ocrlink}}>&nbsp;</div></doc-header>");
@@ -2258,6 +2278,30 @@ angular.module('roar').controller('TextController', ['$scope','Collection','conf
     roarevent.$bindTo($scope, 'roarevent');
 $scope.config = config;
 
+
+}])
+.controller('ClaimWidgetController', ['$scope', 'Collection', 'config',
+function($scope, Collection, config){
+  var cwc = this;
+
+  var config = $scope.$parent.config || $scope.$parent.$parent.config;
+  var roarevent = Collection(config.id);
+  // roarevent.$loaded().then(function(data){
+  //   cwc.claimset = data.claims;
+  // });
+  roarevent.$bindTo($scope, 'roarevent');
+  $scope.onSubmit = function(){
+    //something
+  };
+  $scope.setwatcher = function(inputvalue, index){
+      var innumber = parseInt(inputvalue.slice(0,inputvalue.indexOf('\.')));
+      if(index + 1 === innumber){
+        cwc.claimsets[index].$valid = true;
+      }
+      else{
+        cwc.claimsets[index].$error();
+      }
+  };
 
 }]);
 
