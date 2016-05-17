@@ -2703,20 +2703,20 @@ var num = section.match(/Page\s\d+/i);
    if (num == !null){
                               var numb = num.split(' ');
 
-                            num = parseInt(numb[1]);
+                            var numm = parseInt(numb[1]);
                             }
                             var text =  section.replace(/Application\/Control.*?Art\sUnit:.?\d+\s/ig, '');
 
                             var pag = {
                                             annotations: [{id:0,startIndex:0,endIndex:0,type:'aqua'}],
-                                            id: $scope.roarevent.id + '-' + i,
+                                            id: $scope.roarevent.pages.length,
                                             text: text,
-                                            header: header,
-                                            number: num
+                                            header: header[0],
+                                            number: numm
                                         };
 
                                         $scope.roarevent.pages.push(pag);
-                                        $scope.roarevent.$save();
+                                        // $scope.roarevent.$save();
                                     });
 
                                 };
