@@ -463,7 +463,7 @@ var num = section.match(/Page\s\d+/i);
                                         };
                                         }
                                         $scope.roarevent.pages.push(pag);
-                                        // $scope.roarevent.$save();
+                                         $scope.roarevent.$save();
                                     });
 
                                 };
