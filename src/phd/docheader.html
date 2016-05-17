@@ -9,9 +9,9 @@
         <hr>
         <label>Search this document</label>
     </fieldset>
-                      <label ng-repeat="match in roarevent.matches track by $index" class="fa fa-tag"><a ng-href="#{{$index}}">{{match}}</a></label></p>
+                      <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag"><a ng-href="#{{$index}}">{{match}}</a></label></p>
    <ul>
-        <li class="card img-shadow" ng-repeat="a in annotationsAsFlatList(annotations) track by $index" style="border: 2.5px solid {{a.type}};">
+        <li class="card img-shadow" ng-repeat="a in annotationsAsFlatList($parent.$$childHead.$$childHead.$$childTail.annotations) track by $index" style="border: 2.5px solid {{a.type}};">
             {{a.data.comment}}
             <span ng-if="a.data.points">
               ({{a.data.points}}

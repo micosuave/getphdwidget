@@ -1,14 +1,17 @@
-<div ng-repeat="(key, page) in roarevent.pages |orderBy: ['page']" class="card card-block" style="line-height:1.5;font-size:14px;">
-
+<div ng-repeat="(key, page) in roarevent.pages | orderBy: ['number','text', 'key']" class="card card-block" style="line-height:1.5;font-size:14px;">
+<!--
     <fieldset class="material">
       <input ng-model="$parent.query" placeholder="Search" type="text">
 <hr>
 <label>Search</label>
-      </fieldset>
+      </fieldset>-->
+
+      <hr class="bg-{{roarevent.styleClass}}" style="display:inline-block;width:100%;">{{page.header}}<hr class="text-{{roarevent.styleClass}}" style="display:inline-block;width:50%;margin-left:25%;margin-right:25%:"><br>
     <ng-annotate-text text="page.text | highlight: $parent.query " class="" style="background-color: #fff;padding: 1rem;border-radius: 0.2rem;" annotations="page.annotations" readonly="false" popup-controller="'AnnotationController'"
         popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'" tooltip-controller="'AnnotationController'" tooltip-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation-tooltip.tpl.html'"
         on-annotate="onAnnotate" on-annotate-delete="onAnnotateDelete" on-annotate-error="onAnnotateError" on-popup-show="onPopupShow" on-popup-hide="onPopupHide" popup-offset="50">
 
     </ng-annotate-text>
-
+<hr class="text-{{roarevent.styleClass}}" style="display:inline-block;width:50%;margin-left:25%;margin-right:25%:">
+<small style="text-align:center;">{{page.number}}</small>
 </div>
