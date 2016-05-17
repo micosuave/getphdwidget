@@ -33,5 +33,14 @@ function($scope, Collection, config){
         cwc.claimsets[index].$error();
       }
   };
+  $scope.sortSet = function(node){
+    var claimset = node.claims;
+    var newarray = [];
+    angular.forEach(claimset, function(claim, key){
+       var num = parseInt(claim.match(/\d+(?=\.)/)[0]);
+        newarray[num] = claim;
+    });
+    node.claims = newarray;
+  };
 
 }]);
