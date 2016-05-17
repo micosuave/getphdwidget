@@ -458,8 +458,8 @@ var num = section.match(/Page\s\d+/i);
                                             annotations: [{id:0,startIndex:0,endIndex:0,type:'aqua'}],
                                             id: $scope.roarevent.pages.length,
                                             text: section,
-                                            header: null,
-                                            number: numm
+                                            header: null
+
                                         };
                                         }
                                         $scope.roarevent.pages.push(pag);
