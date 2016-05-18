@@ -3,12 +3,12 @@
     <uib-tab-heading><h6 class="card-title">{{node.title}} {{$index}}</h6><strong class="card-subtitle">{{node.date | date}}</strong><a pop ng-href="node.media" class="fa fa-external-link showonhover"></a> </uib-tab-heading>
 <uib-tab-content class="card-block card-columns">
   <div class="col-sm-8 card card-Applicant" ng-repeat="claim in node.claims track by $index" >
-
+<label ng-class="{'dependent':(prent(node.claims[$index]) > 0), 'independent':(!prent(node.claims[$index]))}" class="label label-pill node pull-right" style="padding:10px;position:absolute;right:5px;top:5px;" colorkey="{{statustest(node.claims[$index])}}" uib-tooltip="{{statustest(node.claims[$index])}}" tooltip-triggers="mouseenter click" tooltip-animation="true" tooltip-offset="50px" tooltip-placement="top" >{{num(node.claims[$index])}}</label>
 <textarea class="card-block" style="font-size:16px;color:#444;" ng-model="node.claims[$index]" ng-model-options="{updateOn:'blur',debounce:{'blur':0}}" cols="100" rows="6"></textarea>
 <a class="fa fa-close text-danger" ng-click="node.claims[$index]=null"></a>
 
   <a ng-click="addClaim($index, node)" class="text-warning fa fa-plus"></a>
-<label ng-class="{'dependent':(prent(node.claims[$index]) > 0), 'independent':(!prent(node.claims[$index]))}" class="label label-pill node pull-right" style="padding:10px;" colorkey="{{statustest(node.claims[$index])}}" uib-tooltip="{{statustest(node.claims[$index])}}" tooltip-triggers="mouseenter click" tooltip-animation="true" tooltip-offset="50px" tooltip-placement="top" >{{num(node.claims[$index])}}</label>
+
   </div>
   </uib-tab-content>
   </uib-tab>
