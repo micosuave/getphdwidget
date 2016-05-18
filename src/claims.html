@@ -6,7 +6,7 @@
 <label ng-class="{'dependent':(prent(node.claims[$index]) > 0), 'independent':(!prent(node.claims[$index]))}" class="badge display-1 label label-pill node pull-right" style="padding:10px;position:absolute;right:5px;top:5px;" colorkey="{{statustest(node.claims[$index])}}" uib-tooltip="{{statustest(node.claims[$index])}}" tooltip-triggers="mouseenter click" tooltip-animation="true" tooltip-offset="50px" tooltip-placement="top" >{{num(node.claims[$index])||'-'}}</label>
 
 
-<textarea class="card-block" style="font-size:16px;color:#444;" ng-model="node.claims[$index]" ng-model-options="{updateOn:'blur',debounce:{'blur':0}}" cols="100" rows="4" ng-blur="checkValid($index)" placeholder="XX. Lorem non irure sunt enim consequat."></textarea>
+<textarea class="card-block" style="font-size:16px;color:#444;" ng-model="node.claims[$index]" ng-model-options="{updateOn:'blur',debounce:{'blur':0}}" cols="100" rows="4" ng-blur="checkValid($index, node)" placeholder="XX. Lorem non irure sunt enim consequat."></textarea>
 <a class="fa fa-close text-danger" ng-click="node.claims[$index]=null" style="align-self:flex-end;"></a>
 
   <a ng-click="addClaim($index, node)" class="text-success fa fa-plus" style="align-self:center;"></a>
