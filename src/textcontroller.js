@@ -67,4 +67,9 @@ $scope.num = function(input) {
 
                 return id;
             };
+          $scope.addClaim = function(index, node){
+              var newtext = '' + (index + 1) + '. The claim of claim ' + index + ', wherein the text is self-referential.';
+              node.claims.unshift(newtext);
+              $scope.sortSet(node);
+          };
 }]);
