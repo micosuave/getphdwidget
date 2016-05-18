@@ -17,10 +17,17 @@ function($scope, Collection, config){
 
   var config = $scope.$parent.config || $scope.$parent.$parent.config;
   var roarevent = Collection(config.id);
-  // roarevent.$loaded().then(function(data){
-  //   cwc.claimset = data.claims;
-  // });
-  roarevent.$bindTo($scope, 'roarevent');
+  roarevent.$loaded().then(function(data){
+    $scope.roarevent = data;
+    $scope.sets = [];
+    angular.forEach(data.roarlist, function(id, key){
+      Collection(id).$loaded().then(function(claimpaper){
+        $scope.sets.push(claimpaper.claims);
+      });
+    });
+    // cwc.claimset = data.claims;
+  });
+  //roarevent.$bindTo($scope, 'roarevent');
   $scope.onSubmit = function(){
     //something
   };
@@ -38,7 +45,7 @@ function($scope, Collection, config){
     var newarray = [];
     angular.forEach(claimset, function(claim, key){
        var num = parseInt(claim.match(/\d+(?=\.)/)[0]);
-        newarray[num] = claim;
+        newarray[num - 1] = claim;
     });
     node.claims = newarray;
   };
@@ -52,13 +59,19 @@ function($scope, Collection, config){
             }
         };
 $scope.num = function(input) {
-                var p = input.slice(0, input.indexOf('.'));
+          if(angular.isString(input)){
+            var p = input.slice(0, input.indexOf('.'));
 
                 return p || input;
+          }else{
+            return '-';
+          }
+
             };
 
           $scope.prent =  function(input) {
-                var dependencytest = new RegExp(/\sof\sc[li]aim\s\d+,?\s/ig);
+                if(angular.isString(input)){
+                  var dependencytest = new RegExp(/\sof\sc[li]aim\s\d+,?\s/ig);
                 var idref = input.match(dependencytest);
                 var id;
                 if (idref !== null) {
@@ -66,10 +79,16 @@ $scope.num = function(input) {
                 }
 
                 return id;
+                }else{
+                  return -1;
+                }
             };
           $scope.addClaim = function(index, node){
-              var newtext = '' + (index + 1) + '. The claim of claim ' + index + ', wherein the text is self-referential.';
+              var newtext = '' + (parseInt(index) + 1) + '. The claim of claim ' + index + ', wherein the text is self-referential.';
               node.claims.unshift(newtext);
               $scope.sortSet(node);
+          };
+          $scope.checkValid = function(index, node){
+              return alertify.error('invalid!');
           };
 }]);

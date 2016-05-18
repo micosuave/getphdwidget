@@ -7,7 +7,7 @@
  <div class="card card-primary card-block btn-glass drop-target" nv-file-drop uploader="uploader"   drop-files="handleFiles(files)"
  style="border: 2px dashed blue;margin: 5px;" ng-if="main.showupload" >
     <div ng-controller="pageslideCtrl" >
-                <button class="row btn btn-glass btn-primary img img-rounded " style="width:100%;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;" ng-click="main.toggle()" ng-class="{'btn-success': (main.progress == 100),'btn-danger':(main.progress === 'failed')}">
+                <button class="row btn btn-glass btn-primary img img-rounded " style="width:100%;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;" ng-click="main.toggle()" ng-class="{'btn-success': (main.progress == 100),'btn-danger':(main.progress === 'failed')}" angular-ripple>
         <uib-progressbar class="btn-glass fa fa-3x active stripped" ng-class="{'active':(main.progress < 100)}" ng-if="main.progress" value="main.progress" style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{main.progresstype}}" > </uib-progressbar><i class="fa fa-upload fa-3x">{{main.progress}}<span ng-show="main.progress">%</span></i>
         <img src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg" class=" img img-rounded pull-right" style="max-height:100px;" ng-if="!main.progress" />
         <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
@@ -249,59 +249,7 @@
     </uib-tab-content>
 
    </uib-tab>
-   <!--<uib-tab heading="PhD Report" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[1].isActive = true" deselect="main.tabs[1].isActive = false">
-      <uib-tab-content ng-if="main.tabs[1].isActive">
-      <uib-tabset class="tabbable " justified="true">
-        <uib-tab class="ngDialogTab text-{{collection.styleClass}} " ng-repeat="(key,tab) in phd.roarlist" collection="{{key || tab}}" active="tab.active" select="tab.active = true;" deselect="tab.active = false;">
-            <uib-tab-heading class="pull-right" style="" ng-style="">{{collection.rid}}&nbsp&nbsp<i class=" fa {{collection.icon}} label label-{{collection.styleClass}} label-pill">{{collection.roarlist.length}}</i></uib-tab-heading>
-            <uib-tab-content ng-if="tab.active">
-            <h4 class="card-title pull-right fa {{collection.icon}}">{{collection.rid}}</h4>
-            <div style="width: 100%;" class="reventlist">
-                <roar-event ng-repeat="event in collection.roarlist" id="{{event.id || event}}" style="width:19.5%;"></roar-event>
-            </div>
-            </uib-tab-content>
-        </uib-tab>
-        <uib-tab class="ngDialogTab text-info" >
-            <uib-tab-heading class="">ROAR
-                <label class="label label-info label-pill pull-right">{{phd.imagefile.length}}</label>
-            </uib-tab-heading>
 
-            <uib-tabset class="tabbable tabs-left">
-                <uib-tab ng-repeat="(key, roarevent) in phd.imagefile" node="{{roarevent.id || roarevent}}" select="node.isActive = true" deselect="node.isActive = false" active="node.isActive">
-                <uib-tab-heading style="max-width:14%;transform:scale(0.75);">
-                  <div id="" uib-dropdown uib-keyboard-nav dropdown-append-to-body >
-                        <a uib-dropdown-toggle class=" fa {{rightmenu.icon}}"  ></a>
-                           <ul class="uib-dropdown-menu">
-                               <li class="{{menuitem.styleClass}}" ng-repeat="menuitem in rightmenu.items">
-                                   <a ng-click="menuitem.onClick(dashb)" class="fa {{menuitem.icon}} {{menuitem.styleClass}}">&nbsp;&nbsp;&nbsp;&nbsp;{{menuitem.label}}</a>
-                                </li>
-                            <li><div uib-dropdown uib-keyboard-nav dropdown-append-to-body>
-                       <a uib-dropdown-toggle   >Paste from Clipboard&nbsp;&nbsp;&nbsp;&nbsp;<i class=" fa fa-chevron-right"></i></a>
-                           <ul ng-controller="ClipboardMenuController as cmc" class="uib-dropdown-menu dropdown-menu-right">
-
-   <li class="" ng-repeat="(key, item) in cmc.clipboard" node="{{item.id || item}}">
-
-      <a class="fa fa-external-link" title="popout" ng-click="cmc.popout(item)"> {{node.title | limitTo:25}}</a>
-      <a class="fa fa-paste" title="paste reference" ng-click="cmc.paste(item, page)"></a>
-      <a class="fa fa-copy" title="create a new copy" ng-click="cmc.fork(item, page)"></a>
-  </li>
-</ul></div>
-                        </li>
-                            </ul>
-                        </div>
-                  <roar-chip id="{{node.id || node}}" class="" ></roar-chip></uib-tab-heading>
-                <!--<div style="max-width:75%;" class="pull-right">-->
-                    <!--<iframe ng-src="{{node.media}}" class="card card-block card-fancy pull-right" style="width:45%;" ng-if="node.isActive"></iframe>-->
-                    <!--<iframe ng-src="{{node.txt}}" class="card card-block card-fancy pull-right" style="width: 45%;" ng-if="item.active"></iframe>-->
-                <!--</div>-->
-               <!-- </uib-tab>
-
-          </uib-tabset>
-
-        </uib-tab>
-      </uib-tabset>
-      </uib-tab-content>
-   </uib-tab>-->
 
         <uib-tab class="" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[2].isActive = true" deselect="main.tabs[1].isActive = false" style="margin: 0 5px;">
            <uib-tab-heading class="" ng-style="">Patent Digest for US {{(phd.patent.number | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM)  }}</uib-tab-heading>
@@ -312,7 +260,7 @@
               </uib-tab>
               <uib-tab heading="Claim/Rejection History">
               <uib-tabset justified="true">
-                <uib-tab heading="Issued Claims">
+                <!--<uib-tab heading="Issued Claims">
                 <blockquote class="" cite="{{phd.patent.media}}" style="margin: 25px;margin-top:35px;"><h4 ><strong ng-bind="tree.title"> </strong> - <small>{{tree.claim_total}} Claims</small>
 </h4><p ng-bind-html="tree.abstract | highlight: query | trustAsHTML"   > </p>
 
@@ -324,9 +272,6 @@
                     </div>
                 <div class="row">
                 <div class="col-sm-6">
-                <!--<d3lib class="d3lib" data="tree.claims"></d3lib>-->
-                  <!--<d3pendingtree class="{{config.query}}" tree="treetwo" patent="{{tree.pub}}" style="width:100%;height:600px;"></d3pendingtree>-->
-                                    <!--<iframe ng-src="{{phd.patent.media}}" class="well" style="width:100%;height:800px;" name="fframe" id="fframe"></iframe>-->
 
 <fieldset class="material">
                     <input id="patterninput" class="" ng-model="query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
@@ -337,22 +282,22 @@
 
                 <div class="col-sm-3">
             <ul class="list-unstyled">
-                <!--<li>
+                <li>
                     <input type="checkbox" ng-model="highlight">
                     <small> Highlight exact matches</small>
-                </li>-->
+                </li>
                 <li>
                     <input type="checkbox" ng-model="dim"> <small>Hide non-matches</small>
                 </li>
             </ul>
         </div>
         <div class="col-sm-3">
-            <!--<ul class="list-unstyled">
+            <ul class="list-unstyled">
                 <li ng-repeat="field in availableFields">
                     <input type="checkbox" ng-click="toggleSupport(field)" ng-checked="supportedFields.indexOf(field) > -1">
                     <small>Match <code>{{ field }}</code></small>
                 </li>
-            </ul>-->
+            </ul>
         </div>
         <d3pendingtree id="a{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" class="{{query}}" tree="tree"  pattern="{{query}}" patent="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" style="transform:scale3d(0.9,0.9,0.9)translateX(-40px);"></d3pendingtree>
 
@@ -375,8 +320,8 @@
 
             <!--<a class="btn showonhover" data-nodrag ng-if="config.editable" ng-click="remove(this);"><span class="fa fa-close text-danger "></span></a>-->
             <!--<a class="btn " data-nodrag ng-if="config.editable" ng-click="toc.newsubsection(this)" style=""><span class="fa fa-plus text-success"></span></a>-->
-           <div ng-bind-html="node.text | highlight: query " ng-class="{'filtered-out':(!treeFilter(node, query, supportedFields) && dim)}"></div>
-            <!--<a  class="gototarget btn" data-nodrag  ui-sref="{{parentstate}}.righttab({tabid: node.id})" style=""> <span ng-if="!config.editable" class="pull-left">{{node.text}}</span><i style="position:absolute;right:0;">&nbsp;</i></a>-->
+           <!--<div ng-bind-html="node.text | highlight: query " ng-class="{'filtered-out':(!treeFilter(node, query, supportedFields) && dim)}"></div>-->
+            <!--<a  class="gototarget btn" data-nodrag  ui-sref="{{parentstate}}.righttab({tabid: node.id})" style=""> <span ng-if="!config.editable" class="pull-left">{{node.text}}</span><i style="position:absolute;right:0;">&nbsp;</i></a>
 
         </div>
     </div>
@@ -393,9 +338,9 @@
     <div class="col-xs-12">
            <patentreport patent="{{tree.id}}"></patentreport>
             </div>
-                </div>-->
+                </div>
             </uib-tab-content>
-           </uib-tab>
+           </uib-tab>-->
            <uib-tab heading="Claim History-at-a-Glance">
                 <d3historytree patent="{{phd.patent.id}}"></d3historytree>
 
