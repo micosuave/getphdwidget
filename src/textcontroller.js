@@ -42,5 +42,29 @@ function($scope, Collection, config){
     });
     node.claims = newarray;
   };
+  $scope.statustest = function (input) {
+        var status = new RegExp(/\((\w+(\s\w+)*)\)/);
+            if (status.test(input) !== false) {
+                var match = input.match(status);
+                return match[1];
+            } else {
+                return null;
+            }
+        };
+$scope.num = function(input) {
+                var p = input.slice(0, input.indexOf('.'));
 
+                return p || input;
+            };
+
+          $scope.prent =  function(input) {
+                var dependencytest = new RegExp(/\sof\sc[li]aim\s\d+,?\s/ig);
+                var idref = input.match(dependencytest);
+                var id;
+                if (idref !== null) {
+                    var id = idref[0].replace(/\D/ig, '');
+                }
+
+                return id;
+            };
 }]);

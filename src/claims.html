@@ -8,7 +8,7 @@
 <a class="fa fa-close text-danger" ng-click="node.claims[$index]=null"></a>
 
   <a ng-click="node.claims.unshift('NewClaimText')" class="text-warning fa fa-plus"></a>
-
+<label ng-class="{'dependent':(prent(node.claims[$index]) > 0), 'independent':(!prent(node.claims[$index]))}" class="node" colorkey="{{statustest(node.claims[$index])}}">{{num(node.claims[$index])}}</label>
   </div>
   </uib-tab-content>
   </uib-tab>
