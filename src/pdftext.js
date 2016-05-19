@@ -435,33 +435,14 @@ function pageLoaded() {
                                             section = section + ' ' + o.str;
                                             //}
                                         });
-                                        if ($scope.roarevent.doccode == 'CTNF'){
-var header = section.match(/Application\/Control.*?Art\sUnit:.?\d+\s/i);
-var num = section.match(/Page\s\d+/i);
-   if (num == !null){
-                              var numb = num.split(' ');
 
-                            var numm = parseInt(numb[1]);
-                            }
-                            var text =  section.replace(/Application\/Control.*?Art\sUnit:.?\d+\s/ig, '');
-
-                            var pag = {
-                                            annotations: [{id:0,startIndex:0,endIndex:0,type:'aqua'}],
-                                            id: $scope.roarevent.pages.length,
-                                            text: text,
-                                            header: header[0],
-                                            number: numm
-                                        };
-                                        }
-                                        else{
                                           var pag = {
                                             annotations: [{id:0,startIndex:0,endIndex:0,type:'aqua'}],
                                             id: $scope.roarevent.pages.length,
-                                            text: section,
-                                            header: null
+                                            text: section
 
                                         };
-                                        }
+
                                         $scope.roarevent.pages.push(pag);
                                          $scope.roarevent.$save();
                                     });
