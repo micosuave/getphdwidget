@@ -222,7 +222,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="roarevent in phd.imagefile | filter: main.query | orderBy: main.dog : maybe" class="">
+                    <tr ng-repeat="roarevent in phd.imagefile | filter: main.query | orderBy: main.dog : !maybe" class="" colorkey="{{roarevent['Document Code']}}">
                         <th class=""> <a ng-click="main.pushtoqueue(roarevent)"><i class="fa fa-file-pdf"> {{$index}}</i></a></th>
                         <td ng-bind="roarevent['Mail Room Date']"></td>
                         <td ng-bind="roarevent['Document Code']"></td>
