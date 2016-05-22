@@ -1,7 +1,7 @@
 <div class="card-block clearfix" collection="{{config.id}}">
   <form role="form" name="form" ng-submit="collection.$save()">
     <div class="row">
-      <div class="col-sm-9">
+      <div class="col-sm-8">
         <div class="form-group"><label for="dashboardTitle" style="color: #006699">Title</label><input type="text" class="form-control" id="dashboardTitle"
             ng-model="collection.title" required></div>
         <div class="row">
@@ -17,13 +17,14 @@
     </div>
     <div class="form-group"><label for="description" style="color: #006699">Description</label><br><textarea type="text" class="form-control" id="description"
         ng-model="collection.description" ng-model-options="{updateOn: 'blur'}"></div>
-    <div class="form-group"><label for="url" style="color: #006699">URI</label><br><input type="url" style="width: 100%" ng-model="collection.media"
+    <div class="form-group"><label for="url" style="color: #006699">URL</label><br><input type="text" style="width: 100%" ng-model="collection.media"
         placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"></div>
 </div>
-<div class="col-sm-3">
+<div class="col-sm-4">
   <roar-event id="{{config.id}}"></roar-event>
+  <br>
   <input type="submit" class="btn btn-primary" >
-  <button class="btn btn-success" ng-click="importFile(collection)">IMPORT</button>
+  <button class="btn btn-success" ng-click="importFile(collection)" ng-if="!collection.ocr_link">OCR</button>
   <uib-progressbar class="active stripped" ng-class="{'active':(main.progress < 100)}" ng-if="progress" value="progress" style="height:20px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{progresstype}}" > </uib-progressbar>
 </div>
 </div>
