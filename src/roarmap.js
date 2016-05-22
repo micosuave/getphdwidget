@@ -83,12 +83,14 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
           var d = new Date();
           var n = d.getTime();
           roarevent.rows = [
-            {
-              columns: [
-                { cid: n + 10, styleClass: 'col-sm-12', widgets: [{ config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'Metadata', type: 'metadata', wid: n + 101 }, { config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'Text', type: 'text', wid: n + 105 }, { config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'LexPad', type: 'ckwidget', wid: n + 1010 }, { config: { height: "90vh", url: roarevent.media || 'http://www.google.com' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'LexFrame', type: 'iframe', wid: n + 100 }] }]
-            }
-          ];
-          roarevent.structure = "1";
+                {
+                  columns: [{cid:n+9,styleClass:'col-sm-6',widgets:[{ config: { height: "90vh", url: roarevent.ocrlink || 'http://www.google.com' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'LexFrame', type: 'iframe', wid: n + 100 }]},
+                    { cid: n + 10, styleClass: 'col-sm-6', widgets: [{ config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'LexPad', type: 'ckwidget', wid: n + 1010 },{ config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'Metadata', type: 'metadata', wid: n + 101 }, { config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'Text', type: 'text', wid: n + 105 }] }
+
+                  ]
+                }
+              ];
+          roarevent.structure = "6-6";
           return deferred.resolve(roarevent);
         } else {
           var filename = file.Filename || file.name || file.filename;
@@ -108,18 +110,14 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
           var n = d.getTime();
 
           roarevent.rows = [
-            {
-              columns: [
-                { cid: n + 10, styleClass: 'col-sm-12', widgets: [
-                  { config: { id: 'PROMISE' }, title: 'Metadata' || 'title', titleTemplateUrl: '{widgetsPath}/testwidget/src/title.html', type: 'metadata', wid: n + 15, styleClass: roarevent.styleClass || 'btn-dark' },
-                { config: { id: 'PROMISE' }, title: 'Text/Annotator' || 'title', titleTemplateUrl: '{widgetsPath}/testwidget/src/title.html', type: 'text', wid: n + 15, styleClass: roarevent.styleClass || 'btn-dark' },
-                { config: { id: 'PROMISE' }, title: 'LexPad' || 'title', titleTemplateUrl: '{widgetsPath}/testwidget/src/title.html', type: 'ckwidget', wid: n + 15, styleClass: roarevent.styleClass || 'btn-dark' },
-                { config: { height: "30em", url: roarevent.media || 'http://www.google.com' }, title: roarevent.title || 'title', titleTemplateUrl: '{widgetsPath}/testwidget/src/title.html', type: 'iframe', wid: n + 100, styleClass: roarevent.styleClass || 'btn-dark' }] },
+                {
+                  columns: [{cid:n+9,styleClass:'col-sm-6',widgets:[{ config: { height: "90vh", url: roarevent.ocrlink || 'http://www.google.com' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'LexFrame', type: 'iframe', wid: n + 100 }]},
+                    { cid: n + 10, styleClass: 'col-sm-6', widgets: [{ config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'LexPad', type: 'ckwidget', wid: n + 1010 },{ config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'Metadata', type: 'metadata', wid: n + 101 }, { config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'Text', type: 'text', wid: n + 105 }] }
 
-              ]
-            }
-          ];
-          roarevent.structure = "1";
+                  ]
+                }
+              ];
+          roarevent.structure = "6-6";
           return deferred.resolve(roarevent);
         }
 
@@ -348,14 +346,14 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
               var n = d.getTime();
               roarevent.rows = [
                 {
-                  columns: [
-                    { cid: n + 10, styleClass: 'col-sm-12', widgets: [{ config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'Metadata', type: 'metadata', wid: n + 101 }, { config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'Text', type: 'text', wid: n + 105 }, { config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'LexPad', type: 'ckwidget', wid: n + 1010 }, { config: { height: "90vh", url: roarevent.ocrlink || 'http://www.google.com' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'LexFrame', type: 'iframe', wid: n + 100 }] }
+                  columns: [{cid:n+9,styleClass:'col-sm-6',widgets:[{ config: { height: "90vh", url: roarevent.ocrlink || 'http://www.google.com' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'LexFrame', type: 'iframe', wid: n + 100 }]},
+                    { cid: n + 10, styleClass: 'col-sm-6', widgets: [{ config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'LexPad', type: 'ckwidget', wid: n + 1010 },{ config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'Metadata', type: 'metadata', wid: n + 101 }, { config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'Text', type: 'text', wid: n + 105 }] }
 
                   ]
                 }
               ];
               //roarevent.content = ckstarter + ckheader + ckender;
-              roarevent.structure = "1";
+              roarevent.structure = "6-6";
               roarevent.isActive = false;
 
 
@@ -379,10 +377,9 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
 
                   timestamp: Firebase.ServerValue.TIMESTAMP
                 });
-                refr.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(id);
-                refr.child('rows').child('0').child('columns').child('0').child('widgets').child('1').child('config').child('id').set(id);
-                refr.child('rows').child('0').child('columns').child('0').child('widgets').child('2').child('config').child('id').set(id);
-                refr.child('rows').child('0').child('columns').child('0').child('widgets').child('3').child('config').child('id').set(id);
+                refr.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
+                refr.child('rows').child('0').child('columns').child('1').child('widgets').child('1').child('config').child('id').set(id);
+                refr.child('rows').child('0').child('columns').child('1').child('widgets').child('2').child('config').child('id').set(id);
                 //p.filelist.push(id);
                 //phdref.child('roarmap').child('roarlist').push(id);
                 //roarmap.roarevents.push(id);
