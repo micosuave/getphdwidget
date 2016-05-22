@@ -1154,7 +1154,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         var p = this;
         p.getdata = function (input) {
             var deferred = $q.defer();
-            $patentsearch(input).then(function(patent){
+            $patentsearch(input, config).then(function(patent){
               return deferred.resolve(patent);
             });
             // $http.get('/getphd/patents/' + input).then(function (resp) {
