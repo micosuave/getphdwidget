@@ -14,7 +14,7 @@
                 </div>
 
 </div>
-    <div class="container-fluid card-fancy" style="width:98%;margin:1%;height:98%;overflow:scroll;" ng-if="!p.showconfig">
+    <div class="container-fluid card-fancy" style="width:98%;margin:1%;height:98%;overflow:scroll;" ng-hide="p.showconfig">
         <div class="col-xs-4 col-sm-3 col-1">
             <div class="card">
                 <img ng-src="/patents/US{{config.PNUM || '7777777'}}/preview" class="img img-responsive img-shadow" style="height:200px;width:200px;z-index:1000;" ng-dblclick="p.showform = !p.showform"/>

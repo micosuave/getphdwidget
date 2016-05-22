@@ -1160,7 +1160,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             return deferred.promise;
         };
         p.sanitize = $sanitize;
-        p.showconfig = false;
+        p.showconfig = true;
         p.showform = false;
         var config = $scope.$parent.config || $scope.$parent.$parent.config;
         var collection = Collection(config.id);
@@ -1200,14 +1200,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 }
             });
         };
-        var patentdigest = {
-                    id: dd,
-                    title: 'US ' + $filter('number')(phd.patent.id, 0),
-                    rid: 'PHD5',
-                    styleClass: 'NOA',
-                    sortOrder: 5,
-                    rows: [{ styleClass: 'leather', columns: [{ cid: dd + 5, style: 'col-sm-12', widgets: [{ config: { id: dd, PNUM: phd.patent.id }, type: 'patent', styleClass: 'NOA', wid: dd + 10 }] }] }]
-                }
+
         p.getload = function (input) {
             Collection(input).$loaded().then(function (pdata) {
                 if (pdata.pub !== undefined) {
