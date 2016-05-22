@@ -146,9 +146,9 @@
                         <!--<div patent-citation ref="ref" ng-repeat="ref in patent.references"></div>-->
 
 
-                        <table capturelinks ng-bind-html="p.sanitize(patent.backward_citations)" class="card img-shadow card-block table table-condensed table-stripped table-hover table-responsive" style="color:#444 !important;"></table>
+                        <table ng-bind-html="patent.backward_citations" class="card img-shadow card-block table table-condensed table-stripped table-hover table-responsive" style="color:#444 !important;"></table>
 
-                        <table ng-bind-html="p.sanitize(patent.forward_citations)" class="card img-shadow card-block table table-condensed table-stripped table-hover table-responsive" style="color:#444 !important;"></table>
+                        <table ng-bind-html="patent.forward_citations" class="card img-shadow card-block table table-condensed table-stripped table-hover table-responsive" style="color:#444 !important;"></table>
 </uib-tab-content>
                     </uib-tab>
 <uib-tab heading="Corrections/Fees/Assignments">
