@@ -1150,14 +1150,17 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
-    .controller('PatentWidgetCtrl', ['$scope', 'config', '$http', 'Collection', '$q', '$filter','$sanitize',
-    function ($scope, config, $http, Collection, $q, $filter,$sanitize) {
+    .controller('PatentWidgetCtrl', ['$scope', 'config', '$http', 'Collection', '$q', '$filter','$sanitize','$patentsearch',
+    function ($scope, config, $http, Collection, $q, $filter,$sanitize, $patentsearch) {
         var p = this;
         p.getdata = function (input) {
             var deferred = $q.defer();
-            $http.get('/getphd/patents/' + input).then(function (resp) {
-                return deferred.resolve(resp.data);
+            $patentsearch(input).then(function(patent){
+              return deferred.resolve(patent);
             });
+            // $http.get('/getphd/patents/' + input).then(function (resp) {
+            //     return deferred.resolve(resp.data);
+            // });
             return deferred.promise;
         };
         p.sanitize = $sanitize;
