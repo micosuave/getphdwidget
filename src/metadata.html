@@ -24,7 +24,7 @@
   <roar-event id="{{config.id}}"></roar-event>
   <br>
   <input type="submit" class="btn btn-primary" >
-  <button class="btn btn-success" ng-click="importFile(collection)" ng-if="!collection.ocr_link">OCR</button>
+  <button class="btn btn-success" ng-click="importFile(collection)" ng-if="!collection.ocrlink">OCR</button>
   <uib-progressbar class="active stripped" ng-class="{'active':(main.progress < 100)}" ng-if="progress" value="progress" style="height:20px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{progresstype}}" > </uib-progressbar>
 </div>
 </div>
