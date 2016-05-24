@@ -39,7 +39,7 @@
 <!--<tr><td><label>Filed:</label></td><td> {{patent.dateSubmitted|date}}</td></tr>-->
     </tbody>
 </table>
-<table ng-bind-html="patent.classifications">
+<table ng-bind-html="patent.classifications | trustAsHTML">
 
 </table>
 
@@ -50,7 +50,7 @@
                     </div>
         <div class="card col-xs-8 col-sm-9">
              <div class="">
-                <uib-tabset class="panel panel-default panel-heading">
+                <uib-tabset class="panel panel-default panel-heading" active="p.tabs[0].isActive">
                                         <uib-tab class="" heading="Abstract">
 
             <div class="bs-callout bs-callout-reverse bs-callout-NOA">
@@ -75,12 +75,12 @@
                 </p>
                         </uib-tab-content>
                     </uib-tab>
-                    <uib-tab class="">
+                    <uib-tab class="" select="p.tabs[3].isActive = true" deselect="p.tabs[3].isActive = false">
                         <uib-tab-heading>{{patent.claim_total}}&nbsp;&nbsp;Claims
                             <!--<label class="label label-pill label-info">{{patent.claim_total}}</label>-->
                             <!--<label class="label label-pill label-info">{{patent.application_data.claim_total}}</label>-->
                             </uib-tab-heading>
-                        <uib-tab-content class="container-fluid">
+                        <uib-tab-content class="container-fluid" ng-if="p.tabs[3].isActive">
                       <!--<uib-tabset type="pills" justified="true">-->
                           <!--<uib-tab heading="{{patent.pub | published_application}}">-->
 
@@ -146,9 +146,9 @@
                         <!--<div patent-citation ref="ref" ng-repeat="ref in patent.references"></div>-->
 
 
-                        <table ng-bind-html="patent.backward_citations" class="card img-shadow card-block table table-condensed table-stripped table-hover table-responsive" style="color:#444 !important;"></table>
+                        <table ng-bind-html="patent.backward_citations | trustAsHTML" class="card img-shadow card-block table table-condensed table-stripped table-hover table-responsive" style="color:#444 !important;"></table>
 
-                        <table ng-bind-html="patent.forward_citations" class="card img-shadow card-block table table-condensed table-stripped table-hover table-responsive" style="color:#444 !important;"></table>
+                        <table ng-bind-html="patent.forward_citations | trustAsHTML" class="card img-shadow card-block table table-condensed table-stripped table-hover table-responsive" style="color:#444 !important;"></table>
 </uib-tab-content>
                     </uib-tab>
 <uib-tab heading="Corrections/Fees/Assignments">
