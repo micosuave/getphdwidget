@@ -627,7 +627,7 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
       }
     };
   }])
-  .directive('patentCitation', ['$http', 'Collection', function ($http, Collection) {
+  .directive('patentCitation', ['$http', 'Collection','$patentsearch','$filter', function ($http, Collection, $patentsearch,$filter) {
     return {
       restrict: 'EA',
       templateUrl: '{widgetsPath}/getphd/src/phd/citation.html',
@@ -638,15 +638,27 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
       link: function ($scope, $element, $attrs, $ctrl) {
         //var p = this;
         // var id = $attrs.patent;
-        var ref = $scope.ref;
+        var ref = $scope.ref.match(/\d+/ig);
+         var refa = $scope.ref.replace(/\:/ig,'')
+        console.log(ref[0]);
         try {
-          Collection(ref).$loaded().then(function (data) {
-            $scope.p = data;
-          });
+         $patentsearch(null, {PNUM: ref[0]}).then(function (patent) {
+            $scope.poo = ref[0];
+            $scope.p = patent;
+            var int = parseInt(ref[0]);
+            if (int > 2000000000){
+              $scope.poodle = $filter('published_application')(int);
+            }else{
+              $scope.poodle =   $filter('number')(int, 0);
+            }
+        });
         } catch (ex) {
-          $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + ref).then(function (resp) {
-            $scope.p = resp.data;
+         $patentsearch(null, {PNUM: refa}).then(function (patent) {
+            $scope.p = patent;
           });
+          // $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + ref).then(function (resp) {
+          //   $scope.p = resp.data;
+          // });
         }
         finally {
           // alertify.success('loaded!');

@@ -1149,12 +1149,14 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
-    .controller('PatentWidgetCtrl', ['$scope', 'config', '$http', 'Collection', '$q', '$filter','$sanitize','$patentsearch',
-    function ($scope, config, $http, Collection, $q, $filter,$sanitize, $patentsearch) {
+    .controller('PatentWidgetCtrl', ['$scope', 'config','$sce', '$http', 'Collection', '$q', '$filter','$sanitize','$patentsearch','$compile','PageManager','$rootScope',
+    function ($scope, config,$sce, $http, Collection, $q, $filter,$sanitize, $patentsearch, $compile, PageManager, $rootScope) {
         var p = this;
         p.getdata = function (input) {
             var deferred = $q.defer();
             $patentsearch(input, config).then(function(patent){
+
+
               return deferred.resolve(patent);
             });
             // $http.get('/getphd/patents/' + input).then(function (resp) {
@@ -1163,8 +1165,16 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             return deferred.promise;
         };
         p.sanitize = $sanitize;
-        p.showconfig = true;
-        p.showform = false;
+
+        p.getdigest = function(ref){
+          PageManager.insert(config.id, 'Patent').then(function(someid){
+          var refr = Collection(someid).$ref();
+          var po = ref.replace(/[\:us]/ig,'');
+          refr.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('PNUM').set(po);
+          refr.update({title: ref});
+          $rootScope.$broadcast('BUILDTABS');
+          });
+      };
         var config = $scope.$parent.config || $scope.$parent.$parent.config;
         var collection = Collection(config.id);
         collection.$bindTo($scope, 'collection');
@@ -1174,6 +1184,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           var ref = collection.$ref();
           ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').update(c);
         };
+
         p.configure = function (input) {
             var trop = $filter('strip')(input);
             config.IPAYEAR = trop.slice(0, 4);
@@ -1187,11 +1198,24 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             $scope.patent = pdata;
             // p.claims = { class: 'super-independent', id: 'claims', text: 'claims', name: 'claims', children: pdata.claims };
             p.showform = false;
-            p.showconfig = false;
+            p.showconfig = false; var bc = pdata.backward_citations;
+
+              $('#backwards').append($compile($sce.trustAsHtml(bc.replace(/href/ig, 'pop href')))($scope));
+                            var fc = pdata.forward_citations;
+                            $('#forwards').append($compile($sce.trustAsHtml(fc.replace(/href/ig, 'pop href')))($scope));
+
 
         };
         p.getnew = function (input) {
-            p.getdata(input).then(function (pdata) {
+            try{
+              var a = Collection(input).$loaded();
+  //            if (a.claims == null)
+//              {throw('error') }
+            }catch(ex){
+            }finally{
+              var a = p.getdata(input);
+
+              a.then(function (pdata) {
                 if (pdata.pub !== undefined) {
                     var trop = p.configure(pdata.pub);
                     p.getdata(trop).then(function (apdata) {
@@ -1202,6 +1226,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     p.preparescope(null, pdata);
                 }
             });
+            }
         };
 
         p.getload = function (input) {
@@ -1218,8 +1243,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 }
             });
         };
-
-        if (config.PNUM > 1000000) {
+ if (angular.isUndefined(config.PNUM)){
+          p.showconfig = true;
+        p.showform = false;
+        }else{
+          p.getnew(config.PNUM);
+        }
+        if (config.PNUM ) {
              try {
                  p.getnew(config.PNUM);
              }
@@ -1258,17 +1288,17 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             };
             return check(input);
         };
-    }).directive('capturelinks',function(){
-        return {
-            restrict:'A',
-            link: function($scope, $element, $attr){
-                var links = $('a');
-                links.on('click', function(event){
-                    event.preventDefault();
-                });
-            }
+    }).filter('capturelinks',['$timeout','$compile','$sce','$rootScope',function($timeout, $compile, $sce, $rootScope){
+        return function(input){
+          if (!angular.isUndefined(input) && input !== null){
+             var output = input;
+            var replacer = function(){
+              return $sce.trustAsHtml($compile(output.replace(/href/mig, 'pop href'))($rootScope.$new()));
+            };
+            return replacer();
+          }
         };
-    }).directive('rejectionset', function(){
+    }]).directive('rejectionset', function(){
       return {
         restrict: 'EA',
         templateUrl: '{widgetsPath}/getphd/src/rejectionset.html',
@@ -1382,3 +1412,4 @@ var dialog = filepickerService.read(
       };
 
     });
+

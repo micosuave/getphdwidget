@@ -1,7 +1,10 @@
-<div class="bs-callout bs-callout-NOA" >
-    <h4 class="card-title">{{(p.id | number:0)||(p.id | published_application)}} - {{p.title}}<a class="pop text-NOA showonhover fa fa-external-link" ng-href="https://patentimages.storage.googleapis.com/pdfs/{{$parent.ref}}.pdf"></a></h4>
+<div class=" bs-callout bs-callout-NOA" ng-show="poodle">
+    <h4 class="card-title">{{poodle}} - {{p.title}}<a class="pop text-NOA showonhover fa fa-external-link" ng-href="{{p.media}}"></a><a class="fa fa-sign-in showonhover" ng-click="$parent.p.getdigest(poo)"></a></h4>
     <h6 class="card-subtitle">{{p.issued |date}}&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{p.inventor}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;<small class="text-muted>">{{p.application_number || 'Application Number'}}</small>
-    <p>{{p.description || 'Description'}}</p>
-    <!--<img ng-src="/patents/{{$parent.citation}}/preview" class="img img-responsive img-shadow" style="width:35px;height:35px;margin:5px;" />-->
+    </h6>
+    <!--<p>{{p.description || 'Description'}}</p>-->
 
 </div>
+<a class="" ng-show="poodle" ng-click="$parent.p.getdigest(poo)">
+    <img ng-src="{{'/patents/US'+poo+'/preview'}}" class="img img-responsive img-shadow" style="width:50px;height:50px;margin:5px;position:absolute;right:0px;" />
+</a>
