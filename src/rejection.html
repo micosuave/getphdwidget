@@ -1,7 +1,7 @@
 <div colorkey="{{rejection.type | trim}}" class="img-avatar" style="display:flex;align-items:center;align-content:center;">
 
   {{rejection.type}}</div>
-<div style="min-width:100px;height:100px;"> <small>over <strong>{{rejection.primary_reference}}</strong> <br><span ng-if="rejection.secondary_references"><em>in view of </em><span ng-repeat="ref in rejection.secondary_references">{{ref}}&nbsp;</span></span></small></div>
+<div style="min-width:100px;height:100px;"><strong>{{rejection.primary_reference}}</strong> <br><span ng-repeat="ref in rejection.secondary_references">{{ref}}&nbsp;<br></span></div>
 <div style="min-width: 150px;height:100px;"><span ng-repeat="c in rejection.claims_affected" style="width:25%;float:left;">{{c}}</span></div>
 <div style="overflow:scroll;text-overflow:ellipsis;">
   <ng-annotate-text text="rejection.fulltext | highlight: query" class="" style="" annotations="rejection.annotations" readonly="false"
