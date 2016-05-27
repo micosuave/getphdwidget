@@ -456,7 +456,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             wingoog = function () {
                                 $window.open('https://storage.googleapis.com/uspto-pair/applications/' + config.appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
                             };
-           $scope.winreed = windreed;
+           $scope.winreed = winreed;
            $scope.wingoog = wingoog;
             main.remoteconfig = function (pnum) {
                 $('#googlebutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
