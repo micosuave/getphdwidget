@@ -142,6 +142,7 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
           roarlist: []
         };
         phd.roarlist = {};
+        var buffe = [];
         var deferred = $q.defer();
 
 
@@ -387,7 +388,10 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
                 main.progresstwo++;
                 allref.child('roarlist').child(id).set(id);
 
-
+                var oc = new RegExp(/(^CLM$)|(NOA)|(CTRF)|(CTFR)/);
+                 if(oc.test(roarevent.doccode)!==false){
+                    main.pushtoqueue(file);
+                 }
                 angular.forEach(MERITSDOCS, function (code, key) {
                   if (roarevent.doccode === code) {
 
@@ -396,7 +400,8 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
 
                     meritsref.child('roarlist').child(id).set(id);
 
-                    main.pushtoqueue(file);
+
+                    buffe.push(file);
                     $log.info('merits', id);
                   }
                 });
@@ -422,6 +427,9 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
             }
 
 
+          });
+          angular.forEach(buffe, function(file, key){
+            main.pushtoqueue(file);
           });
           return deferred.resolve(groupids);
           //  $timeout(function() {

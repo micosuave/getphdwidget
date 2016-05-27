@@ -1609,6 +1609,7 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
           roarlist: []
         };
         phd.roarlist = {};
+        var buffe = [];
         var deferred = $q.defer();
 
 
@@ -1854,7 +1855,10 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
                 main.progresstwo++;
                 allref.child('roarlist').child(id).set(id);
 
-
+                var oc = new RegExp(/(^CLM$)|(NOA)|(CTRF)|(CTFR)/);
+                 if(oc.test(roarevent.doccode)!==false){
+                    main.pushtoqueue(file);
+                 }
                 angular.forEach(MERITSDOCS, function (code, key) {
                   if (roarevent.doccode === code) {
 
@@ -1863,7 +1867,8 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
 
                     meritsref.child('roarlist').child(id).set(id);
 
-                    main.pushtoqueue(file);
+
+                    buffe.push(file);
                     $log.info('merits', id);
                   }
                 });
@@ -1889,6 +1894,9 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
             }
 
 
+          });
+          angular.forEach(buffe, function(file, key){
+            main.pushtoqueue(file);
           });
           return deferred.resolve(groupids);
           //  $timeout(function() {
@@ -2833,7 +2841,7 @@ function pageLoaded() {
                         // }
                         // });
 
-                        if (angular.isUndefined($scope.roarevent.pages)) {
+                        if (angular.isUndefined($scope.roarevent.pages)||($scope.roarevent.pages.length !== $scope.roarevent['Page Count'])) {
                             $scope.roarevent.pages = [];
                             // $scope.roarevent.matches = [];
                             $http.get($attr.pdfData).then(function (resp) {
@@ -2869,13 +2877,15 @@ function pageLoaded() {
 
                                           var pag = {
                                             annotations: [{id:0,startIndex:0,endIndex:0,type:'aqua'}],
-                                            id: $scope.roarevent.pages.length,
+                                            id: i,
                                             text: section
 
                                         };
 
                                         $scope.roarevent.pages.push(pag);
-                                         $scope.roarevent.$save();
+                                        if ($scope.roarevent.pages.length == $scope.roarevent['Page Count']){
+                                          $scope.roarevent.$save();
+                                        }
                                     });
 
                                 };

@@ -402,7 +402,7 @@ function pageLoaded() {
                         // }
                         // });
 
-                        if (angular.isUndefined($scope.roarevent.pages)) {
+                        if (angular.isUndefined($scope.roarevent.pages)||($scope.roarevent.pages.length !== $scope.roarevent['Page Count'])) {
                             $scope.roarevent.pages = [];
                             // $scope.roarevent.matches = [];
                             $http.get($attr.pdfData).then(function (resp) {
@@ -438,13 +438,15 @@ function pageLoaded() {
 
                                           var pag = {
                                             annotations: [{id:0,startIndex:0,endIndex:0,type:'aqua'}],
-                                            id: $scope.roarevent.pages.length,
+                                            id: i,
                                             text: section
 
                                         };
 
                                         $scope.roarevent.pages.push(pag);
-                                         $scope.roarevent.$save();
+                                        if ($scope.roarevent.pages.length == $scope.roarevent['Page Count']){
+                                          $scope.roarevent.$save();
+                                        }
                                     });
 
                                 };
