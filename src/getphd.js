@@ -449,13 +449,22 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 else { wingoog(); }
 
             };
-
+ winreed = function () {
+                                $window.open('https://patents.reedtech.com/downloads/pair/' + config.appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
+                            };
+                            wingoog = function () {
+                                $window.open('https://storage.googleapis.com/uspto-pair/applications/' + config.appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
+                            };
+           $scope.winreed = windreed;
+           $scope.wingoog = wingoog;
             main.remoteconfig = function (pnum) {
                 $('#googlebutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
                 $('#reedtechbutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
                 $http.get('/getphd/patents/' + pnum).then(function (resp) {
                     var data = resp.data;
                     //                    config.appnum = resp.data.application_number.slice(3,resp.data.application_number.length).replace('/','').replace(',','');
+                    config.IPAYEAR = resp.data.pub.slice(0,4);
+                    config.IPANUM = resp.data.pub.slice(4, resp.data.pub.length);
                     config.appnum = resp.data.application_number.replace(/\D/ig, '');
                     $scope.response = resp.data;
                     var googleurl = 'https' + '://' + 'lexlab.io' + '/proxy/storage.googleapis.com/uspto-pair/applications/' + config.appnum + '.zip';
@@ -481,14 +490,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         method: 'HEAD',
                         url: googleurl
                     };
+
                     $http(optionsg).then(function (resp) {
                         if (resp.status !== 200) {
                             $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
                         } else if (resp.status == 200) {
                             $('#googlebutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
-                            wingoog = function () {
-                                $window.open('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=550,height=30,top=150');
-                            };
+
                         }
                     });
                     $http(optionsr).then(function (resp) {
@@ -496,9 +504,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             $('#reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
                         } else if (resp.status == 200) {
                             $('#reedtechbutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
-                            winreed = function () {
-                                $window.open('https://patents.reedtech.com/downloads/pair/' + appnum + '.zip', '_blank', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=yes,width=400,left=150,height=30,top=150');
-                            };
+
                         }
                     });
                     // JSZipUtils.getBinaryContent(reedtechurl, function(err, data){
