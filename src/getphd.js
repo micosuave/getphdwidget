@@ -1155,8 +1155,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
-    .controller('PatentWidgetCtrl', ['$scope', 'config','$sce', '$http', 'Collection', '$q', '$filter','$sanitize','$patentsearch','$compile','PageManager','$rootScope',
-    function ($scope, config,$sce, $http, Collection, $q, $filter,$sanitize, $patentsearch, $compile, PageManager, $rootScope) {
+    .controller('PatentWidgetCtrl', ['$scope', 'config','$sce', '$http', 'Collection', '$q', '$filter','$sanitize','$patentsearch','$compile','PageManager','$rootScope','$templateCache',
+    function ($scope, config,$sce, $http, Collection, $q, $filter,$sanitize, $patentsearch, $compile, PageManager, $rootScope, $templateCache) {
         var p = this;
         p.getdata = function (input) {
             var deferred = $q.defer();
@@ -1203,11 +1203,21 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             pdata.application_data = apdata;
             $scope.patent = pdata;
             var back = pdata.backward_citations;
-            var forw = pdata.forward_citations || '<h4>Forward Citations</h4>';
-            $scope.comp = {
-              backward_citations: $compile($sce.trustAsHtml(back.replace(/<a\s(?!pop)/g,'<a pop ')))($scope),
-              forward_citations: $compile($sce.trustAsHtml(forw.replace(/<a\s(?!pop)/g,'<a pop ')))($scope)
-            };
+            $templateCache.put('{'+pdata.id+'}/backtable.html', back.replace(/<a\s(?!pop)/g,'<a pop '));
+            p.linker = '{'+pdata.id+'}/backtable.html';
+             var forw = pdata.forward_citations || '<h4>Forward Citations</h4>';
+                        $templateCache.put('{'+pdata.id+'}/forwtable.html', forw.replace(/<a\s(?!pop)/g,'<a pop '));
+            p.linker1 = '{'+pdata.id+'}/backtable.html';
+            var desc = pdata.description;
+            
+            
+            
+            
+            //   var backs= $compile($sce.trustAsHtml(back.replace(/<a\s(?!pop)/g,'<a pop ')))($scope),
+            //   forws= $compile($sce.trustAsHtml(forw.replace(/<a\s(?!pop)/g,'<a pop ')))($scope);
+            // angular.element('#comp.backward_citations').append(backs);
+            //            angular.element('#comp.forward_citations').append(forws);
+
             // p.claims = { class: 'super-independent', id: 'claims', text: 'claims', name: 'claims', children: pdata.claims };
             p.showform = false;
             p.showconfig = false;
