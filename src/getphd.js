@@ -1202,13 +1202,20 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         p.preparescope = function (apdata, pdata) {
             pdata.application_data = apdata;
             $scope.patent = pdata;
+            var back = pdata.backward_citations;
+            var forw = pdata.forward_citation
+            $scope.comp = {
+              backward_citations: $compile($sce.trustAsHtml(back.replace(/<a\s(?!pop)/g,'<a pop ')))($scope),
+              forward_citations: $compile($sce.trustAsHtml(forw.replace(/<a\s(?!pop)/g,'<a pop ')))($scope)
+            };
             // p.claims = { class: 'super-independent', id: 'claims', text: 'claims', name: 'claims', children: pdata.claims };
             p.showform = false;
-            p.showconfig = false; var bc = pdata.backward_citations;
+            p.showconfig = false;
+            //var bc = pdata.backward_citations;
 
-              $('#backwards').append($compile($sce.trustAsHtml(bc.replace(/href/ig, 'pop href')))($scope));
-                            var fc = pdata.forward_citations;
-                            $('#forwards').append($compile($sce.trustAsHtml(fc.replace(/href/ig, 'pop href')))($scope));
+              // $('#backwards').append($compile($sce.trustAsHtml(bc.replace(/href/ig, 'pop href')))($scope));
+              //               var fc = pdata.forward_citations;
+              //               $('#forwards').append($compile($sce.trustAsHtml(fc.replace(/href/ig, 'pop href')))($scope));
 
 
         };
