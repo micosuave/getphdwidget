@@ -1203,7 +1203,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             pdata.application_data = apdata;
             $scope.patent = pdata;
             var back = pdata.backward_citations;
-            var forw = pdata.forward_citation
+            var forw = pdata.forward_citations || '<h4>Forward Citations</h4>';
             $scope.comp = {
               backward_citations: $compile($sce.trustAsHtml(back.replace(/<a\s(?!pop)/g,'<a pop ')))($scope),
               forward_citations: $compile($sce.trustAsHtml(forw.replace(/<a\s(?!pop)/g,'<a pop ')))($scope)
