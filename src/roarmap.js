@@ -183,6 +183,7 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
               return;
             } else {
               var appnumber = angular.copy(phd.application['Application Number']).replace('/', '').replace(',', '').replace(',', '');
+              var appref = Collection(appnumber).$ref();
               var date = new Date();
               var roarevent = angular.copy(file);
               var maildate = new Date(file['Mail Room Date']);
@@ -194,6 +195,7 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
               var filename = file.Filename || null;
               var appnumsubstring = filename.slice(0, filename.indexOf("-"));
               var appdatesubstring = filename.slice((filename.indexOf("-") + 1), (filename.indexOf("-") + 11));
+              var subsectionid = filename.slice(filename.indexOf("-") + 11, filename.lastIndexOf("-"));
               var doccode = filename.slice((filename.lastIndexOf("-") + 1), (filename.indexOf(".pdf")));
               roarevent.content_type = 'document';
               var de = filename.slice(0, filename.lastIndexOf('-'));
@@ -388,7 +390,7 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
                 main.progresstwo++;
                 allref.child('roarlist').child(id).set(id);
 
-                var oc = new RegExp(/(^CLM$)|(NOA)|(CTRF)|(CTFR)/);
+                var oc = new RegExp(/(^CLM$)|(NOA)|(CTRF)|(CTFR)|(REM)|(^\bA\..)|(CTRS)|(CTNS)/);
                  if(oc.test(roarevent.doccode)!==false){
                     main.pushtoqueue(file);
                  }
