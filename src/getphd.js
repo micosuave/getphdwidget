@@ -1209,10 +1209,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         $templateCache.put('{'+pdata.id+'}/forwtable.html', forw.replace(/<a\s(?!pop)/g,'<a pop '));
             p.linker1 = '{'+pdata.id+'}/backtable.html';
             var desc = pdata.description;
-            
-            
-            
-            
+
+
+
+
             //   var backs= $compile($sce.trustAsHtml(back.replace(/<a\s(?!pop)/g,'<a pop ')))($scope),
             //   forws= $compile($sce.trustAsHtml(forw.replace(/<a\s(?!pop)/g,'<a pop ')))($scope);
             // angular.element('#comp.backward_citations').append(backs);
@@ -1346,7 +1346,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     })
 
 
-    .controller('MetadataController', function(filepickerService, $firequeue, $rootScope, Collection, config, $scope, $stateParams, Upload, $http, toastr){
+    .controller('MetadataController', function(filepickerService, $firequeue, $rootScope, Collection, config, $scope, $stateParams, Upload, $http, toastr, DOCNAMES){
       var config = $scope.$parent.config || $scope.$parent.$parent.config;
       $scope.config = config;
       var pId = $stateParams.pId;
@@ -1355,6 +1355,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       $scope.onSubmit = function(model){
         Collection(config.id).$save(model);
       };
+
+
+      $scope.DOCNAMES = DOCNAMES;
        $scope.pushtoqueue = function (record) {
                 var queue = $firequeue();
                 var id = record.id ;
