@@ -9,7 +9,7 @@
           <div  class="form-group col-sm-6">
             <label style="color: #006699">Document Code</label><br>
             <i class="fa {{collection.icon}}" editable-text="collection.icon" e-typeahead="icon.value as icon.label for icon in $root.ICONS | filter:$viewValue | limitTo:8" e-typeahead-wait-ms="100"></i>
-            <input ng-model="collection.doccode" typeahead="code.value as code.label for code in DOCNAMES | filter:$viewValue | limitTo:8" typeahead-wait-ms="100" />
+            <input ng-model="collection.doccode" typeahead="code.value as code for code in DOCNAMES | filter:$viewValue | limitTo:8" typeahead-wait-ms="100" />
             <!--<select name="icon" ng-model="collection.icon" class="" ng-options="icon.value as icon.label for icon in $root.ICONS"></select></div>-->
       </div>
         </div>
