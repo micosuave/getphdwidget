@@ -1876,6 +1876,8 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
                 //roarmap.roarevents.push(id);
                 phd.roarmap.roarlist[id] = id;
                 main.progresstwo++;
+                var appref = Collection(roarevent.Application).$ref();
+                appref.child('history').child(roarevent.date).child(id).set(id);
                 allref.child('roarlist').child(id).set(id);
 
                 var oc = new RegExp(/(^CLM$)|(NOA)|(CTRF)|(CTFR)|(REM)|(^\bA\..)|(CTRS)|(CTNS)/);
