@@ -432,7 +432,7 @@ function pageLoaded() {
                                                  $scope.roarevent.matches.push(o.str);
                                              }else{*/
                                             //rawdata.push(o);
-                                            section = section + '&nbsp;' + o.str;
+                                            section = section + ' ' + o.str;
                                             //}
                                         });
 
