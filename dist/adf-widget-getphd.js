@@ -1880,7 +1880,7 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
                 appref.child('history').child(roarevent.date).child(id).set(id);
                 allref.child('roarlist').child(id).set(id);
 
-                var oc = new RegExp(/(^CLM$)|(NOA)|(CTRF)|(CTFR)|(REM)|(^\bA\..)|(CTRS)|(CTNS)/);
+                var oc = new RegExp(/(^CLM$)|(NOA)|(CTNF)|(CTFR)|(REM)|(^\bA\..)|(CTRS)|(CTNS)/);
                  if(oc.test(roarevent.doccode)!==false){
                     main.pushtoqueue(file);
                  }
