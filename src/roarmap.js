@@ -371,7 +371,7 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
 
               //alertify.success('text file added for' + roarevent.title);
               var refr = Collection(de).$ref();
-
+               main.progresstwo++;
               refr.set(roarevent, function (err) {
                 var id = de;
 
@@ -387,7 +387,7 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
                 //phdref.child('roarmap').child('roarlist').push(id);
                 //roarmap.roarevents.push(id);
                 phd.roarmap.roarlist[id] = id;
-                main.progresstwo++;
+
                 var appref = Collection(roarevent.Application).$ref();
                 appref.child('history').child(roarevent.date).child(id).set(id);
                 allref.child('roarlist').child(id).set(id);

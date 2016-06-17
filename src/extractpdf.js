@@ -113,6 +113,37 @@ angular.module("llp.extractpdf", [])
         };
         var googleurl = 'storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
                     var reedtechurl = 'patents.reedtech.com/downloads/pair/'+apnum+'.zip';
+// var down = function(url, callback, encoding){
+//         console.log('down');
+//         var request = window.open(url, '',function(err,response) {
+//             if (encoding){
+//                 response.setEncoding(encoding);
+//             }
+//             console.log(response);
+//             var len = parseInt(response.headers['content-length'], 10);
+//             var body = "";
+//             var cur = 0;
+//             var obj = $('.progress');
+//             var total = len / 1048576; //1048576 - bytes in  1Megabyte
+
+//             response.on("data", function(chunk) {
+//                 body += chunk;
+//                 cur += chunk.length;
+//                 obj.html( "Downloading " + (100.0 * cur / len).toFixed(2) + "% " + (cur / 1048576).toFixed(2) + " mb\r" + ".<br/> Total size: " + total.toFixed(2) + " mb");
+//             });
+
+//             response.on("end", function() {
+//                 callback(body);
+//                 obj.html("Downloading complete");
+//             });
+
+//             request.on("error", function(e){
+//                 console.log("Error: " + e.message);
+//             });
+
+//         });
+//     };
+// down(prefix() + googleurl, callback);
 
                     JSZipUtils.getBinaryContent((prefix() + googleurl), function(err, data) {
                         if(err) {
@@ -124,6 +155,7 @@ angular.module("llp.extractpdf", [])
                             }
                             // $('#reedtechbutton').setClass('fa-check text-success').removeClass('text-danger fa-file-zip-o');
                             else{
+                                console.log('download', data);
                                 callback(data);
                             }
                         });
@@ -131,6 +163,8 @@ angular.module("llp.extractpdf", [])
 
                         else{
                             // $('#googlebutton').addClass('fa-check text-success').removeClass('text-danger fa-file-zip-o');
+                                                   console.log('download', data.length);
+
                                                        callback(data);
 
 
@@ -185,7 +219,8 @@ var zip = new JSZip(data);
                 pdffiles: []
             };
 
-            angular.forEach(targets, function(target, key) {
+var splitzip = function(){
+angular.forEach(targets, function(target, key) {
 
 
                 var file = zip.files[target.value];
@@ -204,6 +239,8 @@ var zip = new JSZip(data);
               files.pdffiles.push({ label: file.name, file: file });
               main.extractedfiles++;
             });
+return deferred.resolve(files);
+};
 
 
 
@@ -211,7 +248,7 @@ var zip = new JSZip(data);
     Upload.upload({url: '/upload/', data: {file: Upload.rename(blob, appnum + '.zip')}})
     .then(function (resp) {
             console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-
+            splitzip();
 
 
         }, function (resp) {
@@ -238,11 +275,9 @@ var zip = new JSZip(data);
                 else { main.progresstype = 'info'; }
 
             console.log('progress: ' + progress + '% ' + evt.config.data.file.name);
-        });
+      });
 
-return deferred.resolve(files);
 };
-
 
         return deferred.promise;
     }
