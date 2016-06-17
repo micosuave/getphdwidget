@@ -100,7 +100,7 @@ angular.module("llp.extractpdf", [])
 
     return extractpdf;
 }]).factory("extractzip", ["$q","Upload","$http","$location","toastr", function($q,Upload,$http, $location,toastr) {
-    function unzip(apnum, main, uploader) {
+    function unzip(apnum, main, uploader, data) {
 
         var deferred = $q.defer();
 
@@ -278,12 +278,12 @@ return deferred.resolve(files);
       });
 
 };
-
+//callback(data);
         return deferred.promise;
     }
 
-    function extractzip( appnum, main, uploader) {
-        return unzip( appnum, main, uploader);
+    function extractzip( appnum, main, uploader, data) {
+        return unzip( appnum, main, uploader, data);
 
     }
 

@@ -532,8 +532,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 main.extractedfiles = 0;
 
                 config.appnum = appnum;
-                $http.get('https://lexlab.io/getphd/'+appnum).then(function(){
-                extractzip(appnum, main, uploader)
+                //$http.get('/getphd/'+appnum).then(function(data){
+                extractzip(appnum, main, uploader, data)
                     .then(function (files) {
                         //    angular.forEach(files.pdffiles, function(file, key){
                         //    uploader.queue.push(file);
@@ -561,7 +561,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                                 alertify.success('ROARmap built!');
 
                                                 main.finalize(main.phd, groupids);
-
+                                                $state.go($state.current, $stateParams, {reload: true, inherit: false});
 
                                             }, function (reason) {
                                                 console.log(reason.message);
@@ -584,10 +584,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                         console.log(reason.messsage);
                     });
-                    }, function (reason) {
+                    // }, function (reason) {
 
-                        console.log(reason.messsage);
-                    });
+                    //     console.log(reason.messsage);
+                    // });
                 // $http.get('https://storage.googleapis.com/uspto-pair/applications/' + appnum + '.zip').then(function(resp) {
                 //   console.log(resp);
                 //   alertify.log(resp.headers);
