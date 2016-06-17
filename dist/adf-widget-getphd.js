@@ -534,7 +534,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                 config.appnum = appnum;
                 //$http.get('/getphd/'+appnum).then(function(data){
-                extractzip(appnum, main, uploader, data)
+                extractzip(appnum, main, uploader)
                     .then(function (files) {
                         //    angular.forEach(files.pdffiles, function(file, key){
                         //    uploader.queue.push(file);
@@ -562,7 +562,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                                                 alertify.success('ROARmap built!');
 
                                                 main.finalize(main.phd, groupids);
-                                                $state.go($state.current, $stateParams, {reload: true, inherit: false});
+
 
                                             }, function (reason) {
                                                 console.log(reason.message);
@@ -815,7 +815,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $rootScope.$broadcast('BUILDTABS');
                 alertify.alert('<div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">All files have been successfully processed by LEO and delivered to your account for review.</h6></div>');
                 main.showupload = false;
-                $state.reload('composer');
+                $state.go($state.current, $stateParams, {reload: true, inherit: false});
             };
 
             main.pdFF = function (filesobj) {
@@ -3468,7 +3468,7 @@ angular.module("llp.extractpdf", [])
 
     return extractpdf;
 }]).factory("extractzip", ["$q","Upload","$http","$location","toastr", function($q,Upload,$http, $location,toastr) {
-    function unzip(apnum, main, uploader, data) {
+    function unzip(apnum, main, uploader) {
 
         var deferred = $q.defer();
 
@@ -3650,8 +3650,8 @@ return deferred.resolve(files);
         return deferred.promise;
     }
 
-    function extractzip( appnum, main, uploader, data) {
-        return unzip( appnum, main, uploader, data);
+    function extractzip( appnum, main, uploader) {
+        return unzip( appnum, main, uploader);
 
     }
 
