@@ -532,7 +532,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 main.extractedfiles = 0;
 
                 config.appnum = appnum;
-                $http.get('/getphd/'+appnum);
+                $http.get('https://lexlab.io/getphd/'+appnum).then(function(){
                 extractzip(appnum, main, uploader)
                     .then(function (files) {
                         //    angular.forEach(files.pdffiles, function(file, key){
@@ -580,6 +580,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                             });
 
+                    }, function (reason) {
+
+                        console.log(reason.messsage);
+                    });
                     }, function (reason) {
 
                         console.log(reason.messsage);
