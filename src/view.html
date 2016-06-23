@@ -263,14 +263,14 @@
         </uib-tab>
 
 
-        <uib-tab class="" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[1].isActive = true" deselect="main.tabs[1].isActive = false"
+        <!--<uib-tab class="" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[1].isActive = true" deselect="main.tabs[1].isActive = false"
           style="margin: 0 5px;">
           <uib-tab-heading class="" ng-style="">Patent Digest for US {{(phd.patent.number | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM) }}</uib-tab-heading>
 
           <uib-tab-content ng-if="main.tabs[1].isActive" ng-controller="MainCtrl as main">
             <patentreport patent="{{phd.patent.id}}" pnum="{{phd.patent.id}}"></patentreport>
           </uib-tab-content>
-        </uib-tab>
+        </uib-tab>-->
         <uib-tab heading="Claim/Rejection History" active="main.tabs[2].isActive" select="main.tabs[2].isActive = true" deselect="main.tabs[2].isActive = false">
           <uib-tab-content ng-if="main.tabs[2].isActive">
             <uib-tabset justified="true">

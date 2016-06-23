@@ -88,17 +88,8 @@
 
                      <uib-tabset justified="true">
                        <uib-tab heading="Issued">
-                       <div class="col-sm-6" >
-                         <fieldset class="material">
-            <input id="patterninput" class="" ng-model="query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
-            <hr>
-            <label>Search</label>
-        </fieldset>
-        <d3pendingtree id="a{{patent.number}}" class="{{query}}" tree="tree" pattern="{{query}}" patent="{{patent.number}}" style="transform:scale3d(0.9,0.9,0.9)translateX(-40px);"></d3pendingtree>
-                       </div>
-                       <div class="col-sm-6">
-                    <claimtree tree="tree.claims" query="query" style="position:absolute;"></claimtree>
-                          </div>
+                       <div ng-include="'{widgetsPath}/getphd/src/claimtreetab.html'"></div>
+
 
                        </uib-tab>
                        <uib-tab heading="{{patent.pub | published_application}}" ng-if="patent.application_data">
