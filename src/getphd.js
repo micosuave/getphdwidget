@@ -464,8 +464,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $http.get('/getphd/patents/' + pnum).then(function (resp) {
                     var data = resp.data;
                     //                    config.appnum = resp.data.application_number.slice(3,resp.data.application_number.length).replace('/','').replace(',','');
-                    config.IPAYEAR = resp.data.pub.slice(0,4);
-                    config.IPANUM = resp.data.pub.slice(4, resp.data.pub.length);
+                    config.IPAYEAR = resp.data.pub.slice(2,6);
+                    config.IPANUM = resp.data.pub.slice(6, resp.data.pub.length);
                     config.appnum = resp.data.application_number.replace(/\D/ig, '');
                     $scope.response = resp.data;
                     var googleurl = 'https' + '://' + 'lexlab.io' + '/proxy/storage.googleapis.com/uspto-pair/applications/' + config.appnum + '.zip';
@@ -1187,7 +1187,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           $rootScope.$broadcast('BUILDTABS');
           });
       };
-        var config = $scope.$parent.config || $scope.$parent.$parent.config;
+        var config =$scope.config|| $scope.$parent.config || $scope.$parent.$parent.config;
         var collection = Collection(config.id);
         collection.$bindTo($scope, 'collection');
         //$scope.collection = collection;
@@ -1199,8 +1199,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
         p.configure = function (input) {
             var trop = $filter('strip')(input);
-            config.IPAYEAR = trop.slice(0, 4);
-            config.IPANUM = trop.slice(4, trop.length);
+            config.IPAYEAR = trop.slice(2, 6);
+            config.IPANUM = trop.slice(6, trop.length);
 
 
             return trop;

@@ -59,8 +59,8 @@
 
                     <!--<a class="btn showonhover" data-nodrag ng-if="config.editable" ng-click="remove(this);"><span class="fa fa-close text-danger "></span></a>-->
                     <!--<a class="btn " data-nodrag ng-if="config.editable" ng-click="toc.newsubsection(this)" style=""><span class="fa fa-plus text-success"></span></a>-->
-                    <!--<div ng-bind-html="node.text | highlight: query " ng-class="{'filtered-out':(!treeFilter(node, query, supportedFields) && dim)}"></div>-->
-                    <!--<a  class="gototarget btn" data-nodrag  ui-sref="{{parentstate}}.righttab({tabid: node.id})" style=""> <span ng-if="!config.editable" class="pull-left">{{node.text}}</span><i style="position:absolute;right:0;">&nbsp;</i></a>
+                    <div ng-bind-html="node.text | highlight: query " ng-class="{'filtered-out':(!treeFilter(node, query, supportedFields) && dim)}"></div>
+                    <!--<a  class="gototarget btn" data-nodrag  ui-sref="{{parentstate}}.righttab({tabid: node.id})" style=""> <span ng-if="!config.editable" class="pull-left">{{node.text}}</span><i style="position:absolute;right:0;">&nbsp;</i></a>-->
 
         </div>
     </div>

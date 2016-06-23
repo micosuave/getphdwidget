@@ -616,25 +616,10 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
       templateUrl: '{widgetsPath}/getphd/src/phd/patentReport.html',
       scope: {
       },
+      controller:'PatentWidgetCtrl',
       link: function ($scope, $element, $attr, $ctrl) {
-        var numbr = $attr.patent;
-        if ($attr.pnum) {
-          $scope.config = {
-            PNUM: $attr.pnum
-          }
-        }
-        try {
-          Collection(numbr).$loaded().then(function (data) {
-            $scope.patent = data;
-          });
-        } catch (ex) {
-          $http.get('https://lexlab.io/proxy/lexlab.io/getphd/patents/' + numbr).then(function (resp) {
-            $scope.patent = resp.data;
-          });
-        }
-        finally {
-          alertify.success('loaded!');
-        }
+          $scope.config = {PNUM: $attr.patent};
+
 
       }
     };
