@@ -1187,7 +1187,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
           $rootScope.$broadcast('BUILDTABS');
           });
       };
-        var config =$scope.config|| $scope.$parent.config || $scope.$parent.$parent.config;
+        var config = $scope.$parent.config || $scope.$parent.$parent.config;
         var collection = Collection(config.id);
         collection.$bindTo($scope, 'collection');
         //$scope.collection = collection;
@@ -1199,8 +1199,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
         p.configure = function (input) {
             var trop = $filter('strip')(input);
-            config.IPAYEAR = trop.slice(2, 6);
-            config.IPANUM = trop.slice(6, trop.length);
+            config.IPAYEAR = trop.slice(0, 4);
+            config.IPANUM = trop.slice(4, trop.length);
 
 
             return trop;
