@@ -1,4 +1,4 @@
-<div class="card-block clearfix" collection="{{config.id}}">
+<div class="card-block clearfix" collection="{{adfModel.$id}}">
   <form role="form" name="form" ng-submit="collection.$save()">
     <div class="row">
       <div class="col-sm-8">
@@ -25,7 +25,7 @@
         placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"></div>
 </div>
 <div class="col-sm-4">
-  <roar-event id="{{config.id}}"></roar-event>
+  <roar-event id="{{adfModel.id}}"></roar-event>
   <br>
   <input type="submit" class="btn btn-primary" >
   <button class="btn btn-success" ng-click="importFile(collection)" ng-if="!collection.ocrlink">OCR</button>
