@@ -1,4 +1,5 @@
-<div class="card-block clearfix" collection="{{adfModel.$id}}">
+<label editable-text="config.id" ng-bind="config.id" class="pull-right" style="float:right;">{{config.id}}</label>
+<div class="card-block clearfix" collection="{{config.id}}">
   <form role="form" name="form" ng-submit="collection.$save()">
     <div class="row">
       <div class="col-sm-8">
@@ -8,8 +9,8 @@
           <div class="form-group col-sm-6"><label style="color: #006699">Style</label><br><select ng-model="collection.styleClass" ng-options="class.value as class.label for class in $root.ROARCLASSES"></select></div>
           <div  class="form-group col-sm-6">
             <label style="color: #006699">Document Code</label><br>
-            <i class="fa {{collection.icon}}" editable-text="collection.icon" e-typeahead="icon.value as icon.label for icon in $root.ICONS | filter:$viewValue | limitTo:8" e-typeahead-wait-ms="100"></i>
-            <input ng-model="collection.doccode" typeahead="code.value as code for code in DOCNAMES | filter:$viewValue | limitTo:8" typeahead-wait-ms="100" />
+
+            <input ng-model="collection.doccode" typeahead="code.code as code.label for code in DOCNAMES | filter:$viewValue | limitTo:8" typeahead-wait-ms="100" />
             <!--<select name="icon" ng-model="collection.icon" class="" ng-options="icon.value as icon.label for icon in $root.ICONS"></select></div>-->
       </div>
         </div>
@@ -20,17 +21,20 @@
             ng-pattern="dddd-dd-dd" ng-model-options="{updateOn: 'blur'}"></div>
     </div>
     <div class="form-group"><label for="description" style="color: #006699">Description</label><br><textarea type="text" class="form-control" id="description"
-        ng-model="collection.description" ng-model-options="{updateOn: 'blur'}"></div>
+        ng-model="collection.description" ng-model-options="{updateOn: 'blur'}"></textarea></div>
     <div class="form-group"><label for="url" style="color: #006699">URL</label><br><input type="text" style="width: 100%" ng-model="collection.media"
         placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"></div>
 </div>
 <div class="col-sm-4">
-  <roar-event id="{{adfModel.id}}"></roar-event>
+  <roar-event id="{{config.id}}"></roar-event>
   <br>
   <input type="submit" class="btn btn-primary" >
   <button class="btn btn-success" ng-click="importFile(collection)" ng-if="!collection.ocrlink">OCR</button>
   <uib-progressbar class="active stripped" ng-class="{'active':(main.progress < 100)}" ng-if="progress" value="progress" style="height:20px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{progresstype}}" > </uib-progressbar>
 </div>
+    </div>
+    <div class="row">
+ <i class="fa {{collection.icon || 'fa-file-pdf-o'}}" editable-text="collection.icon" e-typeahead="icon.value as icon.label for icon in $root.ICONS | filter:$viewValue | limitTo:8" e-typeahead-wait-ms="100"></i>
 </div>
   </form>
   </div>

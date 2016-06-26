@@ -1361,9 +1361,15 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
       $scope.onSubmit = function(model){
         Collection(config.id).$save(model);
       };
+var uop=[];
+angular.forEach(DOCNAMES, function(value, key){
+  angular.forEach(value, function(pood, key){
+    var lop = {code: key, label: key + ' - ' + pood};
+    uop.push(lop);
+  });
+});
 
-
-      $scope.DOCNAMES = DOCNAMES;
+      $scope.DOCNAMES = uop;
        $scope.pushtoqueue = function (record) {
                 var queue = $firequeue();
                 var id = record.id ;
