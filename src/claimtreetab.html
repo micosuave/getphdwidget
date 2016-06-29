@@ -19,7 +19,7 @@
         </fieldset>
         <a style="position:absolute;right:0;top:4;" class="btn fa fa-close" ng-click="query = null"></a>
 
-        <div class="col-sm-3">
+        <!--<div class="col-sm-3">
             <ul class="list-unstyled">
                 <li>
                     <input type="checkbox" ng-model="highlight">
@@ -37,7 +37,7 @@
                     <small>Match <code>{{ field }}</code></small>
                 </li>
             </ul>
-        </div>
+        </div>-->
         <d3pendingtree id="a{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" class="{{query}}" tree="tree" pattern="{{query}}" patent="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" style=""></d3pendingtree>
 
 
