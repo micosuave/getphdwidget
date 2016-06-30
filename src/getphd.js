@@ -1490,6 +1490,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
   }).filter('bytes', function(){
     return function(bytes){
+        var bytes = parseInt(bytes);
         if      (bytes>=1000000000) {bytes=(bytes/1000000000).toFixed(2)+' GB';}
         else if (bytes>=1000000)    {bytes=(bytes/1000000).toFixed(2)+' MB';}
         else if (bytes>=1000)       {bytes=(bytes/1000).toFixed(2)+' KB';}
