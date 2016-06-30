@@ -14,12 +14,20 @@
     </div>
     <div class="panel-body" style="height:90vh;overflow:scroll;">
         <blockquote class="bs-callout bs-callout-primary card-header" style="margin:0;" ng-hide="response">
-            <p class="text-muted text-left" style="text-align:left;font-size:10px;">Use the following fields to automatically download U.S. utility patents and published patent applications from Google Patents, and to automatically download prosecution histories from the <a href="https://www.uspto.gov/" uib-tooltip="United States Patent & Trademark Office official site"
-                    tooltip-trigger="mouseenter">USPTO</a> public data-proxy-repositors, <a href="https://www.google.com/patents/" uib-tooltip="Google Patents" tooltip-trigger="mouseenter">Google</a> & <a href="http://www.reedtech.com/" uib-tooltip="ReedTech"
-                    tooltip-trigger="mouseenter">ReedTech</a>. To automatically download and parse a prosecution history, simply click on the LEO (lion) icon at the far-bottom, far-right of this Panel. Alternatively, you can click either of the buttons labelled
-                "ReedTech" or "Google" to automatically download a .zip file from the respective sources to your Downloads folder. To parse the prosecution history, you can then drag over the Patent PhD Panel to the right of this Panel on the main screen,
-                and drop the file within the dropzone once it has become marked by a dotted border. The .zip file will then automatically upload to our servers. LEO will generate a Patent PhD Report (directly upon selecting the LEO icon, or upon placing
-                a .zip file in the Patent PhD Panel) and return it to the main display screen for your review.</p>
+            <p class="text-muted text-left" style="text-align:left;font-size:10px;">
+              To get a PatentPhD Report: <br>
+              <ol>
+                <li> <label>[FOR US PATENTS]</label> - enter the patent number in the space provided. <br>
+                 <label>[FOR PUBLISHED US APPLICATIONS]</label> - enter the publication year and application number in the spaces provided. </li>
+                <li>Press the <code>LION</code> button.</li>
+              </ol>
+              Patents and published applications are provided from <a pop href="https://www.google.com/patents/" uib-tooltip="Google Patents" tooltip-trigger="mouseenter">Google Patents</a>. Prosecution Histories are provided by the <a pop href="http://portal.uspto.gov/pair/PublicPair" uib-tooltip="United States Patent & Trademark Office official site"
+                    tooltip-trigger="mouseenter">USPTO</a>'s public data-proxy repositor, <a pop href="http://www.reedtech.com/" uib-tooltip="ReedTech"
+                    tooltip-trigger="mouseenter">ReedTech</a>.
+              <br>
+              Alternatively, you may download <code>.zip</code> files of prosecution histories directly from <a pop href="http://www.reedtech.com/" uib-tooltip="ReedTech"
+                    tooltip-trigger="mouseenter">ReedTech</a> or <a pop href="https://www.google.com/patents/" uib-tooltip="Google Patents" tooltip-trigger="mouseenter">Google Patents</a> by pressing the respective buttons below. Downloaded <code>.zip</code> files can then be dropped within the dropzone (marked by the dotted border). <a pop ng-href="{{info.video.url}}" title="{{info.video.title}}" uib-tooltip="{{info.video.tooltip}}">Watch the tutorial</a>.
+            </p>
         </blockquote>
         <blockquote class="bs-callout bs-callout-Applicant card-header" style="margin:0;" ng-show="response">
             <h4>{{response.title}} <small class="text-muted">{{response.claim_total}} Claims</small></h4>

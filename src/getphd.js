@@ -491,7 +491,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             method: 'HEAD',
             url: googleurl
           };
-
+          $scope.info = {
+            video:{
+              url: 'https://lexlab.io/files/public/charm.webm',
+              title: 'PhD Tutorial',
+              tooltip: 'Click to view tutorial'
+            }
+          };
           $http(optionsg).then(function (resp) {
             if (resp.status !== 200) {
               $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
