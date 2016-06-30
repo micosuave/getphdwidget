@@ -577,4 +577,16 @@ function pageLoaded() {
         $scope.reject = function () {
             return $scope.$reject();
         };
-    }]);
+    }]).filter('bytes', function(){
+    return function(bytes){
+        var bytes = parseInt(bytes);
+        if      (bytes>=1000000000) {bytes=(bytes/1000000000).toFixed(2)+' GB';}
+        else if (bytes>=1000000)    {bytes=(bytes/1000000).toFixed(2)+' MB';}
+        else if (bytes>=1000)       {bytes=(bytes/1000).toFixed(2)+' KB';}
+        else if (bytes>1)           {bytes=bytes+' bytes';}
+        else if (bytes==1)          {bytes=bytes+' byte';}
+        else                        {bytes='0 byte';}
+        return bytes;
+}
+  });
+
