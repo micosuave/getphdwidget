@@ -464,8 +464,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
         $http.get('/getphd/patents/' + pnum).then(function (resp) {
           var data = resp.data;
           //                    config.appnum = resp.data.application_number.slice(3,resp.data.application_number.length).replace('/','').replace(',','');
+          if(angular.isUndefined(resp.data.pub)){
+              config.IPANUM = null;
+              config.IPAYEAR = null;
+          }else{
           config.IPAYEAR = resp.data.pub.slice(2, 6);
           config.IPANUM = resp.data.pub.slice(6, resp.data.pub.length);
+          }
           config.appnum = resp.data.application_number.replace(/\D/ig, '');
           $scope.response = resp.data;
           var googleurl = 'https' + '://' + 'lexlab.io' + '/proxy/storage.googleapis.com/uspto-pair/applications/' + config.appnum + '.zip';
