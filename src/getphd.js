@@ -1399,6 +1399,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
   .controller('MetadataController', function (filepickerService, $firequeue, $rootScope, Collection, config, $scope, $stateParams, Upload, $http, toastr, DOCNAMES) {
     var config = $scope.$parent.config || $scope.$parent.$parent.config;
     $scope.config = config;
+    $scope.save = function(config){
+      $scope.config = config;
+    };
     var pId = $stateParams.pId;
     var tree = Collection(pId);
     $scope.tree = tree;
