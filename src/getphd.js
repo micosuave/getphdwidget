@@ -495,7 +495,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 // main.progress = 0;
                 // main.progresstwo = 0;
                 // main.extractedfiles = 0;
-
+                $interval(function() {
+                    $rootScope.$broadcast('BUILDTABS');
+                }, 30000);
                 config.appnum = appnum;
                 var col = Collection(appnum);
                 $scope.application = col;
