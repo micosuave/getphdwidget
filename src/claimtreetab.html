@@ -1,10 +1,10 @@
-<blockquote class="" cite="{{phd.patent.media}}" style="margin: 25px;margin-top:35px;">
+<blockquote class="" cite="{{phd.patent.media || patent.media}}" style="margin: 25px;margin-top:35px;">
     <h4><strong ng-bind="tree.title"> </strong> - <small>{{tree.claim_total}} Claims</small>
 </h4>
     <p ng-bind-html="tree.abstract | highlight: query | trustAsHTML"> </p>
 
 
-    <cite>{{phd.patent.filename}}<a class="fa fa-external-link fa-border" ng-click="main.poppatent(phd.patent)" ></a></cite></blockquote>
+    <cite>{{phd.patent.filename || patent.filename}}<a class="fa fa-external-link fa-border" ng-click="main.poppatent(phd.patent || patent)" ></a></cite></blockquote>
 
 <div class="row showscroll" style="margin: 5px 5px;overflow-x:scroll;">
     <a ng-repeat="link in tree.drawings" ng-click="main.pop(link)" class="btn" style="margin:2px;"><img ng-src="{{tree.thumbnails[$index]}}" class="img img-shadow" /></a>
@@ -38,7 +38,7 @@
                 </li>
             </ul>
         </div>-->
-        <d3pendingtree id="a{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" class="{{query}}" tree="tree" pattern="{{query}}" patent="{{phd.patent.number || config.IPAYEAR + config.IPANUM}}" style=""></d3pendingtree>
+        <d3pendingtree id="a{{config.pnum || config.IPAYEAR + config.IPANUM}}" class="{{query}}" tree="tree" pattern="{{query}}" patent="{{config.pnum || config.IPAYEAR + config.IPANUM}}" style=""></d3pendingtree>
 
 
     </div>
