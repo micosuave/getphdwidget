@@ -1,3 +1,8 @@
+<input ng-model="config.PNUM" type="number" placeholder="patent number" ng-model-options="{updateOn: 'blur'}"/>
+<d3historytree patent="{{config.PNUM}}"></d3historytree>
+
+
+
 <uib-tabset justified="true">
   <uib-tab ng-repeat="(key, set) in roarevent.roarlist" node="{{key}}" deselect="sortSet(node)">
     <uib-tab-heading><h6 class="card-title">{{::node.title}} {{$index}}</h6><strong class="card-subtitle">{{node.date | date}}</strong><a pop ng-href="{{node.media}}" class="fa fa-external-link showonhover">{{node.claims.length}}</a> </uib-tab-heading>

@@ -687,7 +687,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
                 $('.issuedocpanel').draggable({
                     stack: '.stacker',
-                    handle: 'h4'
+                    handle: 'h4', 
+                    contain: '#maincontent'
                 }).resizable();
 
             };
