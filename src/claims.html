@@ -1,4 +1,8 @@
 <input ng-model="config.PNUM" type="number" placeholder="patent number" ng-model-options="{updateOn: 'blur'}"/>
+<button clipboard text="{{claims}}">CLAIMS</button>
+<button clipboard text="{{remarks}}">REMARKS</button>
+<button clipboard text="{{rejections}}">REJECTIONS</button>
+
 <d3historytree patent="{{config.PNUM}}"></d3historytree>
 
 
