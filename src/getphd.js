@@ -1434,9 +1434,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
     };
 
-}).controller('RepoController', function ($scope, $http, $location) {
+}).controller('RepoController', function ($scope, $http, $location, Collection) {
   var app = this
-
+var summaryref = Collection('REPORT');
+$scope.reporter = summaryref;
   var request = {method: 'GET',url: '/report/all'}
 
   $http(request).then(function (resp) { app.filehistories = resp.data })

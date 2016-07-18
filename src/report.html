@@ -1,6 +1,47 @@
 
 
-<div class="slate">
+<table class="table table-striped table-hover table-condensed table-responsive slate">
+<thead >
+            <tr class="td-petition">
+              <th>#</th>
+
+                <th   class="td-petition">Total</th>
+<th colorkey="allowed">Allowed</th>
+                 <th colorkey="new">New</th>
+                 <th colorkey="original">O</th>
+                 <th colorkey="canceled">C</th>
+                 <th colorkey="withdrawn">W</th>
+                 <th colorkey="currently amended">C.A.</th>
+               <th colorkey="previously presented">P.P.</th>
+                <th colorkey="allowable">Allowable</th>
+                <th colorkey="101">101</th>
+                  <th colorkey="102">102</th>
+              <th colorkey="103">103</th>
+                <th colorkey="112">112</th>
+         </tr>
+         </thead>
+         <tbody>
+           <tr ng-repeat="paper in reporter.meta" ffbase="{{paper}}" class="{{item.styleClass}}">
+             <td class="{{item.styleClass}}">{{item.rid}} - {{item.doccode}}</td>
+                <td ng-bind="paper.total"></td>
+                <td ng-bind="paper.allowed"></td>
+                <td ng-bind="paper.new"></td>
+                <td ng-bind="paper.original"></td>
+                <td ng-bind="paper.canceled"></td>
+                <td ng-bind="paper.withdrawn"></td>
+                <td ng-bind="paper.amended.current"></td>
+                <td ng-bind="paper.amended.previously"></td>
+<td ng-bind="paper.v101"></td>
+<td ng-bind="paper.v102"></td>
+<td ng-bind="paper.v103"></td>
+<td ng-bind="paper.v112"></td>
+<td ng-bind="paper.allowable"></td>
+</tr>
+</tbody>
+</table>
+
+
+
 <div style="" class="animated row card-deck clear-fix">
   <div class="toast toast-info btn-glass">
     <h6 class="fa fa-3x fa-ge">{{report.filehistories.total}}
