@@ -1,0 +1,58 @@
+
+
+
+<div style="margin-top:75px;" class="animated row card-deck clear-fix">
+  <div class="toast toast-info btn-glass">
+    <h6 class="fa fa-3x fa-ge">{{app.filehistories.total}}
+      <label>&nbsp;&nbsp;TOTAL</label>
+    </h6>
+  </div>
+</div>
+<div class="toast toast-success btn-glass">
+  <h6 class="fa fa-3x fa-check">{{app.filehistories.complete}}
+    <label>&nbsp;&nbsp;COMPLETE</label>
+  </h6>
+</div>
+<div class="toast toast-warning btn-glass">
+  <h6 class="fa fa-3x fa-alert">{{app.filehistories.incomplete}}
+    <label>&nbsp;&nbsp;INCOMPLETE</label>
+  </h6>
+</div>
+<div class="animated row">
+  <div class="col-md-6" style="height:600px;overflow:scroll;">
+    <div style="margin:2.5%;padding:2.5%;display:flex;flex-flow:row wrap;justify-content:space-between;perspective:1200px;transform-style:preserve-3d;" class="card card-block img-shadow">
+      <figure draggable="draggable" style="width:100px;height:100px;border:0px groove #ddd;float:left;margin:2.5px;perspective:500px;transform-style:preserve-3d;transition:all 0.2s ease;position:relative;background-color:transparent;" ng-repeat="history in app.filehistories.data | filter: report.query | orderBy: [prop,'id'] :maybe"><img src="{{history.media || history.altimgurl}}" style="width:100%;height:100%;transition:all 0.2s ease;" ng-class="{'img-thumbnail highlight':(history.mouseover == true) }" ng-mouseenter="history.mouseover = true" ng-mouseleave="history.mouseover = false"
+          class="img img-shadow" /><a ng-click="app.dofunction(history)" style="position:absolute;left:0;top:100%;right:0;text-align:center;border-radius:20px;box-shadow:inset 0 0 30px rgba(250,250,250,0.75),-1px 1px 5px rgba(0,0,0,0.5),inset -1px 1px 5px rgba(0,0,0,0.5);background-color:rgba(0,0,0,0.25);border:2.5px ridge black;transform-origin:50% 50%;transform:translateZ(5px)translateY(-25px);transition:all 0.2s ease;color:black;"
+          class="label btn">{{(history.id | number:0) || history.application.utility}}</a></figure>
+    </div>
+  </div>
+</div>
+<div class="col-md-6" style="height:600px;overflow:scroll;">
+  <div style="margin:2.4%;padding:2.5%;" class="card card-block img-shadow"><a style="position:absolute;z-index:2;right:5px;" ng-click="report.query = ''" class="badge"><i class="fa fa-close"></i></a>
+    <input style="position:absolute;z-index:1;right:5px;" placeholder="Search..." ng-model="report.query" class="pull-right" />
+    <table style="z-index:0;" class="table table-stripped table-condensed table-hover table-resonsive">
+      <thead>
+        <th ng-click="maybe = !maybe;prop = 'isReedTech'"><i class="fa fa-check"></i></th>
+        <th ng-click="maybe = !maybe;prop = 'appnum'">#</th>
+        <th ng-click="maybe = !maybe;prop = 'id'">ID</th>
+        <th ng-click="maybe = !maybe;prop = 'claims_issued_total'">Issued / Pending</th>
+        <th ng-click="maybe = !maybe;prop = 'art_unit'">Art Unit</th>
+        <th ng-click="maybe = !maybe;prop = 'file.fstat.size'">FileSize</th>
+        <th ng-click="maybe = !maybe;prop = 'title'">Title</th>
+        <th ng-click="maybe = !maybe;prop = 'file.added">Added</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="history in app.filehistories.data | filter: report.query | orderBy: [prop,'id'] :maybe" ng-mouseenter="history.mouseover = true" ng-mouseleave="history.mouseover = false" ng-class="{'primary tr-primary':(history.mouseover == true) }" class="animated staggered">
+          <td><span ng-class="{'fa-check text-success':(history.isReedTech === true),'fa-minus text-danger':(history.isReedTech !== true)}" class="fa "></span></td>
+          <td>{{$index}}</td>
+          <td><strong>{{history.patent}}</strong><br>({{history.application.utility}})</td>
+          <td>{{history.claims_issued_total}} / {{history.claims_pending_total}}<br>({{history.claims_issued_total / history.claims_pending_total * 100 }}%)</td>
+          <td ng-bind-html="history.art_unit | highlight: report.query | trustAsHTML">{{history.art_unit}} </td>
+          <td ng-bind-html="history.file.size"></td>
+          <td ng-bind-html="history.title | highlight: report.query | trustAsHTML">{{history.title}}</td>
+          <td ng-bind-html="history.file.added | date"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

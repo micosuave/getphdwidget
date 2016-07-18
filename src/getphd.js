@@ -26,6 +26,19 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 reload: true
             }
         })
+         .widget('report', {
+            title: 'Report',
+            description: 'filehistory report ',
+            templateUrl: '{widgetsPath}/getphd/src/report.html',
+            icon: 'fa-code',
+            iconurl: '/llp_core/img/lexlab.svg',
+            styleClass: 'info',
+            frameless: false,
+            reload: true,
+            controller: 'ReportController',
+            controllerAs: 'app'
+
+        })
         .widget('claims', {
             title: 'Claims',
             description: 'view or edit a set of claims',
@@ -687,7 +700,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
                 $('.issuedocpanel').draggable({
                     stack: '.stacker',
-                    handle: 'h4', 
+                    handle: 'h4',
                     contain: '#maincontent'
                 }).resizable();
 
@@ -1421,4 +1434,20 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
     };
 
+}).controller('ReportController', function ($scope, $http, $location) {
+  var app = this
+
+  var request = {method: 'GET',url: '/report/all'}
+
+  $http(request).then(function (resp) { app.filehistories = resp.data })
+  app.dofunction = function (history) {
+    var a = history.funconfig;
+    var options = {
+      method: 'GET',
+      url: '/getphd/' + a.APPNUM + '/' + a.PNUM + '/' + a.IPAYEAR + '/' + a.IPANUM + '/' + a.id
+    }
+    $http(options).then(function (resp) {
+      $scope.report = resp.data
+    });
+  }
 });
