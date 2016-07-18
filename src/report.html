@@ -1,12 +1,12 @@
 
 
-<table class="table table-striped table-hover table-condensed table-responsive slate">
+<table class="table table-stripped table-hover table-condensed table-responsive ">
 <thead >
             <tr class="td-petition">
-              <th ng-click="maybe = !maybe;prop = 'key'">#</th>
+              <th ng-click="maybe = !maybe;prop = 'id'">#</th>
               <th ng-click="maybe = !maybe;prop = 'doccode'">#</th>
-                <th   class="td-petition">Total</th>
-<th colorkey="allowed">Allowed</th>
+                <th   class="td-petition" ng-click="maybe = !maybe;prop = 'total'">Total</th>
+<th colorkey="allowed" ng-click="maybe = !maybe;prop = 'allowed'">Allowed</th>
                  <th colorkey="new">New</th>
                  <th colorkey="original">O</th>
                  <th colorkey="canceled">C</th>
@@ -14,15 +14,15 @@
                  <th colorkey="currently amended">C.A.</th>
                <th colorkey="previously presented">P.P.</th>
                 <th colorkey="allowable">Allowable</th>
-                <th colorkey="101">101</th>
-                  <th colorkey="102">102</th>
-              <th colorkey="103">103</th>
-                <th colorkey="112">112</th>
+                <th colorkey="101" ng-click="maybe = !maybe;prop = 'v101'">101</th>
+                  <th colorkey="102" ng-click="maybe = !maybe;prop = 'v102'">102</th>
+              <th colorkey="103" ng-click="maybe = !maybe;prop = 'v103'">103</th>
+                <th colorkey="112" ng-click="maybe = !maybe;prop = 'v112'">112</th>
          </tr>
          </thead>
          <tbody>
-           <tr ng-repeat="(key, paper) in arra | orderBy: prop :maybe" ffbase="{{key}}" class="{{item.styleClass}}">
-             <td>{{key.slice(0,key.indexOf('-'))}}</td>
+           <tr ng-repeat="(key, paper) in arra | orderBy: prop :maybe" ffbase="{{paper.id}}" class="{{item.styleClass}}">
+             <td>{{paper.id.slice(0,paper.id.indexOf('-'))}}</td>
              <td class="{{item.styleClass}}">{{item.rid}} - {{item.doccode}}</td>
                 <td ng-bind="paper.total||paper.pending"></td>
                 <td ng-bind="paper.allowed"></td>
