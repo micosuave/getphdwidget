@@ -1435,15 +1435,19 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     };
 
 }).controller('RepoController', function ($scope, $http, $location, Collection) {
-  var app = this
+  var app = this;
 var arra = [];
 var summaryref = Collection('REPORT');
 $scope.reporter = summaryref;
   var request = {method: 'GET',url: '/report/all'}
+  summaryref.$loaded().then(function(rep){
+
+
 angular.forEach($scope.reporter.meta, function(paper, key){
   arra.push(paper);
 });
 $scope.arra = arra;
+});
   $http(request).then(function (resp) { app.filehistories = resp.data })
   app.dofunction = function (history) {
     var a = history.funconfig;
