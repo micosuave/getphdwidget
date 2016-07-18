@@ -1,7 +1,7 @@
 
 
-
-<div style="margin-top:75px;" class="animated row card-deck clear-fix">
+<div class="slate">
+<div style="" class="animated row card-deck clear-fix">
   <div class="toast toast-info btn-glass">
     <h6 class="fa fa-3x fa-ge">{{report.filehistories.total}}
       <label>&nbsp;&nbsp;TOTAL</label>
@@ -21,12 +21,12 @@
 <div class="animated row">
   <div class="col-md-6" style="height:600px;overflow:scroll;">
     <div style="margin:2.5%;padding:2.5%;display:flex;flex-flow:row wrap;justify-content:space-between;perspective:1200px;transform-style:preserve-3d;" class="card card-block img-shadow">
-      <figure draggable="draggable" style="width:100px;height:100px;border:0px groove #ddd;float:left;margin:2.5px;perspective:500px;transform-style:preserve-3d;transition:all 0.2s ease;position:relative;background-color:transparent;" ng-repeat="history in app.filehistories.data | filter: report.query | orderBy: [prop,'id'] :maybe"><img src="{{history.media || history.altimgurl}}" style="width:100%;height:100%;transition:all 0.2s ease;" ng-class="{'img-thumbnail highlight':(history.mouseover == true) }" ng-mouseenter="history.mouseover = true" ng-mouseleave="history.mouseover = false"
+      <figure draggable="draggable" style="width:100px;height:100px;border:0px groove #ddd;float:left;margin:2.5px;perspective:500px;transform-style:preserve-3d;transition:all 0.2s ease;position:relative;background-color:transparent;" ng-repeat="history in report.filehistories.data | filter: report.query | orderBy: [prop,'id'] :maybe"><img src="{{history.media || history.altimgurl}}" style="width:100%;height:100%;transition:all 0.2s ease;" ng-class="{'img-thumbnail highlight':(history.mouseover == true) }" ng-mouseenter="history.mouseover = true" ng-mouseleave="history.mouseover = false"
           class="img img-shadow" /><a ng-click="app.dofunction(history)" style="position:absolute;left:0;top:100%;right:0;text-align:center;border-radius:20px;box-shadow:inset 0 0 30px rgba(250,250,250,0.75),-1px 1px 5px rgba(0,0,0,0.5),inset -1px 1px 5px rgba(0,0,0,0.5);background-color:rgba(0,0,0,0.25);border:2.5px ridge black;transform-origin:50% 50%;transform:translateZ(5px)translateY(-25px);transition:all 0.2s ease;color:black;"
           class="label btn">{{(history.id | number:0) || history.application.utility}}</a></figure>
     </div>
   </div>
-</div>
+
 <div class="col-md-6" style="height:600px;overflow:scroll;">
   <div style="margin:2.4%;padding:2.5%;" class="card card-block img-shadow"><a style="position:absolute;z-index:2;right:5px;" ng-click="report.query = ''" class="badge"><i class="fa fa-close"></i></a>
     <input style="position:absolute;z-index:1;right:5px;" placeholder="Search..." ng-model="report.query" class="pull-right" />
@@ -55,4 +55,5 @@
       </tbody>
     </table>
   </div>
+</div>
 </div>
