@@ -21,7 +21,7 @@
          </tr>
          </thead>
          <tbody>
-           <tr ng-repeat="(key, paper) in reporter.meta | orderBy: prop :maybe" ffbase="{{key}}" class="{{item.styleClass}}">
+           <tr ng-repeat="(key, paper) in arra | orderBy: prop :maybe" ffbase="{{key}}" class="{{item.styleClass}}">
              <td>{{key.slice(0,key.indexOf('-'))}}</td>
              <td class="{{item.styleClass}}">{{item.rid}} - {{item.doccode}}</td>
                 <td ng-bind="paper.total||paper.pending"></td>
