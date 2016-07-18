@@ -36,7 +36,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             frameless: false,
             reload: true,
             controller: 'ReportController',
-            controllerAs: 'app'
+            controllerAs: 'report'
 
         })
         .widget('claims', {

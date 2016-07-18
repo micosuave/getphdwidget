@@ -42,7 +42,7 @@
         <th ng-click="maybe = !maybe;prop = 'file.added">Added</th>
       </thead>
       <tbody>
-        <tr ng-repeat="history in app.filehistories.data | filter: report.query | orderBy: [prop,'id'] :maybe" ng-mouseenter="history.mouseover = true" ng-mouseleave="history.mouseover = false" ng-class="{'primary tr-primary':(history.mouseover == true) }" class="animated staggered">
+        <tr ng-repeat="history in report.filehistories.data | filter: report.query | orderBy: [prop,'id'] :maybe" ng-mouseenter="history.mouseover = true" ng-mouseleave="history.mouseover = false" ng-class="{'primary tr-primary':(history.mouseover == true) }" class="animated staggered">
           <td><span ng-class="{'fa-check text-success':(history.isReedTech === true),'fa-minus text-danger':(history.isReedTech !== true)}" class="fa "></span></td>
           <td>{{$index}}</td>
           <td><strong>{{history.patent}}</strong><br>({{history.application.utility}})</td>
