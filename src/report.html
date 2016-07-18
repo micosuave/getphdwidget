@@ -3,8 +3,8 @@
 <table class="table table-striped table-hover table-condensed table-responsive slate">
 <thead >
             <tr class="td-petition">
-              <th>#</th>
-
+              <th ng-click="maybe = !maybe;prop = 'key'">#</th>
+              <th ng-click="maybe = !maybe;prop = 'doccode'">#</th>
                 <th   class="td-petition">Total</th>
 <th colorkey="allowed">Allowed</th>
                  <th colorkey="new">New</th>
@@ -21,7 +21,8 @@
          </tr>
          </thead>
          <tbody>
-           <tr ng-repeat="(key, paper) in reporter.meta" ffbase="{{key}}" class="{{item.styleClass}}">
+           <tr ng-repeat="(key, paper) in reporter.meta | orderBy: prop :maybe" ffbase="{{key}}" class="{{item.styleClass}}">
+             <td>{{key.slice(0,key.indexOf('-'))}}</td>
              <td class="{{item.styleClass}}">{{item.rid}} - {{item.doccode}}</td>
                 <td ng-bind="paper.total||paper.pending"></td>
                 <td ng-bind="paper.allowed"></td>
