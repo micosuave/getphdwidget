@@ -1445,6 +1445,8 @@ $scope.reporter = summaryref;
 
 
 angular.forEach($scope.reporter.meta, function(paper, key){
+
+  paper.id = key;
   arra.push(paper);
 });
 $scope.arra = arra;
