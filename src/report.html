@@ -21,9 +21,9 @@
          </tr>
          </thead>
          <tbody>
-           <tr ng-repeat="paper in reporter.meta" ffbase="{{paper}}" class="{{item.styleClass}}">
+           <tr ng-repeat="(key, paper) in reporter.meta" ffbase="{{key}}" class="{{item.styleClass}}">
              <td class="{{item.styleClass}}">{{item.rid}} - {{item.doccode}}</td>
-                <td ng-bind="paper.total"></td>
+                <td ng-bind="paper.total||paper.pending"></td>
                 <td ng-bind="paper.allowed"></td>
                 <td ng-bind="paper.new"></td>
                 <td ng-bind="paper.original"></td>
