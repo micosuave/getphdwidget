@@ -35,7 +35,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             styleClass: 'info',
             frameless: false,
             reload: true,
-            controller: 'ReportController',
+            controller: 'RepoController',
             controllerAs: 'report'
 
         })
@@ -1434,7 +1434,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
     };
 
-}).controller('ReportController', function ($scope, $http, $location) {
+}).controller('RepoController', function ($scope, $http, $location) {
   var app = this
 
   var request = {method: 'GET',url: '/report/all'}
