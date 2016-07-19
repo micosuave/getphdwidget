@@ -21,8 +21,8 @@
          </tr>
          </thead>
          <tbody>
-           <tr ng-repeat="(key, paper) in arra | orderBy: prop :maybe" ffbase="{{paper.id}}" class="{{item.styleClass}}">
-             <td>{{paper.id.slice(0,paper.id.indexOf('-'))}}</td>
+           <tr ng-repeat="(key, paper) in arra | orderBy: prop :maybe" ffbase="{{paper.id}}" class="{{item.styleClass}}" collection="{{paper.id.slice(0,paper.id.indexOf('-'))}}">
+             <td>{{collection.patent.id|number:0}}</td>
              <td class="{{item.styleClass}}">{{item.rid}} - {{item.doccode}}</td>
                 <td ng-bind="paper.total||paper.pending"></td>
                 <td ng-bind="paper.allowed"></td>
@@ -30,13 +30,27 @@
                 <td ng-bind="paper.original"></td>
                 <td ng-bind="paper.canceled"></td>
                 <td ng-bind="paper.withdrawn"></td>
-                <td ng-bind="paper.amended.current"></td>
+                <td ng-bind="paper.amended.currently"></td>
                 <td ng-bind="paper.amended.previously"></td>
 <td ng-bind="paper.v101"></td>
 <td ng-bind="paper.v102"></td>
 <td ng-bind="paper.v103"></td>
 <td ng-bind="paper.v112"></td>
 <td ng-bind="paper.allowable"></td>
+<tr>
+  <td ng-bind="sum(collection, 'total')"></td>
+  <td ng-bind="sum(collection, 'allowed')"></td>
+  <td ng-bind="sum(collection, 'new')"></td>
+  <td ng-bind="sum(collection, 'original')"></td>
+  <td ng-bind="sum(collection, 'canceled')"></td>
+  <td ng-bind="sum(collection, 'withdrawn')"></td>
+  <td ng-bind="sum(collection, 'currently')"></td>
+  <td ng-bind="sum(collection, 'previously')"></td>
+  <td ng-bind="sum(collection, 'v101')"></td>
+  <td ng-bind="sum(collection, 'v102')"></td>
+  <td ng-bind="sum(collection, 'v103')"></td>
+  <td ng-bind="sum(collection, 'v112')"></td>
+  </tr>
 </tr>
 </tbody>
 </table>
