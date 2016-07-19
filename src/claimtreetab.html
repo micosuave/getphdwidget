@@ -13,9 +13,10 @@
     <div class="col-sm-6">
 
         <fieldset class="material">
+            <label>Search</label>
             <input id="patterninput" class="" ng-model="query" type="search" style="margin:10px;" ng-model-options="{updateOn: 'default blur',debounce: {'default':250,'blur':0}}">
             <hr>
-            <label>Search</label>
+
         </fieldset>
         <a style="position:absolute;right:0;top:4;" class="btn fa fa-close" ng-click="query = null"></a>
 
