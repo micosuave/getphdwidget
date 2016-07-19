@@ -7,13 +7,13 @@
               <th ng-click="maybe = !maybe;prop = 'doccode'">#</th>
                 <th   class="td-petition" ng-click="maybe = !maybe;prop = 'total'">Total</th>
 <th colorkey="allowed" ng-click="maybe = !maybe;prop = 'allowed'">Allowed</th>
-                 <th colorkey="new">New</th>
-                 <th colorkey="original">O</th>
-                 <th colorkey="canceled">C</th>
-                 <th colorkey="withdrawn">W</th>
-                 <th colorkey="currently amended">C.A.</th>
-               <th colorkey="previously presented">P.P.</th>
-                <th colorkey="allowable">Allowable</th>
+                 <th colorkey="new" ng-click="maybe = !maybe;prop = 'allowed'">New</th>
+                 <th colorkey="original" ng-click="maybe = !maybe;prop = 'original'">O</th>
+                 <th colorkey="canceled" ng-click="maybe = !maybe;prop = 'canceled'">C</th>
+                 <th colorkey="withdrawn" ng-click="maybe = !maybe;prop = 'withdrawn'">W</th>
+                 <th colorkey="currently amended" ng-click="maybe = !maybe;prop = 'currently'">C.A.</th>
+               <th colorkey="previously presented" ng-click="maybe = !maybe;prop = 'previously'">P.P.</th>
+                <th colorkey="allowable" ng-click="maybe = !maybe;prop = 'allowable'">Allowable</th>
                 <th colorkey="101" ng-click="maybe = !maybe;prop = 'v101'">101</th>
                   <th colorkey="102" ng-click="maybe = !maybe;prop = 'v102'">102</th>
               <th colorkey="103" ng-click="maybe = !maybe;prop = 'v103'">103</th>
@@ -22,8 +22,8 @@
          </thead>
          <tbody>
            <tr ng-repeat="(key, paper) in arra | orderBy: prop :maybe" ffbase="{{paper.id}}" class="{{item.styleClass}}" collection="{{paper.id.slice(0,paper.id.indexOf('-'))}}">
-             <td>{{collection.patent.id|number:0}}</td>
-             <td class="{{item.styleClass}}">{{item.rid}} - {{item.doccode}}</td>
+             <td ng-click="runhistory(collection)">{{collection.patent.id|number:0}}</td>
+             <td class="well {{item.styleClass}}" ng-click="pushtoqueue(item)">{{item.rid}} - {{item.doccode}}</td>
                 <td ng-bind="paper.total||paper.pending"></td>
                 <td ng-bind="paper.allowed"></td>
                 <td ng-bind="paper.new"></td>

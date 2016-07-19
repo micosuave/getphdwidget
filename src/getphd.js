@@ -1450,6 +1450,24 @@ angular.forEach($scope.reporter.meta, function(paper, key){
 });
 $scope.arra = arra;
 });
+var  props =['total',
+  'allowed',
+  'new',
+  'original' ,
+  'withdrawn',
+  'currently',
+  'previous',
+  'v101',
+  'v102',
+  'v103',
+  'v112'];
+var sum = function(collection, prop){
+collection.roarlist.forEach(function(v, i , a){
+  Collection(v).$loaded().then(function(roardata){
+
+  });
+});
+};
   $http(request).then(function (resp) { app.filehistories = resp.data })
   app.dofunction = function (history) {
     var a = history.funconfig;
