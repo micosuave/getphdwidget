@@ -94,7 +94,7 @@
                           <div class="col-sm-6">
                       <h6>{{patent.pub | published_application}}</h6>
                       <fieldset class="material PTO">
-                          <input ng-model="query" id="patterninput">
+                          <input ng-model="patent.query" id="patterninput">
                           <hr>
                           <label>{{patent.pub | published_application}}</label>
                       </fieldset>
@@ -103,7 +103,7 @@
                        <div class="col-sm-6">
                            <h6>{{patent.id | number:0}}</h6>
                         <fieldset class="material PTO">
-                          <input ng-model="query" id="patterninput">
+                          <input ng-model="patent.query" id="patterninput">
                           <hr>
                           <label>{{patent.id | number:0}}</label>
                       </fieldset>
@@ -112,14 +112,14 @@
                        <div class="row" style="perspective:1000px;perspective-origin:50%50%;transformation-style:preserve-3d;">
                         <!--<d3pending set="claims" pattern="{{query}}"></d3pending>-->
                         <div class="col-sm-6" style="transform:scale3d(0.9,0.9,0.9)translateX(-40px);">
-                        <d3pendingtree patent="{{config.IPAYEAR + config.IPANUM}}" pattern="{{query}}" tree="leaf" style="width:400px;"></d3pendingtree>
-                        <claimtree tree="leaf.claims" query="query" style="position:absolute;"></claimtree>
+                        <d3pendingtree patent="{{config.IPAYEAR + config.IPANUM}}" pattern="{{patent.query}}" tree="leaf" style="width:400px;"></d3pendingtree>
+                        <claimtree tree="leaf.claims" query="patent.query" style="position:absolute;"></claimtree>
 
                        </div>
                        <div class="col-sm-6" style="transform:scale3d(0.9,0.9,0.9)translateX(-40px);">
-                        <d3pendingtree patent="{{config.PNUM}}" pattern="{{query}}" tree="tree" style="width:400px;"></d3pendingtree>
+                        <d3pendingtree patent="{{config.PNUM}}" pattern="{{patent.query}}" tree="tree" style="width:400px;"></d3pendingtree>
 
-                    <claimtree tree="tree.claims" query="query" style="position:absolute;"></claimtree>
+                    <claimtree tree="tree.claims" query="patent.query" style="position:absolute;"></claimtree>
                           </div>
                         </div>
 
