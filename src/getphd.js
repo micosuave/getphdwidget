@@ -451,8 +451,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             $scope.winreed = winreed;
             $scope.wingoog = wingoog;
             main.remoteconfig = function(pnum) {
-                $('#googlebutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
-                $('#reedtechbutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
+                $('.googlebutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
+                $('.reedtechbutton').addClass('fa-spin fa-spinner').removeClass('fa-file-zip-o text-danger');
                 $http.get('/getphd/patents/' + pnum).then(function(resp) {
                     var data = resp.data;
                     //                    config.appnum = resp.data.application_number.slice(3,resp.data.application_number.length).replace('/','').replace(',','');
@@ -484,17 +484,17 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     };
                     $http(optionsg).then(function(resp) {
                         if (resp.status !== 200) {
-                            $('#googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
+                            $('.googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
                         } else if (resp.status == 200) {
-                            $('#googlebutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                            $('.googlebutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
 
                         }
                     });
                     $http(optionsr).then(function(resp) {
                         if (resp.status !== 200) {
-                            $('#reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
+                            $('.reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
                         } else if (resp.status == 200) {
-                            $('#reedtechbutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
+                            $('.reedtechbutton').addClass('fa-check text-success').removeClass('fa-spin fa-spinner text-danger fa-file-zip-o fa-close');
 
                         }
                     });
@@ -515,45 +515,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 var col = Collection(appnum);
                 $scope.application = col;
                 $http.get('/getphd/' + appnum + '/' + config.PNUM + '/' + config.IPAYEAR + '/' + config.IPANUM + '/' + config.id + '/' + sour).then(function(resp) {
-                    var parsedfiles = resp.data;
-                    console.log(parsedfiles);
-                    //main.phd.file = parsedfiles;
-                    angular.forEach(parsedfiles, function(file, key) {
-                        if (key === 'application') {
-                            var newobj = {};
-                            angular.forEach(file, function(innerarray, key) {
-                                if (innerarray[0] == 'Class / Subclass') {
-                                    newobj['Class Subclass'] = innerarray[1];
-                                } else {
-                                    newobj[innerarray[0]] = innerarray[1];
-                                }
 
-
-
-                                main.phd.application = newobj;
-
-                            });
-                        } else {
-                            main.phd[key] = file;
-                        }
-                    });
-                    $patentsearch(main.phd, config)
-                        .then(function(patentobj) {
-                            main.phd.patent = patentobj;
-                            $roarmap(parsedfiles, main.phd, main)
-                                .then(function(groupids) {
-                                    alertify.success('ROARmap built!');
-
-                                    main.finalize(main.phd, groupids, config);
-
-
-                                }, function(reason) {
-                                    console.log(reason.message);
-                                });
-
-                        }, function(reason) {
-                            console.log(reason.message);
-                        });
                 });
 
             };
