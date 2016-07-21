@@ -18,8 +18,8 @@
             <p class="text-muted text-left" style="text-align:left;font-size:10px;">
 
               <ol class="card card-block">
-                <li> <label class="label label-pill label-info">[FOR US PATENTS]</label> - enter the patent number in the space provided. <br>
-                 <label class="label label-pill label-info">[FOR PUBLISHED US APPLICATIONS]</label> - enter the publication year and application number in the spaces provided. </li>
+                <li> <label class="label">[FOR US PATENTS]</label> - enter the patent number in the space provided. <br>
+                 <label class="label">[FOR PUBLISHED US APPLICATIONS]</label> - enter the publication year and application number in the spaces provided. </li>
                 <li>Press the <code>LION</code> button.</li>
               </ol>
               Patents and published applications are provided from <a pop href="https://www.google.com/patents/" uib-tooltip="Google Patents" tooltip-trigger="mouseenter">Google Patents</a>. Prosecution Histories are provided by the <a pop href="http://portal.uspto.gov/pair/PublicPair" uib-tooltip="United States Patent & Trademark Office official site"
@@ -83,7 +83,9 @@
                         <label>Enter Application Number</label>
                     </fieldset>
                     <!--<input class="" type="text" placeholder="Application #" ng-model="config.appnum" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-pattern="\d+" >-->
-                      <button class="btn btn-default " ng-click="main.toggle();main.remotezip(config.appnum);" uib-tooltip="TRY AUTO DOWNLOAD **experimental" tooltip-placement="right" title="TRY AUTO DOWNLOAD* (**experimental**)" tooltip-animation="true" style="width:35px;height:35px;padding:0;"><img src="/llp_core/img/GoldLion.svg" style="width:35px;height:35px;" ng-hide="hider"></button>
+                      <button class="btn btn-default " ng-click="main.toggle();main.remotezip(config.appnum, 'reedtech');" uib-tooltip="TRY AUTO DOWNLOAD **experimental" tooltip-placement="right" title="TRY REEDTECH AUTO DOWNLOAD* (**experimental**)" tooltip-animation="true" style="width:35px;height:35px;padding:0;"><img src="/llp_core/img/GoldLion.svg" style="width:35px;height:35px;" ng-hide="hider"><span id="reedtechbutton" class="fa fa-2x  text-PTO"></span></button>
+
+                      <button class="btn btn-default " ng-click="main.toggle();main.remotezip(config.appnum, 'google');" uib-tooltip="TRY GOOGLE AUTO DOWNLOAD **experimental" tooltip-placement="right" title="TRY AUTO DOWNLOAD* (**experimental**)" tooltip-animation="true" style="width:35px;height:35px;padding:0;"><img src="/llp_core/img/lll3.svg" style="width:35px;height:35px;" ng-hide="hider"><span id="googlebutton" class="text-PTO fa fa-2x "></span></button>
 
                     </div>
 

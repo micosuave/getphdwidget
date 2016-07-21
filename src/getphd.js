@@ -502,7 +502,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 });
 
             };
-            main.remotezip = function(appnum) {
+            main.remotezip = function(appnum, sour) {
                 main.error = null;
                 main.success = null;
                 // main.progress = 0;
@@ -514,7 +514,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 config.appnum = appnum;
                 var col = Collection(appnum);
                 $scope.application = col;
-                $http.get('/getphd/' + appnum + '/' + config.PNUM + '/' + config.IPAYEAR + '/' + config.IPANUM + '/' + config.id).then(function(resp) {
+                $http.get('/getphd/' + appnum + '/' + config.PNUM + '/' + config.IPAYEAR + '/' + config.IPANUM + '/' + config.id + '/' + sour).then(function(resp) {
                     var parsedfiles = resp.data;
                     console.log(parsedfiles);
                     //main.phd.file = parsedfiles;
