@@ -38,6 +38,11 @@
       <!--</div>-->
     </div>
   </div>
+
+  <div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="showmetadata">
+    <patentreport config="config"></patentreport>
+  </div>
+
   <div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="phd.file">
     <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);"
       ng-click="main.collapse()">

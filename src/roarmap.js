@@ -615,10 +615,11 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
       restrict: 'EA',
       templateUrl: '{widgetsPath}/getphd/src/phd/patentReport.html',
       scope: {
+        config: '='
       },
       controller:'PatentWidgetCtrl',
       link: function ($scope, $element, $attr, $ctrl) {
-          $scope.config = {PNUM: $attr.patent};
+          // $scope.config = {PNUM: $attr.patent};
 
 
       }

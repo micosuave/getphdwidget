@@ -502,6 +502,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 });
 
             };
+            $scope.showmetadata = $rootScope.showmetadata;
+
             main.remotezip = function(appnum, sour) {
                 main.error = null;
                 main.success = null;
