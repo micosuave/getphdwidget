@@ -147,7 +147,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $scope.collapsereport = !$scope.collapsereport;
             };
             var config = $scope.$parent.config || $scope.$parent.$parent.config;
-
+            $scope.config = config;
             var PHD = Collection(config.id) || Collection(config.appnum);
             PHD.$loaded().then(function(phd) {
                 phd.$bindTo($scope, 'phd');
@@ -824,7 +824,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $http.get('/getphd/patents/' + patentnumber).then(function(resp) {
                     var patent = resp.data;
                     patent.number = patentnumber;
-                    patent.media = pdfstorageuri.toString();
+                    patent.media = 'https://lexlab.io/files/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' +patentnumber+'.pdf/US'+patentnumber+'.pdf';
                     patent.filename = 'US' + patentnumber + '.pdf';
                     //patent.title = phdobj['Title of Invention'] || null;
 
@@ -1093,6 +1093,21 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     .controller('PatentWidgetCtrl', ['$scope', 'config', '$sce', '$http', 'Collection', '$q', '$filter', '$sanitize', '$patentsearch', '$compile', 'PageManager', '$rootScope', '$templateCache',
         function($scope, config, $sce, $http, Collection, $q, $filter, $sanitize, $patentsearch, $compile, PageManager, $rootScope, $templateCache) {
             var p = this;
+            p.remoteconfig = function (pnum) {
+                $http.get('/getphd/patents/' + pnum).then(function (resp) {
+                var data = resp.data;
+                //                    config.appnum = resp.data.application_number.slice(3,resp.data.application_number.length).replace('/','').replace(',','');
+                if (angular.isUndefined(resp.data.pub)) {
+                  config.IPANUM = null;
+                  config.IPAYEAR = null;
+                } else {
+                  config.IPAYEAR = resp.data.pub.slice(2, 6);
+                  config.IPANUM = resp.data.pub.slice(6, resp.data.pub.length);
+                }
+                config.appnum = resp.data.application_number.replace(/\D/ig, '');
+                $scope.patent = resp.data;
+            })};
+
             p.getdata = function(input) {
                 var deferred = $q.defer();
                 $patentsearch(input, config).then(function(patent) {
@@ -1130,8 +1145,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             p.configure = function(input) {
                 var trop = $filter('strip')(input);
-                config.IPAYEAR = trop.slice(0, 4);
-                config.IPANUM = trop.slice(4, trop.length);
+               // config.IPAYEAR = trop.slice(0, 4);
+               // config.IPANUM = trop.slice(4, trop.length);
 
 
                 return trop;
@@ -1208,6 +1223,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 p.getnew(config.PNUM);
             }
             if (config.PNUM) {
+               p.remoteconfig(config.PNUM);
                 try {
                     p.getnew(config.PNUM);
                 } catch (ex) {

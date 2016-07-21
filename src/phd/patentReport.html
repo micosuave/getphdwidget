@@ -17,7 +17,7 @@
     <div class="container-fluid card-fancy" style="width:98%;margin:1%;height:98%;overflow:scroll;" ng-hide="p.showconfig">
         <div class="col-xs-4 col-sm-3 col-1">
             <div class="card">
-                <img ng-src="/patents/US{{config.PNUM || config.IPAYEAR + config.IPANUM}}/preview" class="img img-responsive img-shadow" style="height:200px;width:200px;z-index:1000;" ng-dblclick="p.showform = !p.showform"/>
+                <img ng-src="/patents/{{config.PNUM || config.IPAYEAR + config.IPANUM}}/preview" class="img img-responsive img-shadow" style="height:200px;width:200px;z-index:1000;" ng-dblclick="p.showform = !p.showform"/>
                 <div class="card-block">
                     <h2 class="card-title text-NOA">US <strong ng-bind="(patent.id | number:0)||(pubapp.id | published_application)"></strong><a class="pop text-NOA showonhover fa fa-external-link" ng-href="{{patent.media}}"></a></h2>
 
