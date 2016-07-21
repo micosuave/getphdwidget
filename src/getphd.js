@@ -482,7 +482,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                             tooltip: 'Click to view tutorial'
                         }
                     };
+                    var g = {}, r = {}
                     $http(optionsg).then(function(resp) {
+                        g.size = resp.headers()['Content-Length'];
+                        $scope.g = g;
                         if (resp.status !== 200) {
                             $('.googlebutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
                         } else if (resp.status == 200) {
@@ -491,6 +494,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         }
                     });
                     $http(optionsr).then(function(resp) {
+                      r.size = resp.headers()['Content-Length'];
+                      $scope.r = r;
                         if (resp.status !== 200) {
                             $('.reedtechbutton').addClass('fa-close text-danger').removeClass('fa-spin fa-spinner fa-file-zip-o');
                         } else if (resp.status == 200) {
