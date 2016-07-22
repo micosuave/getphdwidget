@@ -1109,8 +1109,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                   config.IPAYEAR = resp.data.pub.slice(2, 6);
                   config.IPANUM = resp.data.pub.slice(6, resp.data.pub.length);
                 }
-                config.appnum = resp.data.application_number.replace(/\D/ig, '');
-                $scope.patent = resp.data;
+                //config.appnum = resp.data.application_number.replace(/\D/ig, '');
+                //$scope.patent = resp.data;
             })};
 
             p.getdata = function(input) {
@@ -1228,7 +1228,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 p.getnew(config.PNUM);
             }
             if (config.PNUM) {
-               p.remoteconfig(config.PNUM);
+
                 try {
                     p.getnew(config.PNUM);
                 } catch (ex) {
