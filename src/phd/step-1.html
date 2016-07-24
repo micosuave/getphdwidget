@@ -12,7 +12,7 @@
 
         <!--<h6 class="panel-title" style="color:#ffa;"><img src="https://lexlab.firebaseapp.com/img/GoldPhdLogoLong.svg" class="img img-rounded img-thumbnail" style="width:auto;height:100%;" /> </h6>-->
     </div>
-    <div class="panel-body" style="height:90vh;overflow:scroll;">
+    <div class="panel-body" style="height:90vh;overflow:scroll;background-color:rgba(0,0,0,0.75)">
         <blockquote class="bs-callout bs-callout-primary card-header" style="margin:0;" ng-hide="response">
             <h6 class="card-title">To get a PatentPhD Report:</h6>
             <p class="text-muted text-left" style="text-align:left;font-size:10px;">
@@ -39,7 +39,7 @@
         <blockquote class="bs-callout bs-callout-NOA card-header" style="text-align:left;margin:0;">
             <h4 class="card-title" style="text-align:left;font-size:12px;"><label for="patentnumber" class="card-text text-muted"><strong>Enter US Patent Number</strong></label></h4>
            <div class="row" style="align-content:center;">
-            <fieldset class="material Applicant">
+<fieldset class="material Applicant" style="box-shadow:inset 0 0 10px rgba(0,0,0,0.5)">
                 <input type="number" placeholder="Patent #" ng-model="config.PNUM" ng-blur="main.remoteconfig(config.PNUM)">
                 <hr>
                 <label>Enter a Patent Number</label>
@@ -50,13 +50,13 @@
         <blockquote class="bs-callout bs-callout-Petition card-header" style="text-align:left;margin:0;">
             <h4 class="card-title" style="text-align:left;font-size:12px;"><label for="publishedapplication" class="card-text text-muted"><strong>Enter Year of Publication and Published Application Number</strong></label></h4>
 
-            <div class="row" style="align-content:center;">
+<div class="row" style="align-content:center;" style="box-shadow:inset 0 0 10px rgba(0,0,0,0.5)">
                 <fieldset class="material Petition">
                     <input type="text" placeholder="YYYY" ng-model="config.IPAYEAR" maxlength="4">
                     <hr>
                     <label>Enter YYYY</label>
                 </fieldset>
-                <fieldset class="material Petition">
+<fieldset class="material Petition" style="box-shadow:inset 0 0 10px rgba(0,0,0,0.5)">
                     <input type="text" placeholder="#" ng-model="config.IPANUM" ng-blur="main.remoteconfig(config.IPAYEAR+config.IPANUM)">
                     <hr>
                     <label>Enter Published Application Number</label>
@@ -77,15 +77,15 @@
             <h4 class="card-title" style="text-align:left;font-size:12px;"><label for="" class="card-text text-muted">Enter US Application Serial Number</label></h4>
             <div class="row" style="align-content:center;">
 
-                    <fieldset class="material PTO">
+                    <fieldset class="material PTO" style="box-shadow:inset 0 0 10px rgba(0,0,0,0.5)">
                         <input type="text" placeholder="Application #" ng-model="config.appnum">
                         <hr>
                         <label>Enter Application Number</label>
                     </fieldset>
                     <!--<input class="" type="text" placeholder="Application #" ng-model="config.appnum" style="padding:0.75rem;font-size:14px;font-family:'Helvetica',sans-serif;text-shadow:0.1rem 0.1rem 0.1rem rgba(50,50,50,0.5);" ng-pattern="\d+" >-->
-                      <button class="btn btn-default " ng-click="main.toggle();main.remotezip(config.appnum, 'reedtech');" uib-tooltip="TRY AUTO DOWNLOAD **experimental" tooltip-placement="right" title="TRY REEDTECH AUTO DOWNLOAD* (**experimental**)" tooltip-animation="true" style="width:35px;height:35px;padding:0;"><img src="/llp_core/img/GoldLion.svg" style="width:35px;height:35px;" ng-hide="hider"><span id="reedtechbutton" class="reedtechbutton fa fa-2x  text-PTO"></span></button>
+                      <button class="btn btn-default " ng-click="main.toggle();main.remotezip(config.appnum, 'reedtech');" uib-tooltip="TRY AUTO DOWNLOAD **experimental" tooltip-placement="right" title="TRY REEDTECH AUTO DOWNLOAD* (**experimental**)" tooltip-animation="true" style="width:35px;height:35px;padding:0;"><img src="/llp_core/img/GoldLion.svg" style="width:35px;height:35px;filter:sepia(0.5);" ng-hide="hider"><span id="reedtechbutton" class="reedtechbutton fa fa-2x  text-PTO"></span></button>
 
-                      <button ng-if="showmetadata" class="btn btn-default " ng-click="main.toggle();main.remotezip(config.appnum, 'google');" uib-tooltip="TRY GOOGLE AUTO DOWNLOAD **experimental" tooltip-placement="right" title="TRY AUTO DOWNLOAD* (**experimental**)" tooltip-animation="true" style="width:35px;height:35px;padding:0;"><img src="/llp_core/img/lll3.svg" style="width:35px;height:35px;" ng-hide="hider"><span id="googlebutton" class="text-PTO fa fa-2x googlebutton"></span></button>
+                      <button  class="btn btn-default fa fa-google" ng-click="main.toggle();main.remotezip(config.appnum, 'google');" uib-tooltip="TRY GOOGLE AUTO DOWNLOAD **experimental" tooltip-placement="right" title="TRY AUTO DOWNLOAD* (**experimental**)" tooltip-animation="true" style="width:35px;height:35px;padding:0;"><span id="googlebutton" class="text-PTO fa fa-2x googlebutton"></span></button>
 
                     </div>
 

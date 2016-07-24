@@ -286,6 +286,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             uploader.onCompleteItem = function(fileItem, response, status, headers) {
                 console.info('onCompleteItem', fileItem, response, status, headers);
                 alertify.success(response);
+                $rootScope.$broadcast('UPLOADCOMPLETE');
+
             };
             uploader.onCompleteAll = function() {
                 console.info('onCompleteAll');
@@ -746,7 +748,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 phdref.update(phd);
 
                 $rootScope.$broadcast('BUILDTABS');
-                alertify.alert('<div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead">The worst is over! The file has been parsed by LEO and delivered to you here for review.</h6><p>There is still some work LEO needs to do in the background, collecting garbage, etc, and that may cause temporary delays in your browser... Not to worry! Just refresh your window and all will be well.</p></div>');
+                alertify.alert('<div class="card-header"><h1 class="card-title">Prosecution History Digest for US ' + phd.patent.number + '</h1></div><div class="card-block"><h6 class="card-text lead"> The file has been parsed by LEO and delivered to you here for review.</h6></div>');
                 main.showupload = false;
             };
 
