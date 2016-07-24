@@ -467,6 +467,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     }
                     config.appnum = resp.data.application_number.replace(/\D/ig, '');
                     $scope.response = resp.data;
+                    var col = Collection(config.appnum);
+                    $scope.application = col;
                     var googleurl = 'https' + '://' + 'lexlab.io' + '/proxy/storage.googleapis.com/uspto-pair/applications/' + config.appnum + '.zip';
                     var reedtechurl = 'https' + '://' + 'lexlab.io' + '/proxy/patents.reedtech.com/downloads/pair/' + config.appnum + '.zip';
                     var optionsr = {
@@ -522,10 +524,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                     $rootScope.$broadcast('BUILDTABS');
                 }, 5000);
                 config.appnum = appnum;
-                var col = Collection(appnum);
-                $scope.application = col;
-                $http.get('/getphd/' + appnum + '/' + config.PNUM + '/' + config.IPAYEAR + '/' + config.IPANUM + '/' + config.id + '/' + sour).then(function(resp) {
 
+                $http.get('/getphd/' + appnum + '/' + config.PNUM + '/' + config.IPAYEAR + '/' + config.IPANUM + '/' + config.id + '/' + sour).then(function(resp) {
+                  $scope.phd = resp.data;
                 });
 
             };
