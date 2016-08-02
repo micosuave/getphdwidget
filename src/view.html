@@ -241,7 +241,7 @@
                     </thead>
                     <tbody>
                       <tr ng-repeat="roarevent in phd.imagefile | filter: main.query | orderBy: main.dog : !maybe" class="" colorkey="{{roarevent['Document Code']}}">
-                        <th class=""> <a ng-click="main.pushtoqueue(roarevent)"><i class="fa fa-file-pdf"> {{$index}}</i></a></th>
+                        <th class=""> <a ng-click="main.pushtoqueue(roarevent)"><i class="fa fa-file-pdf" ng-class="{'fa-check':(roarevents[roarevent.$index].media.indexOf('_ocr')>-1)}"> {{$index+1}}</i></a></th>
                         <td ng-bind="roarevent['Mail Room Date']"></td>
                         <td ng-bind="roarevent['Document Code']"></td>
                         <td ng-bind="roarevent['Document Description']"></td>
@@ -278,7 +278,7 @@
           </uib-tab-content>
         </uib-tab>-->
         <uib-tab heading="Claim/Rejection History" active="main.tabs[2].isActive" select="main.tabs[2].isActive = true" deselect="main.tabs[2].isActive = false">
-          <uib-tab-content ng-if="main.tabs[2].isActive">
+          <uib-tab-content >
             <uib-tabset justified="true">
 
               <uib-tab heading="Claim History-at-a-Glance">
@@ -290,7 +290,7 @@
               <div ng-include="'{widgetsPath}/getphd/src/claimtreetab.html'"></div>
 
               </uib-tab>
-              <!--<uib-tab ffbase="{{phd.patent.id}}">
+              <uib-tab ffbase="{{phd.patent.id}}">
                 <uib-tab-heading>Rejections <label class="label label-pill label-danger">{{item.rejectionhistory.length}}</label></uib-tab-heading>
 
 
@@ -306,7 +306,7 @@
                   </div>
                 </div>
 
-              </uib-tab>-->
+              </uib-tab>
             </uib-tabset>
           </uib-tab-content>
         </uib-tab>
