@@ -1152,8 +1152,12 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 var ref = collection.$ref();
                 ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').update(c);
                 ref.child('rows').child('0').child('columns').child('0').child('widgets').child('1').update({type:'iframe',config:{url: $scope.patent.media}});
+                ref.child('rows').child('0').child('columns').child('0').child('widgets').child('2').update({ type: 'ckwidget', config: { id: collection.$id } });
+
                 //if(collection.rid === '-'){
-                  ref.child('rid').set('P');
+                  ref.child('rid').set('π');
+                  ref.child('media').set($scope.patent.media);
+                  ref.child('date').set($scope.patent.date);
                 //}
               };
 
