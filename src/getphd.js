@@ -833,7 +833,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $http.get('/getphd/patents/' + patentnumber).then(function(resp) {
                     var patent = resp.data;
                     patent.number = patentnumber;
-                    patent.media = 'https://lexlab.io/files/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' +patentnumber+'.pdf/US'+patentnumber+'.pdf';
+                    patent.media = 'https://lexlab.io/files/public/uspto/' +patentnumber+'.pdf';
                     patent.filename = 'US' + patentnumber + '.pdf';
                     //patent.title = phdobj['Title of Invention'] || null;
 
@@ -1150,7 +1150,11 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             $scope.cupdate = function(c) {
                 var ref = collection.$ref();
                 ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').update(c);
-            };
+                ref.child('rows').child('0').child('columns').child('0').child('widgets').child('1').update({type:'iframe',config:{url: $scope.patent.media}});
+                if(collection.rid === '-'){
+                  ref.child('rid').set('P');
+                }
+              };
 
             p.configure = function(input) {
                 var trop = $filter('strip')(input);
@@ -1342,6 +1346,21 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
     };
     $scope.importFile = function(roarevent) {
+
+       var bblob = new Blob([roarevent.media, roarevent.content],blob);
+       var options = {
+         method: 'POST',
+         url: '/import',
+         data: {url: roarevent.media, name: roarevent.filename ||roarevent.title, file: bblob}
+       };
+
+       $http(options).then(function(resp){
+              if(angular.isString(resp.data.newurl)){
+                roarevent.media = resp.data.newurl;
+                roarevent.$save();
+              }
+       }) ;
+
         var blob = {
             url: roarevent.media,
             filename: roarevent.filename,
@@ -1349,28 +1368,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             isWriteable: true,
             size: 100
         };
-        var cuturl = roarevent.media.replace('https://', '');
-        var dialog = filepickerService.read(
 
-            'https://lexlab.io/proxy/' + cuturl, {
-                base64encode: true
-            },
-            function(data) {
-                filepickerService.write(
-                    blob,
-                    data,
-                    function(Blob) {
-                        // console.log(Blob.url);
-                        //   }
-                        // );
-                        //         filepickerService.exportFile(
-                        //   roarevent.media,
-                        //   {
-                        //     mimetype:roarevent.mimetype,
-                        //     suggestedFilename: roarevent.title
-                        //   },
-                        //   function(Blob){
-                        //     console.log(Blob.url);
                         Upload.upload({
                                 url: '/upload/',
                                 data: {
@@ -1415,10 +1413,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                                 console.log('progress: ' + progress + '% ' + evt.config.data.file.name);
                             });
-                    }
-                );
-            }
-        );
+
 
 
     };
