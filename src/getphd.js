@@ -833,7 +833,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $http.get('/getphd/patents/' + patentnumber).then(function(resp) {
                     var patent = resp.data;
                     patent.number = patentnumber;
-                    patent.media = 'https://lexlab.io/files/public/uspto/patents/' +patentnumber+'.pdf';
+                    patent.media = 'https://lexlab.io/files/public/uspto/patents/'+patentnumber+'/' +patentnumber+'.pdf';
                     patent.filename = 'US' + patentnumber + '.pdf';
 
                     //patent.title = phdobj['Title of Invention'] || null;
