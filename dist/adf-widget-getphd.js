@@ -834,8 +834,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $http.get('/getphd/patents/' + patentnumber).then(function(resp) {
                     var patent = resp.data;
                     patent.number = patentnumber;
-                    patent.media = 'https://lexlab.io/files/public/uspto/' +patentnumber+'.pdf';
+                    patent.media = 'https://lexlab.io/files/public/uspto/patents/' +patentnumber+'.pdf';
                     patent.filename = 'US' + patentnumber + '.pdf';
+
                     //patent.title = phdobj['Title of Invention'] || null;
 
                     patent.google = 'https://www.google.com/patents/US' + patentnumber;
@@ -1152,9 +1153,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 var ref = collection.$ref();
                 ref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').update(c);
                 ref.child('rows').child('0').child('columns').child('0').child('widgets').child('1').update({type:'iframe',config:{url: $scope.patent.media}});
-                if(collection.rid === '-'){
+                //if(collection.rid === '-'){
                   ref.child('rid').set('P');
-                }
+                //}
               };
 
             p.configure = function(input) {
