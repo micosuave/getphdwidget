@@ -47,7 +47,7 @@
     <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);"
       ng-click="main.collapse()">
         <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
-        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{(phd.patent.id || config.pnum) | number:0  }}</h4>
+        <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{config.PNUM | number:0  }}</h4>
 
         <h5 class="card-subtitle  ng-binding" style="color:#ddd;"><span class="lead">USSN {{phd.application['Application Number']}}</span></h5>
         </div>
@@ -282,7 +282,7 @@
             <uib-tabset justified="true">
 
               <uib-tab heading="Claim History-at-a-Glance">
-                <d3historytree patent="{{phd.patent.id}}"></d3historytree>
+                <d3historytree patent="{{config.PNUM}}"></d3historytree>
 
 
               </uib-tab>
