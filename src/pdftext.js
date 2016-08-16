@@ -367,9 +367,16 @@ function pageLoaded() {
                     $scope.$on('$destroy', function(){
                         $scope.roarevent.$save();
                     });
-
+                    $scope.rebuild = function(roarevent){
+                        $scope.roarevent.pages = null;
+                        $scope.roarevent.$save();
+                      $scope.$parent.reload();
+                      return alertify.success('rebuilding!');
+                    };
                 }],
                 link: function ($scope, $el, $attr, $ctrl) {
+
+
                     var id = $attr.getpdftext;
                     Collection(id).$loaded().then(function (roarevent) {
                         //    roarevent.$bindTo($scope, 'roarevent');
