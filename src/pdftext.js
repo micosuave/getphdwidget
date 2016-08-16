@@ -439,7 +439,10 @@ function pageLoaded() {
                                                  $scope.roarevent.matches.push(o.str);
                                              }else{*/
                                             //rawdata.push(o);
-                                            section = section + ' ' + o.str;
+                                            angular.forEach(o, function(i, key){
+                                                     section = section + ' ' + i.str;
+
+                                            });
                                             //}
                                         });
 
