@@ -382,17 +382,6 @@ function pageLoaded() {
                         //    roarevent.$bindTo($scope, 'roarevent');
                         $scope.roarevent = roarevent;
                         $scope.pages = roarevent.pages;
-                        $scope.annotations = [];
-                        angular.forEach($scope.roarevent.pages, function (page, key) {
-                            if (angular.isUndefined(page.annotations)) {
-                                var annotations = [];
-                                page.annotations = annotations;
-                                $scope.roarevent.$save();
-                            } else {
-                                $scope.annotations.push(page.annotations);
-                            }
-
-                      });
 
                         // if (angular.isUndefined($scope.roarevent.annotations)){
                         //     $scope.roarevent.annotations = [];
@@ -466,6 +455,18 @@ function pageLoaded() {
 
 
                         }
+                         $scope.annotations = [];
+                        angular.forEach($scope.roarevent.pages, function (page, key) {
+                            if (angular.isUndefined(page.annotations)) {
+                                var annotations = [];
+                                page.annotations = annotations;
+                                $scope.roarevent.$save();
+                            } else {
+                                $scope.annotations.push(page.annotations);
+                            }
+
+                      });
+
                     });
                 }
             };
