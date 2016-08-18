@@ -429,8 +429,8 @@ function pageLoaded() {
                                                  $scope.roarevent.matches.push(o.str);
                                              }else{*/
                                             //rawdata.push(o);
-                                            angular.forEach(o, function(i, key){
-                                                     section = section + ' ' + i.str;
+                                            angular.forEach(o, function(io, key){
+                                                     section = section + ' ' + io.str;
 
                                             });
                                             //}
