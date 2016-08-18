@@ -422,7 +422,7 @@ function pageLoaded() {
                                         console.log(textContent);
                                         // var rawdata = [];
                                         var section = ' ';
-                                        $scope.pages.push(section);
+                                        // $scope.pages.push(section);
                                         angular.forEach(textContent.items, function (o, key) {
 
                                             /* if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
@@ -430,8 +430,8 @@ function pageLoaded() {
                                                  $scope.roarevent.matches.push(o.str);
                                              }else{*/
                                             //rawdata.push(o);
-                                            angular.forEach(o, function(io, key){
-                                                     section = section + ' ' + io.str;
+                                            angular.forEach(o, function(o, key){
+                                                     section = section + ' ' + o.str;
                                                      //$scope.pages[i]  = $scope.pages[i] + io.str;
                                             });
                                             //}
