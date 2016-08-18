@@ -422,6 +422,7 @@ function pageLoaded() {
                                         //console.log(textContent);
                                         // var rawdata = [];
                                         var section = '';
+                                        $scope.pages.push(section);
                                         angular.forEach(textContent.items, function (o, key) {
 
                                             /* if(o.str.contains('112')||o.str.contains('103')||o.str.contains('102')||o.str.contains('claim')||o.str.contains('reject')||o.str.contains('amend')||o.str.contains('cancel')){
@@ -431,19 +432,19 @@ function pageLoaded() {
                                             //rawdata.push(o);
                                             angular.forEach(o, function(io, key){
                                                      section = section + ' ' + io.str;
-
+                                                     $scope.pages[i]  = $scope.pages[i] + io.str;
                                             });
                                             //}
                                         });
 
-                                          var pag = {
-                                            annotations: [{id:0,startIndex:0,endIndex:0,type:'aqua'}],
-                                            id: i,
-                                            text: section
+                                        //   var pag = {
+                                        //     annotations: [{id:0,startIndex:0,endIndex:0,type:'aqua'}],
+                                        //     id: i,
+                                        //     text: section
 
-                                        };
+                                        // };
 
-                                        $scope.pages.push(pag);
+                                        // $scope.pages.push(pag);
                                         if ($scope.pages.length == $scope.roarevent['Page Count']){
                                           $scope.roarevent.pages = $scope.pages;
                                           $scope.roarevent.$save();
