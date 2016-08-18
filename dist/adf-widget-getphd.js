@@ -2900,9 +2900,9 @@ function pageLoaded() {
                                 var getPageText = function (page, i) {
                                     //console.log(page);
                                     page.getTextContent().then(function (textContent) {
-                                        //console.log(textContent);
+                                        console.log(textContent);
                                         // var rawdata = [];
-                                        var section = i;
+                                        var section = angular.copy(i);
                                         $scope.pages.push(section);
                                         angular.forEach(textContent.items, function (o, key) {
 
