@@ -455,17 +455,17 @@ function pageLoaded() {
 
 
                         }
-                         $scope.annotations = [];
-                        angular.forEach($scope.roarevent.pages, function (page, key) {
-                            if (angular.isUndefined(page.annotations)) {
-                                var annotations = [];
-                                page.annotations = annotations;
-                                $scope.roarevent.$save();
-                            } else {
-                                $scope.annotations.push(page.annotations);
-                            }
+                      //    $scope.annotations = [];
+                      //   angular.forEach($scope.roarevent.pages, function (page, key) {
+                      //       if (angular.isUndefined(page.annotations)) {
+                      //           var annotations = [];
+                      //           page.annotations = annotations;
+                      //           $scope.roarevent.$save();
+                      //       } else {
+                      //           $scope.annotations.push(page.annotations);
+                      //       }
 
-                      });
+                      // });
 
                     });
                 }
