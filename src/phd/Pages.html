@@ -2,7 +2,7 @@
 <pre ng-bind="roarevent.text" ng-dblclick="hideme = !hideme" ng-show="hideme" class="card card-block" style="line-height:1.5;font-size:14px;"></pre>
  <hr class="bg-{{roarevent.styleClass}}" style="display:inline-block;width:100%;" ng-dblclick="rebuild(roarevent)" >
 
-<div ng-repeat="page in pages | track by $index" class="card card-block" style="line-height:1.5;font-size:14px;">
+<div ng-repeat="page in roarevent.pages | track by $index" class="card card-block" style="line-height:1.5;font-size:14px;">
 <!--
     <fieldset class="material">
       <input ng-model="$parent.query" placeholder="Search" type="text">
