@@ -442,8 +442,9 @@ function pageLoaded() {
 
                                         };
 
-                                        $scope.roarevent.pages.push(pag);
-                                        if ($scope.roarevent.pages.length == $scope.roarevent['Page Count']){
+                                        $scope.pages.push(pag);
+                                        if ($scope.pages.length == $scope.roarevent['Page Count']){
+                                          $scope.roarevent.pages = $scope.pages;
                                           $scope.roarevent.$save();
                                         }
                                     });
