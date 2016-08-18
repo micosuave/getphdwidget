@@ -407,7 +407,7 @@ function pageLoaded() {
                                 PDFJS.workerSrc = '/llp_core/bower_components/pdfjs-dist/build/pdf.worker.js';
 
 
-                                var pdf = PDFJS.getDocument($attr.pdfData);
+                                var pdf = PDFJS.getDocument(roarevent.ocrlink);
                                 pdf.then(function (pdfDocument) { getPages(pdfDocument); });
 
 
@@ -421,7 +421,7 @@ function pageLoaded() {
                                     page.getTextContent().then(function (textContent) {
                                         //console.log(textContent);
                                         // var rawdata = [];
-                                        var section = '';
+                                        var section = i;
                                         $scope.pages.push(section);
                                         angular.forEach(textContent.items, function (o, key) {
 
