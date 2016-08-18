@@ -400,6 +400,7 @@ function pageLoaded() {
 
                         if (angular.isUndefined($scope.roarevent.pages)||($scope.roarevent.pages.length !== $scope.roarevent['Page Count'])) {
                             $scope.roarevent.pages = [];
+                            $scope.pages = [];
                             // $scope.roarevent.matches = [];
                             $http.get($attr.pdfData).then(function (resp) {
 
