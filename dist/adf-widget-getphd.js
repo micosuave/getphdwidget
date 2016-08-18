@@ -2879,7 +2879,7 @@ function pageLoaded() {
                         // }
                         // });
 
-                        if (angular.isUndefined($scope.roarevent.pages)||($scope.roarevent.pages.length !== $scope.roarevent['Page Count'])) {
+                        if (angular.isUndefined(roarevent.pages)) {
                             $scope.roarevent.pages = [];
                             $scope.pages = [];
                             // $scope.roarevent.matches = [];
