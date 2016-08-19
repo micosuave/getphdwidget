@@ -20,7 +20,7 @@
                   when="{'-1': 'point', '1': 'point', 'other': 'points'}"></ng-pluralize>)
             </span>
         </li>
-    </ul>
+    </ul><div data-ng-transclude></div>
                   </div>
 
         <div class="col-xs-8">
@@ -29,7 +29,7 @@
                 <p ng-if="roardate">Dated {{roardate}}</p>
                 <cite>{{roarevent.filename}}&nbsp;&nbsp;<a pop href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div>
 <div matches="matches" getpdftext="{{roarid}}" pdf-data="{{roarevent.ocrlink}}" roarevent="roarevent" class="card card-block" uib-collapse="!poodle"></div>
-            <div data-ng-transclude></div>
+
 
         </div>
         <!--<div class="col-xs-4"><img ng-src="{{background}}" class="img img-responsive img-shadow" /></div>-->
