@@ -1,7 +1,9 @@
 <small editable-text="config.id" ng-bind="config.id" class="" onaftersave="save(config)">{{config.id}}</small>
 <div class="card-block clearfix" collection="{{config.id}}">
 
-  <h6>ID: {{collection.$id}} <small class="pull-right" clipboad text="{{'https://lexlab.io/files/uploads/'+collection.$id+'.html'}}" onsuccess="alertify.success('copied')">{{'https://lexlab.io/files/uploads/'+collection.$id+'.html'}}</small></h6>
+  <h6>ID: {{collection.$id}}</h6>
+  <p class="" clipboad text="{{'https://lexlab.io/files/uploads/'+collection.$id+'.html'}}" onsuccess="alertify.success('copied')">{{'https://lexlab.io/files/uploads/'+collection.$id+'.html'}}</p>
+
   <form role="form" name="form" ng-submit="collection.$save()">
     <div class="row">
       <div class="col-sm-8">
