@@ -2751,7 +2751,7 @@ function pageLoaded() {
                 controller: ['$scope', 'ROARAnnotations', function ($scope, ROARAnnotations) {
 
                     $scope.onAnnotate = function ($annotation) {
-                        $scope.roarevent.$save();
+                        //$scope.roarevent.$save();
                         toastr.success($annotation.data.comment);
                         $scope.annotations.push($annotation);
                         angular.forEach($scope.roarevent.pages, function (page, key) {
@@ -2798,14 +2798,14 @@ function pageLoaded() {
                         //     $scope.data.selection = selection;
                         // }
 
-                        $('.ng-annotate-text-popup').draggable({
-                            scroll: true,
-                            cursor: 'move',
-                            handle: '.roareventcardtab',
-                            stack: '.ng-annotate-text-popup',
-                            constrain: 'scroll'
-                        }).resizable();
-                        return firstInput && firstInput[0].select();
+                        // $('.ng-annotate-text-popup').draggable({
+                        //     scroll: true,
+                        //     cursor: 'move',
+                        //     handle: '.roareventcardtab',
+                        //     stack: '.ng-annotate-text-popup',
+                        //     constrain: 'scroll'
+                        // }).resizable();
+                        return firstInput && firstInput[0].data(text).select();
                     };
 
                     $scope.hasPoints = function (points) {
@@ -2818,8 +2818,11 @@ function pageLoaded() {
                         return typeof comment === "string" && comment.length > 0;
                     };
 
-                    $scope.annotationsAsFlatList = function (annotations) {
-
+                    $scope.annotationsAsFlatList = function (pages) {
+                      var annotations = [];
+                      angular.forEach(pages, function(page, key){
+                        angular.forEach(page.annotations, function(anno, key){return annotations.push(anno);})
+                      })
                         if (annotations == null) {
                             annotations = $scope.annotations;
                         }
