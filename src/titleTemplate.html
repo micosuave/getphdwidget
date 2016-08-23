@@ -21,9 +21,9 @@
 
  <!--<a href title="change widget location" class="adf-move" > <i class="fa fa-arrows" style="margin:5px;"></i> </a>-->
 <a  clipboard text="roarevent.media" on-copied="alertify.success('copied!');" on-error="alertify.error(err,'uh oh!')" onclick="alertify.success('copied!')"><i class="fa fa-link" style="margin:5px;"></i></a>
- <a href title="collapse widget" ng-show="options.collapsible && !widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-minus" style="margin:5px;"></i> </a>
+ <a href title="collapse widget" ng-show=" !widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-minus" style="margin:5px;"></i> </a>
 
- <a href title="expand widget" ng-show="options.collapsible && widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-plus" style="margin:5px;"></i> </a>
+ <a href title="expand widget" ng-show=" widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-plus" style="margin:5px;"></i> </a>
 
  <a href title="copy to clipboard" ng-click="edit(roarevent.id)" > <i class="fa fa-copy" style="margin:5px;"></i> </a>
 

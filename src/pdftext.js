@@ -270,7 +270,7 @@ function pageLoaded() {
                 controller: ['$scope', 'ROARAnnotations', function ($scope, ROARAnnotations) {
 
                     $scope.onAnnotate = function ($annotation) {
-                        //$scope.roarevent.$save();
+
                         toastr.success($annotation.data.comment);
                         $scope.annotations.push($annotation);
                         angular.forEach($scope.roarevent.pages, function (page, key) {
@@ -282,6 +282,7 @@ function pageLoaded() {
                                 $scope.annotations.push(page.annotations);
                             }
                         });
+                        $scope.roarevent.$save();
                     };
                     $scope.onAnnotateDelete = function ($annotation) {
                         $scope.roarevent.$save();
