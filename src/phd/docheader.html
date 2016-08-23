@@ -1,37 +1,38 @@
 <div class="container-fluid two-col-right">
 
-                  <div class="col-xs-4 card card-{{roarevent.styleClass}}">
-                      <img ng-src="{{background(roarevent.styleClass)}}" class="img img-responsive img-shadow" ng-click="poodle = !poodle"/>
-                  <h4>{{roarevent.title}}</h4>
-                  <p class="card-text">
-<fieldset class="material ">
-        <input type="text" placeholder="Search..."  ng-model="$parent.$$childHead.$$childHead.$$childTail.query">
+  <div class="col-xs-4 card card-{{roarevent.styleClass}}">
+    <img ng-src="{{background(roarevent.styleClass)}}" class="img img-responsive img-shadow" ng-click="poodle = !poodle" />
+    <h4>{{roarevent.title}}</h4>
+    <p class="card-text">
+      <fieldset class="material ">
+        <input type="text" placeholder="Search..." ng-model="$parent.$$childHead.$$childHead.$$childTail.query">
         <hr>
         <label>Search this document</label>
-    </fieldset>
-                      <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag"><a ng-click="getRelated(match)">{{match}}</a></label></p>
-   <ul>
-        <li class="card img-shadow" ng-repeat="a in annotationsAsFlatList($parent.$$childHead.$$childHead.$$childTail.annotations) track by $index" style="border: 2.5px solid {{a.type}};">
-            {{a.data.comment}}
-            <span ng-if="a.data.points">
+      </fieldset>
+      <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag"><a ng-click="getRelated(match)">{{match}}</a></label></p>
+    <ul>
+      <li class="card img-shadow" ng-repeat="a in annotationsAsFlatList(roarevent.pages) track by $index"
+        style="border: 2.5px solid {{a.type}};">
+        {{a.data.comment}}
+        <span ng-if="a.data.points">
               ({{a.data.points}}
               <ng-pluralize
                   count="a.data.points"
                   when="{'-1': 'point', '1': 'point', 'other': 'points'}"></ng-pluralize>)
             </span>
-        </li>
-    </ul><div data-ng-transclude></div>
-                  </div>
+      </li>
+    </ul>
+  </div>
 
-        <div class="col-xs-8">
-            <div class="bs-callout bs-callout-{{roarevent.styleClass}}">
-                <h4>{{roarevent.title}}</h4>
-                <p ng-if="roardate">Dated {{roardate}}</p>
-                <cite>{{roarevent.filename}}&nbsp;&nbsp;<a pop href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div>
-<div matches="matches" getpdftext="{{roarid}}" pdf-data="{{roarevent.ocrlink}}" roarevent="roarevent" class="card card-block" uib-collapse="!poodle"></div>
+  <div class="col-xs-8">
+    <div class="bs-callout bs-callout-{{roarevent.styleClass}}">
+      <h4>{{roarevent.title}}</h4>
+      <p ng-if="roardate">Dated {{roardate}}</p>
+      <cite>{{roarevent.filename}}&nbsp;&nbsp;<a pop href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div>
 
+    <div data-ng-transclude></div>
 
-        </div>
-        <!--<div class="col-xs-4"><img ng-src="{{background}}" class="img img-responsive img-shadow" /></div>-->
+  </div>
+  <!--<div class="col-xs-4"><img ng-src="{{background}}" class="img img-responsive img-shadow" /></div>-->
 
 </div>
