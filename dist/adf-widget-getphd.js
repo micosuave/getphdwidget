@@ -3026,8 +3026,7 @@ function pageLoaded() {
                 name: "Aqua",
                 value: "aqua"
             }];
-            $scope.templates = profile.annotationtemplates;
-        /*$scope.templates = [{
+            $scope.templates = profile.annotationtemplates || [{
             type: "red",
             comment: "@username",
             points: -1
@@ -3039,8 +3038,12 @@ function pageLoaded() {
                 type: "green",
                 comment: "+1",
                 points: +2
-            }];*/
-
+            }];
+var a = window.getSelection();
+                        if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
+                            var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
+                            $scope.data.selection = text;
+                        }
         $scope.selection = window.getSelection();
 
         $scope.useTemplate = function (template) {
