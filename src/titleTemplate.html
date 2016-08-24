@@ -2,12 +2,12 @@
 <div class="panel-heading" style="z-index:1;">
 
     <h4 class="panel-title" style="">
-          <span ng-bind="roarevent.rid" class="fa {{roarevent.icon}}"></span>
+          <span ng-bind="roarevent.rid" class="btn fa {{roarevent.icon}}" ng-click="roar.collapse($('#controls'))"></span>
           <span style="margin-left:25px;" ng-bind="roarevent.title"></span>
 
 
 
- <span class="pull-right" style="position:absolute;right:5px;font-size:12px;">
+ <span id="controls" class="pull-right" style="position:absolute;right:5px;font-size:12px;">
 
 <!--<a href title="notes" ng-click="note(roarevent)" ><i class="fa fa-pencil" style="margin:5px;"></i></a>-->
 
