@@ -2753,16 +2753,16 @@ function pageLoaded() {
                     $scope.onAnnotate = function ($annotation) {
 
                         toastr.success($annotation.data.comment);
-                        $scope.annotations.push($annotation);
-                        angular.forEach($scope.roarevent.pages, function (page, key) {
-                            if (angular.isUndefined(page.annotations)) {
-                                var annotations = [];
-                                page.annotations = annotations;
-                                $scope.roarevent.$save();
-                            } else {
-                                $scope.annotations.push(page.annotations);
-                            }
-                        });
+                        // $scope.annotations.push($annotation);
+                        // angular.forEach($scope.roarevent.pages, function (page, key) {
+                        //     if (angular.isUndefined(page.annotations)) {
+                        //         var annotations = [];
+                        //         page.annotations = annotations;
+                        //         $scope.roarevent.$save();
+                        //     } else {
+                        //         $scope.annotations.push(page.annotations);
+                        //     }
+                        // });
                         $scope.roarevent.$save();
                     };
                     $scope.onAnnotateDelete = function ($annotation) {
@@ -2806,7 +2806,7 @@ function pageLoaded() {
                         //     stack: '.ng-annotate-text-popup',
                         //     constrain: 'scroll'
                         // }).resizable();
-                        return firstInput && firstInput[0].data(text).select();
+                        return firstInput && firstInput[0].select();
                     };
 
                     $scope.hasPoints = function (points) {
