@@ -1,5 +1,5 @@
 <small editable-text="config.id" ng-bind="config.id" class="" onaftersave="save(config)">{{config.id}}</small>
-<div class="card-block clearfix" collection="{{config.id}}">
+<div class="card card-block clearfix" collection="{{config.id}}">
 
   <h6>ID: {{collection.$id}}</h6>
   <p class="" clipboad text="{{'https://lexlab.io/files/uploads/'+collection.$id+'.html'}}" onsuccess="alertify.success('copied')">{{'https://lexlab.io/files/uploads/'+collection.$id+'.html'}}</p>
@@ -15,16 +15,22 @@
             <label style="color: #006699">Document Code</label><br>
 
             <input ng-model="collection.doccode" uib-typeahead="code.code as code.label for code in DOCNAMES | filter:$viewValue | limitTo:8" typeahead-wait-ms="100" />
-            <select name="icon" ng-model="collection.icon" class="" ng-options="icon.value as icon.label for icon in $root.ICONS"></select>
             </div>
+</div>
+<div class="row">
              <div  class="form-group col-sm-6">
             <label style="color: #006699">Tags</label><br>
 
             <input ng-model="collection.matches" ng-list="," />
             <!--<select name="icon" ng-model="collection.icon" class="" ng-options="icon.value as icon.label for icon in $root.ICONS"></select>-->
             </div>
+ <div  class="form-group col-sm-6">
+            <label style="color: #006699">Icon</label><br>
+
+                        <select name="icon" ng-model="collection.icon" class="" ng-options="icon.value as icon.label for icon in $root.ICONS"></select>
+</div>
       </div>
-        </div>
+
       <div class="row">
         <div class="form-group col-sm-6"><label style="color: #006699">ID#</label><br><input type="text" ng-model="collection.rid" placeholder="#" ng-model-options="{updateOn: 'blur'}"></div>
         <div
