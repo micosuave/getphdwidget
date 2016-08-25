@@ -126,8 +126,8 @@ angular.module('roar', ['angularFileUpload', 'pageslide-directive'])
     };
 
   }])
-  .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections',  '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'FIREBASE_URL', 'filepickerService', '$location', '$ACTIVEROAR', '$dashboards', 'CLAIMDOCS', 'ckstarter', 'ckender', 'ckheader', '$http', '$filter',
-    function ($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, FIREBASE_URL, filepickerService, $location, $ACTIVEROAR, $dashboards, CLAIMDOCS, ckstarter, ckender, ckheader, $http, $filter) {
+  .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections',  '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log',  'filepickerService', '$location', '$ACTIVEROAR', '$dashboards', 'CLAIMDOCS', 'ckstarter', 'ckender', 'ckheader', '$http', '$filter',
+    function ($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log,  filepickerService, $location, $ACTIVEROAR, $dashboards, CLAIMDOCS, ckstarter, ckender, ckheader, $http, $filter) {
       return function (files, phd, main) {
 
 

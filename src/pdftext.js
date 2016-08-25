@@ -309,11 +309,11 @@ function pageLoaded() {
                     $scope.onPopupShow = function ($el) {
                         var firstInput;
                         firstInput = $el.find("input, textarea").eq(0).focus();
-                        var a = window.getSelection();
-                        if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
-                            var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
-                            $scope.data.selection = text;
-                        }
+                        // var a = window.getSelection();
+                        // if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
+                        //     var text = a.anchorNode.data.slice(a.anchorOffset, a.extentOffset);
+                        //     $scope.data.selection = text;
+                        // }
                         // if (selection) {
                         //     $scope.data.selection = selection;
                         // }
@@ -338,11 +338,11 @@ function pageLoaded() {
                         return typeof comment === "string" && comment.length > 0;
                     };
 
-                    $scope.annotationsAsFlatList = function (pages) {
-                      var annotations = [];
-                      angular.forEach(pages, function(page, key){
-                        angular.forEach(page.annotations, function(anno, key){return annotations.push(anno);})
-                      })
+                    $scope.annotationsAsFlatList = function (annotations) {
+                      // var annotations = [];
+                      // angular.forEach(pages, function(page, key){
+                      //   angular.forEach(page.annotations, function(anno, key){return annotations.push(anno);})
+                      // })
                         if (annotations == null) {
                             annotations = $scope.annotations;
                         }
@@ -440,7 +440,7 @@ function pageLoaded() {
                                         });
 
                                           var pag = {
-                                            annotations: [{id:0,startIndex:0,endIndex:0,type:'aqua'}],
+                                            annotations: [{data:{comment:''},id:0,startIndex:0,endIndex:0,type:'aqua'}],
                                             id: i,
                                             text: section
 
