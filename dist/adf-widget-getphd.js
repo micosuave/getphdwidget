@@ -1173,12 +1173,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             p.preparescope = function(apdata, pdata) {
                 pdata.application_data = apdata;
                 $scope.patent = pdata;
+
                 var back = angular.isDefined(pdata) ? pdata.backward_citations : apdata.backward_citations;
-                $templateCache.put('{' + pdata.id + '}/backtable.html', back.replace(/<a\s(?!pop)/g, '<a pop '));
-                p.linker = '{' + pdata.id + '}/backtable.html';
+                $templateCache.put('{' + (angular.isDefined(pdata) ? pdata.id : apdata.id) + '}/backtable.html', back.replace(/<a\s(?!pop)/g, '<a pop '));
+                p.linker = '{' + (angular.isDefined(pdata) ? pdata.id : apdata.id) + '}/backtable.html';
                 var forw = angular.isDefined(pdata) ? pdata.forward_citations || '<h4>Forward Citations</h4>' : apdata.forward_citations || '<h4>Forward Citations</h4>';
-                $templateCache.put('{' + pdata.id + '}/forwtable.html', forw.replace(/<a\s(?!pop)/g, '<a pop '));
-                p.linker1 = '{' + pdata.id + '}/backtable.html';
+                $templateCache.put('{' + (angular.isDefined(pdata) ? pdata.id : apdata.id) + '}/forwtable.html', forw.replace(/<a\s(?!pop)/g, '<a pop '));
+                p.linker1 = '{' + (angular.isDefined(pdata) ? pdata.id : apdata.id) + '}/backtable.html';
                 var desc = pdata.description;
 
 
