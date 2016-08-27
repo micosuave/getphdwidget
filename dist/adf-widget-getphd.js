@@ -1255,6 +1255,16 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 } finally {
                     alertify.success('loaded');
                 }
+            }else{
+              try {
+                var combo = config.IPAYEAR + config.IPANUM;
+                    p.getnew(combo);
+                } catch (ex) {
+                    var combo = config.IPAYEAR + config.IPANUM;
+                   p.getdata(combo);
+                } finally {
+                    alertify.success('loaded');
+                }
             }
 
         }
