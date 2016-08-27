@@ -1173,10 +1173,10 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             p.preparescope = function(apdata, pdata) {
                 pdata.application_data = apdata;
                 $scope.patent = pdata;
-                var back = pdata.backward_citations;
+                var back = angular.isDefined(pdata) ? pdata.backward_citations : apdata.backward_citations;
                 $templateCache.put('{' + pdata.id + '}/backtable.html', back.replace(/<a\s(?!pop)/g, '<a pop '));
                 p.linker = '{' + pdata.id + '}/backtable.html';
-                var forw = pdata.forward_citations || '<h4>Forward Citations</h4>';
+                var forw = angular.isDefined(pdata) ? pdata.forward_citations || '<h4>Forward Citations</h4>' : apdata.forward_citations || '<h4>Forward Citations</h4>';
                 $templateCache.put('{' + pdata.id + '}/forwtable.html', forw.replace(/<a\s(?!pop)/g, '<a pop '));
                 p.linker1 = '{' + pdata.id + '}/backtable.html';
                 var desc = pdata.description;
