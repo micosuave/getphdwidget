@@ -1173,14 +1173,17 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             p.preparescope = function(apdata, pdata) {
                 pdata.application_data = apdata;
                 $scope.patent = pdata;
-
+                try{
                 var back = angular.isDefined(pdata) ? pdata.backward_citations : apdata.backward_citations;
                 $templateCache.put('{' + (angular.isDefined(pdata) ? pdata.id : apdata.id) + '}/backtable.html', back.replace(/<a\s(?!pop)/g, '<a pop '));
                 p.linker = '{' + (angular.isDefined(pdata) ? pdata.id : apdata.id) + '}/backtable.html';
                 var forw = angular.isDefined(pdata) ? pdata.forward_citations || '<h4>Forward Citations</h4>' : apdata.forward_citations || '<h4>Forward Citations</h4>';
                 $templateCache.put('{' + (angular.isDefined(pdata) ? pdata.id : apdata.id) + '}/forwtable.html', forw.replace(/<a\s(?!pop)/g, '<a pop '));
                 p.linker1 = '{' + (angular.isDefined(pdata) ? pdata.id : apdata.id) + '}/backtable.html';
-                var desc = pdata.description;
+                }catch(ex){
+                  console.log(ex);
+                }finally{
+                // var desc = pdata.description;
 
 
 
@@ -1198,7 +1201,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 // $('#backwards').append($compile($sce.trustAsHtml(bc.replace(/href/ig, 'pop href')))($scope));
                 //               var fc = pdata.forward_citations;
                 //               $('#forwards').append($compile($sce.trustAsHtml(fc.replace(/href/ig, 'pop href')))($scope));
-
+                }
 
             };
             p.getnew = function(input) {
