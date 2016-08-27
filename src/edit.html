@@ -1,6 +1,6 @@
 <form role="form" ng-submit="collection.$save()">
     <fieldset class="material Applicant">
-        <input type="text" placeholder="1234567"  ng-model="config.PNUM">
+        <input type="text" placeholder="1234567"  ng-model="config.PNUM" ng-blur="p.remoteconfig(config.PNUM);cupdate(config);">
         <hr>
         <label>Enter a Patent Number</label>
     </fieldset>
@@ -12,7 +12,7 @@
     </fieldset>
 
         <fieldset class="material Petition">
-        <input type="text" placeholder="1234567"  ng-model="config.IPANUM">
+        <input type="text" placeholder="1234567"  ng-model="config.IPANUM" ng-blur="cupdate(config);">
         <hr>
         <label>Enter a Published Patent Application Number</label>
     </fieldset>

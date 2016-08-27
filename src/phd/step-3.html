@@ -24,12 +24,12 @@
                 <label>YEAR</label>
         </fieldset>
         <fieldset class="material Petition" style="max-width:50%;">
-        <input type="text" placeholder="# PA" style="" ng-model="config.IPANUM" >
+        <input type="text" placeholder="# PA" style="" ng-model="config.IPANUM" ng-blur="cupdate(config)" >
         <hr>
         <label>NUMBER</label>
         </fieldset>
 
-     <button class="input-group-addon btn btn-default" ng-click="p.getdata(config.IPAYEAR+config.IPANUM)"><span class="text-warning fa fa-download fa-5x"></span></button>
+     <button class="input-group-addon btn btn-default" ng-click="cupdate(config);p.getdata(config.IPAYEAR+config.IPANUM)"><span class="text-warning fa fa-download fa-5x"></span></button>
 
 
     </div>
