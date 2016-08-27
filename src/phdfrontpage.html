@@ -1,49 +1,4 @@
-<div ng-controller="MainCtrl as main">
-  <!--<div class="alert alert-info" ng-if="notconfigured()">Please configure the +getphd widget</div>-->
-  <!--<div ng-if="configured()" ng-bind-html="main.content"></div>-->
-  <!--<button class="btn btn-glass fa fa-print" ng-click="publish(phd)" style="position:absolute;top:-1rem;right:1rem;z-index:1000;" ></button>-->
-
-  <div class="card card-primary card-block btn-glass drop-target" nv-file-drop uploader="uploader" drop-files="handleFiles(files)"
-    style="border: 2px dashed blue;margin: 5px;" ng-if="main.showupload">
-    <div ng-controller="pageslideCtrl">
-      <button class="row btn btn-glass btn-primary img img-rounded " style="width:100%;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;"
-        ng-click="main.toggle()" ng-class="{'btn-success': (main.progress == 100),'btn-danger':(main.progress === 'failed')}"
-        angular-ripple>
-        <uib-progressbar class="btn-glass fa fa-3x active stripped" ng-class="{'active':(main.progress < 100)}" ng-if="main.progress" value="main.progress" style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{main.progresstype}}" > </uib-progressbar><i class="fa fa-upload fa-3x">{{main.progress}}<span ng-show="main.progress">%</span></i>
-        <img src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg" class=" img img-rounded pull-right" style="max-height:100px;" ng-if="!main.progress" />
-         <uib-progressbar class="btn-glass fa fa-3x active striped" ng-class="{'active':(application.complete < 100)}" ng-if="main.showprog" value="application.complete" style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-flow:row nowrap;align-self:stretch;" type="{{application.status}}" ><h4><label class="label label-{{application.status}}">{{application.complete}}%</label><label class="label label-{{application.status}}">{{application.downloaded | bytes}} / {{application.total | bytes}}  </label><label class="label label-{{application.status}}">{{application.eta}}</label> </h4></uib-progressbar>
-        <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
-    </button>
-      <div class="row btn btn-glass btn-info" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;"
-        ng-if="main.progresstwo">
-        <uib-progressbar class="btn-glass fa fa-3x active striped" ng-class="{'active':(main.progresstwo < 100)}" value="main.progresstwo"
-          max="main.extractedfiles" style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;"
-          type="{{main.progresstype}}"> </uib-progressbar><i class="fa fa-fw fa-3x fa-spinner fa-spin"></i><i class="fa fa-3x">{{main.progresstwo}}/{{main.extractedfiles}}</i>
-
-      </div>
-
-      <div pageslide ps-open="main.checked" ps-key-listener="true" ps-side="{{main.side || 'left'}}" ps-class="{{main.styleClass || 'card-dark btn-glass'}}"
-        ps-size="{{main.size || '400'}}" ps-class="{{main.styleClass || 'card-dark btn-glass'}}" ps-size="{{main.size || '400px'}}"
-        style="overflow-x:visible;overflow-y:scroll;">
-
-        <div ng-include="'/getphdwidget/src/phd/step-1.html'"></div>
-        <hr>
-        <!--<div ng-include="'/getphdwidget/src/phd/step-2.html'"></div>-->
-        <!--<upload-q></upload-q>-->
-      </div>
-      <!--<div class="row" ng-hide="phd.file">-->
-
-      <!--<div class="alert alert-danger" role="alert" ng-if="main.error"><strong>Uh oh!</strong> {{main.error}}</div>-->
-      <!--<pre class="alert alert-info" role="alert" ng-if="main.info" style="color:white !important;">{{main.info}}</pre>-->
-      <!--</div>-->
-    </div>
-  </div>
-
-  <div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="showmetadata">
-    <patentreport config="$parent.config"></patentreport>
-  </div>
-
-  <div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="phd.file">
+<div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="phd.file">
     <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);"
       ng-click="main.collapse()">
         <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
@@ -59,7 +14,6 @@
           <img src="/llp_core/img/GoldPhdLogoLong.svg" class="img" style="height:25px;padding-left:2px;">
         </div>
 
-        <!-- <div class="fa fa-download fa-5x pull-right"></div> -->
     </button>
 
     <div uib-collapse="collapsereport" class="card clearfix" style="padding:0;margin:0;">
@@ -313,4 +267,3 @@
       </uib-tabset>
     </div>
   </div>
-</div>
