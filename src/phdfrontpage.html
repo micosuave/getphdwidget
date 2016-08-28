@@ -1,6 +1,6 @@
 <div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" collection="{{$parent.collection.$id}}">
     <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);"
-      ng-click="main.collapse()">
+      ng-click="collapsereport = !collapsereport">
         <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
         <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{config.PNUM | number:0  }}</h4>
 
@@ -23,8 +23,9 @@
       </blockquote>
 
 
-
-
+<uib-tabset class="tabbable" justified="true" type="pills">
+  <uib-tab class="btn-glass btn-{{collection.styleClass}}">
+    <uib-tab-heading class="{{collection.styleClass}}">{{collection.title}}</uib-tab-heading>
       <uib-tabset active="1" class="tabbable" justified="true" type="pills">
         <uib-tab active="main.tabs[0].isActive" disabled="main.tabs[0].disabled" select="main.tabs[0].isActive = true" deselect="main.tabs[0].isActive = false"
           style="margin: 0 5px;">
@@ -265,5 +266,11 @@
           </uib-tab-content>
         </uib-tab>
       </uib-tabset>
+      </uib-tab>
+      <uib-tab ng-repeat="col in collection.roarlist" ffbase="{{col}}" class="btn-glass btn-{{item.styleClass}}">
+        <uib-tab-heading class="{{item.styleClass}}">{{item.title}}</uib-tab-heading>
+        <roargrid collection="item"></roargrid>
+</uib-tab>
+</uib-tabset>
     </div>
   </div>
