@@ -23,8 +23,7 @@
         style="height:auto;width:200px;z-index:1000;" ng-dblclick="p.showform = !p.showform" />
       <div class="card-block">
         <h2 class="card-title text-NOA">US <strong ng-bind="(patent.id | number:0)||(pubapp.id | published_application)"></strong>
-          <a class="pop text-NOA showonhover fa fa-external-link"
-            ng-href="{{patent.media}}" clipboard text="patent.media"></a>
+          <a id="{{patent.id}}" class="pop text-NOA showonhover fa fa-external-link" ng-href="{{patent.media}}" ></a>
         </h2>
 
         <table>
