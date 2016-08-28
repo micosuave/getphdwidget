@@ -949,7 +949,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             handle: '.panel-heading'
 
           }).resizable()
-            window.top.postMessage( $attr.href, 'lexlab.io')
+            window.postMessage( $attr.href, 'lexlab.io')
                     $('img').on('dblclick', function(e) {
                         $('.issuedocpanel').remove();
                         $scope.$destroy();
