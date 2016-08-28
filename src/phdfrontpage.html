@@ -23,7 +23,7 @@
       </blockquote>
 
 
-<uib-tabset class="tabbable" justified="true" type="pills">
+<uib-tabset class="tabbable tabs-below" justified="true" type="tabs">
   <uib-tab class="btn btn-default btn-xs badger badger-{{collection.styleClass}} badger-left btn-{{collection.styleClass}}" data-badger="{{collection.rid}}">
     <uib-tab-heading class="text-{{collection.styleClass}}"><small>{{collection.title}}</small></uib-tab-heading>
       <uib-tabset active="1" class="tabbable" justified="true" type="pills">
@@ -202,7 +202,7 @@
                         <td ng-bind="roarevent['Document Description']"></td>
                         <td ng-bind="roarevent['Document Category']"></td>
                         <td ng-bind="roarevent['Page Count']"></td>
-                        <td><a ng-href="{{'https://lexlab.io/files/public/uspto/'collection.appnum+'/'+'collection.appnum+'-image_file_wrapper/'+roarevent['Filename']}}">{{roarevent['Filename']}}</a></td>
+                        <td><a ng-href="{{'https://lexlab.io/files/public/uspto/'+ collection.appnum + '/' + collection.appnum + '-image_file_wrapper/' + roarevent['Filename']}}">{{roarevent['Filename']}}</a></td>
                         <!--<td ><a ng-href="https://lexlab.io/files/public/uspto/{{collection.appnum}}/{{collection.appnum}}-image_file_wrapper/{{roarevent['Filename']}}" target="_popup" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=yes,width=500,left=150,height=700,top=150'); return false;">{{roarevent['Filename']}}</a></td>-->
 
 
