@@ -1,10 +1,10 @@
-<div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" ng-if="phd.file">
+<div class="card card-fancy card-rounded card-block card-thick" style="text-align: left;color: #444;" collection="{{$parent.collection.$id}}">
     <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);"
       ng-click="main.collapse()">
         <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
         <h4 class="card-title ng-binding display-4" style="margin-bottom:0;color: #fff;">US {{config.PNUM | number:0  }}</h4>
 
-        <h5 class="card-subtitle  ng-binding" style="color:#ddd;"><span class="lead">USSN {{phd.application['Application Number']}}</span></h5>
+        <h5 class="card-subtitle  ng-binding" style="color:#ddd;"><span class="lead">USSN {{collection.application['Application Number']}}</span></h5>
         </div>
         <img src="/llp_core/img/GoldLion.svg" class="img lionlogofilter" style="width:75px;height: auto;">
 
@@ -18,8 +18,8 @@
 
     <div uib-collapse="collapsereport" class="card clearfix" style="padding:0;margin:0;">
       <blockquote class="bs-callout bs-callout-NOA" style="margin: 0;">
-        <h4>{{phd.application['Title of Invention']}}</h4>
-        <p style="font-size:10px;"><cite>{{phd.application['First Named Inventor']}} <small><emphasis>Issued {{phd.patent.issued | date}}</emphasis></small></cite></p>
+        <h4>{{collection.application['Title of Invention']}}</h4>
+        <p style="font-size:10px;"><cite>{{collection.application['First Named Inventor']}} <small><emphasis>Issued {{collection.patent.issued | date}}</emphasis></small></cite></p>
       </blockquote>
 
 
@@ -34,11 +34,11 @@
             <uib-tabset class="tabbable tabs-left">
               <uib-tab class="">
                 <!--<h4 class="card-heading card-title pull-right">PTO Metadata TSVFiles</h4>-->
-                <uib-tab-heading class="">USSN {{phd.application['Application Number']}}</uib-tab-heading>
+                <uib-tab-heading class="">USSN {{collection.application['Application Number']}}</uib-tab-heading>
                 <uib-tabset class="tabbable">
-                  <uib-tab class="" ng-repeat="file in phd.file" heading="{{file.label | uppercase}}">
+                  <uib-tab class="" ng-repeat="file in collection.file" heading="{{file.label | uppercase}}">
                     <uib-tab-content>
-                      <!--<ng-annotate-text text="file.file" class="card card-block card-fancy" style="padding: 1rem;border-radius: 0.2rem;font-family: 'Arial',sans-serif;" annotations="phd.annotations" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
+                      <!--<ng-annotate-text text="file.file" class="card card-block card-fancy" style="padding: 1rem;border-radius: 0.2rem;font-family: 'Arial',sans-serif;" annotations="collection.annotations" readonly="false" popup-controller="'AnnotationController'" popup-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation.tpl.html'"
     tooltip-controller="'AnnotationController'" tooltip-template-url="'/llp_core/modules/roarmap/partial/roarmap.detail.tpl/roarmap.annotation-tooltip.tpl.html'" on-annotate="onAnnotate" on-annotate-delete="onAnnotateDelete" on-annotate-error="onAnnotateError"
     on-popup-show="onPopupShow" on-popup-hide="onPopupHide" popup-offset="50">-->
                       <pre class="card card-block card-fancy" ng-bind="file.file"></pre>
@@ -48,7 +48,7 @@
                 </uib-tabset>
               </uib-tab>
 
-              <uib-tab class="" ng-if="phd.application">
+              <uib-tab class="" ng-if="collection.application">
 
                 <uib-tab-heading>APPLICATION</uib-tab-heading>
                 <!--<h4 class="card-header card-title pull-right">Application Data</h4>-->
@@ -56,7 +56,7 @@
                   <table class="card card-block table table-striped table-hover table-condensed table-responsive">
 
                     <tbody>
-                      <tr ng-repeat="(key, value) in phd.application">
+                      <tr ng-repeat="(key, value) in collection.application">
                         <td><strong>{{::key}}</strong></td>
                         <td>{{::value}}</td>
 
@@ -65,7 +65,7 @@
                   </table>
                 </uib-tab-content>
               </uib-tab>
-              <uib-tab ng-if="phd.attorney">
+              <uib-tab ng-if="collection.attorney">
 
                 <uib-tab-heading class="" ng-style="">ATTORNEY</uib-tab-heading>
                 <!--<h4 class="card-header card-title pull-right">Attorney Data</h4>-->
@@ -73,7 +73,7 @@
                   <table class="card card-block table table-striped table-hover table-condensed table-responsive">
 
                     <tbody>
-                      <tr ng-repeat="(key, line) in phd.attorney track by $index">
+                      <tr ng-repeat="(key, line) in collection.attorney track by $index">
                         <td ng-repeat="(key, value) in line track by $index">{{::value}}</td>
 
                       </tr>
@@ -81,7 +81,7 @@
                   </table>
                 </uib-tab-content>
               </uib-tab>
-              <uib-tab ng-if="phd.continuity">
+              <uib-tab ng-if="collection.continuity">
 
                 <uib-tab-heading class="" style="" ng-style="">CONTINUITY</uib-tab-heading>
                 <!--<h4 class="card-header card-title pull-right">Continuity Data</h4>-->
@@ -97,7 +97,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="line in phd.continuity">
+                    <tr ng-repeat="line in collection.continuity">
                         <td>{{::line['Description']}}</td>
                         <td>{{::line['Parent Filing or 371(c) Date']}}</td>
                         <td>{{::line['Parent Number']}}</td>
@@ -106,7 +106,7 @@
                     </tr>
                 </tbody>-->
                     <tbody>
-                      <tr ng-repeat="(key,line) in phd.continuity track by $index">
+                      <tr ng-repeat="(key,line) in collection.continuity track by $index">
                         <td ng-repeat="(key, value) in line track by $index">{{::value}}</td>
 
                       </tr>
@@ -114,9 +114,9 @@
                   </table>
                 </uib-tab-content>
               </uib-tab>
-              <uib-tab class="" ng-if="phd.foreign">
+              <uib-tab class="" ng-if="collection.foreign">
 
-                <!-- <pre ng-bind="main.phd.foreign | json:4"></pre> -->
+                <!-- <pre ng-bind="main.collection.foreign | json:4"></pre> -->
                 <uib-tab-heading ng-style="">FOREIGN PRIORITY</uib-tab-heading>
                 <!--<h4 class="card-header card-title pull-right">Foreign Priority</h4>-->
                 <uib-tab-content>
@@ -129,7 +129,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="p in phd.foreign">
+                      <tr ng-repeat="p in collection.foreign">
                         <td ng-bind="::p['Country']"></td>
                         <td ng-bind="::p['Priority']"></td>
                         <td ng-bind="::p['Priority Date'] | date"></td>
@@ -139,13 +139,13 @@
                   </table>
                 </uib-tab-content>
               </uib-tab>
-              <uib-tab class="" ng-if="phd.term">
+              <uib-tab class="" ng-if="collection.term">
                 <uib-tab-heading>PATENT TERM ADJUSTMENTS</uib-tab-heading>
                 <uib-tab-content>
                   <table class="card card-block table table-striped table-hover table-condensed table-responsive">
 
                     <tbody>
-                      <tr ng-repeat="(key, line) in phd.term track by $index">
+                      <tr ng-repeat="(key, line) in collection.term track by $index">
                         <td ng-repeat="(key,value) in line track by $index">{{::value}}</td>
 
                       </tr>
@@ -153,7 +153,7 @@
                   </table>
                 </uib-tab-content>
               </uib-tab>
-              <uib-tab class="" ng-if="phd.transaction">
+              <uib-tab class="" ng-if="collection.transaction">
                 <!-- <pre ng-bind="main.transaction | json:4"></pre> -->
                 <uib-tab-heading>TRANSACTION</uib-tab-heading>
                 <!--<h4 class="card-header card-title pull-right">Transaction Data</h4>-->
@@ -166,7 +166,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="trans in phd.transaction">
+                      <tr ng-repeat="trans in collection.transaction">
                         <td>{{::trans['Date']}}</td>
                         <td>{{::trans['Transaction Description']}}</td>
                       </tr>
@@ -174,7 +174,7 @@
                   </table>
                 </uib-tab-content>
               </uib-tab>
-              <uib-tab class="" ng-if="phd.imagefile" select="tab.isActive = true" deslect="tab.isActive = false;">
+              <uib-tab class="" ng-if="collection.imagefile" select="tab.isActive = true" deslect="tab.isActive = false;">
                 <uib-tab-heading ng-style="">IMAGE FILE WRAPPER</uib-tab-heading>
                 <!--<h4 class="card-header card-title pull-right">Image File Wrapper</h4>-->
                 <uib-tab-content ng-if="tab.isActive">
@@ -194,7 +194,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="roarevent in phd.imagefile | filter: main.query | orderBy: main.dog : !maybe" class="" colorkey="{{roarevent['Document Code']}}">
+                      <tr ng-repeat="roarevent in collection.imagefile | filter: main.query | orderBy: main.dog : !maybe" class="" colorkey="{{roarevent['Document Code']}}">
                         <th class=""> <a ng-click="main.pushtoqueue(roarevent)"><i class="fa fa-file-pdf" ng-class="{'fa-check':(roarevents[roarevent.$index].media.indexOf('_ocr')>-1)}"> {{$index+1}}</i></a></th>
                         <td ng-bind="roarevent['Mail Room Date']"></td>
                         <td ng-bind="roarevent['Document Code']"></td>
@@ -202,7 +202,7 @@
                         <td ng-bind="roarevent['Document Category']"></td>
                         <td ng-bind="roarevent['Page Count']"></td>
                         <td><a ng-click="main.popdoc(roarevent)">{{roarevent['Filename']}}</a></td>
-                        <!--<td ><a ng-href="https://lexlab.io/files/public/uspto/{{phd.appnum}}/{{phd.appnum}}-image_file_wrapper/{{roarevent['Filename']}}" target="_popup" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=yes,width=500,left=150,height=700,top=150'); return false;">{{roarevent['Filename']}}</a></td>-->
+                        <!--<td ><a ng-href="https://lexlab.io/files/public/uspto/{{collection.appnum}}/{{collection.appnum}}-image_file_wrapper/{{roarevent['Filename']}}" target="_popup" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=yes,width=500,left=150,height=700,top=150'); return false;">{{roarevent['Filename']}}</a></td>-->
 
 
 
@@ -210,7 +210,7 @@
 
                     </tbody>
                   </table>
-                  <!--<div ng-repeat="roarevent in phd.imagefile  " class="card card-block">
+                  <!--<div ng-repeat="roarevent in collection.imagefile  " class="card card-block">
                         <doc-header roarid="{{main.format(roarevent['Filename'])}}"></doc-header>
 
                     </div>-->
@@ -225,10 +225,10 @@
 
         <!--<uib-tab class="" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[1].isActive = true" deselect="main.tabs[1].isActive = false"
           style="margin: 0 5px;">
-          <uib-tab-heading class="" ng-style="">Patent Digest for US {{(phd.patent.number | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM) }}</uib-tab-heading>
+          <uib-tab-heading class="" ng-style="">Patent Digest for US {{(collection.patent.number | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM) }}</uib-tab-heading>
 
           <uib-tab-content ng-if="main.tabs[1].isActive" ng-controller="MainCtrl as main">
-            <patentreport patent="{{phd.patent.id}}" pnum="{{phd.patent.id}}"></patentreport>
+            <patentreport patent="{{collection.patent.id}}" pnum="{{collection.patent.id}}"></patentreport>
           </uib-tab-content>
         </uib-tab>-->
         <uib-tab heading="Claim/Rejection History" active="main.tabs[2].isActive" select="main.tabs[2].isActive = true" deselect="main.tabs[2].isActive = false">
