@@ -202,7 +202,7 @@
                         <td ng-bind="roarevent['Document Description']"></td>
                         <td ng-bind="roarevent['Document Category']"></td>
                         <td ng-bind="roarevent['Page Count']"></td>
-                        <td><a ng-click="main.popdoc(roarevent)">{{roarevent['Filename']}}</a></td>
+                        <td><a ng-href="{{'https://lexlab.io/files/public/uspto/'collection.appnum+'/'+'collection.appnum+'-image_file_wrapper/'+roarevent['Filename']}}">{{roarevent['Filename']}}</a></td>
                         <!--<td ><a ng-href="https://lexlab.io/files/public/uspto/{{collection.appnum}}/{{collection.appnum}}-image_file_wrapper/{{roarevent['Filename']}}" target="_popup" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=yes,width=500,left=150,height=700,top=150'); return false;">{{roarevent['Filename']}}</a></td>-->
 
 
@@ -267,9 +267,9 @@
         </uib-tab>
       </uib-tabset>
       </uib-tab>
-      <uib-tab ng-repeat="col in collection.roarlist" ffbase="{{col}}" class="btn-glass btn-{{item.styleClass}}">
-        <uib-tab-heading class="{{item.styleClass}}">{{item.title}}</uib-tab-heading>
-        <roargrid collection="item"></roargrid>
+      <uib-tab ng-repeat="col in collection.roarlist" ffbase="{{col}}" class="btn btn-default badger badger-right badger-{{item.styleClass}}" data-badger="{{item.rid}}">
+        <uib-tab-heading class="panel-title">{{item.title}}</uib-tab-heading>
+        <roargrid collection="{{col}}"></roargrid>
 </uib-tab>
 </uib-tabset>
     </div>
