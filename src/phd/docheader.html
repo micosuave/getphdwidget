@@ -1,4 +1,4 @@
-<div class="container-fluid two-col-right">
+<div class="container-fluid bs two-col-right">
 
   <div class="col-xs-4 card card-{{roarevent.styleClass}} col-1">
     <img dynamic-background background="url({{background(roarevent.styleClass)}})" background-position="0 0;" background-repeat="no-repeat" ng-src="{{roarevent.thumbnail || background(roarevent.styleClass)}}" class="img img-responsive img-shadow" ng-click="poodle = !poodle" />
@@ -11,8 +11,8 @@
       </fieldset>
       <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag">&nbsp;<a ng-click="getRelated(match)">{{match}}</a></label></p>
       <ul class="list-group" uib-collapse="!poodle">
-        <li class="list-group-item btn  text-{{item.styleClass}}" ng-repeat="(key, p) in roarevent.roarlist" ffbase="{{key}}">
-          <span class="fa fa-stack"><span class="fa fa-2x {{item.icon}}"><span class="fa fa-1x fa-text">{{item.rid}}</span></span></span>&nbsp;{{item.title}} <a pop ng-href="{{item.media}}" class=""><span class="showonhover fa fa-external-link-square"></span></a>
+        <li class="offer offer-{{item.styleClass}} " ng-repeat="(key, p) in roarevent.roarlist" ffbase="{{key}}">
+          <span class="fa fa-stack shape"><span class="fa fa-stack-2x {{item.icon}}"><span class="fa fa-stack-1x shape-text">{{item.rid}}</span></span></span>&nbsp;<p class="offer-text">{{item.title}} <a pop ng-href="{{item.media}}" class=""><span class="showonhover fa fa-external-link-square"></span></a></p>
         </li>
       </ul>
     <ul>
@@ -30,7 +30,7 @@
   </div>
 
   <div class="col-xs-8 col-2">
-    <div class="bs-callout bs-callout-{{roarevent.styleClass}}">
+    <div class="bs-callout bs-callout-reverse bs-callout-{{roarevent.styleClass}}">
       <h4>{{roarevent.title}}</h4>
       <p ng-bind="roarevent.description"></p>
       <p ng-if="roardate">Dated {{roarevent.date | date }}
