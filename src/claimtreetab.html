@@ -7,7 +7,7 @@
     <cite>{{phd.patent.filename || patent.filename}}<a class="fa fa-external-link fa-border" ng-click="main.poppatent(phd.patent || patent)" ></a></cite></blockquote>
 
 <div class="row showscroll" style="margin: 5px 5px;overflow-x:scroll;">
-    <a ng-repeat="link in tree.drawings" ng-click="main.pop(link)" class="btn" style="margin:2px;"><img ng-src="{{tree.thumbnails[$index]}}" class="img img-shadow" /></a>
+    <a ng-repeat="link in tree.drawings" ng-href="{{link}}" pop ng-click="main.pop(link)" class="btn" style="margin:2px;"><img ng-src="{{tree.thumbnails[$index]}}" class="img img-shadow" /></a>
 </div>
 <div class="row">
     <div class="col-sm-6">

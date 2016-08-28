@@ -8,7 +8,7 @@
                      <script type="text/ng-template" id="claim_renderer.html">
     <div ui-tree-handle class="tree-node tree-node-content">
         <div class="tree-node-content flextoprow " style="position:relative;">
-            <a class="btn btn-xs pull-left"  ng-click="toggle(this)" ><span class="fa " ng-class="{'fa-chevron-right': collapsed, 'fa-chevron-down': !collapsed}" style="color:steelblue;transition:all 0.25s ease;" ng-if="node.children && (node.children.length > 0)"></span></a>
+            <a class="btn btn-xs pull-left"  data-nodrag ng-click="toggle(this)" ><span class="fa " ng-class="{'fa-chevron-right': collapsed, 'fa-chevron-down': !collapsed}" style="color:steelblue;transition:all 0.25s ease;" ng-if="node.children && (node.children.length > 0)"></span></a>
             <!--<input type="text" ng-model="node.text" ng-change="node.$save();" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }" style="padding: 0.5rem;color:#444;"  ng-if="config.editable">-->
 
             <!--<a class="btn showonhover" data-nodrag ng-if="config.editable" ng-click="remove(this);"><span class="fa fa-close text-danger "></span></a>-->

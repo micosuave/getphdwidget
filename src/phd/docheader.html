@@ -16,7 +16,7 @@
         </li>
       </ul>
     <ul>
-      <li class="card img-shadow" ng-repeat="a in annotationsAsFlatList($parent.$$childHead.$$childHead.$$childTail.pages) track by $index"
+      <li class="card img-shadow" ng-repeat="a in annotationsAsFlatList($parent.$$childHead.$$childHead.$$childTail.roarevent.pages) track by $index"
         style="border: 2.5px solid {{a.type}};">
         {{a.data.comment}}
         <span ng-if="a.data.points">
@@ -33,9 +33,9 @@
     <div class="bs-callout bs-callout-reverse bs-callout-{{roarevent.styleClass}}">
       <h4>{{roarevent.title}}</h4>
       <p ng-bind="roarevent.description"></p>
-      <p ng-if="roardate">Dated {{roarevent.date | date }}
+      <p ng-if="roardate">Dated {{roarevent.date | date }}</p>
       <cite class="pull-right">{{roarevent.filename || roarevent.$id}}&nbsp;&nbsp;<a pop ng-href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div>
-</p>
+
     <div data-ng-transclude></div>
 
   </div>
