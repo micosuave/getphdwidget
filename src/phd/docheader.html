@@ -1,22 +1,22 @@
 <div class="container-fluid two-col-right">
 
-  <div class="col-xs-4 card card-{{roarevent.styleClass}}">
-    <img dynamic-background background="url({{background(roarevent.styleClass)}})" ng-src="{{roarevent.thumbnail || background(roarevent.styleClass)}}" class="img img-responsive img-shadow" ng-click="poodle = !poodle" />
+  <div class="col-xs-4 card card-{{roarevent.styleClass}} col-1">
+    <img dynamic-background background="url({{background(roarevent.styleClass)}})" background-position="0 0;" background-repeat="no-repeat" ng-src="{{roarevent.thumbnail || background(roarevent.styleClass)}}" class="img img-responsive img-shadow" ng-click="poodle = !poodle" />
     <h4>{{roarevent.title}}</h4>
     <p class="card-text">
-      <fieldset class="material ">
+      <fieldset class="material " uib-collapse="!poodle">
         <input type="text" placeholder="Search..." ng-model="$parent.$$childHead.$$childHead.$$childTail.query">
         <hr>
         <label>Search this document</label>
       </fieldset>
-      <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag"><a ng-click="getRelated(match)">{{match}}</a></label></p>
-      <ul class="list-group">
-        <li class="list-group-item" ng-repeat="(key, p) in roarevent.roarlist" ffbase="{{key}}">
-          <a pop ng-href="{{item.media}}" class="fa {{item.icon}} text-{{item.styleClass}}">{{item.title}} <span class="showonhover fa fa-external-link-square"></span></a>
+      <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag">&nbsp;<a ng-click="getRelated(match)">{{match}}</a></label></p>
+      <ul class="list-group" uib-collapse="!poodle">
+        <li class="list-group-item btn  text-{{item.styleClass}}" ng-repeat="(key, p) in roarevent.roarlist" ffbase="{{key}}">
+          <span class="fa fa-stack"><span class="fa fa-2x {{item.icon}}"><span class="fa fa-1x fa-text">{{item.rid}}</span></span></span>&nbsp;{{item.title}} <a pop ng-href="{{item.media}}" class=""><span class="showonhover fa fa-external-link-square"></span></a>
         </li>
       </ul>
     <ul>
-      <li class="card img-shadow" ng-repeat="a in annotationsAsFlatList(roarevent.pages) track by $index"
+      <li class="card img-shadow" ng-repeat="a in annotationsAsFlatList($parent.$$childHead.$$childHead.$$childTail.pages) track by $index"
         style="border: 2.5px solid {{a.type}};">
         {{a.data.comment}}
         <span ng-if="a.data.points">
@@ -29,13 +29,13 @@
     </ul>
   </div>
 
-  <div class="col-xs-8">
+  <div class="col-xs-8 col-2">
     <div class="bs-callout bs-callout-{{roarevent.styleClass}}">
       <h4>{{roarevent.title}}</h4>
       <p ng-bind="roarevent.description"></p>
-      <p ng-if="roardate">Dated {{roarevent.date | date }}</p>
-      <cite>{{roarevent.filename || roarevent.$id}}&nbsp;&nbsp;<a pop ng-href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div>
-
+      <p ng-if="roardate">Dated {{roarevent.date | date }}
+      <cite class="pull-right">{{roarevent.filename || roarevent.$id}}&nbsp;&nbsp;<a pop ng-href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div>
+</p>
     <div data-ng-transclude></div>
 
   </div>
