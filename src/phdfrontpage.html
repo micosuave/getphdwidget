@@ -267,9 +267,9 @@
         </uib-tab>
       </uib-tabset>
       </uib-tab>
-      <uib-tab ng-repeat="col in collection.roarlist" ffbase="{{col}}" class="btn btn-default badger badger-right badger-{{item.styleClass}}" data-badger="{{item.rid}}">
-        <uib-tab-heading class="panel-title">{{item.title}}</uib-tab-heading>
-        <roargrid collection="{{col}}"></roargrid>
+      <uib-tab ng-repeat="col in collection.roarlist" ffbase="{{col}}" class="btn btn-default btn-sm badger badger-right badger-{{item.styleClass}}" data-badger="{{item.rid}}">
+        <uib-tab-heading class="panel-title text-{{item.styleClass}}">{{item.title}}</uib-tab-heading>
+        <roargrid collection="item"></roargrid>
 </uib-tab>
 </uib-tabset>
     </div>
