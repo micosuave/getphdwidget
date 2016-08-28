@@ -24,7 +24,7 @@
 
 
 <uib-tabset class="tabbable" justified="true" type="pills">
-  <uib-tab class="btn-glass btn-{{collection.styleClass}}">
+  <uib-tab class="btn btn-default btn-sm badger badger-{{collection.styleClass}} badger-right btn-{{collection.styleClass}}">
     <uib-tab-heading class="{{collection.styleClass}}">{{collection.title}}</uib-tab-heading>
       <uib-tabset active="1" class="tabbable" justified="true" type="pills">
         <uib-tab active="main.tabs[0].isActive" disabled="main.tabs[0].disabled" select="main.tabs[0].isActive = true" deselect="main.tabs[0].isActive = false"
@@ -268,7 +268,7 @@
       </uib-tabset>
       </uib-tab>
       <uib-tab ng-repeat="col in collection.roarlist" ffbase="{{col}}" class="btn btn-default btn-sm badger badger-right badger-{{item.styleClass}}" data-badger="{{item.rid}}">
-        <uib-tab-heading class="panel-title text-{{item.styleClass}}">{{item.title}}</uib-tab-heading>
+        <uib-tab-heading class=" text-{{item.styleClass}}">{{item.title}}</uib-tab-heading>
         <roargrid collection="item"></roargrid>
 </uib-tab>
 </uib-tabset>
