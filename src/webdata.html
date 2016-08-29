@@ -58,9 +58,10 @@
 </div>
     </div>
     <div class="row">
-      <button editable-checklist="collection.roarlist" e-ng-options="item as item.title for item in collection.roarlist" e-cols="6"  ><span class="fa fa-list-alt">{{collection.roarlist}}</span></button>
+      <button editable-checklist="collection.menus" e-form="checklist" ng-click="checklist.$show()" e-ng-options="item as item.title for item in collection.roarlist" e-cols="6"  ><span class="fa fa-list-alt">{{collection.roarlist}}</span></button>
 
  <i class="fa {{collection.icon || 'fa-file-pdf-o'}}" editable-text="collection.icon" e-uib-typeahead="icon.value as icon.label for icon in $root.ICONS | filter:$viewValue | limitTo:8" e-uib-typeahead-wait-ms="100"></i>
+ <text-size-slider min="8" max="38" units="px" step="2" value="8"></text-size-slider>
 </div>
   </form>
   </div>
