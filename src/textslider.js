@@ -21,3 +21,4 @@ angular.module('textSizeSlider', [])
         };
     }]);
 
+// <text-size-slider min="8" max="38" unit="vw" value="10" step="2"></text-size-slider>
