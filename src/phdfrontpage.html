@@ -1,4 +1,5 @@
-<div class="card card-fancy card-rounded card-block card-thick expand" ng-class="{'ground':($rootScope.ground)}" style="text-align: left;color: #444;" collection="{{$parent.collection.$id}}">
+<div class="card card-fancy card-rounded card-block card-thick expand" ng-class="{'ground':($rootScope.ground)}" style="text-align: left;color: #444;position:absolute;overflow:visible;" collection="{{$parent.collection.$id}}">
+   <div id="innerviewport" ng-class="{'viewport':($rootScope.viewport==true)}">
     <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);"
       ng-click="collapsereport = !collapsereport">
         <div style="display:flex;justify-content:flex-end;flex-direction:column;align-content:flex-end;vertical-align:middle;align-items:flex-end;">
@@ -24,8 +25,8 @@
 
 
 <uib-tabset class="tabbable tabs-below" justified="true" type="tabs">
-  <uib-tab class="btn btn-default btn-xs badger badger-{{collection.styleClass}} badger-left btn-{{collection.styleClass}}" data-badger="{{collection.rid}}">
-    <uib-tab-heading class="text-{{collection.styleClass}}"><small>{{collection.title}}</small></uib-tab-heading>
+  <uib-tab class="btn btn-default btn-xs badger badger-{{collection.styleClass}} badger-left btn-{{collection.styleClass}}" data-badger="{{collection.title}}">
+    <uib-tab-heading class="text-{{collection.styleClass}}" style="display:flex;"><small style="align-self:bottom;">{{collection.rid}}</small></uib-tab-heading>
       <uib-tabset active="1" class="tabbable" justified="true" type="pills">
         <uib-tab active="main.tabs[0].isActive" disabled="main.tabs[0].disabled" select="main.tabs[0].isActive = true" deselect="main.tabs[0].isActive = false"
           style="margin: 0 5px;">
@@ -267,10 +268,12 @@
         </uib-tab>
       </uib-tabset>
       </uib-tab>
-      <uib-tab ng-repeat="col in collection.roarlist" ffbase="{{col}}" class="btn btn-default btn-xs badger badger-right badger-{{item.styleClass}}" style="border-top-width:4px;border-color:inherit;" data-badger="{{item.title}}" >
+      <uib-tab ng-repeat="col in collection.roarlist" ffbase="{{col}}" class="slideDown btn btn-default btn-xs badger badger-left tabs-right badger-{{item.styleClass}}" style="border-top-width:4px;border-color:inherit;" data-badger="{{item.title}}" >
         <uib-tab-heading class=" text-{{item.styleClass}}"><small>{{item.rid}}</small></uib-tab-heading>
         <roargrid config="{id: col}" ></roargrid>
 </uib-tab>
 </uib-tabset>
     </div>
   </div>
+</div>
+
