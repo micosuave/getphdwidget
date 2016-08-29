@@ -7,6 +7,25 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
     localStorageServiceProvider.setPrefix('adf.getphd');
 
     dashboardProvider
+         .widget('website', {
+            title: 'Web Report',
+            description: 'configure the collection shell',
+            templateUrl: '{widgetsPath}/getphd/src/webdata.html',
+            icon: 'fa-globe',
+            iconurl: '/llp_core/img/lexlab.svg',
+            styleClass: 'NOA',
+            frameless: false,
+            reload: true,
+            controller: 'MetadataController',
+            controllerAs: 'meta',
+            edit: {
+                templateUrl: '{widgetsPath}/getphd/src/webdataedit.html',
+                controller: 'MetadataController',
+                controllerAs: 'web',
+                modalSize: 'lg',
+                reload: true
+            }
+        })
         .widget('metadata', {
             title: 'Metadata',
             description: 'metadata for this document/collection',
