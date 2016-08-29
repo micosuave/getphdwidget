@@ -1,4 +1,4 @@
-<div class="card card-fancy card-rounded card-block card-thick slideDown" ng-class="{'ground':($rootScope.ground)}" style="text-align: left;color: #444;position:absolute;overflow:visible;transform-style: preserve-3d;perspective:800px;perspective-origin:50% 50%;top: 5px;left:5px;bottom:5px;right:5px;" collection="{{$parent.collection.$id}}">
+<div class="card card-fancy card-rounded card-block card-thick slideDown" ng-class="{'ground':($rootScope.ground)}" style="text-align: left;color: #444;overflow:visible;transform-style: preserve-3d;perspective:800px;perspective-origin:50% 50%;" collection="{{$parent.collection.$id}}">
    <div id="innerviewport" ng-class="{'viewport':($rootScope.viewport==true)}">
     <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);"
       ng-click="collapsereport = !collapsereport">
@@ -227,7 +227,7 @@
 
         <uib-tab class="" active="main.tabs[1].isActive" disable="main.tabs[1].disabled" select="main.tabs[1].isActive = true" deselect="main.tabs[1].isActive = false"
           style="margin: 0 5px;">
-          <uib-tab-heading class="" ng-style="">Patent Digest for US {{(collection.patent.number | number:0) || (config.IPAYEAR + "&nbsp;/&nbsp;" + config.IPANUM) }}</uib-tab-heading>
+          <uib-tab-heading class="" ng-style="">Patent Digest</uib-tab-heading>
 
           <uib-tab-content ng-if="main.tabs[1].isActive" ng-controller="MainCtrl as main">
             <patentreport patent="{{collection.patent.id}}" pnum="{{collection.patent.id}}" config="{PNUM:collection.patent.id, IPAYEAR: collection.patent.pub.slice(0,4),IPAYEAR: collection.patent.pub.slice(4,collection.patent.pub.length) }"></patentreport>
@@ -268,7 +268,7 @@
         </uib-tab>
       </uib-tabset>
       </uib-tab>
-      <uib-tab ng-repeat="col in collection.roarlist" ffbase="{{col}}" class="slideDown btn btn-default btn-xs badger badger-left tabs-right badger-{{item.styleClass}}" style="border-top-width:4px;border-color:inherit;" data-badger="{{item.title}}" >
+      <uib-tab ng-repeat="col in collection.roarlist" ffbase="{{col}}" class=" btn btn-default btn-xs badger badger-left tabs-right badger-{{item.styleClass}}" style="border-top-width:4px;border-color:inherit;" data-badger="{{item.title}}" >
         <uib-tab-heading class=" text-{{item.styleClass}}"><small>{{item.rid}}</small></uib-tab-heading>
         <roargrid config="{id: col}" ></roargrid>
 </uib-tab>
