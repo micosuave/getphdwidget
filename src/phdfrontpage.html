@@ -1,4 +1,4 @@
-<div class="card card-fancy card-rounded card-block card-thick expand" ng-class="{'ground':($rootScope.ground)}" style="text-align: left;color: #444;position:absolute;overflow:visible;" collection="{{$parent.collection.$id}}">
+<div class="card card-fancy card-rounded card-block card-thick slideDown" ng-class="{'ground':($rootScope.ground)}" style="text-align: left;color: #444;position:absolute;overflow:visible;transform-style: preserve-3d;perspective:800px;perspective-origin:50% 50%;top: 5px;left:5px;bottom:5px;right:5px;" collection="{{$parent.collection.$id}}">
    <div id="innerviewport" ng-class="{'viewport':($rootScope.viewport==true)}">
     <button class="alert btn-glass btn-primary img card-rounded row" style="position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-direction:row;background-color:#35688F;padding:2px;box-shadow:inset 10px 2px 50px rgba(0,0,0,0.5);"
       ng-click="collapsereport = !collapsereport">
