@@ -943,16 +943,13 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
             }
         };
     }])
-    .directive('pop', ['$compile', '$templateCache','ROARevent', function($compile, $templateCache, ROARevent) {
+    .directive('pop', ['$compile', '$templateCache', function($compile, $templateCache) {
         return {
             restrict: 'AC',
             link: function($scope, $el, $attr, $ctrl) {
                 var popdoc = function() {
-                    var uurl = $attr.href;
-                    var newid = uurl.slice(uurl.lastIndexOf('/')+1, uurl.lastIndexOf('.'));
-                    var roar = ROARevent(newid);
-                    $scope.roarevent = roar;
-                    var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker panel panel-{{roarevent.styleClass}}').css({'margin':'10px'});
+
+                    var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker');
                     //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
                     var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
                     //var header = $('#docheader').html();
@@ -960,17 +957,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
                     angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
                     $('.issuedocpanel').draggable({
-            // scroll: true,
-            // scrollSpeed: 250,
-            // scrollSensitivity: 200,
-            //snap: 'body',
-            cursor: 'move',
-            containment: 'parent',
-            stack: '.stacker',
-            handle: '.panel-heading'
-
-          }).resizable()
-            window.postMessage( $attr.href, 'lexlab.io')
+                        stack: '.stacker',
+                        handle: 'h4'
+                    }).resizable();
                     $('img').on('dblclick', function(e) {
                         $('.issuedocpanel').remove();
                         $scope.$destroy();
