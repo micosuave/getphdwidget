@@ -179,6 +179,9 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 }
 
             });
+
+            var col = Collection(config.appnum);
+                    $scope.application = col;
             main.$ACTIVEROAR = $ACTIVEROAR;
             main.tabs = [{
                 isActive: true,
