@@ -486,8 +486,6 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         config.IPANUM = resp.data.pub.slice(6, resp.data.pub.length);
                     }
                     config.appnum = resp.data.application_number.replace(/\D/ig, '');
-                    var fref = Collection(config.id).$ref();
-                    fref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').set(config);
                     $scope.response = resp.data;
                     var col = Collection(config.appnum);
                     $scope.application = col;
@@ -550,6 +548,8 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                 $http.get('/getphd/' + appnum + '/' + config.PNUM + '/' + config.IPAYEAR + '/' + config.IPANUM + '/' + config.id + '/' + sour).then(function(resp) {
                   $scope.phd = resp.data;
                 });
+                var fref = Collection(config.id).$ref();
+                    fref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').set(config);
 
             };
 
