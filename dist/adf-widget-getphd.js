@@ -486,6 +486,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
                         config.IPANUM = resp.data.pub.slice(6, resp.data.pub.length);
                     }
                     config.appnum = resp.data.application_number.replace(/\D/ig, '');
+                    PHD.$save();
                     $scope.response = resp.data;
                     var col = Collection(config.appnum);
                     $scope.application = col;
