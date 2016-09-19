@@ -18,16 +18,16 @@
  <!--<a href title="reload widget content"  ng-click="reload()"> <i class="fa fa-refresh" style="margin:5px;"></i> </a>-->
 
  <!--<a href title="change widget location" class="adf-move" > <i class="fa fa-arrows" style="margin:5px;"></i> </a>-->
-<a  clipboard text="roarevent.media" on-copied="alertify.success('copied!');" on-error="alertify.error(err,'uh oh!')" onclick="alertify.success('copied!')"><i class="fa fa-link" style="margin:5px;"></i></a>
- <a href title="collapse widget" ng-show=" !widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-minus" style="margin:5px;"></i> </a>
+<a class="hovergold text-{{roarevent.styleClass}}"  clipboard text="roarevent.media" on-copied="alertify.success('copied!');" on-error="alertify.error(err,'uh oh!')" onclick="alertify.success('copied!')"><i class="fa fa-link" style="margin:5px;"></i></a>
+ <a class="hovergold text-{{roarevent.styleClass}}" href title="collapse widget" ng-show="!isCollapsed" ng-click="isCollapsed = true"> <i class="fa fa-minus" style="margin:5px;"></i> </a>
 
- <a href title="expand widget" ng-show=" widgetState.isCollapsed" ng-click="widgetState.isCollapsed = !widgetState.isCollapsed"> <i class="fa fa-plus" style="margin:5px;"></i> </a>
+ <a class="hovergold text-{{roarevent.styleClass}}" href title="expand widget" ng-show="isCollapsed" ng-click="isCollapsed = false"> <i class="fa fa-plus" style="margin:5px;"></i> </a>
 
- <a href title="copy to clipboard" ng-click="edit(roarevent.id)" > <i class="fa fa-copy" style="margin:5px;"></i> </a>
+ <a class="hovergold text-{{roarevent.styleClass}}" href title="copy to clipboard" ng-click="edit(roarevent.id)" > <i class="fa fa-copy" style="margin:5px;"></i> </a>
 
- <a href title="fullscreen widget" ng-click="openFullScreen(roarevent.id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="margin:5px;"></i> </a>
-<a href title="pop out" ng-click="openpreview(roarevent)" ><i class="fa fa-external-link" style="margin:5px;"></i></a>
- <a href title="remove widget" ng-click="remove()" onclick="$(this).parent().parent().parent().parent().remove()"> <i class="fa fa-close" style="margin:5px;"></i> </a>
+ <a class="hovergold text-{{roarevent.styleClass}}" href title="fullscreen widget" ng-click="openFullScreen(roarevent.id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="margin:5px;"></i> </a>
+<a class="hovergold text-{{roarevent.styleClass}}" href title="pop out" ng-click="openpreview(roarevent)" ><i class="fa fa-external-link" style="margin:5px;"></i></a>
+ <a class="hovergold text-{{roarevent.styleClass}}" href title="remove widget" ng-click="remove()" onclick="$(this).parent().parent().parent().parent().remove()"> <i class="fa fa-close" style="margin:5px;"></i> </a>
 
  </span>
 
