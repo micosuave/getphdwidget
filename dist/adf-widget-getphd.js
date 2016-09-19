@@ -180,7 +180,7 @@ angular.module('adf.widget.getphd', ['adf.provider', 'llp.extract',
 
             });
 
-            var col = Collection(config.appnum);
+            var col = Collection(config.appnum || config.id);
                     $scope.application = col;
             main.$ACTIVEROAR = $ACTIVEROAR;
             main.tabs = [{
