@@ -1,7 +1,7 @@
 <div class="panel-heading" style="z-index:1;">
 
-  <h4 class="panel-title" style="-webkit-user-select:none;">
-    <button ng-bind="roarevent.rid" class="btn btn-{{roarevent.styleClass}} btn-rounded fa {{roarevent.icon}}" ng-click="drag = !drag"
+  <h4 class="panel-title row" style="-webkit-user-select:none;">
+    <button ng-bind="roarevent.rid" class="btn btn-outline btn-sm btn-rounded fa {{roarevent.icon}}" ng-click="drag = !drag"
       ng-class="{':active':drag}"></button>
     <span style="lead" ng-bind="roarevent.title"></span>
 
@@ -9,10 +9,10 @@
 
     <div id="" uib-dropdown uib-keyboard-nav style="z-index:1000000;">
       <a uib-dropdown-toggle class="btn vcenter pull-right">
-        <label class="label label-pill badge label-{{roarevent.styleClass}} fa fa-chevron-down" style="cursor:pointer;">&#gt;</label>
+        <label class="label label-pill badge label-{{roarevent.styleClass}} fa fa-chevron-down" style="cursor:pointer;">&nbsp;</label>
 
       </a>
-      <ul class="uib-dropdown-menu">
+      <ul class="uib-dropdown-menu" style="position:absolute;">
 
         <!--<a href title="notes" ng-click="note(roarevent)" ><i class="fa fa-pencil" style="margin:5px;"></i></a>-->
 
