@@ -2,12 +2,12 @@
 
   <h4 class="panel-title flextoprow" style="-webkit-user-select:none;">
     <strong ng-bind="roarevent.rid" class="fa {{roarevent.icon}}" ng-click="drag = !drag"
-      ng-class="{':active':drag}"></strong>&nbsp;&emdash;&nbsp;
+      ng-class="{':active':drag}"></strong>&nbsp;&nbsp;|&nbsp;&nbsp;
     <small style="lead" ng-bind="roarevent.title"></small>
 
 
 
-    <div id="" uib-dropdown uib-keyboard-nav style="z-index:1000000;">
+    <div id="" uib-dropdown uib-keyboard-nav style="z-index:1000000;position:absolute;right:5px;">
       <a uib-dropdown-toggle class="btn vcenter pull-right">
         <label class="label label-pill badge label-{{roarevent.styleClass}} fa fa-ellipsis-v" style="cursor:pointer;">&nbsp;</label>
 
