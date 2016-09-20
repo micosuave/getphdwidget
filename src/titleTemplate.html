@@ -6,7 +6,7 @@
 
     <div id="" uib-dropdown uib-keyboard-nav style="z-index:1000000;">
       <a uib-dropdown-toggle class="btn btn-xs vcenter pull-left">
-        <label class="fa fa-bars" style="cursor:pointer;"></label>
+        <label class="fa fa-bars hovergold" style="cursor:pointer;color:beige;filter:drop-shadow(0 0 2.5px rgba(0,0,0,0.5));"></label>
 
       </a>
       <ul class="uib-dropdown-menu panel r-action" style="position:absolute;">
@@ -26,12 +26,12 @@
         </li>
         <li class="">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="collapse widget"
-            ng-show="!isCollapsed" ng-click="roar.collapse();isCollapsed = true"> <i class="fa fa-minus" style="margin:5px;"></i> </a>
+            ng-show="!isCollapsed" ng-click="roar.collapse();$('.issuedocpanel').css({'height':'auto'});isCollapsed = true"> <i class="fa fa-minus" style="margin:5px;"></i> </a>
 
         </li>
         <li class="">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="expand widget"
-            ng-show="isCollapsed" ng-click="roar.collapse();isCollapsed = false"> <i class="fa fa-plus" style="margin:5px;"></i> </a>
+            ng-show="isCollapsed" ng-click="roar.collapse();$('.issuedocpanel').css({'height':'auto'});isCollapsed = false"> <i class="fa fa-plus" style="margin:5px;"></i> </a>
 
         </li>
         <li class="">
@@ -54,13 +54,14 @@
 
       </ul>
     </div>
-<small class="vcenter">&nbsp;&nbsp;|&nbsp;&nbsp;</small>
+   <div class="row vcenter">
+<small class="">&nbsp;&nbsp;|&nbsp;&nbsp;</small>
     <small ng-bind="roarevent.rid"  ng-click="drag = !drag"
       ng-class="{':active':drag}"></small>
-      <small class="vcenter">&nbsp;&nbsp;|&nbsp;&nbsp;</small>
+      <small class="">&nbsp;&nbsp;|&nbsp;&nbsp;</small>
     <small style="lead" ng-bind="roarevent.title"></small>
     <span class="fa {{roarevent.icon}} pull-right"></span>
-
+</div>
   <br>
   <em class="" style="margin-left:50px;" ng-bind="roarevent.date | date"></em>
 </h4>
