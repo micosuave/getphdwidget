@@ -1,15 +1,15 @@
-<div class="panel-heading" style="z-index:1;">
+<div class="panel-heading" style="z-index:1;margin:-1px;">
 
-  <h4 class="panel-title flextoprow" style="-webkit-user-select:none;">
+  <h4 class="panel-title " style="-webkit-user-select:none;padding:0;">
 
 
 
     <div id="" uib-dropdown uib-keyboard-nav style="z-index:1000000;">
-      <a uib-dropdown-toggle class="btn vcenter pull-right">
-        <label class="fa fa-bars fa-2x" style="cursor:pointer;">&nbsp;</label>
+      <a uib-dropdown-toggle class="btn btn-xs vcenter pull-left">
+        <label class="fa fa-bars" style="cursor:pointer;"></label>
 
       </a>
-      <ul class="uib-dropdown-menu r-action" style="position:absolute;">
+      <ul class="uib-dropdown-menu panel r-action" style="position:absolute;">
 
         <!--<a href title="notes" ng-click="note(roarevent)" ><i class="fa fa-pencil" style="margin:5px;"></i></a>-->
 
@@ -20,47 +20,49 @@
         <!--<a href title="reload widget content"  ng-click="reload()"> <i class="fa fa-refresh" style="margin:5px;"></i> </a>-->
 
         <!--<a href title="change widget location" class="adf-move" > <i class="fa fa-arrows" style="margin:5px;"></i> </a>-->
-        <li class="list-group-item">
+        <li class="">
           <a class="hovergold" style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" clipboard text="roarevent.media"
             on-copied="alertify.success('copied!');" on-error="alertify.error(err,'uh oh!')" onclick="alertify.success('copied!')"><i class="fa fa-link" style="margin:5px;"></i></a>
         </li>
-        <li class="list-group-item">
+        <li class="">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="collapse widget"
-            ng-show="!isCollapsed" ng-click="isCollapsed = true"> <i class="fa fa-minus" style="margin:5px;"></i> </a>
+            ng-show="!isCollapsed" ng-click="roar.collapse();isCollapsed = true"> <i class="fa fa-minus" style="margin:5px;"></i> </a>
 
         </li>
-        <li class="list-group-item">
+        <li class="">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="expand widget"
-            ng-show="isCollapsed" ng-click="isCollapsed = false"> <i class="fa fa-plus" style="margin:5px;"></i> </a>
+            ng-show="isCollapsed" ng-click="roar.collapse();isCollapsed = false"> <i class="fa fa-plus" style="margin:5px;"></i> </a>
 
         </li>
-        <li class="list-group-item">
+        <li class="">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="copy to clipboard"
             ng-click="edit(roarevent.id)"> <i class="fa fa-copy" style="margin:5px;"></i> </a>
 
         </li>
-        <li class="list-group-item">
+        <li class="">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="fullscreen widget"
             ng-click="openFullScreen(roarevent.id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="margin:5px;"></i> </a>
         </li>
-        <li class="list-group-item"><a class="hovergold panel-title menu-item" style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="pop out"
-            ng-click="openprevass="fa fa-external-link" style="margin:5px;"></i></a>
+        <li class=""><a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="pop out"
+            ng-click="openprev"> <i class="fa fa-external-link" style="margin:5px;"></i></a>
         </li>
         <li class="divider"></li>
-        <li class="list-group-item">
-          <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="remove widget"
-            ng-click="remove()" onclick="$(this).parent().parent().parent().parent().remove()"> <i class="fa fa-close" style="margin:5px;"></i> </a>
+        <li class="">
+          <a class="hovergold text-danger" style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="remove widget"
+            ng-click="remove()" onclick="$(this).closest('.issuedocpanel').remove()"> <i class="fa fa-close" style="margin:5px;"></i> </a>
         </li>
 
       </ul>
     </div>
-&nbsp;&nbsp;|&nbsp;&nbsp;
-    <strong ng-bind="roarevent.rid"  ng-click="drag = !drag"
-      ng-class="{':active':drag}"></strong>&nbsp;&nbsp;|&nbsp;&nbsp;
+<small class="vcenter">&nbsp;&nbsp;|&nbsp;&nbsp;</small>
+    <small ng-bind="roarevent.rid"  ng-click="drag = !drag"
+      ng-class="{':active':drag}"></small>
+      <small class="vcenter">&nbsp;&nbsp;|&nbsp;&nbsp;</small>
     <small style="lead" ng-bind="roarevent.title"></small>
     <span class="fa {{roarevent.icon}} pull-right"></span>
-  </h4>
-  <!--<small class="" style="margin-left:50px;" ng-bind="roarevent.date | date"></small>-->
 
+  <br>
+  <em class="" style="margin-left:50px;" ng-bind="roarevent.date | date"></em>
+</h4>
 
 </div>
