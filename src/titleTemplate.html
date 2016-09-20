@@ -1,18 +1,15 @@
 <div class="panel-heading" style="z-index:1;">
 
   <h4 class="panel-title flextoprow" style="-webkit-user-select:none;">
-    <strong ng-bind="roarevent.rid" class="fa {{roarevent.icon}}" ng-click="drag = !drag"
-      ng-class="{':active':drag}"></strong>&nbsp;&nbsp;|&nbsp;&nbsp;
-    <small style="lead" ng-bind="roarevent.title"></small>
 
 
 
-    <div id="" uib-dropdown uib-keyboard-nav style="z-index:1000000;position:absolute;right:5px;">
+    <div id="" uib-dropdown uib-keyboard-nav style="z-index:1000000;">
       <a uib-dropdown-toggle class="btn vcenter pull-right">
-        <label class="label label-pill badge label-{{roarevent.styleClass}} fa fa-ellipsis-v" style="cursor:pointer;">&nbsp;</label>
+        <label class="fa fa-bars fa-2x" style="cursor:pointer;">&nbsp;</label>
 
       </a>
-      <ul class="uib-dropdown-menu" style="position:absolute;">
+      <ul class="uib-dropdown-menu r-action" style="position:absolute;">
 
         <!--<a href title="notes" ng-click="note(roarevent)" ><i class="fa fa-pencil" style="margin:5px;"></i></a>-->
 
@@ -57,7 +54,11 @@
 
       </ul>
     </div>
-
+&nbsp;&nbsp;|&nbsp;&nbsp;
+    <strong ng-bind="roarevent.rid"  ng-click="drag = !drag"
+      ng-class="{':active':drag}"></strong>&nbsp;&nbsp;|&nbsp;&nbsp;
+    <small style="lead" ng-bind="roarevent.title"></small>
+    <span class="fa {{roarevent.icon}} pull-right"></span>
   </h4>
   <!--<small class="" style="margin-left:50px;" ng-bind="roarevent.date | date"></small>-->
 
