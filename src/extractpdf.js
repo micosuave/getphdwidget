@@ -108,7 +108,7 @@ angular.module("llp.extractpdf", [])
             return $location.host() === 'localhost' ? ':8080' : '/proxy/'
         };
         var prefix = function(){
-            return 'https://lexlab.io/proxy/'
+            return 'https://lexspace.net/proxy/'
             //return $location.protocol() + '://' + $location.host() + porter();
         };
         var googleurl = 'storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
