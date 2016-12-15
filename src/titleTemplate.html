@@ -20,34 +20,34 @@
         <!--<a href title="reload widget content"  ng-click="reload()"> <i class="fa fa-refresh" style="margin:5px;"></i> </a>-->
 
         <!--<a href title="change widget location" class="adf-move" > <i class="fa fa-arrows" style="margin:5px;"></i> </a>-->
-        <li class="">
+        <li class="" uib-tooltip="COPY LINK" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
           <a class="hovergold" style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" clipboard text="roarevent.media"
             on-copied="alertify.success('copied!');" on-error="alertify.error(err,'uh oh!')" onclick="alertify.success('copied!')"><i class="fa fa-link" style="margin:5px;"></i></a>
         </li>
-        <li class="">
+        <li class="" uib-tooltip="COLLAPSE" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="collapse widget"
             ng-show="!isCollapsed" ng-click="roar.collapse();$('.issuedocpanel').css({'height':'auto'});isCollapsed = true"> <i class="fa fa-minus" style="margin:5px;"></i> </a>
 
         </li>
-        <li class="">
+        <li class="" uib-tooltip="EXPAND" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="expand widget"
             ng-show="isCollapsed" ng-click="roar.collapse();$('.issuedocpanel').css({'height':'auto'});isCollapsed = false"> <i class="fa fa-plus" style="margin:5px;"></i> </a>
 
         </li>
-        <li class="">
+        <li class="" uib-tooltip="COPY TO CLIPBOARD" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="copy to clipboard"
             ng-click="edit(roarevent.id)"> <i class="fa fa-copy" style="margin:5px;"></i> </a>
 
         </li>
-        <li class="">
+        <li class="" uib-tooltip="FULLSCREEN" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="fullscreen widget"
             ng-click="openFullScreen(roarevent.id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="margin:5px;"></i> </a>
         </li>
-        <li class=""><a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="pop out"
+        <li class="" uib-tooltip="POP OUT" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right"><a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="pop out"
             ng-click="openprev"> <i class="fa fa-external-link" style="margin:5px;"></i></a>
         </li>
         <li class="divider"></li>
-        <li class="">
+        <li class="" uib-tooltip="CLOSE" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
           <a class="hovergold text-danger" style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="remove widget"
             ng-click="remove()" onclick="$(this).closest('.issuedocpanel').remove()"> <i class="fa fa-close" style="margin:5px;"></i> </a>
         </li>
@@ -59,11 +59,11 @@
     <small ng-bind="roarevent.rid"  ng-click="drag = !drag"
       ng-class="{':active':drag}"></small>
       <small class="">&nbsp;&nbsp;|&nbsp;&nbsp;</small>
-    <small style="lead" ng-bind="roarevent.title"></small>
-    <span class="fa {{roarevent.icon}} pull-right"></span>
+    <small style="lead" ng-bind="roarevent.title || roarevent.date"></small>
+    <span class="fa {{roarevent.icon}}"></span>
 </div>
-  <br>
-  <em class="" style="margin-left:50px;" ng-bind="roarevent.date | date"></em>
+  <!--<br>
+  <em class="" style="margin-left:50px;" ng-bind="roarevent.date | date"></em>-->
 </h4>
 
 </div>
