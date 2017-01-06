@@ -111,8 +111,9 @@ angular.module("llp.extractpdf", [])
             return 'https://lexspace.net/proxy/'
             //return $location.protocol() + '://' + $location.host() + porter();
         };
+
         var googleurl = 'storage.googleapis.com/uspto-pair/applications/'+apnum+'.zip';
-                    var reedtechurl = 'patents.reedtech.com/downloads/pair/'+apnum+'.zip';
+                    var reedtechurl = 'patents.reedtech.com/downloads/pairdownload/'+apnum+'.zip';
 // var down = function(url, callback, encoding){
 //         console.log('down');
 //         var request = window.open(url, '',function(err,response) {
