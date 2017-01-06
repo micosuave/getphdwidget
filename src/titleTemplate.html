@@ -1,4 +1,4 @@
-<div class="panel-heading" style="z-index:1;margin:-1px;">
+<div class="panel-heading" style="z-index:1;margin:-1px;" ng-init="coplapse = false">
 
   <h4 class="panel-title " style="-webkit-user-select:none;padding:0;">
 
@@ -60,10 +60,65 @@
       ng-class="{':active':drag}"></small>
       <small class="">&nbsp;&nbsp;|&nbsp;&nbsp;</small>
     <small style="lead" ng-bind="roarevent.title || roarevent.date"></small>
-    <span class="fa {{roarevent.icon}}"></span>
-<br><small>
-  <em class="" style="margin-left:50px;" ng-bind="roarevent.date | date"></em></small>
+    <small>
+  <em class="" style="margin-left:50px;" ng-bind="roarevent.date | date"></em><span class="fa {{roarevent.icon || 'fa-info'}}" ng-click="roarevent.coplapse = !roarevent.coplapse" style="margin: -5px -5px 0px 2.5px;"></span>
+</small>
 </div>
 </h4>
+<div class="card card-block clearfix" collection="{{roarevent.id}}" style="z-index:1;position:absolute;" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;">
 
+  <h6>ID: {{collection.$id}}</h6>
+  <p class="" clipboad text="{{'https://lexspace.net/files/uploads/'+collection.$id+'.html'}}" onsuccess="alertify.success('copied')">{{'https://lexspace.net/files/uploads/'+collection.$id+'.html'}}</p>
+
+  <form role="form" name="form" ng-submit="collection.$save()">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="form-group"><label for="dashboardTitle" style="color: #006699">Title</label><input type="text" class="form-control" id="dashboardTitle"
+            ng-model="collection.title" required></div>
+        <div class="row">
+          <div class="form-group col-sm-6"><label style="color: #006699">Style</label><br><select ng-model="collection.styleClass" ng-options="class.value as class.label for class in $root.ROARCLASSES"></select></div>
+          <div  class="form-group col-sm-6">
+            <label style="color: #006699">Document Code</label><br>
+
+            <input ng-model="collection.doccode" uib-typeahead="code.code as code.label for code in DOCNAMES | filter:$viewValue | limitTo:8" typeahead-wait-ms="100" />
+            </div>
+</div>
+<div class="row">
+             <div  class="form-group col-sm-6">
+            <label style="color: #006699">Tags</label><br>
+
+            <input ng-model="collection.matches" ng-list="," />
+            <!--<select name="icon" ng-model="collection.icon" class="" ng-options="icon.value as icon.label for icon in $root.ICONS"></select>-->
+            </div>
+ <div  class="form-group col-sm-6">
+            <label style="color: #006699">Icon</label><br>
+
+                        <select name="icon" ng-model="collection.icon" class="" ng-options="icon.value as icon.label for icon in $root.ICONS"></select>
+</div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-sm-6"><label style="color: #006699">ID#</label><br><input type="text" ng-model="collection.rid" placeholder="#" ng-model-options="{updateOn: 'blur'}"></div>
+        <div
+          class="form-group col-sm-6"><label style="color: #006699">Date</label><br><input type="text" ng-model="collection.date" placeholder="YYYY-MM-DD"
+            ng-pattern="dddd-dd-dd" ng-model-options="{updateOn: 'blur'}"></div>
+    </div>
+    <div class="form-group"><label for="description" style="color: #006699">Description</label><br><textarea type="text" class="form-control" id="description"
+        ng-model="collection.description" ng-model-options="{updateOn: 'blur'}"></textarea></div>
+    <div class="form-group"><label for="url" style="color: #006699">URL</label><br><input type="text" style="width: 100%" ng-model="collection.media"
+        placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"></div>
+        <div class="form-group"><label for="thumbnail" style="color: #006699">Thumbnail</label><br><input type="text" style="width: 100%" ng-model="collection.thumbnail"
+        placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"></div>
+</div>
+<div class="col-sm-4">
+  <roar-event id="{{roarevent.$id}}"></roar-event>
+  <br>
+  <input type="submit" class="btn btn-primary" >
+  <button class="btn btn-success" ng-click="importFile(collection)" ng-if="!collection.ocrlink">OCR</button>
+  <uib-progressbar class="active stripped" ng-class="{'active':(main.progress < 100)}" ng-if="progress" value="progress" style="height:20px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{progresstype}}" > </uib-progressbar>
+</div>
+    </div>
+
+  </form>
+  </div>
 </div>
