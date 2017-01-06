@@ -65,7 +65,7 @@
 </small>
 </div>
 </h4>
-<div class="card card-block clearfix" collection="{{roarevent.id}}" style="z-index:1;position:absolute;" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;">
+<div class="card card-block clearfix img img-hover img-shadow" collection="{{roarevent.id}}" style="z-index:1;position:absolute;left:99.5%;top:0;" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;" dragable>
 
   <h6>ID: {{collection.$id}}</h6>
   <p class="" clipboad text="{{'https://lexspace.net/files/uploads/'+collection.$id+'.html'}}" onsuccess="alertify.success('copied')">{{'https://lexspace.net/files/uploads/'+collection.$id+'.html'}}</p>
@@ -109,13 +109,16 @@
         placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"></div>
         <div class="form-group"><label for="thumbnail" style="color: #006699">Thumbnail</label><br><input type="text" style="width: 100%" ng-model="collection.thumbnail"
         placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"></div>
+        <div class="form-group">
+  <label for="thumbnail" style="color: #006699">Notes</label><br><textarea rows="5" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}"></div>
 </div>
-<div class="col-sm-4">
-  <roar-event id="{{roarevent.$id}}"></roar-event>
-  <br>
-  <input type="submit" class="btn btn-primary" >
-  <button class="btn btn-success" ng-click="importFile(collection)" ng-if="!collection.ocrlink">OCR</button>
-  <uib-progressbar class="active stripped" ng-class="{'active':(main.progress < 100)}" ng-if="progress" value="progress" style="height:20px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;" type="{{progresstype}}" > </uib-progressbar>
+<div class="col-sm-4" style="max-height:175px;">
+  <roar-event id="{{roarevent.$id}}" style="max-height:175px;"></roar-event>
+
+  <input type="submit" class="btn btn-glass btn-primary btn-sm " value="SAVE" >
+
+  <textarea type="text" style="width: 100%" rows="7" ng-model="collection.notes2" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}">
+
 </div>
     </div>
 
