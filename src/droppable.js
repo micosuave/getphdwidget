@@ -1,7 +1,5 @@
 jQuery.event.props.push("dataTransfer");
-angular.module("fa.droppable", [])
-
-    .directive("dropFiles", [function () {
+app.directive("dropFiles", [function () {
         var linkFn = function ($scope, $element, $attrs, ctrl) {
             var extractFiles = function (e) {
                 //debugger;

@@ -1,6 +1,4 @@
-angular.module("llp.extractpdf", [])
-
-.factory("extractpdf", ["$q", function($q) {
+app.factory("extractpdf", ["$q", function($q) {
     function unzip(zipfile, apnum, main) {
         //var rootstring = zipfile.name.slice(0, zipfile.name.indexOf('.'));
 
