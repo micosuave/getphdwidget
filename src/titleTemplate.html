@@ -109,16 +109,22 @@
         placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"></div>
         <div class="form-group"><label for="thumbnail" style="color: #006699">Thumbnail</label><br><input type="text" style="width: 100%" ng-model="collection.thumbnail"
         placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"></div>
-        <div class="form-group">
-  <label for="thumbnail" style="color: #006699">Notes</label><br><textarea rows="5" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}"></div>
-</div>
+     <div class="form-group"><label for="roarlist" style="color: #006699">Linked Docs</label><br>
+     <ul><li ng-repeat="roareventid in collection.roarlist"><roar-chip id="{{roareventid}}"></roar-chip></li></ul></div>
+        <div class="form-group"><label for="navmenu" style="color: #006699">Thumbnail</label><br>
+       <ul><li><a class="fa fa-plus" ng-click="collection.menu[0] = collection.media"></a></li>
+         <li ng-repeat="menuitem in collection.menu">
+        <input type="text" style="width: 100%" ng-model="collection.menu[$index]"
+        placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"><a class="fa fa-plus" ng-click="collection.menu.push('')"></a>
+        </li></ul></div>
 <div class="col-sm-4" style="max-height:175px;">
   <roar-event id="{{roarevent.$id}}" style="max-height:175px;"></roar-event>
 
   <input type="submit" class="btn btn-glass btn-primary btn-sm " value="SAVE" >
 
-  <textarea type="text" style="width: 100%" rows="7" ng-model="collection.notes2" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}">
-
+  <div class="form-group">
+  <label for="thumbnail" style="color: #006699">Notes</label><br><textarea rows="5" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}"></div>
+</div>
 </div>
     </div>
 
