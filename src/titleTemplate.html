@@ -71,52 +71,72 @@
   <p class="" clipboad text="{{'https://lexspace.net/files/uploads/'+collection.$id+'.html'}}" onsuccess="alertify.success('copied')">{{'https://lexspace.net/files/uploads/'+collection.$id+'.html'}}</p>
 
   <form role="form" name="form" ng-submit="collection.$save()">
-    <div class="row">
       <div class="col-sm-8">
-        <div class="form-group"><label for="dashboardTitle" style="color: #006699">Title</label><input type="text" class="form-control" id="dashboardTitle"
-            ng-model="collection.title" required></div>
-        <div class="row">
-          <div class="form-group col-sm-6"><label style="color: #006699">Style</label><br><select ng-model="collection.styleClass" ng-options="class.value as class.label for class in $root.ROARCLASSES"></select></div>
-          <div  class="form-group col-sm-6">
+        <div class="form-group">
+          <label for="dashboardTitle" style="color: #006699">Title</label>
+          <input type="text" class="form-control" id="dashboardTitle" ng-model="collection.title" required>
+        </div>
+        
+        <div class="form-group col-sm-6">
+          <label style="color: #006699">Style</label><br>
+          <select ng-model="collection.styleClass" ng-options="class.value as class.label for class in $root.ROARCLASSES"></select>
+        </div>
+        <div  class="form-group col-sm-6">
             <label style="color: #006699">Document Code</label><br>
 
             <input ng-model="collection.doccode" uib-typeahead="code.code as code.label for code in DOCNAMES | filter:$viewValue | limitTo:8" typeahead-wait-ms="100" />
-            </div>
-</div>
-<div class="row">
-             <div  class="form-group col-sm-6">
+        </div>
+        <div  class="form-group col-sm-6">
             <label style="color: #006699">Tags</label><br>
 
             <input ng-model="collection.matches" ng-list="," />
             <!--<select name="icon" ng-model="collection.icon" class="" ng-options="icon.value as icon.label for icon in $root.ICONS"></select>-->
-            </div>
- <div  class="form-group col-sm-6">
+        </div>
+        <div  class="form-group col-sm-6">
             <label style="color: #006699">Icon</label><br>
 
                         <select name="icon" ng-model="collection.icon" class="" ng-options="icon.value as icon.label for icon in $root.ICONS"></select>
-</div>
+        </div>
+        <div class="form-group col-sm-6">
+          <label style="color: #006699">ID#</label><br>
+          <input type="text" ng-model="collection.rid" placeholder="#" ng-model-options="{updateOn: 'blur'}" />
+        </div>
+        <div class="form-group col-sm-6">
+          <label style="color: #006699">Date</label><br>
+          <input type="text" ng-model="collection.date" placeholder="YYYY-MM-DD" ng-pattern="dddd-dd-dd" ng-model-options="{updateOn: 'blur'}">
+        </div>
+        <div class="form-group">
+          <label for="description" style="color: #006699">Description</label><br>
+          <textarea type="text" class="form-control" id="description" ng-model="collection.description" ng-model-options="{updateOn: 'blur'}"></textarea>
+        </div>
+   
+        <div class="form-group">
+          <label for="url" style="color: #006699">URL</label><br>
+          <input type="text" style="width: 100%" ng-model="collection.media" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
+       </div>
+       <div class="form-group">
+         <label for="thumbnail" style="color: #006699">Thumbnail</label><br>
+         <input type="text" style="width: 100%" ng-model="collection.thumbnail" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
       </div>
-
-      <div class="row">
-        <div class="form-group col-sm-6"><label style="color: #006699">ID#</label><br><input type="text" ng-model="collection.rid" placeholder="#" ng-model-options="{updateOn: 'blur'}"></div>
-        <div
-          class="form-group col-sm-6"><label style="color: #006699">Date</label><br><input type="text" ng-model="collection.date" placeholder="YYYY-MM-DD"
-            ng-pattern="dddd-dd-dd" ng-model-options="{updateOn: 'blur'}"></div>
-    </div>
-    <div class="form-group"><label for="description" style="color: #006699">Description</label><br><textarea type="text" class="form-control" id="description"
-        ng-model="collection.description" ng-model-options="{updateOn: 'blur'}"></textarea></div>
-    <div class="form-group"><label for="url" style="color: #006699">URL</label><br><input type="text" style="width: 100%" ng-model="collection.media"
-        placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"></div>
-        <div class="form-group"><label for="thumbnail" style="color: #006699">Thumbnail</label><br><input type="text" style="width: 100%" ng-model="collection.thumbnail"
-        placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"></div>
      <div class="form-group"><label for="roarlist" style="color: #006699">Linked Docs</label><br>
-     <ul><li ng-repeat="roareventid in collection.roarlist"><roar-chip id="{{roareventid}}"></roar-chip></li></ul></div>
-        <div class="form-group"><label for="navmenu" style="color: #006699">Thumbnail</label><br>
-       <ul><li><a class="fa fa-plus" ng-click="collection.menu[0] = collection.media"></a></li>
-         <li ng-repeat="menuitem in collection.menu">
-        <input type="text" style="width: 100%" ng-model="collection.menu[$index]"
-        placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"><a class="fa fa-plus" ng-click="collection.menu.push('')"></a>
+
+     <ol><li ng-repeat="roareventid in collection.roarlist" style="float:left;">
+       <roar-chip id="{{roareventid}}"></roar-chip></li></ol>
+      </div>
+        <div class="form-group"><label for="navmenu" style="color: #006699">Menus <a class="fa fa-plus" ng-click="collection.menus[0] = {title: 'Linked Documents', items: collection.roarlist}"></a></label><br>
+       <ol class="">
+         <li class="list-group-item" ng-repeat="menu in collection.menus">
+        <input type="text" style="width: 100%" ng-model="menu.title" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"><a class="fa fa-plus text-success" ng-click="menu.items.push(collection.id)"></a>
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="menuitem in menu.items">
+            <input type="text" style="width: 100%" ng-model="menuitem"  placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"> 
+          </li>
+        </ul>
         </li></ul></div>
+      
+ <!--<text-size-slider min="8" max="38" units="px" step="2" value="8"></text-size-slider>-->
+</div>
+        </div>
 <div class="col-sm-4" style="max-height:175px;">
   <roar-event id="{{roarevent.$id}}" style="max-height:175px;"></roar-event>
 
