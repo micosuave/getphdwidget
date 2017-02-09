@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('llp.parsetsv', [])
     .factory('parseTSV', [function () {
         return function (file, options, verbose) {

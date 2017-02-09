@@ -1,7 +1,7 @@
 (function(window, undefined) {'use strict';
 
 
-var app = angular.module('adf.widget.getphd', ['adf.provider',
+var app = angular.module('adf.widget.getphd', ['adf.provider','llp.parsetsv','roar',
       'LocalStorageModule', 'firebase', 'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'toastr', 'mentio', 'diff', 'angularCSS', 'checklist-model', 'angular-md5', 'angular.filter', 'ngFileUpload'
 ]).config(["dashboardProvider", "localStorageServiceProvider", function(dashboardProvider, localStorageServiceProvider) {
 
@@ -2901,6 +2901,8 @@ function pageLoaded() {
             return bytes;
         }
     });
+
+
 angular.module('llp.parsetsv', [])
     .factory('parseTSV', [function () {
         return function (file, options, verbose) {
