@@ -2,7 +2,7 @@
 
 
 var app = angular.module('adf.widget.getphd', ['adf.provider',
-    'llp.parsetsv', 'roar', 'textSizeSlider',  'LocalStorageModule', 'firebase', 'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'toastr', 'mentio', 'diff', 'angularCSS', 'checklist-model', 'angular-md5', 'angular.filter', 'ngFileUpload'
+      'LocalStorageModule', 'firebase', 'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'toastr', 'mentio', 'diff', 'angularCSS', 'checklist-model', 'angular-md5', 'angular.filter', 'ngFileUpload'
 ]).config(["dashboardProvider", "localStorageServiceProvider", function(dashboardProvider, localStorageServiceProvider) {
 
     localStorageServiceProvider.setPrefix('adf.getphd');
