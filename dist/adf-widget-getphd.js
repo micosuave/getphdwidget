@@ -2916,7 +2916,7 @@ angular.module('llp.parsetsv', [])
         };
     }]);
 
-ngular.module("adf.widget.getphd");
+angular.module("adf.widget.getphd");
 
 /*!
  * jQuery twitter bootstrap wizard plugin
@@ -2937,7 +2937,7 @@ var bootstrapWizardCreate = function(element, options) {
 	var $settings = $.extend({}, $.fn.bootstrapWizard.defaults, options);
 	var $activeTab = null;
 	var $navigation = null;
-	
+
 	this.rebindClick = function(selector, fn)
 	{
 		selector.unbind('click', fn).bind('click', fn);
@@ -3167,7 +3167,7 @@ $.fn.bootstrapWizard.defaults = {
 	onPrevious:       null,
 	onLast:           null,
 	onFirst:          null,
-	onTabChange:      null, 
+	onTabChange:      null,
 	onTabClick:       null,
 	onTabShow:        null
 };
