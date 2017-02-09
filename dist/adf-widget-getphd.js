@@ -1560,269 +1560,7 @@ angular.module('textSizeSlider', [])
 // <text-size-slider min="8" max="38" unit="vw" value="10" step="2"></text-size-slider>
 
 
-angular.module('roar').controller('TextController', ['$scope','Collection','config','$stateParams',
-  function($scope, Collection, config, $stateParams){
-    var config = $scope.$parent.config || $scope.$parent.$parent.config;
-    var pId = $stateParams.pId;
-    var tree = Collection(pId);
-    $scope.tree = tree;
-    var roarevent = Collection(config.id);
-    roarevent.$bindTo($scope, 'roarevent');
-$scope.config = config;
-
-
-}])
-.controller('ClaimWidgetController', ['$scope', 'Collection', 'config',
-function($scope, Collection, config){
-  var cwc = this;
-
-  var config = $scope.$parent.config || $scope.$parent.$parent.config;
-  var roarevent = Collection(config.id);
-  roarevent.$loaded().then(function(data){
-    $scope.roarevent = data;
-    $scope.sets = [];
-    angular.forEach(data.roarlist, function(id, key){
-      Collection(id).$loaded().then(function(claimpaper){
-        $scope.sets.push(claimpaper.claims);
-      });
-    });
-    // cwc.claimset = data.claims;
-  });
-  //roarevent.$bindTo($scope, 'roarevent');
-  $scope.onSubmit = function(){
-    //something
-  };
-  $scope.setwatcher = function(inputvalue, index){
-      var innumber = parseInt(inputvalue.slice(0,inputvalue.indexOf('\.')));
-      if(index + 1 === innumber){
-        cwc.claimsets[index].$valid = true;
-      }
-      else{
-        cwc.claimsets[index].$error();
-      }
-  };
-  $scope.sortSet = function(node){
-    var claimset = node.claims;
-    var newarray = [];
-    angular.forEach(claimset, function(claim, key){
-       var num = parseInt(claim.match(/\d+(?=\.)/)[0]);
-        newarray[num - 1] = claim;
-    });
-    node.claims = newarray;
-  };
-  $scope.statustest = function (input) {
-        var status = new RegExp(/\((\w+(\s\w+)*)\)/);
-            if (status.test(input) !== false) {
-                var match = input.match(status);
-                return match[1];
-            } else {
-                return null;
-            }
-        };
-$scope.num = function(input) {
-          if(angular.isString(input)){
-            var p = input.slice(0, input.indexOf('.'));
-
-                return p || input;
-          }else{
-            return '-';
-          }
-
-            };
-
-          $scope.prent =  function(input) {
-                if(angular.isString(input)){
-                  var dependencytest = new RegExp(/\sof\sc[li]aim\s\d+,?\s/ig);
-                var idref = input.match(dependencytest);
-                var id;
-                if (idref !== null) {
-                    var id = idref[0].replace(/\D/ig, '');
-                }
-
-                return id;
-                }else{
-                  return -1;
-                }
-            };
-          $scope.addClaim = function(index, node){
-              var newtext = '' + (parseInt(index) + 1) + '. The claim of claim ' + index + ', wherein the text is self-referential.';
-              node.claims.unshift(newtext);
-              $scope.sortSet(node);
-          };
-          $scope.checkValid = function(index, node){
-              return alertify.error('invalid!');
-          };
-}]);
-
-
-/**
- * we copied most of the 'element' scenario dsl so we can keep the old actions
- * and also add the 'enter' and modified 'html' actions.
- * @see https://github.com/angular/angular.js/blob/master/src/ngScenario/dsl.js
- * @see http://stackoverflow.com/questions/12575199/how-to-test-a-contenteditable-field-based-on-a-td-using-angularjs-e2e-testing
- *
- * Usage:
- *    element(selector, label).count() get the number of elements that match selector
- *    element(selector, label).click() clicks an element
- *    element(selector, label).mouseover() mouseover an element
- *    element(selector, label).mousedown() mousedown an element
- *    element(selector, label).mouseup() mouseup an element
- *    element(selector, label).query(fn) executes fn(selectedElements, done)
- *    element(selector, label).{method}() gets the value (as defined by jQuery, ex. val)
- *    element(selector, label).{method}(value) sets the value (as defined by jQuery, ex. val)
- *    element(selector, label).{method}(key) gets the value (as defined by jQuery, ex. attr)
- *    element(selector, label).{method}(key, value) sets the value (as defined by jQuery, ex. attr)
- *    element(selector, label).enter(value) sets the text if the element is contenteditable
- */
-/*angular.scenario.dsl('element', function() {
-  var KEY_VALUE_METHODS = ['attr', 'css', 'prop'];
-  var VALUE_METHODS = [
-    'val', 'text', 'html', 'height', 'innerHeight', 'outerHeight', 'width',
-    'innerWidth', 'outerWidth', 'position', 'scrollLeft', 'scrollTop', 'offset'
-  ];
-  var chain = {};
-
-  chain.count = function() {
-    return this.addFutureAction("element '" + this.label + "' count", function($window, $document, done) {
-      try {
-        done(null, $document.elements().length);
-      } catch (e) {
-        done(null, 0);
-      }
-    });
-  };
-
-  chain.click = function() {
-    return this.addFutureAction("element '" + this.label + "' click", function($window, $document, done) {
-      var elements = $document.elements();
-      var href = elements.attr('href');
-      var eventProcessDefault = elements.trigger('click')[0];
-
-      if (href && elements[0].nodeName.toUpperCase() === 'A' && eventProcessDefault) {
-        this.application.navigateTo(href, function() {
-          done();
-        }, done);
-      } else {
-        done();
-      }
-    });
-  };
-
-  chain.dblclick = function() {
-    return this.addFutureAction("element '" + this.label + "' dblclick", function($window, $document, done) {
-      var elements = $document.elements();
-      var href = elements.attr('href');
-      var eventProcessDefault = elements.trigger('dblclick')[0];
-
-      if (href && elements[0].nodeName.toUpperCase() === 'A' && eventProcessDefault) {
-        this.application.navigateTo(href, function() {
-          done();
-        }, done);
-      } else {
-        done();
-      }
-    });
-  };
-
-  chain.mouseover = function() {
-    return this.addFutureAction("element '" + this.label + "' mouseover", function($window, $document, done) {
-      var elements = $document.elements();
-      elements.trigger('mouseover');
-      done();
-    });
-  };
-
-  chain.mousedown = function() {
-      return this.addFutureAction("element '" + this.label + "' mousedown", function($window, $document, done) {
-        var elements = $document.elements();
-        elements.trigger('mousedown');
-        done();
-      });
-    };
-
-  chain.mouseup = function() {
-      return this.addFutureAction("element '" + this.label + "' mouseup", function($window, $document, done) {
-        var elements = $document.elements();
-        elements.trigger('mouseup');
-        done();
-      });
-    };
-
-  chain.query = function(fn) {
-    return this.addFutureAction('element ' + this.label + ' custom query', function($window, $document, done) {
-      fn.call(this, $document.elements(), done);
-    });
-  };
-
-  angular.forEach(KEY_VALUE_METHODS, function(methodName) {
-    chain[methodName] = function(name, value) {
-      var args = arguments,
-          futureName = (args.length == 1)
-              ? "element '" + this.label + "' get " + methodName + " '" + name + "'"
-              : "element '" + this.label + "' set " + methodName + " '" + name + "' to " + "'" + value + "'";
-
-      return this.addFutureAction(futureName, function($window, $document, done) {
-        var element = $document.elements();
-        done(null, element[methodName].apply(element, args));
-      });
-    };
-  });
-
-  angular.forEach(VALUE_METHODS, function(methodName) {
-    chain[methodName] = function(value) {
-      var args = arguments,
-          futureName = (args.length == 0)
-              ? "element '" + this.label + "' " + methodName
-              : futureName = "element '" + this.label + "' set " + methodName + " to '" + value + "'";
-
-      return this.addFutureAction(futureName, function($window, $document, done) {
-        var element = $document.elements();
-        done(null, element[methodName].apply(element, args));
-      });
-    };
-  });
-
-  // =============== These are the methods ================ \\
-  chain.enter = function(value) {
-    return this.addFutureAction("element '" + this.label + "' enter '" + value + "'", function($window, $document, done) {
-      var element = $document.elements()
-      if (element.is('[contenteditable=""]')
-          || (element.attr('contenteditable')
-              && element.attr('contenteditable').match(/true/i))) {
-        element.text(value)
-        element.trigger('input')
-      }
-      done()
-    })
-  }
-
-  chain.html = function(value) {
-    var args = arguments,
-        futureName = (args.length == 0)
-          ? "element '" + this.label + "' html"
-          : futureName = "element '" + this.label + "' set html to '" + value + "'";
-    return this.addFutureAction(futureName, function($window, $document, done) {
-      var element = $document.elements();
-      element.html.apply(element, args)
-      if (args.length > 0
-          && (element.is('[contenteditable=""]')
-              || (element.attr('contenteditable')
-                  && element.attr('contenteditable').match(/true/i)))) {
-        element.trigger('input')
-      }
-      done(null, element.html.apply(element, args));
-    });
-  };
-
-  return function(selector, label) {
-    this.dsl.using(selector, label);
-    return chain;
-  };
-});
-*/
-
-
-app
+angular.module('roar',[])
   .factory('$roarevent', ['OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', '$filter', 'ckstarter', 'ckender',
   function (OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, $filter, ckstarter, ckender) {
     return function (file) {
@@ -2520,6 +2258,268 @@ app
             '</div>' +
             '</div><p>&nbsp;</p>';
             */
+
+
+angular.module('roar').controller('TextController', ['$scope','Collection','config','$stateParams',
+  function($scope, Collection, config, $stateParams){
+    var config = $scope.$parent.config || $scope.$parent.$parent.config;
+    var pId = $stateParams.pId;
+    var tree = Collection(pId);
+    $scope.tree = tree;
+    var roarevent = Collection(config.id);
+    roarevent.$bindTo($scope, 'roarevent');
+$scope.config = config;
+
+
+}])
+.controller('ClaimWidgetController', ['$scope', 'Collection', 'config',
+function($scope, Collection, config){
+  var cwc = this;
+
+  var config = $scope.$parent.config || $scope.$parent.$parent.config;
+  var roarevent = Collection(config.id);
+  roarevent.$loaded().then(function(data){
+    $scope.roarevent = data;
+    $scope.sets = [];
+    angular.forEach(data.roarlist, function(id, key){
+      Collection(id).$loaded().then(function(claimpaper){
+        $scope.sets.push(claimpaper.claims);
+      });
+    });
+    // cwc.claimset = data.claims;
+  });
+  //roarevent.$bindTo($scope, 'roarevent');
+  $scope.onSubmit = function(){
+    //something
+  };
+  $scope.setwatcher = function(inputvalue, index){
+      var innumber = parseInt(inputvalue.slice(0,inputvalue.indexOf('\.')));
+      if(index + 1 === innumber){
+        cwc.claimsets[index].$valid = true;
+      }
+      else{
+        cwc.claimsets[index].$error();
+      }
+  };
+  $scope.sortSet = function(node){
+    var claimset = node.claims;
+    var newarray = [];
+    angular.forEach(claimset, function(claim, key){
+       var num = parseInt(claim.match(/\d+(?=\.)/)[0]);
+        newarray[num - 1] = claim;
+    });
+    node.claims = newarray;
+  };
+  $scope.statustest = function (input) {
+        var status = new RegExp(/\((\w+(\s\w+)*)\)/);
+            if (status.test(input) !== false) {
+                var match = input.match(status);
+                return match[1];
+            } else {
+                return null;
+            }
+        };
+$scope.num = function(input) {
+          if(angular.isString(input)){
+            var p = input.slice(0, input.indexOf('.'));
+
+                return p || input;
+          }else{
+            return '-';
+          }
+
+            };
+
+          $scope.prent =  function(input) {
+                if(angular.isString(input)){
+                  var dependencytest = new RegExp(/\sof\sc[li]aim\s\d+,?\s/ig);
+                var idref = input.match(dependencytest);
+                var id;
+                if (idref !== null) {
+                    var id = idref[0].replace(/\D/ig, '');
+                }
+
+                return id;
+                }else{
+                  return -1;
+                }
+            };
+          $scope.addClaim = function(index, node){
+              var newtext = '' + (parseInt(index) + 1) + '. The claim of claim ' + index + ', wherein the text is self-referential.';
+              node.claims.unshift(newtext);
+              $scope.sortSet(node);
+          };
+          $scope.checkValid = function(index, node){
+              return alertify.error('invalid!');
+          };
+}]);
+
+
+/**
+ * we copied most of the 'element' scenario dsl so we can keep the old actions
+ * and also add the 'enter' and modified 'html' actions.
+ * @see https://github.com/angular/angular.js/blob/master/src/ngScenario/dsl.js
+ * @see http://stackoverflow.com/questions/12575199/how-to-test-a-contenteditable-field-based-on-a-td-using-angularjs-e2e-testing
+ *
+ * Usage:
+ *    element(selector, label).count() get the number of elements that match selector
+ *    element(selector, label).click() clicks an element
+ *    element(selector, label).mouseover() mouseover an element
+ *    element(selector, label).mousedown() mousedown an element
+ *    element(selector, label).mouseup() mouseup an element
+ *    element(selector, label).query(fn) executes fn(selectedElements, done)
+ *    element(selector, label).{method}() gets the value (as defined by jQuery, ex. val)
+ *    element(selector, label).{method}(value) sets the value (as defined by jQuery, ex. val)
+ *    element(selector, label).{method}(key) gets the value (as defined by jQuery, ex. attr)
+ *    element(selector, label).{method}(key, value) sets the value (as defined by jQuery, ex. attr)
+ *    element(selector, label).enter(value) sets the text if the element is contenteditable
+ */
+/*angular.scenario.dsl('element', function() {
+  var KEY_VALUE_METHODS = ['attr', 'css', 'prop'];
+  var VALUE_METHODS = [
+    'val', 'text', 'html', 'height', 'innerHeight', 'outerHeight', 'width',
+    'innerWidth', 'outerWidth', 'position', 'scrollLeft', 'scrollTop', 'offset'
+  ];
+  var chain = {};
+
+  chain.count = function() {
+    return this.addFutureAction("element '" + this.label + "' count", function($window, $document, done) {
+      try {
+        done(null, $document.elements().length);
+      } catch (e) {
+        done(null, 0);
+      }
+    });
+  };
+
+  chain.click = function() {
+    return this.addFutureAction("element '" + this.label + "' click", function($window, $document, done) {
+      var elements = $document.elements();
+      var href = elements.attr('href');
+      var eventProcessDefault = elements.trigger('click')[0];
+
+      if (href && elements[0].nodeName.toUpperCase() === 'A' && eventProcessDefault) {
+        this.application.navigateTo(href, function() {
+          done();
+        }, done);
+      } else {
+        done();
+      }
+    });
+  };
+
+  chain.dblclick = function() {
+    return this.addFutureAction("element '" + this.label + "' dblclick", function($window, $document, done) {
+      var elements = $document.elements();
+      var href = elements.attr('href');
+      var eventProcessDefault = elements.trigger('dblclick')[0];
+
+      if (href && elements[0].nodeName.toUpperCase() === 'A' && eventProcessDefault) {
+        this.application.navigateTo(href, function() {
+          done();
+        }, done);
+      } else {
+        done();
+      }
+    });
+  };
+
+  chain.mouseover = function() {
+    return this.addFutureAction("element '" + this.label + "' mouseover", function($window, $document, done) {
+      var elements = $document.elements();
+      elements.trigger('mouseover');
+      done();
+    });
+  };
+
+  chain.mousedown = function() {
+      return this.addFutureAction("element '" + this.label + "' mousedown", function($window, $document, done) {
+        var elements = $document.elements();
+        elements.trigger('mousedown');
+        done();
+      });
+    };
+
+  chain.mouseup = function() {
+      return this.addFutureAction("element '" + this.label + "' mouseup", function($window, $document, done) {
+        var elements = $document.elements();
+        elements.trigger('mouseup');
+        done();
+      });
+    };
+
+  chain.query = function(fn) {
+    return this.addFutureAction('element ' + this.label + ' custom query', function($window, $document, done) {
+      fn.call(this, $document.elements(), done);
+    });
+  };
+
+  angular.forEach(KEY_VALUE_METHODS, function(methodName) {
+    chain[methodName] = function(name, value) {
+      var args = arguments,
+          futureName = (args.length == 1)
+              ? "element '" + this.label + "' get " + methodName + " '" + name + "'"
+              : "element '" + this.label + "' set " + methodName + " '" + name + "' to " + "'" + value + "'";
+
+      return this.addFutureAction(futureName, function($window, $document, done) {
+        var element = $document.elements();
+        done(null, element[methodName].apply(element, args));
+      });
+    };
+  });
+
+  angular.forEach(VALUE_METHODS, function(methodName) {
+    chain[methodName] = function(value) {
+      var args = arguments,
+          futureName = (args.length == 0)
+              ? "element '" + this.label + "' " + methodName
+              : futureName = "element '" + this.label + "' set " + methodName + " to '" + value + "'";
+
+      return this.addFutureAction(futureName, function($window, $document, done) {
+        var element = $document.elements();
+        done(null, element[methodName].apply(element, args));
+      });
+    };
+  });
+
+  // =============== These are the methods ================ \\
+  chain.enter = function(value) {
+    return this.addFutureAction("element '" + this.label + "' enter '" + value + "'", function($window, $document, done) {
+      var element = $document.elements()
+      if (element.is('[contenteditable=""]')
+          || (element.attr('contenteditable')
+              && element.attr('contenteditable').match(/true/i))) {
+        element.text(value)
+        element.trigger('input')
+      }
+      done()
+    })
+  }
+
+  chain.html = function(value) {
+    var args = arguments,
+        futureName = (args.length == 0)
+          ? "element '" + this.label + "' html"
+          : futureName = "element '" + this.label + "' set html to '" + value + "'";
+    return this.addFutureAction(futureName, function($window, $document, done) {
+      var element = $document.elements();
+      element.html.apply(element, args)
+      if (args.length > 0
+          && (element.is('[contenteditable=""]')
+              || (element.attr('contenteditable')
+                  && element.attr('contenteditable').match(/true/i)))) {
+        element.trigger('input')
+      }
+      done(null, element.html.apply(element, args));
+    });
+  };
+
+  return function(selector, label) {
+    this.dsl.using(selector, label);
+    return chain;
+  };
+});
+*/
 
 angular.module('llp.pdf', ['LocalStorageModule'])
     .config(["localStorageServiceProvider", function(localStorageServiceProvider) {
