@@ -2,7 +2,7 @@
 
 
 var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp.parsetsv','roar',
-      'LocalStorageModule', 'firebase', 'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'toastr', 'mentio', 'diff', 'angularCSS', 'checklist-model', 'angular-md5', 'angular.filter', 'ngFileUpload'
+      'LocalStorageModule', 'firebase', 'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'toastr', 'mentio', 'diff', 'angularCSS', 'checklist-model', 'angular-md5', 'angular.filter', 'ngFileUpload','angularFileUpload','pageslide-directive'
 ]).config(["dashboardProvider", "localStorageServiceProvider", function(dashboardProvider, localStorageServiceProvider) {
 
     localStorageServiceProvider.setPrefix('adf.getphd');
@@ -2916,7 +2916,6 @@ angular.module('llp.parsetsv', [])
         };
     }]);
 
-angular.module("adf.widget.getphd");
 
 /*!
  * jQuery twitter bootstrap wizard plugin
@@ -2937,7 +2936,7 @@ var bootstrapWizardCreate = function(element, options) {
 	var $settings = $.extend({}, $.fn.bootstrapWizard.defaults, options);
 	var $activeTab = null;
 	var $navigation = null;
-
+	
 	this.rebindClick = function(selector, fn)
 	{
 		selector.unbind('click', fn).bind('click', fn);
@@ -3167,7 +3166,7 @@ $.fn.bootstrapWizard.defaults = {
 	onPrevious:       null,
 	onLast:           null,
 	onFirst:          null,
-	onTabChange:      null,
+	onTabChange:      null, 
 	onTabClick:       null,
 	onTabShow:        null
 };
@@ -3515,7 +3514,7 @@ return deferred.resolve(files);
 }]);
 
 
-angular.module('llp.extract',[]).factory("extract", ["$q", function($q) {
+  angular.module("llp.extract",[]).factory("extract", ["$q", function($q) {
     function unzip(zipfile, apnum) {
         //var rootstring = zipfile.name.slice(0, zipfile.name.indexOf('.'));
 
@@ -3613,7 +3612,7 @@ angular.module('llp.extract',[]).factory("extract", ["$q", function($q) {
 }]);
 
 jQuery.event.props.push("dataTransfer");
-app.directive("dropFiles", [function () {
+angular.module("llp.extract").directive("dropFiles", [function () {
         var linkFn = function ($scope, $element, $attrs, ctrl) {
             var extractFiles = function (e) {
                 //debugger;

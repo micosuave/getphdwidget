@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp.parsetsv','roar',
-      'LocalStorageModule', 'firebase', 'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'toastr', 'mentio', 'diff', 'angularCSS', 'checklist-model', 'angular-md5', 'angular.filter', 'ngFileUpload'
+      'LocalStorageModule', 'firebase', 'xeditable', 'ui.tree', 'ngAnimate', 'ngAnnotateText', 'ngDialog', 'ngSanitize', 'pdf', 'toastr', 'mentio', 'diff', 'angularCSS', 'checklist-model', 'angular-md5', 'angular.filter', 'ngFileUpload','angularFileUpload','pageslide-directive'
 ]).config(function(dashboardProvider, localStorageServiceProvider) {
 
     localStorageServiceProvider.setPrefix('adf.getphd');
