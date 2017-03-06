@@ -65,7 +65,7 @@
 </small>
 </div>
 </h4>
-<div class="card card-block clearfix img img-hover img-shadow" collection="{{roarevent.id}}" style="z-index:1;position:absolute;left:99.5%;top:0;" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;" dragable>
+<div class="card card-block clearfix img img-hover img-shadow" collection="{{roarevent.id}}" style="z-index:1;position:absolute;left:99.5%;top:0;min-width:500px" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;" dragable>
 
   <h6>ID: {{collection.$id}}</h6>
   <p class="" clipboad text="{{'https://lexspace.net/files/uploads/'+collection.$id+'.html'}}" onsuccess="alertify.success('copied')">{{'https://lexspace.net/files/uploads/'+collection.$id+'.html'}}</p>
@@ -76,7 +76,7 @@
           <label for="dashboardTitle" style="color: #006699">Title</label>
           <input type="text" class="form-control" id="dashboardTitle" ng-model="collection.title" required>
         </div>
-        
+
         <div class="form-group col-sm-6">
           <label style="color: #006699">Style</label><br>
           <select ng-model="collection.styleClass" ng-options="class.value as class.label for class in $root.ROARCLASSES"></select>
@@ -109,7 +109,7 @@
           <label for="description" style="color: #006699">Description</label><br>
           <textarea type="text" class="form-control" id="description" ng-model="collection.description" ng-model-options="{updateOn: 'blur'}"></textarea>
         </div>
-   
+
         <div class="form-group">
           <label for="url" style="color: #006699">URL</label><br>
           <input type="text" style="width: 100%" ng-model="collection.media" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
@@ -129,14 +129,14 @@
         <input type="text" style="width: 100%" ng-model="menu.title" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"><a class="fa fa-plus text-success" ng-click="menu.items.push(collection.id)"></a>
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="menuitem in menu.items">
-            <input type="text" style="width: 100%" ng-model="menuitem"  placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"> 
+            <input type="text" style="width: 100%" ng-model="menuitem"  placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
           </li>
         </ul>
         </li></ul></div>
-      
+
  <!--<text-size-slider min="8" max="38" units="px" step="2" value="8"></text-size-slider>-->
 </div>
-        
+
 <div class="col-sm-4" style="max-height:175px;">
   <roar-event id="{{roarevent.$id}}" style="max-height:175px;"></roar-event>
 

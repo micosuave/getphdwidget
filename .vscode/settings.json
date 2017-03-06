@@ -1,6 +1,6 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "editor.wrappingColumn": 180,
+    "editor.wordWrapColumn": 180,
     "eslint.enable": false,
     "jscs.enable": false,
     "tslint.enable": false
