@@ -68,7 +68,7 @@
 <div class="card card-block clearfix img img-hover img-shadow" collection="{{roarevent.id}}" style="z-index:1;position:absolute;left:99.5%;top:0;min-width:500px" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;" dragable>
 
   <h6>ID: {{collection.$id}}</h6>
-  <p class="" clipboad text="{{'https://lexspace.net/files/uploads/'+collection.$id+'.html'}}" onsuccess="alertify.success('copied')">{{'https://lexspace.net/files/uploads/'+collection.$id+'.html'}}</p>
+  <p class="" clipboad text="{{'/files/uploads/'+collection.$id+'.html'}}" onsuccess="alertify.success('copied')">{{'/files/uploads/'+collection.$id+'.html'}}</p>
 
   <form role="form" name="form" ng-submit="collection.$save()">
       <div class="col-sm-8">
@@ -117,6 +117,14 @@
        <div class="form-group">
          <label for="thumbnail" style="color: #006699">Thumbnail</label><br>
          <input type="text" style="width: 100%" ng-model="collection.thumbnail" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
+      </div>
+      <div class="form-group">
+          <label for="long_cite" style="color: #006699">Long Citation</label><br>
+          <input type="text" style="width: 100%" ng-model="collection.citation" placeholder="Long Citation" ng-model-options="{updateOn: 'blur'}">
+       </div>
+       <div class="form-group">
+         <label for="short_cite" style="color: #006699">Short Citation</label><br>
+         <input type="text" style="width: 100%" ng-model="collection.short_cite" placeholder="Short Citation" ng-model-options="{updateOn: 'blur'}">
       </div>
      <div class="form-group"><label for="roarlist" style="color: #006699">Linked Docs</label><br>
 
