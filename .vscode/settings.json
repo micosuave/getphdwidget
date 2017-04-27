@@ -3,5 +3,15 @@
     "editor.wordWrapColumn": 180,
     "eslint.enable": false,
     "jscs.enable": false,
-    "tslint.enable": false
+    "tslint.enable": false,
+    "angulardoc.repoId": "07a75b51-939d-4bea-ad25-9ddf99d82713",
+    "angulardoc.directoryFilter": [
+        "!typings",
+        "!node_modules",
+        "!.vscode"
+    ],
+    "angulardoc.fileFilter": [
+        "**/!(*.*spec).ts"
+    ],
+    "angulardoc.lastSync": 0
 }

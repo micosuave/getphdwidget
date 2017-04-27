@@ -11,7 +11,7 @@
       </fieldset>
       <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag">&nbsp;<a ng-click="getRelated(match)">{{match}}</a></label></p>
       <ul class="" uib-collapse="!poodle">
-       <!-- <li ng-repeat="(key, p) in roarevent.roarlist" ffbase="{{key}}"  class="btn rlabel btn-{{item.styleClass}} badger badger-{{item.styleClass}}"  data-badger="{{item.rid}}" ng-href="{{'https://lexspace.net/files/uploads/'+key+'.html'}}" pop>
+       <!-- <li ng-repeat="(key, p) in roarevent.roarlist" ffbase="{{key}}"  class="btn rlabel btn-{{item.styleClass}} badger badger-{{item.styleClass}}"  data-badger="{{item.rid}}" ng-href="{{'./files/uploads/'+key+'.html'}}" pop>
            <!--<p>{{item.title}} <a pop ng-href="{{item.media}}" class=""><span class="showonhover fa fa-external-link-square"></span></a></p>-->
 
 

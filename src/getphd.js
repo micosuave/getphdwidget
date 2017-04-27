@@ -223,7 +223,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
                 skipEmptyLines: true
             };
             var uploader = $scope.uploader = new FileUploader({
-                url: '/upload' || 'https://lexspace.net/upload',
+                url: '/upload' || './upload',
                 autoUpload: true,
                 removeAfterUpload: true
             });
@@ -491,8 +491,8 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
                     $scope.response = resp.data;
                     var col = Collection(config.appnum);
                     $scope.application = col;
-                    var googleurl = 'https' + '://' + 'lexspace.net' + '/proxy/storage.googleapis.com/uspto-pair/applications/' + config.appnum + '.zip';
-                    var reedtechurl = 'https' + '://' + 'lexspace.net' + '/proxy/patents.reedtech.com/downloads/pair/' + config.appnum + '.zip';
+                    var googleurl = $location.protocol() + '://' + location.host + '/proxy/storage.googleapis.com/uspto-pair/applications/' + config.appnum + '.zip';
+                    var reedtechurl = $location.protocol()+ '://' + location.host + '/proxy/patents.reedtech.com/downloads/pair/' + config.appnum + '.zip';
                     var optionsr = {
                         method: 'HEAD',
                         url: reedtechurl
@@ -503,7 +503,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
                     };
                     $scope.info = {
                         video: {
-                            url: 'https://lexspace.net/files/public/charm.webm',
+                            url: './files/public/charm.webm',
                             title: 'PhD Tutorial',
                             tooltip: 'Click to view tutorial'
                         }
@@ -708,7 +708,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
                 //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
                 var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
 
-                var skope = angular.element('<iframe/>').attr('height', '680px').attr('src', 'https://lexspace.net/files/public/uspto/' + $scope.phd.appnum + '/' + $scope.phd.appnum + '-image_file_wrapper/' + imgrecord['Filename']);
+                var skope = angular.element('<iframe/>').attr('height', '680px').attr('src', './files/public/uspto/' + $scope.phd.appnum + '/' + $scope.phd.appnum + '-image_file_wrapper/' + imgrecord['Filename']);
 
                 angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
                 $('.issuedocpanel').draggable({
@@ -754,7 +754,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
                 Collection(dd).$ref().set(patentdigest);
 
                 phd.appnum = appnum;
-                phd.media = 'https://lexspace.net/patents/US' + phd.patent.id + '/preview';
+                phd.media = './patents/US' + phd.patent.id + '/preview';
                 phd.title = 'PhD for ' + $filter('number')(phd.patent.id);
                 phd.description = 'USSN ' + phd.application['Application Number'];
                 phd.styleClass = 'Applicant';
@@ -857,7 +857,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
                 $http.get('/getphd/patents/' + patentnumber).then(function(resp) {
                     var patent = resp.data;
                     patent.number = patentnumber;
-                    patent.media = 'https://lexspace.net/files/public/uspto/patents/'+patentnumber+'/' +patentnumber+'.pdf';
+                    patent.media = './files/public/uspto/patents/'+patentnumber+'/' +patentnumber+'.pdf';
                     patent.filename = 'US' + patentnumber + '.pdf';
 
                     //patent.title = phdobj['Title of Invention'] || null;
@@ -872,7 +872,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
                     var roardate = maildate.toDateString();
                     var noatemplate = '<div class="container-fluid two-col-left">' +
                         '<div class="row two-col-left">' +
-                        '<div class="col-xs-4 col-sidebar"><a pop="true" src="https://lexspace.net/patents/US' + patent.number + '/preview"><img src="https://lexspace.net/patents/US' + patent.number + '/preview" class="img img-responsive img-shadow"/></a></div>' +
+                        '<div class="col-xs-4 col-sidebar"><a pop="true" src="./patents/US' + patent.number + '/preview"><img src="./patents/US' + patent.number + '/preview" class="img img-responsive img-shadow"/></a></div>' +
                         '<div class="col-xs-8 col-main"><div class="bs-callout bs-callout-NOA bs-callout-reverse"><h4>' + patent.title + '</h4><p>Filed ' + roardate + '</p><p>' + patent.abstract + '</p><cite>' + patent.filename + '&nbsp;&nbsp;<a pop="true" href="' + patent.media + '" target="fframe"><i class="fa fa-external-link"></i></a></cite></div></div>' +
                         '</div>' +
                         '</div>';
@@ -995,7 +995,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
         };
     }]).controller('AppController', ['$scope', 'FileUploader', function($scope, FileUploader) {
         var uploader = $scope.uploader = new FileUploader({
-            url: $scope.url || 'https://lexspace.net/upload',
+            url: $scope.url || './upload',
             autoUpload: true
         });
 

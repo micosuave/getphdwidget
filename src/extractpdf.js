@@ -106,7 +106,7 @@ app.factory("extractpdf", ["$q", function($q) {
             return $location.host() === 'localhost' ? ':8080' : '/proxy/'
         };
         var prefix = function(){
-            return 'https://lexspace.net/proxy/'
+            return './proxy/'
             //return $location.protocol() + '://' + $location.host() + porter();
         };
 

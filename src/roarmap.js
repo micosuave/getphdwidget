@@ -84,7 +84,7 @@ angular.module('roar',[])
           var n = d.getTime();
           roarevent.rows = [
                 {
-                  columns: [{cid:n+9,styleClass:'col-sm-6',widgets:[{ config: { height: "90vh", url: roarevent.media || 'https://lexspace.net' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'LexFrame', type: 'iframe', wid: n + 100 }]},
+                  columns: [{cid:n+9,styleClass:'col-sm-6',widgets:[{ config: { height: "90vh", url: roarevent.media || '.' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'LexFrame', type: 'iframe', wid: n + 100 }]},
                     { cid: n + 10, styleClass: 'col-sm-6', widgets: [{ config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'LexPad', type: 'ckwidget', wid: n + 1010 },{ config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'Metadata', type: 'metadata', wid: n + 101 }, { config: { id: 'PROMISE', height: '90vh' }, styleClass: roarevent.styleClass || 'btn-dark', title: 'Text', type: 'text', wid: n + 105 }] }
 
                   ]
@@ -202,17 +202,17 @@ angular.module('roar',[])
               roarevent.id = de;
               if ($location.host() === 'localhost') {
 
-                roarevent.ocrlink = 'https://lexspace.net/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                roarevent.ocrlink = './files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
 
                 roarevent.selflink = '/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                 roarevent.media = roarevent.ocrlink;
                 //  roarevent.media = '/files/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
               } else {
-                roarevent.ocrlink = 'https://lexspace.net/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                roarevent.ocrlink = './files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
 
-                roarevent.selflink = 'https://lexspace.net/files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                roarevent.selflink = './files/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
                 roarevent.media = roarevent.ocrlink;
-                //  roarevent.media = 'https://lexspace.net/files/public/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
+                //  roarevent.media = './files/public/viewer/web/viewer.html?file=%2Ffiles/public/uspto/' + appnumsubstring + '/' + appnumsubstring + '-image_file_wrapper/' + filename;
               }
               roarevent.description = file['Document Description'] || null;
               roarevent.filename = file['Filename'] || null;
@@ -654,7 +654,7 @@ angular.module('roar',[])
          $patentsearch(null, {PNUM: refa}).then(function (patent) {
             $scope.p = patent;
           });
-          // $http.get('https://lexspace.net/proxy/lexspace.net/getphd/patents/' + ref).then(function (resp) {
+          // $http.get('./proxy/lexspace.net/getphd/patents/' + ref).then(function (resp) {
           //   $scope.p = resp.data;
           // });
         }
