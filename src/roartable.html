@@ -4,9 +4,9 @@
     <td>Index</td>
     <td>Title</td>
   </tr>
-  <tr ng-repeat="roarevent in roarevents | orderBy: ['rid'] : !maybe">
-    <td>{{$index}}</td>
-    <td>{{roarevent.rid}}</td>
+  <tr ng-repeat="roarevent in roarevents | orderBy: ['rid'] : maybe">
+    <td>{{$index + 1}}</td>
+    <td>-{{roarevent.rid}}-</td>
     <td>{{roarevent.title}}</td>
   </tr>
 </table>
