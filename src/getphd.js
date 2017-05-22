@@ -144,10 +144,29 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
             }
 
 
+        })
+        .widget('roartable', {
+          title: 'ROARtable',
+          description: 'ROARMAP in tabular form', 
+          templateUrl: '{widgetsPath}/getphd/src/roartable.html', 
+          controller: 'RoartableCtrl',
+          controllerAs: 'roartable',
+          frameless: false,
+          reload: false,
+          icon: 'fa-ge',
+          iconurl: 'img/logolong',
+          styleClass: 'primary panel panet-primary',
+          edit: {
+            templateUrl: '{widgetsPath}/getphd/src/roartableedit.html', 
+            controller: 'RoartableCtrl',
+            controllerAs: 'roartable', 
+            modalsize: 'lg',
+            reload: true
+          }
         });
 
 })
-
+.controller('RoartableCtrl',[function(){}])
 .controller('MainCtrl', ['Collection', 'extract', 'extractzip', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'PHD', 'localStorageService', 'extractpdf',  '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams', '$location', '$ACTIVEROAR', '$dashboards', '$interval', '$compile', '$templateCache', '$window', '$document', '$filter', 'ckstarter', 'ckender', '$firequeue', '$state',
         function(Collection, extract, extractzip, fileReader, $http, parseTSV, $roarmap, $q, $scope, PHD, localStorageService, extractpdf, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, $compile, $templateCache, $window, $document, $filter, ckstarter, ckender, $firequeue, $state) {
             var main = this;

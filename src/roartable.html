@@ -1,0 +1,12 @@
+<table collection="{{config.IDNUM}}"
+       roarevents="{{config.IDNUM}}">
+  <tr>
+    <td>Index</td>
+    <td>Title</td>
+  </tr>
+  <tr ng-repeat="roarevent in roarevents | orderBy: ['rid'] : !maybe">
+    <td>{{$index}}</td>
+    <td>{{roarevent.rid}}</td>
+    <td>{{roarevent.title}}</td>
+  </tr>
+</table>
