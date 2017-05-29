@@ -1,0 +1,46 @@
+<div ng-controller="FileUploadDirectiveCtrl as main">
+  <!--<div class="alert alert-info" ng-if="notconfigured()">Please configure the +getphd widget</div>-->
+  <!--<div ng-if="configured()" ng-bind-html="main.content"></div>-->
+  <!--<button class="btn btn-glass fa fa-print" ng-click="publish(phd)" style="position:absolute;top:-1rem;right:1rem;z-index:1000;" ></button>-->
+  <div class="card card-primary card-block btn-glass drop-target"
+       drop-files="handleFiles(files)"
+       nv-file-drop=""
+       style="border: 2px dashed blue;margin: 5px;"
+       uploader="uploader">
+    <!--<button angular-ripple=""
+              class="row btn btn-glass btn-primary img img-rounded"
+              ng-class="{'btn-success': (main.progress == 100),'btn-danger':(main.progress === 'failed')}"
+              ng-click="main.toggle()"
+              style="width:100%;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:center;flex-direction:row;">
+        <uib-progressbar class="btn-glass fa fa-3x active stripped"
+                         ng-class="{'active':(main.progress &lt; 100)}"
+                         ng-if="main.progress"
+                         style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch;"
+                         type="{{main.progresstype}}"
+                         value="main.progress"></uib-progressbar>
+        <i class="fa fa-upload fa-3x"
+           style="color:white;text-shadow:0 0 1px rgba(0,0,0,0.5);">{{main.progress}}
+        <span ng-show="main.progress">%</span></i>
+        <img class="img img-rounded pull-right"
+             ng-if="!main.progress"
+             src="https://lexlab.firebaseapp.com/img/GoldLogoLong.svg"
+             style="max-height:100px;" />
+        <uib-progressbar class="btn-glass fa fa-3x active striped"
+                         ng-class="{'active':(application.complete &lt; 100)}"
+                         ng-if="main.showprog"
+                         style="height:40px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:center;justify-content:space-between;flex-flow:row nowrap;align-self:stretch;"
+                         type="{{application.status}}"
+                         value="application.complete">
+          <h4>
+            <label class="label label-{{application.status}}"
+                   style="color:white;text-shadow:0 0 1px rgba(0,0,0,0.5);">{{application.complete}}%</label>
+            <label class="label label-{{application.status}}"
+                   style="color:white;text-shadow:0 0 1px rgba(0,0,0,0.5);">{{application.downloaded | bytes}} / {{application.total | bytes}}</label>
+            <label class="label label-{{application.status}}"
+                   style="color:white;text-shadow:0 0 1px rgba(0,0,0,0.5);">{{application.eta}}</label>
+          </h4>
+        </uib-progressbar>
+        <!== <div class="fa fa-download fa-5x pull-right"></div> -->
+    <!--</button>-->
+  </div>
+</div>

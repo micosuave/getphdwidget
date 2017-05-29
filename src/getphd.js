@@ -167,6 +167,125 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
 
 })
 .controller('RoartableCtrl',[function(){}])
+.directive('fileUploadDirective',[ function(){
+  return {
+    restrict: 'EA',
+    templateUrl: '{widgetsPath}/getphd/src/fileuploaddirective.html',
+    controller: 'FileUploadDirectiveCtrl',
+    link: function($scope, $elem, $attr, $ctrl){
+      
+    }
+  }
+}])
+.controller('FileUploadDirectiveCtrl', ['FileUploader','$scope', function(FileUploader, $scope){
+  var main = this;
+  var uploader = $scope.uploader = new FileUploader({
+                url: '/upload' || './upload',
+                autoUpload: true,
+                removeAfterUpload: true
+            });
+
+            // FILTERS
+/*
+            uploader.filters.push({
+                name: 'customFilter',
+                fn: function(item /*{File|FileLikeObject}*, options) {
+                    var filename = item.filename || item.name;
+
+                    return (filename.indexOf('.zip') > -1 && filename.indexOf('(') == -1 && filename.indexOf(' ') == -1);
+                }
+            });
+*/
+            // CALLBACKS
+
+            uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/ , filter, options) {
+                console.info('onWhenAddingFileFailed', item, filter, options);
+            };
+            uploader.onAfterAddingFile = function(fileItem) {
+                console.info('onAfterAddingFile', fileItem);
+            };
+            uploader.onAfterAddingAll = function(addedFileItems) {
+                console.info('onAfterAddingAll', addedFileItems);
+            };
+            uploader.onBeforeUploadItem = function(item) {
+
+                console.info('onBeforeUploadItem', item);
+                main.progress = 0;
+                main.bufferedfile = item;
+                console.log(item);
+                alertify.log('starting upload...');
+
+            };
+            uploader.onProgressItem = function(fileItem, progress) {
+                main.progress = progress;
+                if (progress === 10) {
+                    toastr.info('fetching remote resources...');
+                }
+                if (progress === 30) {
+                    toastr.info('loading relevant data schemas...');
+                }
+                if (progress === 55) {
+                    toastr.warning('compiling templates...');
+                }
+                if (progress === 75) {
+                    toastr.warning('starting the AI engine...')
+                }
+
+                if (progress <= 40) {
+                    main.progresstype = 'danger';
+                } else if (progress > 40 && progress < 66) {
+                    main.progresstype = 'warning';
+                } else if (progress > 97) {
+                    main.progresstype = 'success';
+                } else {
+                    main.progresstype = 'info';
+                }
+                console.info('onProgressItem', fileItem, progress);
+            };
+            uploader.onProgressAll = function(progress) {
+                console.info('onProgressAll', progress);
+            };
+            uploader.onSuccessItem = function(fileItem, response, status, headers) {
+                console.info('onSuccessItem', fileItem, response, status, headers);
+                alertify.success(response);
+                alertify.success('File uploaded!');
+
+                $rootScope.$broadcast('UPLOADCOMPLETE', response);
+            };
+            uploader.onErrorItem = function(fileItem, response, status, headers) {
+                console.info('onErrorItem', fileItem, response, status, headers);
+                main.progress = 'failed';
+                main.progresstype = 'danger';
+            };
+            uploader.onCancelItem = function(fileItem, response, status, headers) {
+                console.info('onCancelItem', fileItem, response, status, headers);
+            };
+            uploader.onCompleteItem = function(fileItem, response, status, headers) {
+                console.info('onCompleteItem', fileItem, response, status, headers);
+                alertify.success(response);
+                $rootScope.$broadcast('UPLOADCOMPLETE');
+
+            };
+            uploader.onCompleteAll = function() {
+                console.info('onCompleteAll');
+                $rootScope.$broadcast('UPLOADCOMPLETE');
+            };
+
+            console.info('uploader', uploader);
+            //main.progressbarfn = progressfunction(length);
+
+            function progressfunction(length) {
+                main.n = 0;
+                main.progresstwo = 0;
+                main.progressdisplay = 1;
+                main.extractedfiles = length;
+                $interval(function() {
+                    main.progressdisplay++;
+                }, 200, length);
+
+
+            };
+}])
 .controller('MainCtrl', ['Collection', 'extract', 'extractzip', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'PHD', 'localStorageService', 'extractpdf',  '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams', '$location', '$ACTIVEROAR', '$dashboards', '$interval', '$compile', '$templateCache', '$window', '$document', '$filter', 'ckstarter', 'ckender', '$firequeue', '$state',
         function(Collection, extract, extractzip, fileReader, $http, parseTSV, $roarmap, $q, $scope, PHD, localStorageService, extractpdf, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, $compile, $templateCache, $window, $document, $filter, ckstarter, ckender, $firequeue, $state) {
             var main = this;

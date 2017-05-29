@@ -168,6 +168,127 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
 
 }])
 .controller('RoartableCtrl',[function(){}])
+.directive('fileUploadDirective',[ function(){
+  return {
+    restrict: 'E',
+    templateUrl: '{widgetsPath}/getphd/src/fileuploaddirective.html',
+    controller: 'FileUploadDirectiveCtrl',
+    link: function($scope, $elem, $attr, $ctrl){
+      
+    }
+  }
+}])
+.controller('FileUploadDirectiveCtrl', ['FileUploader', function(FileUploader){
+  var main = this;
+  var uploader = $scope.uploader = new FileUploader({
+                url: '/upload' || './upload',
+                autoUpload: true,
+                removeAfterUpload: true
+            });
+
+            // FILTERS
+/*
+            uploader.filters.push({
+                name: 'customFilter',
+                fn: function(item /*{File|FileLikeObject}*, options) {
+                    var filename = item.filename || item.name;
+
+                    return (filename.indexOf('.zip') > -1 && filename.indexOf('(') == -1 && filename.indexOf(' ') == -1);
+                }
+            });
+*/
+            // CALLBACKS
+
+            uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/ , filter, options) {
+                console.info('onWhenAddingFileFailed', item, filter, options);
+                alertify.alert('The file\'s name must end with ".zip" and consist only of numbers');
+                this.queue = null;
+            };
+            uploader.onAfterAddingFile = function(fileItem) {
+                console.info('onAfterAddingFile', fileItem);
+            };
+            uploader.onAfterAddingAll = function(addedFileItems) {
+                console.info('onAfterAddingAll', addedFileItems);
+            };
+            uploader.onBeforeUploadItem = function(item) {
+
+                console.info('onBeforeUploadItem', item);
+                main.progress = 0;
+                main.bufferedfile = item;
+                console.log(item);
+                alertify.log('starting upload...');
+
+            };
+            uploader.onProgressItem = function(fileItem, progress) {
+                main.progress = progress;
+                if (progress === 10) {
+                    toastr.info('fetching remote resources...');
+                }
+                if (progress === 30) {
+                    toastr.info('loading relevant data schemas...');
+                }
+                if (progress === 55) {
+                    toastr.warning('compiling templates...');
+                }
+                if (progress === 75) {
+                    toastr.warning('starting the AI engine...')
+                }
+
+                if (progress <= 40) {
+                    main.progresstype = 'danger';
+                } else if (progress > 40 && progress < 66) {
+                    main.progresstype = 'warning';
+                } else if (progress > 97) {
+                    main.progresstype = 'success';
+                } else {
+                    main.progresstype = 'info';
+                }
+                console.info('onProgressItem', fileItem, progress);
+            };
+            uploader.onProgressAll = function(progress) {
+                console.info('onProgressAll', progress);
+            };
+            uploader.onSuccessItem = function(fileItem, response, status, headers) {
+                console.info('onSuccessItem', fileItem, response, status, headers);
+                alertify.success(response);
+                alertify.success('File uploaded!');
+
+                $rootScope.$broadcast('UPLOADCOMPLETE', response);
+            };
+            uploader.onErrorItem = function(fileItem, response, status, headers) {
+                console.info('onErrorItem', fileItem, response, status, headers);
+                main.progress = 'failed';
+                main.progresstype = 'danger';
+            };
+            uploader.onCancelItem = function(fileItem, response, status, headers) {
+                console.info('onCancelItem', fileItem, response, status, headers);
+            };
+            uploader.onCompleteItem = function(fileItem, response, status, headers) {
+                console.info('onCompleteItem', fileItem, response, status, headers);
+                alertify.success(response);
+                $rootScope.$broadcast('UPLOADCOMPLETE');
+
+            };
+            uploader.onCompleteAll = function() {
+                console.info('onCompleteAll');
+                $rootScope.$broadcast('UPLOADCOMPLETE');
+            };
+
+            console.info('uploader', uploader);
+            //main.progressbarfn = progressfunction(length);
+
+            function progressfunction(length) {
+                main.n = 0;
+                main.progresstwo = 0;
+                main.progressdisplay = 1;
+                main.extractedfiles = length;
+                $interval(function() {
+                    main.progressdisplay++;
+                }, 200, length);
+
+
+            };
+}])
 .controller('MainCtrl', ['Collection', 'extract', 'extractzip', 'fileReader', '$http', 'parseTSV', '$roarmap', '$q', '$scope', 'PHD', 'localStorageService', 'extractpdf',  '$patentsearch', '$log', 'FileUploader', '$publish', '$pdftotxt', '$timeout', 'toastr', '$rootScope', '$stateParams', '$location', '$ACTIVEROAR', '$dashboards', '$interval', '$compile', '$templateCache', '$window', '$document', '$filter', 'ckstarter', 'ckender', '$firequeue', '$state',
         function(Collection, extract, extractzip, fileReader, $http, parseTSV, $roarmap, $q, $scope, PHD, localStorageService, extractpdf, $patentsearch, $log, FileUploader, $publish, $pdftotxt, $timeout, toastr, $rootScope, $stateParams, $location, $ACTIVEROAR, $dashboards, $interval, $compile, $templateCache, $window, $document, $filter, ckstarter, ckender, $firequeue, $state) {
             var main = this;
@@ -1533,6 +1654,7 @@ $templateCache.put("{widgetsPath}/getphd/src/claimtreetab.html","<blockquote cit
 $templateCache.put("{widgetsPath}/getphd/src/edit.html","<form role=form ng-submit=collection.$save()><fieldset class=\"material Applicant\"><input type=text placeholder=1234567 ng-model=config.PNUM ng-blur=p.remoteconfig(config.PNUM);cupdate(config);><hr><label>Enter a Patent Number</label></fieldset><br><fieldset class=\"material Petition\"><input type=text placeholder=YYYY ng-model=config.IPAYEAR><hr><label>Enter a Published Patent Application YEAR</label></fieldset><fieldset class=\"material Petition\"><input type=text placeholder=1234567 ng-model=config.IPANUM ng-blur=cupdate(config);><hr><label>Enter a Published Patent Application Number</label></fieldset></form>");
 $templateCache.put("{widgetsPath}/getphd/src/editfulltext.html","<form role=form><div class=form-group ui-tree><label for=draftid>Select Document</label><ol ui-tree-nodes ng-model=tree.roarlist><li ui-tree-node ng-repeat=\"node in tree.roarlist\" ng-include=\"\'quicklinkid\'\" node={{node}} data-collapsed=true></li></ol><script type=text/ng-template id=quicklinkid><div class=\"card card-rounded\" ng-class=\"{\'text-success\': (config.id === node.id)}\"> <a class=\"btn btn-xs\" ng-click=\"toggle(this)\" ng-if=\"node.roarlist\" style=\"\"><span class=\"fa \" ng-class=\"{\'fa-chevron-right\': collapsed, \'fa-chevron-down\': !collapsed}\" style=\"color:steelblue;transition:all 0.25s ease;\"></span></a> <a ng-click=\"config.id = node.id;$close();\" ng-class=\"{\'text-success\': (config.id === node.id)}\" class=\"\"><span class=\"fa fa-stack fa-pull-left fa-border\"><span class=\"fa fa-stack-2x fa-file-o\"><span class=\"fa fa-stack-1x\" style=\"font-size: 10px;vertical-align:bottom;\">{{node.rid}}</span></span></span>&nbsp;&nbsp;{{node.title}}<br><small class=\"text-muted\">{{node.date | date}}</small></a> </div> <ol ui-tree-nodes=\"\" ng-model=\"node.roarlist\" ng-class=\"{hidden: collapsed}\" style=\"\"> <li class=\"\" ng-repeat=\"(key, node) in node.roarlist\" ui-tree-node ng-include=\"\'quicklinkid\'\" style=\"padding-right:0rem;padding-bottom:0.1rem;\" node=\"{{node.id || node.$id || node.$value || node}}\" data-collapsed=\"true\"> </li> </ol></script></div></form>");
 $templateCache.put("{widgetsPath}/getphd/src/editgallery.html","<form role=form><div class=form-group><label for=sample>Interval, in milliseconds:</label> <input type=number class=form-control ng-model=config.interval><br>Enter a negative number or 0 to stop the interval.</div><div class=form-group><label>Disable Slide Looping</label> <input type=checkbox ng-model=config.nowrap></div><div class=form-group><label>Pause on Hover?</label> <input type=checkbox ng-model=config.pauseonhover></div><div class=form-group><label>Disable Transition</label> <input type=checkbox ng-model=config.transition></div></form>");
+$templateCache.put("{widgetsPath}/getphd/src/fileuploaddirective.html","<div ng-controller=\"FileUploadDirectiveCtrl as main\"><div class=\"card card-primary card-block btn-glass drop-target\" drop-files=handleFiles(files) nv-file-drop style=\"border: 2px dashed blue;margin: 5px;\" uploader=uploader></div></div>");
 $templateCache.put("{widgetsPath}/getphd/src/fulltext.html","<doc-header class=\"container-fluid card two-col-right\" roarid={{roarevent.id}}></doc-header><div matches=matches getpdftext={{roarevent.$id}} pdf-data={{roarevent.$id}} roarevent=roarevent class=\"card card-block\"></div>");
 $templateCache.put("{widgetsPath}/getphd/src/gallery.html","<div style=\"min-height: 305px\"><uib-carousel interval=config.interval no-pause={{config.pauseonhover}} no-transition={{config.transition}} no-wrap={{config.nowrap}}><uib-slide ng-repeat=\"slide in gallery.slides\" active={slide.active} index=slide.index><img ng-src={{slide.media}} style=margin:auto;><div class=carousel-caption><h4>Slide {{slide.$index}}</h4><p>{{slide.title}}</p></div></uib-slide></uib-carousel></div>");
 $templateCache.put("{widgetsPath}/getphd/src/metadata.html","<small editable-text=config.id ng-bind=config.id onaftersave=save(config)>{{config.id}}</small><div class=\"card card-block clearfix\" collection={{config.id}}><h6>ID: {{collection.$id}}</h6><p clipboad text=\"{{\'./files/uploads/\'+collection.$id+\'.html\'}}\" onsuccess=\"alertify.success(\'copied\')\">{{\'./files/uploads/\'+collection.$id+\'.html\'}}</p><form role=form name=form ng-submit=collection.$save()><div class=row><div class=col-sm-8><div class=form-group><label for=dashboardTitle style=\"color: #006699\">Title</label><input type=text class=form-control id=dashboardTitle ng-model=collection.title required></div><div class=row><div class=\"form-group col-sm-6\"><label style=\"color: #006699\">Style</label><br><select ng-model=collection.styleClass ng-options=\"class.value as class.label for class in $root.ROARCLASSES\"></select></div><div class=\"form-group col-sm-6\"><label style=\"color: #006699\">Document Code</label><br><input ng-model=collection.doccode uib-typeahead=\"code.code as code.label for code in DOCNAMES | filter:$viewValue | limitTo:8\" typeahead-wait-ms=100></div></div><div class=row><div class=\"form-group col-sm-6\"><label style=\"color: #006699\">Tags</label><br><input ng-model=collection.matches ng-list=,></div><div class=\"form-group col-sm-6\"><label style=\"color: #006699\">Icon</label><br><select name=icon ng-model=collection.icon ng-options=\"icon.value as icon.label for icon in $root.ICONS\"></select></div></div><div class=row><div class=\"form-group col-sm-6\"><label style=\"color: #006699\">ID#</label><br><input type=text ng-model=collection.rid placeholder=# ng-model-options=\"{updateOn: \'blur\'}\"></div><div class=\"form-group col-sm-6\"><label style=\"color: #006699\">Date</label><br><input type=text ng-model=collection.date placeholder=YYYY-MM-DD ng-pattern=dddd-dd-dd ng-model-options=\"{updateOn: \'blur\'}\"></div></div><div class=form-group><label for=description style=\"color: #006699\">Description</label><br><textarea type=text class=form-control id=description ng-model=collection.description ng-model-options=\"{updateOn: \'blur\'}\"></textarea></div><div class=form-group><label for=url style=\"color: #006699\">URL</label><br><input type=text style=\"width: 100%\" ng-model=collection.media placeholder=\"Path to URL\" ng-model-options=\"{updateOn: \'blur\'}\"></div><div class=form-group><label for=thumbnail style=\"color: #006699\">Thumbnail</label><br><input type=text style=\"width: 100%\" ng-model=collection.thumbnail placeholder=\"Path to URL\" ng-model-options=\"{updateOn: \'blur\'}\"></div></div><div class=col-sm-4><roar-event id={{config.id}}></roar-event><br><input type=submit class=\"btn btn-primary\"> <button class=\"btn btn-success\" ng-click=importFile(collection) ng-if=!collection.ocrlink>OCR</button><uib-progressbar class=\"active stripped\" ng-class=\"{\'active\':(main.progress < 100)}\" ng-if=progress value=progress style=height:20px;margin:auto;position:relative;display:flex;display:-webkit-flex;align-items:center;align-content:stetch;justify-content:stretch;flex-direction:row;align-self:stretch; type={{progresstype}}></uib-progressbar></div></div><div class=row><i class=\"fa {{collection.icon || \'fa-file-pdf-o\'}}\" editable-text=collection.icon e-uib-typeahead=\"icon.value as icon.label for icon in $root.ICONS | filter:$viewValue | limitTo:8\" e-uib-typeahead-wait-ms=100></i></div></form></div>");
