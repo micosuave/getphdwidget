@@ -1644,4 +1644,13 @@ collection.roarlist.forEach(function(v, i , a){
       $scope.report = resp.data
     });
   }
+}).directive('claimtreetabhtml', function(){
+  return {
+    restrict: 'EA',
+    templateUrl: '{widgetsPath}/getphd/src/claimtreetab.html',
+    scope: {
+      config: '='
+    },
+    link: function($scope, $element, $attr, $ctrl) {}
+  }
 });
