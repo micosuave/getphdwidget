@@ -127,8 +127,8 @@
          <input type="text" style="width: 100%" ng-model="collection.short_cite" placeholder="Short Citation" ng-model-options="{updateOn: 'blur'}">
       </div>
      <div class="form-group"><label for="roarlist" style="color: #006699">Linked Docs</label><br>
-
-     <ol><li ng-repeat="roareventid in collection.roarlist" style="float:left;">
+      <div smartpanel="{{collection.$id}}" collection="{{collection.$id}}"></div>
+     <ol style="height:300px;overflow-y:scroll;"><li ng-repeat="roareventid in collection.roarlist" style="float:left;">
        <roar-chip id="{{roareventid}}"></roar-chip></li></ol>
       </div>
         <div class="form-group"><label for="navmenu" style="color: #006699">Menus <a class="fa fa-plus" ng-click="collection.menus[0] = {title: 'Linked Documents', items: collection.roarlist}"></a></label><br>
