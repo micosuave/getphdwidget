@@ -50,7 +50,7 @@
         </div>
         <div dir-paginate="i in roarevents | itemsPerPage:25" pagination-id="clipboarder">
 
-            <roar-event id="{{i.$value}}" style="max-width:20%;width:20%;height: 175px;max-height:175px;float:left;position:relative;">
+            <roarevent id="{{i.$value}}" style="max-width:20%;width:20%;height: 175px;max-height:175px;float:left;position:relative;"></roarevent>
 <roar-grid config="\{id: {{roarevent.$id}}\}"></roar-grid>
 
   </div>
