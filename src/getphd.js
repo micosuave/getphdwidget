@@ -1103,13 +1103,13 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
                         stack: '.stacker',
                         handle: 'h4'
                     }).resizable();
-                    interact('.issuedocpanel')
+                    interact('.issuedocpanel',{ allowFrom: 'h4',)
   .draggable({
     onmove: window.dragMoveListener
   })
   .resizable({
-    preserveAspectRatio: true,
-    edges: { left: true, right: true, bottom: true, top: true }
+    preserveAspectRatio: false,
+    edges: { left: true, right: true, bottom: true, top: false }
   })
   .on('resizemove', function (event) {
     var target = event.target,

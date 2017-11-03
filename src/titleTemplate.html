@@ -5,7 +5,7 @@
 
 
     <div id="" uib-dropdown uib-keyboard-nav style="z-index:1000000;">
-      <a uib-dropdown-toggle class="btn btn-xs vcenter pull-left">
+      <a uib-dropdown-toggle class="btn btn-xs btn-default vcenter pull-left">
         <label class="fa fa-bars hovergold" style="cursor:pointer;filter:drop-shadow(0 0 2.5px rgba(0,0,0,0.5));"></label>
 
       </a>
@@ -24,16 +24,20 @@
           <a class="hovergold" style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" clipboard text="roarevent.media"
             on-copied="alertify.success('copied!');" on-error="alertify.error(err,'uh oh!')" onclick="alertify.success('copied!')"><i class="fa fa-link" style="margin:5px;"></i> COPY LINK</a>
         </li>
-        <li class="" uib-tooltip="COLLAPSE" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
+        <li class="" uib-tooltip="COPY LEXPAD ID" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
+          <a class="hovergold" style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" clipboard text="roarevent.$id"
+            on-copied="alertify.success('copied!');" on-error="alertify.error(err,'uh oh!')" onclick="alertify.success('copied!')"><i class="fa fa-info" style="margin:5px;"></i> COPY LEXPAD ID</a>
+        </li>
+        <!-- <li class="" uib-tooltip="COLLAPSE" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="collapse widget"
             ng-show="!isCollapsed" ng-click="roar.collapse();$('.issuedocpanel').css({'height':'auto'});isCollapsed = true"> <i class="fa fa-minus" style="margin:5px;"></i> COLLAPSE</a>
 
-        </li>
+        </li> 
         <li class="" uib-tooltip="EXPAND" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="expand widget"
             ng-show="isCollapsed" ng-click="roar.collapse();$('.issuedocpanel').css({'height':'auto'});isCollapsed = false"> <i class="fa fa-plus" style="margin:5px;"></i> EXPAND</a>
 
-        </li>
+        </li>-->
         <li class="" uib-tooltip="COPY TO CLIPBOARD" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="copy to clipboard"
             ng-click="edit(roarevent.id)"> <i class="fa fa-copy" style="margin:5px;"></i> COPY TO CLIPBOARD</a>
@@ -41,10 +45,10 @@
         </li>
         <li class="" uib-tooltip="FULLSCREEN" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="fullscreen widget"
-            ng-click="openFullScreen(roarevent.id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="margin:5px;"></i> FULLSCREEN</a>
+            ng-click="openFullScreen(roarevent.$id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="margin:5px;"></i> FULLSCREEN</a>
         </li>
         <li class="" uib-tooltip="POP OUT" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right"><a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="pop out"
-            ng-click="openprev"> <i class="fa fa-external-link" style="margin:5px;"></i> POPOUT</a>
+            ng-click="openprev()"> <i class="fa fa-external-link" style="margin:5px;"></i> POPOUT</a>
         </li>
         <li class="divider"></li>
         <li class="" uib-tooltip="CLOSE" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
@@ -68,15 +72,18 @@
 <div class="card card-block clearfix img img-hover img-shadow" collection="{{roarevent.id}}" style="z-index:1;position:absolute;left:99.5%;top:0;min-width:500px" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;" dragable>
 
   <h6>ID: {{collection.$id}}</h6>
-  <p class="" clipboad text="{{'/files/uploads/'+collection.$id+'.html'}}" onsuccess="alertify.success('copied')">{{'/files/uploads/'+collection.$id+'.html'}}</p>
+  <p class="" clipboad text="collection.$id" onsuccess="alertify.success('copied ID')">{{'/files/uploads/'+collection.$id+'.html'}}</p>
 
   <form role="form" name="form" ng-submit="collection.$save()">
-      <div class="col-sm-8">
-        <div class="form-group">
+      <div class="col-sm-7">
+        <div class="form-group col-sm-3">
           <label for="sortOrder" style="color:#006699">Sort Order</label>
           <input type="number" class="form-control" id="sortOrder" ng-model="collection.sortOrder">
         </div>
-
+        <div class="form-group col-sm-4">
+          <label style="color: #006699">ID#</label><br>
+          <input type="text" ng-model="collection.rid" placeholder="#" ng-model-options="{updateOn: 'blur'}" />
+        </div>
 
         <div class="form-group">
           <label for="dashboardTitle" style="color: #006699">Title</label>
@@ -103,10 +110,7 @@
 
                         <select name="icon" ng-model="collection.icon" class="" ng-options="icon.value as icon.label for icon in $root.ICONS"></select>
         </div>
-        <div class="form-group col-sm-6">
-          <label style="color: #006699">ID#</label><br>
-          <input type="text" ng-model="collection.rid" placeholder="#" ng-model-options="{updateOn: 'blur'}" />
-        </div>
+        
         <div class="form-group col-sm-6">
           <label style="color: #006699">Date</label><br>
           <input type="text" ng-model="collection.date" placeholder="YYYY-MM-DD" ng-pattern="dddd-dd-dd" ng-model-options="{updateOn: 'blur'}">
@@ -137,7 +141,7 @@
      <ol style="height:300px;overflow-y:scroll;"><li ng-repeat="roareventid in collection.roarlist" style="float:left;">
        <roar-chip id="{{roareventid}}"></roar-chip></li></ol>
       </div>
-        <div class="form-group"><label for="navmenu" style="color: #006699">Menus <a class="fa fa-plus" ng-click="collection.menus[0] = {title: 'Linked Documents', items: collection.roarlist}"></a></label><br>
+        <!-- <div class="form-group"><label for="navmenu" style="color: #006699">Menus <a class="fa fa-plus" ng-click="collection.menus[0] = {title: 'Linked Documents', items: collection.roarlist}"></a></label><br>
        <ol class="">
          <li class="list-group-item" ng-repeat="menu in collection.menus">
         <input type="text" style="width: 100%" ng-model="menu.title" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}"><a class="fa fa-plus text-success" ng-click="menu.items.push(collection.id)"></a>
@@ -145,8 +149,8 @@
           <li class="list-group-item" ng-repeat="menuitem in menu.items">
             <input type="text" style="width: 100%" ng-model="menuitem"  placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
           </li>
-        </ul>
-        </li></ul></div>
+        </ul>-->
+        <!-- </li></ul></div> -->
 
  <!--<text-size-slider min="8" max="38" units="px" step="2" value="8"></text-size-slider>-->
 </div>
@@ -157,7 +161,7 @@
   <input type="submit" class="btn btn-glass btn-primary btn-sm " value="SAVE" >
 
   <div class="form-group">
-  <label for="thumbnail" style="color: #006699">Notes</label><br><textarea rows="5" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}"></div>
+  <label for="thumbnail" style="color: #006699">Notes</label><br><textarea rows="20" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}"></div>
 </div>
 </div>
     </div>
