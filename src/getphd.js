@@ -1129,7 +1129,11 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
 
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
-    target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
+    //target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
+  }).on('doubletap', function (event) {
+    event.currentTarget.remove();
+    //event.currentTarget.classList.remove('rotate');
+    event.preventDefault();
   });
                     $('img').on('dblclick', function(e) {
                         $('.issuedocpanel').remove();
