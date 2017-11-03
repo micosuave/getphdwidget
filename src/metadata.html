@@ -6,7 +6,11 @@
 
   <form role="form" name="form" ng-submit="collection.$save()">
     <div class="row">
-      <div class="col-sm-8">
+      <div class="col-sm-2">
+          <div class="form-group"><label for="sortOrder" style="color: #006699">Sort Order</label><input type="number" class="form-control" id="sortOrder"
+            ng-model="collection.sortOrder" required></div>
+      </div>
+      <div class="col-sm-6">
         <div class="form-group"><label for="dashboardTitle" style="color: #006699">Title</label><input type="text" class="form-control" id="dashboardTitle"
             ng-model="collection.title" required></div>
         <div class="row">
