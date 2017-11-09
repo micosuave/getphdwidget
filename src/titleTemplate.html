@@ -69,7 +69,7 @@
 </small>
 </div>
 </h4>
-<div class="card  clearfix img img-hover img-shadow" collection="{{roarevent.id}}" style="z-index:1;position:absolute;left:99.5%;top:0;min-width:550px" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;" dragable>
+<div class="card  clearfix img img-hover img-shadow" collection="{{roarevent.$id}}" style="z-index:1;position:absolute;left:99.5%;top:0;min-width:550px" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;" dragable>
 
   <h6>ID: {{collection.$id}}</h6>
   <p class="" clipboad text="collection.$id" onsuccess="alertify.success('copied ID')">{{'/files/uploads/'+collection.$id+'.html'}}</p>
@@ -107,7 +107,7 @@
       </div>
       <div class="form-group">
           <label for="thumbnail" style="color: #006699">Notes</label><br>
-          <textarea noteswidget="{{collection.$id}}" rows="15" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}" class="form-control">
+          <textarea  rows="15" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}" class="form-control">
       </div>
 
         <div class="form-group">
