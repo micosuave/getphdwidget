@@ -209,8 +209,8 @@ function pageLoaded() {
                         // textContent.forEach(function(o) {
 
                         // });
-                    });
-                };
+               //     });
+               // };
                 // $document.on('mouseup', function(event) {
                 //     var a = $window.getSelection() || $document.getSelection();
                 //     if (a !== null && (a.extentOffset - a.anchorOffset > 0)) {
@@ -242,13 +242,11 @@ function pageLoaded() {
                 //     });
 
 
-                // }
+               //  }
 
-                //   });
+               //    );
 
-});
-            };*/
-
+/*
 .factory('$txt2html', [function() {
         return function(text, enterMode) {
             var isEnterBrMode = enterMode == CKEDITOR.ENTER_BR,
@@ -371,10 +369,16 @@ function pageLoaded() {
         $scope.reject = function() {
             return $scope.$reject();
         };
-    }]).filter('bytes', function() {
+    }])/*.filter('bytes', function() {
         return function(bytes) {
             var bytes = parseInt(bytes);
-            if (bytes >= 1000000000) { bytes = (bytes / 1000000000).toFixed(2) + ' GB'; } else if (bytes >= 1000000) { bytes = (bytes / 1000000).toFixed(2) + ' MB'; } else if (bytes >= 1000) { bytes = (bytes / 1000).toFixed(2) + ' KB'; } else if (bytes > 1) { bytes = bytes + ' bytes'; } else if (bytes == 1) { bytes = bytes + ' byte'; } else { bytes = '0 byte'; }
+            if (bytes >= 1000000000) { bytes = (bytes / 1000000000).toFixed(2) + ' GB'; } 
+            else if (bytes >= 1000000) { bytes = (bytes / 1000000).toFixed(2) + ' MB'; } 
+            else if (bytes >= 1000) { bytes = (bytes / 1000).toFixed(2) + ' KB'; } 
+            else if (bytes > 1) { bytes = bytes + ' bytes'; } 
+            else if (bytes == 1) { bytes = bytes + ' byte'; } 
+            else { bytes = '0 byte'; }
             return bytes;
         }
     });
+*/
