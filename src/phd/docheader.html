@@ -39,7 +39,7 @@
       <cite class="pull-right">{{roarevent.filename || roarevent.$id}}&nbsp;&nbsp;<a pop ng-href="{{roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div>
 
     <div data-ng-transclude></div>
-    <div class="panel-body clearfix" roarevents="{{roarevent.$id}}">
+    <!--<div class="panel-body clearfix" roarevents="{{roarevent.$id}}">
         <div class="clearfix" style="width:100%;min-height:50px;margin-top:-20px;display:flex;flex-direction:row;align-content:center;">
             <dir-pagination-controls pagination-id="clipboarder" template-url="/llp_core/bower_components/angular-utils-pagination/dirPagination.tpl.html"
                 class=""></dir-pagination-controls>
@@ -50,8 +50,8 @@
         </div>
         <div dir-paginate="i in roarevents | itemsPerPage:25" pagination-id="clipboarder">
 
-            <roarevent id="{{i.$value}}" style="max-width:20%;width:20%;height: 175px;max-height:175px;float:left;position:relative;"></roarevent>
-<roar-grid config="\{id: {{roarevent.$id}}\}"></roar-grid>
+            <roarevent id="{{i.$value}}" style="max-width:20%;width:20%;height: 175px;max-height:175px;float:left;position:relative;"></roarevent>-->
+<roar-grid config="{id: '{{roarevent.$id}}'}"></roar-grid>
 
   </div>
   <!--<div class="col-xs-4"><img ng-src="{{background}}" class="img img-responsive img-shadow" /></div>-->
