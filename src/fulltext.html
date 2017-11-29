@@ -1,4 +1,4 @@
-<doc-header class="container-fluid card two-col-right" roarid="{{roarevent.id}}"><a href="#" editable-textarea="roarevent.notes" e-rows="7" e-cols="40">
+<doc-header class="container-fluid card two-col-right" roarid="{{roarevent.id}}"><a href="#" editable-textarea="roarevent.notes" e-rows="15" e-cols="80">
     <pre>{{ roarevent.notes || roarevent.plaintext || roarevent.text || roarevent.description || roarevent.content || 'no notes or text' }}</pre>
   </a></doc-header>
 <div matches="matches" getpdftext="{{roarevent.$id}}" pdf-data="{{roarevent.$id}}" roarevent="roarevent" class="card card-block"></div>
