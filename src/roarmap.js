@@ -595,10 +595,34 @@ angular.module('roar',[])
                 template = 'b48200';
                 break;
               case 'Interview':
-                template = null;
+                template = '999999';
                 break;
               case 'NOA':
                 template = '7c994f';
+                break;
+              case 'primary':
+                template = '025aa5';
+                break;
+              case 'info':
+                template = '5bc0de';
+                break;
+              case 'success':
+                template = '449d44';
+                break;
+              case 'warning':
+                template = 'f0ad4e';
+                break;
+              case 'danger':
+                template = 'c9302c';
+                break;
+              case 'dark':
+                template = '000000';
+                break;
+              case 'fancy':
+                template = 'dddddd';
+                break;
+              case 'royal':
+                template = 'aa00ff';
                 break;
             }
 
