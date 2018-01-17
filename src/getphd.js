@@ -1169,7 +1169,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
             }
 
         };
-    }]).controller('AppController', ['$scope', 'FileUploader', function($scope, FileUploader) {
+    }]).controller('AppController', ['$scope', 'FileUploader','$stateParams','$roar', function($scope, FileUploader, $stateParams, $roar) {
         var uploader = $scope.uploader = new FileUploader({
             url: $scope.url || './upload',
             autoUpload: false
@@ -1206,6 +1206,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
         };
         uploader.onSuccessItem = function(fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
+            
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
@@ -1214,7 +1215,13 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
             console.info('onCancelItem', fileItem, response, status, headers);
         };
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
-            console.info('onCompleteItem', fileItem, response, status, headers);
+            console.info('onCompleteItem', fileItem) 
+            console.info('response', response) 
+            console.info('status',status)
+            console.info('headers', headers);
+        var file = fileItem._file;
+            file.url = response[0] || response;
+            $roar(file);
         };
         uploader.onCompleteAll = function() {
             console.info('onCompleteAll');
