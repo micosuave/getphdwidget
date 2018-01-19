@@ -41,7 +41,7 @@
       </li>
     </ul>
          <!--  <table-of-contents root="{{roarevent.$id}}" ng-if="roarevent.roarlist" uib-collapse="!poodle"></table-of-contents> -->
-         <a  ng-repeat="vent in roarevent.roarlist" ffbase="{{vent.$id || vent.$value || vent}}" class="bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}" style="max-width:100%;width:100%" ng-click="getRelatedPage(vent)" target="fframe">
+         <a  ng-repeat="vent in roarevent.roarlist" ffbase="{{vent.$id || vent.$value || vent}}" class="bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}" style="max-width:100%;width:100%" ng-click="getRelatedPage(vent)" ng-href="{'/files/uploads/'+vent+'.html'}" target="fframe">
            <h4>{{item.title}}</h4>
           <roar-chip class="" style="width:100%;" id="{{vent.$id || vent.$value || vent}}">
             
