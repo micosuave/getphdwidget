@@ -1,9 +1,9 @@
 <div class="container-fluid card bs two-col-right">
 
-  <div class="col-xs-4 card card-{{roarevent.styleClass}} col-1" style="max-width:33%;max-height: 95vh;overflow: scroll;">
+  <div class="col-xs-4 card card-{{roarevent.styleClass}} col-1" style="max-width:33%;max-height: 95vh;overflow: scroll;" >
     <img dynamic-background background="url({{background(roarevent.styleClass)}})" background-position="0 0;" background-repeat="no-repeat" ng-src="{{roarevent.thumbnail || background(roarevent.styleClass)}}" class="img img-responsive img-shadow img-thumbnail" ng-click="poodle = !poodle" />
     <h4>{{roarevent.title}}</h4>
-    <h6>Related Documents</h6>
+    
     <p class="card-text">
       <!-- <fieldset class="material " uib-collapse="!poodle">
         <input type="text" placeholder="Search..." ng-model="$parent.$$childHead.$$childHead.$$childTail.query">
@@ -13,10 +13,10 @@
       <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag">&nbsp;<a ng-click="getRelated(match)">{{match}}</a>&nbsp;</label></p>
       
 
-      <!-- <div class="well" uib-collapse="!poodle">
-       <div class="card-header"><h4 class="card-title fa fa-link">Linked Documents</h4></div>
-        <div  ng-repeat="vent in roarevent.roarlist" ffbase="{{vent.$id || vent.$value || vent}}">
-          <roar-chip class="list-group-item" id="{{vent.$id || vent.$value || vent}}">
+      <div class="well" uib-collapse="!poodle">
+       <div class="card-header"><h4 class="card-title fa fa-2x fa-link"> Related Documents - <label class="badge">{{vents.length}}</label></h4></div>
+<!--         <div  ng-repeat="vent in roarevent.roarlist as vents" ffbase="{{vent.$id || vent.$value || vent}}">
+          <roar-chip class="list-group-item bs-callout bs-callout-{{item.styleClass}}" id="{{vent.$id || vent.$value || vent}}">
             
           </roar-chip>
           <div class="well list-group">
@@ -24,10 +24,10 @@
                   <roar-chip class="list-group-item" id="{{tent.$id || tent.$value || tent}}"></roar-chip>
                 </div>
             </div>
-        </div>
+        </div> -->
         
         <div ng-repeat="vent in roarevent.roarlist" smartpanel="{{vent.$id || vent.$value || vent}}"></div>
-      </div> -->
+      </div>
     <ul ng-if="annotationsAsFlatList($parent.$$childHead.$$childHead.$$childTail.roarevent.pages)">
       <li class="card img-shadow" ng-repeat="a in annotationsAsFlatList($parent.$$childHead.$$childHead.$$childTail.roarevent.pages) track by $index"
         style="border: 2.5px solid {{a.type}};">
@@ -41,23 +41,25 @@
       </li>
     </ul>
          <!--  <table-of-contents root="{{roarevent.$id}}" ng-if="roarevent.roarlist" uib-collapse="!poodle"></table-of-contents> -->
-         <a  ng-repeat="vent in roarevent.roarlist" ffbase="{{vent.$id || vent.$value || vent}}" class="bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}" style="max-width:100%;width:100%" ng-click="getRelatedPage(vent)" ng-href="{{'/files/uploads/'+vent+'.html'}}" target="fframe">
-           <h4>{{item.title}}</h4>
-          <roar-chip class="" style="width:100%;" id="{{vent.$id || vent.$value || vent}}">
+        <div uib-collapse="poodle"> 
+         <a  ng-repeat="vent in roarevent.roarlist" ffbase="{{vent.$id || vent.$value || vent}}"  style="max-width:100%;width:100%" ng-click="getRelatedPage(vent)" >
+           <!-- <h4>{{item.title}}</h4> -->
+          <roar-chip class="bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}" style="width:100%;" id="{{vent.$id || vent.$value || vent}}">
             
           </roar-chip>
   
      
     </a>
   </div>
+  </div>
 
   <div class="col-xs-8 col-2">
     <div class="bs-callout bs-callout-reverse bs-callout-{{roarevent.styleClass}}">
-      <h4>{{roarevent.title}}</h4>
+      <h4 ng-click="oodle = !oodle">{{roarevent.title}}</h4>
       <p ng-bind="roarevent.description"></p>
       <p ng-if="roardate">Dated {{roarevent.date | date }}</p>
       <cite class="pull-right clearfix">{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}&nbsp;&nbsp;<a pop ng-href="{{roarevent.mediaUrl}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div>
-
+    <iframe uib-collapse="!oodle" allowfullscreen fullscreen="{{!oodle}}" name="fftame" style="width:100%;height:500px;overflow:scroll;" ng-attr-srcdoc="{{roarevent.content | trustAsHTML}}">{{roarevent.notes}}</iframe>
     <div data-ng-transclude style="width:100%;height:500px;overflow:scroll;"></div>
     <!--<div class="panel-body clearfix" roarevents="{{roarevent.$id}}">
         <div class="clearfix" style="width:100%;min-height:50px;margin-top:-20px;display:flex;flex-direction:row;align-content:center;">
