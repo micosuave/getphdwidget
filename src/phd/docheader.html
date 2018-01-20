@@ -14,7 +14,7 @@
       
 
       <div class="well" uib-collapse="!poodle">
-       <div class="card-header"><h4 class="card-title fa fa-2x fa-copy"> Related Documents - <label class="badge" ng-click="swap = !swap">{{vents.length}}</label></h4></div>
+       <div class="card-header"><h4 class="card-title fa fa-2x fa-copy" ng-click="swap = !swap"> Related Documents <label class="badge" >{{vents.length||ventss.length}}</label></h4></div>
 <!--         <div  ng-repeat="vent in roarevent.roarlist as vents" ffbase="{{vent.$id || vent.$value || vent}}">
           <roar-chip class="list-group-item bs-callout bs-callout-{{item.styleClass}}" id="{{vent.$id || vent.$value || vent}}">
             
@@ -28,8 +28,8 @@
         <div uib-collapse="swap"> 
          <p  ng-repeat="vent in roarevent.roarlist as ventss" ffbase="{{vent.$id || vent.$value || vent}}"  style="max-width:100%;width:100%" ng-click="getRelatedPage(vent)" >
            <!-- <h4>{{item.title}}</h4> class="bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}"-->
-          <roar-chip ng-mouseenter="angular.element(this).addClass('bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}')" ng-mouseleave="angular.element(this).removeClass('bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}')" class="list-group-item" style="width:100%;margin:0px;padding:5px;" id="{{vent.$id || vent.$value || vent}}">
-            <a ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-2x fa-chevron-right showonhover" uib-tooltip="view in fframe" ng-click="showframe = !showframe">»</a>
+          <roar-chip ng-mouseenter="classy='bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}'" ng-mouseleave="classy=null" class="list-group-item {{classy}}" style="width:100%;margin:0px;padding:5px;min-width:200px" id="{{vent.$id || vent.$value || vent}}">
+            <a ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-2x fa-chevron-right showonhover" uib-tooltip="view in fframe" ng-click="showframe = !showframe"></a>
           </roar-chip>
   
      
