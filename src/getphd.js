@@ -1098,18 +1098,18 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
                     var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
                     //var header = $('#docheader').html();
                     var skope = angular.element('<iframe allowfullscreen fullscreen="{{full}}" ng-dblclick="full = !full" name="fframe" />').attr('height', '80vh').attr('src', $attr.href);
-                    $scope.roarevent = {};
+                    $scope.roarevent = $scope.roarevent || {};
                     $scope.roarevent.title = $attr.title || $attr.href;
                     
                     $scope.roarevent.date = $attr.date || null;
                     
 
-                    var pol = angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
-                    $(pol).draggable({
+                    angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
+                    $(divpanel).draggable({
                         stack: '.stacker',
                         handle: 'h4'
                     }).resizable();
-                    interact(pol, {ignoreFrom: '.card'}).draggable().on('doubletap', function (event) {
+                    interact(divpanel, {ignoreFrom: '.card'}).draggable().on('doubletap', function (event) {
                         event.currentTarget.remove();
                         //event.currentTarget.classList.remove('rotate');
                         event.preventDefault();
@@ -1153,7 +1153,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
 
                 };
                 $el.on('click', function(e) {
-                    //e.preventDefault();
+                    e.preventDefault();
                     popdoc();
                 });
             }
