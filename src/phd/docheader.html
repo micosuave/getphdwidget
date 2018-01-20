@@ -58,8 +58,8 @@
       <h4 ng-click="oodle = !oodle">{{roarevent.title}}</h4>
       <p ng-bind="roarevent.description"></p>
       <p ng-if="roardate">Dated {{roarevent.date | date }}</p>
-      <cite class="pull-right clearfix">{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}&nbsp;&nbsp;<a pop ng-href="{{roarevent.mediaUrl}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div>
-    <iframe uib-collapse="!oodle" allowfullscreen fullscreen="{{!oodle}}" name="fftame" style="width:100%;height:500px;overflow:scroll;" ng-attr-srcdoc="{{roarevent.content | trustAsHTML}}">{{roarevent.notes}}</iframe>
+      <cite class="pull-right clearfix">{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}&nbsp;&nbsp;<a pop ng-href="{{roarevent.mediaUrl || roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div>
+    <iframe uib-collapse="!oodle" allowfullscreen fullscreen="{{!oodle}}" name="fframe" style="width:100%;height:500px;overflow:scroll;" ng-src="{{roarevent.mediaUrl || roarevent.media}}">{{roarevent.notes}}</iframe>
     <div data-ng-transclude style="width:100%;height:500px;overflow:scroll;"></div>
     <!--<div class="panel-body clearfix" roarevents="{{roarevent.$id}}">
         <div class="clearfix" style="width:100%;min-height:50px;margin-top:-20px;display:flex;flex-direction:row;align-content:center;">
