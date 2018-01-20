@@ -1097,54 +1097,54 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
                     //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
                     var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
                     //var header = $('#docheader').html();
-                    var skope = angular.element('<iframe/>').attr('height', '60vh').attr('src', $attr.href);
+                    var skope = angular.element('<iframe allowfullscreen fullscreen="{{full}}" ng-dblclick="full = !full" name="fframe" />').attr('height', '80vh').attr('src', $attr.href);
                     $scope.roarevent = {};
                     $scope.roarevent.title = $attr.title || $attr.href;
                     
                     $scope.roarevent.date = $attr.date || null;
                     
 
-                    angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
-                    $('.issuedocpanel').draggable({
+                    var pol = angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
+                    $(pol).draggable({
                         stack: '.stacker',
                         handle: 'h4'
                     }).resizable();
-                    interact('.issuedocpanel',{ ignoreFrom: '.card'})
-                      .draggable({
-                        onmove: window.dragMoveListener
-                    })
-                      .resizable({
-                        preserveAspectRatio: false,
-                        edges: { left: true, right: true, bottom: true, top: false }
-                    })
-                      .on('resizemove', function (event) {
-                        var target = event.target,
-                            x = (parseFloat(target.getAttribute('data-x')) || 0),
-                            y = (parseFloat(target.getAttribute('data-y')) || 0);
+                    // interact('.issuedocpanel',{ ignoreFrom: '.card'})
+                    //   .draggable({
+                    //     onmove: window.dragMoveListener
+                    // })
+                    //   .resizable({
+                    //     preserveAspectRatio: false,
+                    //     edges: { left: true, right: true, bottom: true, top: false }
+                    // })
+                    //   .on('resizemove', function (event) {
+                    //     var target = event.target,
+                    //         x = (parseFloat(target.getAttribute('data-x')) || 0),
+                    //         y = (parseFloat(target.getAttribute('data-y')) || 0);
 
-                    // update the element's style
-                        target.style.width  = event.rect.width + 'px';
-                        target.style.height = event.rect.height + 'px';
+                    // // update the element's style
+                    //     target.style.width  = event.rect.width + 'px';
+                    //     target.style.height = event.rect.height + 'px';
 
-                        // translate when resizing from top or left edges
-                        x += event.deltaRect.left;
-                        y += event.deltaRect.top;
+                    //     // translate when resizing from top or left edges
+                    //     x += event.deltaRect.left;
+                    //     y += event.deltaRect.top;
 
-                        target.style.webkitTransform = target.style.transform =
-                            'translate(' + x + 'px,' + y + 'px)';
+                    //     target.style.webkitTransform = target.style.transform =
+                    //         'translate(' + x + 'px,' + y + 'px)';
 
-                        target.setAttribute('data-x', x);
-                        target.setAttribute('data-y', y);
-                        //target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
-                    }).on('doubletap', function (event) {
-                        event.currentTarget.remove();
-                        //event.currentTarget.classList.remove('rotate');
-                        event.preventDefault();
-                    });
-                    $('img').on('dblclick', function(e) {
-                        $('.issuedocpanel').remove();
-                        $scope.$destroy();
-                    });
+                    //     target.setAttribute('data-x', x);
+                    //     target.setAttribute('data-y', y);
+                    //     //target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
+                    // }).on('doubletap', function (event) {
+                    //     event.currentTarget.remove();
+                    //     //event.currentTarget.classList.remove('rotate');
+                    //     event.preventDefault();
+                    // });
+                    // $('img').on('dblclick', function(e) {
+                    //     $('.issuedocpanel').remove();
+                    //     $scope.$destroy();
+                    // });
 
                 };
                 $el.on('click', function(e) {
