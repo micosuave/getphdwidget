@@ -14,7 +14,7 @@
       
 
       <div class="well" uib-collapse="!poodle">
-       <div class="card-header"><h4 class="card-title fa fa-2x fa-link"> Related Documents - <label class="badge">{{vents.length}}</label></h4></div>
+       <div class="card-header"><h4 class="card-title fa fa-2x fa-copy"> Related Documents - <label class="badge">{{vents.length}}</label></h4></div>
 <!--         <div  ng-repeat="vent in roarevent.roarlist as vents" ffbase="{{vent.$id || vent.$value || vent}}">
           <roar-chip class="list-group-item bs-callout bs-callout-{{item.styleClass}}" id="{{vent.$id || vent.$value || vent}}">
             
@@ -44,8 +44,8 @@
         <div uib-collapse="poodle"> 
          <p  ng-repeat="vent in roarevent.roarlist" ffbase="{{vent.$id || vent.$value || vent}}"  style="max-width:100%;width:100%" ng-click="getRelatedPage(vent)" >
            <!-- <h4>{{item.title}}</h4> class="bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}"-->
-          <roar-chip class="list-group-item" style="width:100%;" id="{{vent.$id || vent.$value || vent}}">
-            
+          <roar-chip class="list-group-item" style="width:100%;margin:0px;padding:5px;" id="{{vent.$id || vent.$value || vent}}">
+            <a ng-href="{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}" pop target="fframe" title="{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}" date="{{roarevent.date || item.date || collection.date}}" class="fa fa-2x fa-chevron-right showonhover">»</a>
           </roar-chip>
   
      
@@ -55,12 +55,12 @@
 
   <div class="col-xs-8 col-2">
     <div class="bs-callout bs-callout-reverse bs-callout-{{roarevent.styleClass}}">
-      <h4 ng-click="oodle = !oodle">{{roarevent.title}}</h4>
+      <h4 ng-dblclick="full = !full">{{roarevent.title}}</h4>
       <p ng-bind="roarevent.description"></p>
       <p ng-if="roardate">Dated {{roarevent.date | date }}</p>
-      <cite class="pull-right clearfix">{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}&nbsp;&nbsp;<a pop ng-href="{{roarevent.mediaUrl || roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div>
-    <iframe uib-collapse="!poodle"  allowfullscreen name="fframe" style="width:100%;height:500px;overflow:scroll;" ng-src="{{roarevent.mediaUrl || roarevent.media}}">{{roarevent.notes}}</iframe>
-    <div data-ng-transclude style="width:100%;height:500px;overflow:scroll;"></div>
+      <cite class="pull-right clearfix">{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}&nbsp;&nbsp;<a pop ng-href="{{roarevent.mediaUrl || roarevent.media || item.mediaUrl || item.media || collection.mediaUrl || collection.media}}" target="fframe" title="{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}" date="{{roarevent.date || item.date || collection.date}}"><i class="fa fa-external-link"></i></a></cite></div>
+    <iframe uib-collapse="!poodle"  allowfullscreen name="fframe" class="well" style="width:100%;height:500px;overflow:scroll;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}">{{roarevent.notes}}</iframe>
+    <div data-ng-transclude uib-collapse="poodle" fullscreen="{{full}}" ng-dblclick="full = !full" style="width:100%;height:500px;overflow:scroll;"></div>
     <!--<div class="panel-body clearfix" roarevents="{{roarevent.$id}}">
         <div class="clearfix" style="width:100%;min-height:50px;margin-top:-20px;display:flex;flex-direction:row;align-content:center;">
             <dir-pagination-controls pagination-id="clipboarder" template-url="/llp_core/bower_components/angular-utils-pagination/dirPagination.tpl.html"
