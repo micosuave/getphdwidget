@@ -42,14 +42,14 @@
     </ul>
          <!--  <table-of-contents root="{{roarevent.$id}}" ng-if="roarevent.roarlist" uib-collapse="!poodle"></table-of-contents> -->
         <div uib-collapse="poodle"> 
-         <a  ng-repeat="vent in roarevent.roarlist" ffbase="{{vent.$id || vent.$value || vent}}"  style="max-width:100%;width:100%" ng-click="getRelatedPage(vent)" >
+         <p  ng-repeat="vent in roarevent.roarlist" ffbase="{{vent.$id || vent.$value || vent}}"  style="max-width:100%;width:100%" ng-click="getRelatedPage(vent)" >
            <!-- <h4>{{item.title}}</h4> class="bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}"-->
           <roar-chip class="list-group-item" style="width:100%;" id="{{vent.$id || vent.$value || vent}}">
             
           </roar-chip>
   
      
-    </a>
+    </p>
   </div>
   </div>
 
@@ -59,7 +59,7 @@
       <p ng-bind="roarevent.description"></p>
       <p ng-if="roardate">Dated {{roarevent.date | date }}</p>
       <cite class="pull-right clearfix">{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}&nbsp;&nbsp;<a pop ng-href="{{roarevent.mediaUrl || roarevent.media}}" target="fframe"><i class="fa fa-external-link"></i></a></cite></div>
-    <iframe uib-collapse="!oodle" ng-if="!oodle" allowfullscreen name="fframe" style="width:100%;height:500px;overflow:scroll;" ng-src="{{roarevent.mediaUrl || roarevent.media}}">{{roarevent.notes}}</iframe>
+    <iframe uib-collapse="!poodle"  allowfullscreen name="fframe" style="width:100%;height:500px;overflow:scroll;" ng-src="{{roarevent.mediaUrl || roarevent.media}}">{{roarevent.notes}}</iframe>
     <div data-ng-transclude style="width:100%;height:500px;overflow:scroll;"></div>
     <!--<div class="panel-body clearfix" roarevents="{{roarevent.$id}}">
         <div class="clearfix" style="width:100%;min-height:50px;margin-top:-20px;display:flex;flex-direction:row;align-content:center;">
