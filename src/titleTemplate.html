@@ -69,7 +69,7 @@
 </small>
 </div>
 </h4>
-<div class="card  clearfix img img-hover img-shadow" collection="{{roarevent.$id}}" style="z-index:1;position:absolute;left:99.5%;top:0;min-width:550px" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;" dragable>
+<div class="card  clearfix img img-hover img-shadow" collection="{{roarevent.$id}}" style="z-index:1;position:absolute;left:99.5%;top:0;min-width:550px" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;" draggable ng-scrollbar>
 
   <h6>ID: {{collection.$id}}</h6>
   <p class="" clipboad text="collection.$id" onsuccess="alertify.success('copied ID')">{{'/files/uploads/'+collection.$id+'.html'}}</p>
@@ -120,7 +120,7 @@
       </div>
       
      <div class="form-group"><label for="roarlist" style="color: #006699">Linked Docs</label><br>
-      <div smartpanel="{{collection.$id}}" collection="{{collection.$id}}"></div>
+      <div smartpanel="{{collection.$id}}" ></div>
      <!-- <ol style="height:300px;overflow-y:scroll;"><li ng-repeat="roareventid in collection.roarlist" style="float:left;">
        <roar-chip id="{{roareventid}}"></roar-chip></li></ol> -->
       </div>
@@ -170,9 +170,16 @@
           <label style="color: #006699">Date</label><br>
           <input type="text" ng-model="collection.date" placeholder="YYYY-MM-DD" ng-pattern="dddd-dd-dd" ng-model-options="{updateOn: 'blur'}">
         </div> 
-
+<div class="form-group col-sm-12">
+          <label style="color: #006699">Name</label><br>
+          <input type="text" ng-model="collection.name" placeholder="name"  ng-model-options="{updateOn: 'blur'}">
+        </div> 
+        <div class="form-group col-sm-12">
+          <label style="color: #006699">File</label><br>
+          <input type="text" ng-model="collection.file.name" placeholder="file name"  ng-model-options="{updateOn: 'blur'}">
+        </div> 
         <div class="form-group col-sm-12"><label for="roarlist" style="color: #006699">Linked Docs <i class="badge" ng-bind="roareventsarray.length">{{roareventsarray.length}}</i></label>
-          <ol style="height:300px;overflow-y:scroll;">
+          <ol ng-scrollbar style="height:300px;overflow-y:scroll;">
             <li ng-repeat="roareventid in collection.roarlist as roareventsarray" style="float:left;">
             <roar-chip id="{{roareventid}}"></roar-chip>
           </li>

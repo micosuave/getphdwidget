@@ -14,13 +14,13 @@
 		</thead> 
 		<tbody> 
 			<tr ng-repeat="item in uploader.queue"> 
-				<td>
-					<strong>{{ item.file.name }}</strong>
+				<td uib-popover="{{item.file | json:4}}" popover-trigger="mouseenter" popover-placement="right">
+					<strong>{{ item.file.name }}&nbsp;|&nbsp;{{item.file.mimetype}}</strong>
 				</td> 
 				<td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:3 }} MB</td> 
 				<td ng-show="uploader.isHTML5"> 
 					<div class="progress" style="margin-bottom: 0;"> 
-						<div class="progress-bar" role="progressbar" ng-style="{ \'width\': item.progress + \'%\' }"></div> 
+						<div class="progress-bar" role="progressbar" ng-style="{'width': item.progress + '%' }"></div> 
 					</div> 
 				</td> 
 				<td class="text-center"> 
@@ -50,7 +50,7 @@
 	<div> 
 		<div> Queue progress: 
 			<div class="progress" style=""> 
-				<div class="progress-bar" role="progressbar" ng-style="{ \'width\': uploader.progress + \'%\' }"></div> 
+				<div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div> 
 			</div> 
 		</div> 
 		<button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length"> 
