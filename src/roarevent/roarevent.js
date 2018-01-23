@@ -856,10 +856,10 @@ app
       }
     }
   })
-  .directive('roarChip', function ($http, Popup, $rootScope, $compile, $controller, $document, $animate, ROARevent, ngDialog, Collection) {
+  .directive('roarChipA', function ($http, Popup, $rootScope, $compile, $controller, $document, $animate, ROARevent, ngDialog, Collection) {
     return {
       restrict: 'EA',
-      templateUrl: '/llp_core/modules/roarmap/directive/roarevent/roarchip.html',
+      templateUrl: '{widgetsPath}/getphd/src/roarevent/roarchip.html',
       transclude: true,
       controller: 'ROARChipCtrl',
       controllerAs: 'roar',

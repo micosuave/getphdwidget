@@ -14,7 +14,7 @@
       
 
       <div class="" uib-collapse="!poodle">
-       <div class="card-header"><h4 class="card-title fa fa-2x fa-copy" ng-click="swap = !swap"> Related Documents <label class="badge" >{{vents.length||ventss.length}}</label></h4></div>
+       <div class="card-header"><h4 class="card-title fa fa-2x fa-copy" ng-click="swap = !swap" style="font-family: 'Helvetica',sans-serif;"> Related Documents <label class="badge" >{{vents.length||ventss.length}}</label></h4></div>
 <!--         <div  ng-repeat="vent in roarevent.roarlist as vents" ffbase="{{vent.$id || vent.$value || vent}}">
           <roar-chip class="list-group-item bs-callout bs-callout-{{item.styleClass}}" id="{{vent.$id || vent.$value || vent}}">
             
@@ -26,11 +26,11 @@
             </div>
         </div> -->
         <div uib-collapse="swap"> 
-         <p  ng-repeat="vent in roarevent.roarlist as ventss" ffbase="{{vent.$id || vent.$value || vent}}"  style="max-width:100%;width:100%" ng-click="getRelatedPage(vent)" ng-mouseenter="classy='bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}'" ng-mouseleave="setTimeout(function(){ return classy = null},2000)" class="{{classy}}">
+         <p  ng-repeat="vent in roarevent.roarlist as ventss" ffbase="{{vent.$id || vent.$value || vent}}"  style="max-width:100%;width:100%" ng-click="getRelatedPage(vent)" ng-mousedown="classy='bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}'" ng-mouseup="classy = null" class="{{classy}}">
            <!-- <h4>{{item.title}}</h4> class="bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}"-->
-          <roar-chip  style="width:100%;margin:0px;padding:5px;min-width:300px" id="{{vent.$id || vent.$value || vent}}">
-            <a ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-2x fa-chevron-right showonhover" uib-tooltip="view in fframe" ng-click="roarevent.showframe = !roarevent.showframe"></a>
-          </roar-chip>
+          <roar-chip-a  style="min-width:300px" id="{{vent.$id || vent.$value || vent}}"></roar-chip-a>
+            <a ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-3x fa-chevron-right" style="opacity: 0.25;" uib-tooltip="view in fframe" ng-click="roarevent.showframe = !roarevent.showframe"></a>
+          
   
      
     </p>
@@ -61,8 +61,8 @@
       <p ng-bind="roarevent.description"></p>
       <p ng-if="roardate">Dated {{roarevent.date | date }}</p>
       <cite class="pull-right clearfix">{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}&nbsp;&nbsp;<a pop ng-href="{{roarevent.mediaUrl || roarevent.media || item.mediaUrl || item.media || collection.mediaUrl || collection.media}}" target="fframe" title="{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}" date="{{roarevent.date || item.date || collection.date}}"><i class="fa fa-external-link"></i></a></cite></div>
-    <iframe uib-collapse="!roarevent.showframe"  allowfullscreen name="fframe" class="well" fullscreen="{{full}}" style="width:100%;height:800px;overflow:scroll;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}">{{roarevent.notes}}</iframe>
-    <div data-ng-transclude style="width:100%;height:600px;overflow:scroll;"></div>
+    <iframe uib-collapse="!roarevent.showframe"  allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:800px;overflow:scroll;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}">{{roarevent.notes}}</iframe>
+    <div data-ng-transclude uib-collapse="!roarevent.showframe"  allowfullscreen style="width:100%;height:600px;overflow:scroll;"></div>
     <!--<div class="panel-body clearfix" roarevents="{{roarevent.$id}}">
         <div class="clearfix" style="width:100%;min-height:50px;margin-top:-20px;display:flex;flex-direction:row;align-content:center;">
             <dir-pagination-controls pagination-id="clipboarder" template-url="/llp_core/bower_components/angular-utils-pagination/dirPagination.tpl.html"
