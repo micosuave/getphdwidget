@@ -2684,10 +2684,10 @@ app
           name: 'roarevent.html',
           type: 'text/html'
         })))
-        // var skope = angular.element('<iframe/>').attr('srcdoc', ('<!DOCTYPE html><html><head></head><body><div class="card card-default">' + angular.fromJson(event.content) + '</div></body></html>'))
-        // var skope = $sce.trustAsHtml(roarevent.content)
+           var skope = angular.element('<iframe/>').attr('srcdoc', ('<!DOCTYPE html><html><head></head><body><div class="card card-default">' + angular.fromJson(event.content) + '</div></body></html>'))
+           var skope = $sce.trustAsHtml(roarevent.content)
 
-        // angular.element(roarevent.content).append(resp.data)
+         angular.element(roarevent.content).append(resp.data)
 
         angular.element('body').append($compile(divpanel.append(header).append(skope))($scope))
         $('.issuedocpanel').draggable({
@@ -2697,7 +2697,7 @@ app
       })
     }
   }])
-  /*.directive('pop', ['$compile', '$templateCache', 'ROARevent', function ($compile, $templateCache, ROARevent) {
+  .directive('pop', ['$compile', '$templateCache', 'ROARevent', function ($compile, $templateCache, ROARevent) {
     return {
       restrict: 'AC',
       link: function ($scope, $el, $attr, $ctrl) {
@@ -2736,7 +2736,7 @@ app
         })
       }
     }
-  }])*/
+  }])
   .controller('ROARChipCtrl', ["$aside", "toastr", "$uibModal", "$compile", "Collection", "$scope", "$templateCache", "ngDialog", "$ACTIVEROAR", "$window", "$rootScope", "PROJECT", "$stateParams", "$sce", "Fullscreen", "$clipboard", "ROARevents", "$http", function ($aside, toastr, $uibModal, $compile, Collection, $scope, $templateCache, ngDialog, $ACTIVEROAR, $window, $rootScope, PROJECT, $stateParams, $sce, Fullscreen, $clipboard, ROARevents, $http) {
     var roar = this
     $scope.max = 5
@@ -2877,19 +2877,19 @@ app
             //event.currentTarget.classList.remove('rotate');
             event.preventDefault();
           });
-          /*interact('.issuedocpanel', {    ignoreFrom: '.card'})
-  .draggable({
-    onmove: window.dragMoveListener
-  })
-  .resizable({
-    preserveAspectRatio: false,
-    edges: { left: true, right: true, bottom: true, top: false }
-  })
-  .on('doubletap', function (event) {
-    event.currentTarget.remove();
-    //event.currentTarget.classList.remove('rotate');
-    event.preventDefault();
-  });*/
+           interact('.issuedocpanel', {    ignoreFrom: '.card'})
+              .draggable({
+                onmove: window.dragMoveListener
+              })
+              .resizable({
+                preserveAspectRatio: false,
+                edges: { left: true, right: true, bottom: true, top: false }
+              })
+              .on('doubletap', function (event) {
+                event.currentTarget.remove();
+                //event.currentTarget.classList.remove('rotate');
+                event.preventDefault();
+              });
         }
       })
       // }
