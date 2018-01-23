@@ -825,7 +825,7 @@ app
       transclude: true,
       priority: 1,
       terminal:true,
-      templateUrl: '/llp_core/modules/roarmap/directive/roarevent/roarevent.html',
+      templateUrl: '{widgetsPath}/getphd/src/roarevent/roarevent.html',
       scope: {
         animation: '=?',
         editable: '=?',
