@@ -1093,7 +1093,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
             link: function($scope, $el, $attr, $ctrl) {
                 var popdoc = function() {
 
-                    var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker panel-'+($attr.styleClass||'primary'));
+                    var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker panel-'+($attr.styleClass||'panelheadblue'));
                     //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
                     var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
                     //var header = $('#docheader').html();
@@ -1109,7 +1109,8 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
                         stack: '.stacker',
                         handle: 'h4'
                     }).resizable();
-                    interact(divpanel, {ignoreFrom: '.card'}).draggable().on('doubletap', function (event) {
+                    interact(divpanel, {ignoreFrom: '.card',allowFrom:'h4'}).draggable().on('doubletap', function (event) {
+                        window.open(event.currentTarget,'_blank');
                         event.currentTarget.remove();
                         //event.currentTarget.classList.remove('rotate');
                         event.preventDefault();

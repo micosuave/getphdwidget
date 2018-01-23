@@ -1,0 +1,18 @@
+<div ng-class="{'active': roarevent.isSelected || item.isSelected}" class="animated roarchip "  data-context-menu="/llp_core/partials/contextmenus/roarcontextmenu.html" data-toggle="popover" uib-popover-template="'{widgetsPath}/getphd/src/roarevent/roarchip-popover.html'" popover-placement="right" popover-animation="true" popover-trigger="click" popover-append-to-body="true">
+
+
+
+
+    <button class="rlabel btn-{{roarevent.styleClass || item.styleClass || 'btn-glass btn-dark'}} fa fa-{{roarevent.icon || item.icon}} pull-left" ng-href="{{roarevent.mediaUrl || item.mediaUrl || roarevent.media || item.media || '/files/uploads/'+roarevent.$id+'.html'}}" ng-click="roar.show(roarevent.$id||item.$id)"   ng-dblclick="roar.openFullscreen(roarevent||item)" dynamic-background background-image="{{roarevent.thumbnail||item.thumbnail}}" width="60px" style="max-width:60px;width:60px;height:60px;max-height:60px;margin: 2.5px;" uib-tooltip="open media" tooltip-animation="true" tooltip-position="right">
+    {{roarevent.rid || item.rid}}
+    </button>
+
+    <h6 class="rflag" ng-href="/files/uploads/{{roarevent.$id||item.$id}}.html" ng-click="roar.present(roarevent||item)"  ng-dblclick="roar.openFullscreen(roarevent||item)" uib-tooltip="open LEXPAD" tooltip-animation="true" tooltip-position="right"><strong>{{roarevent.title || item.title || roarevent.name || item.name}}</strong></h6>
+           
+           <cite class="pull-right" style="position:absolute;right:0.3rem;bottom:0.1rem;font-size:12px;">{{roarevent.date||item.date | date}}</cite>
+
+
+  
+
+<ng-transclude style="position:absolute;right:0.3rem;"></ng-transclude>
+</div>

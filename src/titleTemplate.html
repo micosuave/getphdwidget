@@ -1,12 +1,12 @@
 <div class="panel-heading" style="z-index:1;margin:0px;" ng-init="coplapse = false">
 
-  <h4 class="panel-title " style="-webkit-user-select:none;padding:0;">
+  <h4 class="panel-title " ><!--style="-webkit-user-select:none;padding:0;"-->
 
 
 
     <div id="" uib-dropdown uib-keyboard-nav style="z-index:1000000;">
       <a uib-dropdown-toggle class="btn btn-xs  vcenter pull-left no-arrow">
-        <label class="fa fa-bars hovergold" style="cursor:pointer;filter:drop-shadow(0 0 2.5px rgba(0,0,0,0.5));"></label>
+        <label class="fa fa-bars hovergold" style="cursor:pointer;filter:drop-shadow(0 0 2.5px rgba(0,0,0,0.5));color: #fff;"></label>
 
       </a>
       <ul class="uib-dropdown-menu panel r-action" style="position:absolute;width:280px;box-shadow: 5px 5px 10px rgba(0,0,0,0.5);">
@@ -63,16 +63,16 @@
     <small ng-bind="roarevent.rid"  ng-click="drag = !drag"
       ng-class="{':active':drag}"></small>
       <small class="">&nbsp;&nbsp;|&nbsp;&nbsp;</small>
-    <small class="lead" ng-bind="roarevent.title || roarevent.date"></small>
+    <small class="" ng-bind="roarevent.title || roarevent.date"></small>
     <small>
   <em class="" style="margin-left:50px;" ng-bind="roarevent.date | date"></em><span class="fa {{roarevent.icon || 'fa-info'}}" ng-click="roarevent.coplapse = !roarevent.coplapse" style="margin: 5px;"></span> <span class="fa fa-close" ng-click="remove()" onclick="$(this).closest('.issuedocpanel').remove()" style="margin:10px;"></span>
 </small>
 </div>
 </h4>
-<div class="card  clearfix img img-hover img-shadow" collection="{{roarevent.$id}}" style="z-index:1;position:absolute;left:99.5%;top:0;min-width:550px" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;" draggable ng-scrollbar>
+<div class="card  clearfix img img-hover img-shadow" collection="{{roarevent.$id}}" style="z-index:1;position:absolute;left:99.5%;top:0;min-width:550px" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;">
 
   <h6>ID: {{collection.$id}}</h6>
-  <p class="" clipboad text="collection.$id" onsuccess="alertify.success('copied ID')">{{'/files/uploads/'+collection.$id+'.html'}}</p>
+  <p class="" clipboard text="collection.$id" onsuccess="alertify.success('copied ID')">{{'/files/uploads/'+collection.$id+'.html'}}</p>
 
   <form role="form" name="form" ng-submit="collection.$save()">
       <div class="col-sm-7">
@@ -112,7 +112,7 @@
 
         <div class="form-group">
           <label for="url" style="color: #006699">URL</label><br>
-          <input type="text" style="width: 100%" ng-model="collection.media" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
+          <input type="text" style="width: 100%" ng-model="collection.mediaUrl" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
        </div>
        <div class="form-group">
          <label for="thumbnail" style="color: #006699">Thumbnail</label><br>
@@ -139,7 +139,7 @@
 </div>
 
 <div class="col-sm-5" style="max-height:175px;">
-  <roar-event id="{{roarevent.$id}}" style="max-height:175px;"></roar-event>
+  <roar-event id="{{roarevent.$id}}" style="max-height:175px;"><uib-rating ng-model="roarevent.rate" max="5" class=""></uib-rating></roar-event>
 
   <input type="submit" class="btn btn-glass btn-primary btn-md pull-right " value="SAVE" >
 <div  class="form-group col-sm-6">
@@ -175,7 +175,7 @@
           <input type="text" ng-model="collection.name" placeholder="name"  ng-model-options="{updateOn: 'blur'}">
         </div> 
         <div class="form-group col-sm-12">
-          <label style="color: #006699">File</label><br>
+          <label style="color: #006699">FileName</label><br>
           <input type="text" ng-model="collection.file.name" placeholder="file name"  ng-model-options="{updateOn: 'blur'}">
         </div> 
         <div class="form-group col-sm-12"><label for="roarlist" style="color: #006699">Linked Docs <i class="badge" ng-bind="roareventsarray.length">{{roareventsarray.length}}</i></label>
