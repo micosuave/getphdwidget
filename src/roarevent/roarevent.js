@@ -2743,7 +2743,7 @@ app
       return input
     }
   }
-}).directive('docHeader', ['$window', '$document', '$compile', '$templateCache', 'Collection', function ($window, $document, $compile, $templateCache, Collection) {
+}).directive('docHead', ['$window', '$document', '$compile', '$templateCache', 'Collection', function ($window, $document, $compile, $templateCache, Collection) {
   return {
     restrict: 'EA',
     scope: {
