@@ -5,7 +5,7 @@
     <div class="flex-top-row">
 
 
-        <button  ng-href="{{roarevent.mediaUrl}}" ng-click="roar.show(roarevent)" class="rbutton " issaclin-class="{'active': roarevent.isSelected}">{{roarevent.rid}}</button>
+        <button  ng-href="{{roarevent.mediaUrl}}" ng-click="roar.show(roarevent)" class="rbutton " ng-class="{'active': roarevent.isSelected}">{{roarevent.rid}}</button>
         <h6 class="rflag" 
         data-context-menu="/llp_core/partials/contextmenus/roarcontextmenu.html"><strong>{{roarevent.title}}</strong>
                   <br><!--
@@ -40,7 +40,7 @@
     </button>-->
     <ng-transclude style="z-index:100">
       <uib-rating ng-model="roarevent.rate" max="max" rating-states="ratingStates" read-only="true" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['added','ocred','parsed','tagged','done']" aria-labelledby="default-rating" class="showonhover" ng-class="{'text-danger': (roarevent.rate == 1),'text-warning':(roarevent.rate == 2),'text-info':(roarevent.rate == 3),'text-primary':(roarevent.rate == 4),'text-success':(roarevent.rate == 5)}">
-    <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" </uib-rating> ng-show="overStar && !isReadonly">{{percent}}%</span>
+    <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}"  ng-show="overStar && !isReadonly">{{percent}}%</span></uib-rating>
     </ng-transclude>
 <!-- 
 
