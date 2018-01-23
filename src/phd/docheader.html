@@ -63,7 +63,7 @@
       <p ng-if="roardate">Dated {{roarevent.date | date }}</p>
       <cite class="pull-right clearfix">{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}&nbsp;&nbsp;<a pop ng-href="{{roarevent.mediaUrl || roarevent.media || item.mediaUrl || item.media || collection.mediaUrl || collection.media}}" target="fframe" title="{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}" date="{{roarevent.date || item.date || collection.date}}"><i class="fa fa-external-link"></i></a></cite></div>
     <iframe uib-collapse="!roarevent.showframe"  allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:800px;overflow:scroll;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}">{{roarevent.notes}}</iframe>
-    <div data-ng-transclude uib-collapse="!roarevent.showframe"  allowfullscreen style="width:100%;height:600px;overflow:scroll;"></div>
+    <div data-ng-transclude uib-collapse="roarevent.showframe"  allowfullscreen style="width:100%;height:600px;overflow:scroll;"></div>
     <!--<div class="panel-body clearfix" roarevents="{{roarevent.$id}}">
         <div class="clearfix" style="width:100%;min-height:50px;margin-top:-20px;display:flex;flex-direction:row;align-content:center;">
             <dir-pagination-controls pagination-id="clipboarder" template-url="/llp_core/bower_components/angular-utils-pagination/dirPagination.tpl.html"
