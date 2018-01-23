@@ -1741,7 +1741,7 @@ $templateCache.put("{widgetsPath}/getphd/src/roarevent/roarchip-popover.html","<
 $templateCache.put("{widgetsPath}/getphd/src/roarevent/roarchip.html","<div ng-class=\"{\'active\': roarevent.isSelected || item.isSelected}\" class=\"animated roarchip\" data-context-menu=/llp_core/partials/contextmenus/roarcontextmenu.html data-toggle=popover uib-popover-template=\"\'{widgetsPath}/getphd/src/roarevent/roarchip-popover.html\'\" popover-placement=right popover-animation=true popover-trigger=click popover-append-to-body=true><button class=\"rlabel btn-{{roarevent.styleClass || item.styleClass || \'btn-glass btn-dark\'}} fa fa-{{roarevent.icon || item.icon}} pull-left\" ng-href=\"{{roarevent.mediaUrl || item.mediaUrl || roarevent.media || item.media || \'/files/uploads/\'+roarevent.$id+\'.html\'}}\" ng-click=roar.show(roarevent.$id||item.$id) ng-dblclick=roar.openFullscreen(roarevent||item) dynamic-background background-image={{roarevent.thumbnail||item.thumbnail}} width=60px style=\"max-width:60px;width:60px;height:60px;max-height:60px;margin: 2.5px;\" uib-tooltip=\"open media\" tooltip-animation=true tooltip-position=right>{{roarevent.rid || item.rid}}</button><h6 class=rflag ng-href=/files/uploads/{{roarevent.$id||item.$id}}.html ng-click=roar.present(roarevent||item) ng-dblclick=roar.openFullscreen(roarevent||item) uib-tooltip=\"open LEXPAD\" tooltip-animation=true tooltip-position=right><strong>{{roarevent.title || item.title || roarevent.name || item.name}}</strong></h6><cite class=pull-right style=position:absolute;right:0.3rem;bottom:0.1rem;font-size:12px;>{{roarevent.date||item.date | date}}</cite><ng-transclude style=position:absolute;right:0.3rem;></ng-transclude></div>");
 $templateCache.put("{widgetsPath}/getphd/src/roarevent/roarevent.html","<div id={{roarevent.$id}} ng-class=\"{\'active\': roarevent.isSelected}\" class=\"_info animated staggered slideLeft\" style=margin:2.5px;><div class=flex-top-row><button ng-href={{roarevent.mediaUrl}} ng-click=roar.show(roarevent) class=rbutton issaclin-class=\"{\'active\': roarevent.isSelected}\">{{roarevent.rid}}</button><h6 class=rflag data-context-menu=/llp_core/partials/contextmenus/roarcontextmenu.html><strong>{{roarevent.title}}</strong><br></h6><div class=\"panel r-action\" layout=column layout-align=\"space-between center\" style=border-radius:5px;><button clipboard text=roarevent.media on-copied=\"toastr.success(\'copied!\');\" on-error=\"toastr.error(err,\'uh oh!\')\" class=\"rmodal fa {{roarevent.statusIcon || roarevent.icon || \'fa-bars\'}} {{roarevent.statusIconStyle}}\" uib-tooltip=\"copy media url\" tooltip-trigger=mouseenter tooltip-placement=right style=background-color:transparent;border-width:0px;></button> <button id=empiretogglebutton ng-class=\"{\'btn-warning fa-futbol-o\': roarevent.isSelected == false,\'btn-flat fa-minus\': roarevent.isSelected == null, \'btn-success fa-ge\': roarevent.isSelected == true}\" class=\"fade btn btn-default btn-xs fa r-doc\" ng-click=roar.toggleSelection(roarevent,$scope.$parent.$parent.collection)></button> <button class=\"fade btn btn-default btn-xs fa fa-copy r-doc\" ng-click=roar.copytoclipboard(roarevent) uib-tooltip=\"copy to clipboard\" tooltip-trigger=mouseenter tooltip-placement=left></button> <button class=\"fade btn btn-default btn-xs fa fa-chevron-left text-primary\" ng-click=roar.moveLeft(roarevent) uib-tooltip=\"move left\" tooltip-trigger=mouseenter tooltip-placement=left></button> <button class=\"fade btn btn-default btn-xs fa fa-chevron-right text-primary\" ng-click=roar.moveRight(roarevent) uib-tooltip=\"move right\" tooltip-trigger=mouseenter tooltip-placement=left></button> <button class=\"fade btn btn-default btn-xs fa fa-remove r-delete\" ng-click=roar.movetorecyclebin(roarevent) uib-tooltip=remove tooltip-trigger=mouseenter tooltip-placement=left></button></div></div><button class=\"rlabel btn-{{roarevent.styleClass || \'dark btn-glass\'}}\" ng-href=/files/uploads/{{roarevent.$id}}.html ng-click=roar.present(roarevent) ng-dblclick=\"roarevent.thumbnail | roarevent.mediaUrl\" style=border-width:3px; dynamic-background background-image={{roarevent.thumbnail}} background-size=contain><p class=cut-with-dots style=max-height:10vh>{{roarevent.description}}</p></button><ng-transclude style=z-index:100><uib-rating ng-model=roarevent.rate max=max rating-states=ratingStates read-only=true on-hover=hoveringOver(value) on-leave=\"overStar = null\" titles=\"[\'added\',\'ocred\',\'parsed\',\'tagged\',\'done\']\" aria-labelledby=default-rating class=showonhover ng-class=\"{\'text-danger\': (roarevent.rate == 1),\'text-warning\':(roarevent.rate == 2),\'text-info\':(roarevent.rate == 3),\'text-primary\':(roarevent.rate == 4),\'text-success\':(roarevent.rate == 5)}\"><span class=label ng-class=\"{\'label-warning\': percent<30, \'label-info\': percent>=30 && percent<70, \'label-success\': percent>=70}\" < uib-rating>ng-show=\"overStar && !isReadonly\">{{percent}}%</span></uib-rating></ng-transclude></div>");}]);
 app
-  .directive('roarevents', ["ROARevents", "ROARevent", "Collection", "filepickerService", "$roarevent", "$filter", "Collections", "toastr", "bytesFilter", "ckstarter", "ckender", "$http", "$stateParams", "$rootScope", function (ROARevents, ROARevent, Collection, filepickerService, $roarevent, $filter, Collections, toastr, bytesFilter, ckstarter, ckender,$http, $stateParams, $rootScope) {
+  .directive('roareventsA', ["ROARevents", "ROARevent", "Collection", "filepickerService", "$roarevent", "$filter", "Collections", "toastr", "bytesFilter", "ckstarter", "ckender", "$http", "$stateParams", "$rootScope", function (ROARevents, ROARevent, Collection, filepickerService, $roarevent, $filter, Collections, toastr, bytesFilter, ckstarter, ckender,$http, $stateParams, $rootScope) {
     return {
       restrict: 'A',
 
@@ -2184,7 +2184,7 @@ app
       }
     }
   }])
-.factory('$roar', ["$http", "$stateParams", "$rootScope", "ckstarter", "ckender", "Collection", "bytesFilter", function($http,$stateParams,$rootScope, ckstarter,ckender,Collection,bytesFilter){
+.factory('$roarA', ["$http", "$stateParams", "$rootScope", "ckstarter", "ckender", "Collection", "bytesFilter", function($http,$stateParams,$rootScope, ckstarter,ckender,Collection,bytesFilter){
   return function(file){
     
      var filename = file.name || file.filename
@@ -2395,7 +2395,7 @@ app
                 });
   }
 }])
-  .directive('roarevt', ["$http", "$rootScope", "$compile", "$controller", "$document", "$animate", function ($http, $rootScope, $compile, $controller, $document, $animate) {
+  .directive('roarevtA', ["$http", "$rootScope", "$compile", "$controller", "$document", "$animate", function ($http, $rootScope, $compile, $controller, $document, $animate) {
     return {
       restrict: 'E',
       transclude: true,
@@ -2559,7 +2559,7 @@ app
       }
     }
   }])
-  .directive('roarEvent', ["$http", "Popup", "$rootScope", "$compile", "$controller", "$document", "$animate", "ROARevent", "Collection", function ($http, Popup, $rootScope, $compile, $controller, $document, $animate, ROARevent, Collection) {
+  .directive('roarEventA', ["$http", "Popup", "$rootScope", "$compile", "$controller", "$document", "$animate", "ROARevent", "Collection", function ($http, Popup, $rootScope, $compile, $controller, $document, $animate, ROARevent, Collection) {
     return {
       restrict: 'EA',
       transclude: true,
@@ -2629,7 +2629,7 @@ app
       }
     }
   }])
-  .controller('ROARevtCtrl', ["$compile", "$templateCache", "$scope", "pdfToPlainText", "$http", "ckstarter", "ckender", "Popup", function ($compile, $templateCache, $scope, pdfToPlainText, $http, ckstarter, ckender, Popup) {
+  .controller('ROARevtCtrlA', ["$compile", "$templateCache", "$scope", "pdfToPlainText", "$http", "ckstarter", "ckender", "Popup", function ($compile, $templateCache, $scope, pdfToPlainText, $http, ckstarter, ckender, Popup) {
     var roar = this
     // roar.show = function(eventId) {
     //   //  Collection(eventId).$loaded().then(function(event) {
@@ -2732,7 +2732,7 @@ app
       }
     }
   }])*/
-  .controller('ROARChipCtrl', ["$aside", "toastr", "$uibModal", "$compile", "Collection", "$scope", "$templateCache", "ngDialog", "$ACTIVEROAR", "$window", "$rootScope", "PROJECT", "$stateParams", "$sce", "Fullscreen", "$clipboard", "ROARevents", "$http", function ($aside, toastr, $uibModal, $compile, Collection, $scope, $templateCache, ngDialog, $ACTIVEROAR, $window, $rootScope, PROJECT, $stateParams, $sce, Fullscreen, $clipboard, ROARevents, $http) {
+  .controller('ROARChipCtrlA', ["$aside", "toastr", "$uibModal", "$compile", "Collection", "$scope", "$templateCache", "ngDialog", "$ACTIVEROAR", "$window", "$rootScope", "PROJECT", "$stateParams", "$sce", "Fullscreen", "$clipboard", "ROARevents", "$http", function ($aside, toastr, $uibModal, $compile, Collection, $scope, $templateCache, ngDialog, $ACTIVEROAR, $window, $rootScope, PROJECT, $stateParams, $sce, Fullscreen, $clipboard, ROARevents, $http) {
     var roar = this
     $scope.max = 5
     $scope.hoveringOver = function (value) {
@@ -3125,7 +3125,7 @@ app
       ]
     }
   }])
-  .directive('roarBadge', ["Collection", "$animate", function (Collection, $animate) {
+  .directive('roarBadgeA', ["Collection", "$animate", function (Collection, $animate) {
     return {
       restrict: 'EA',
       templateUrl: '/llp_core/modules/roarmap/directive/roarevent/roarbadge.html',
@@ -3154,7 +3154,7 @@ app
       }
     }
   }])
-  .directive('roarToggles', function () {
+  .directive('roarTogglesA', function () {
     return {
       restrict: 'E',
       templateUrl: '/llp_core/modules/roarmap/directive/roarevent/roartoggles.html',
@@ -3167,7 +3167,7 @@ app
       link: function (scope, element, $attr, fn) {}
     }
   })
-  .directive('rpop', ["$http", "Popup", "$rootScope", "$compile", "$controller", "$document", "$animate", "ROARevent", "$templateCache", function ($http, Popup, $rootScope, $compile, $controller, $document, $animate, ROARevent, $templateCache) {
+  .directive('rpopA', ["$http", "Popup", "$rootScope", "$compile", "$controller", "$document", "$animate", "ROARevent", "$templateCache", function ($http, Popup, $rootScope, $compile, $controller, $document, $animate, ROARevent, $templateCache) {
     return {
       restrict: 'AC',
       // templateUrl: 'modules/roarmap/directive/roarevent/roarpopover.html',
@@ -3385,7 +3385,7 @@ app
         }
       }
     };}])
-  .directive('roarPopover', ["$http", "Popup", "$rootScope", "$compile", "$controller", "$document", "$animate", function ($http, Popup, $rootScope, $compile, $controller, $document, $animate) {
+  .directive('roarPopoverA', ["$http", "Popup", "$rootScope", "$compile", "$controller", "$document", "$animate", function ($http, Popup, $rootScope, $compile, $controller, $document, $animate) {
     return {
       restrict: 'A',
       // templateUrl: 'modules/roarmap/directive/roarevent/roarpopover.html',
@@ -3551,7 +3551,7 @@ app
       }
     }
   }])
-  .directive('toolbar', function () {
+  .directive('toolbarA', function () {
     return {
       restrict: 'E',
       templateUrl: '/llp_core/modules/roarmap/directive/toolbars/toolbarbasic.html',
@@ -3559,7 +3559,7 @@ app
       link: function (scope, element, $attr, fn) {}
     }
   })
-  .controller('ROAReventController', ['$scope', 'ROARevent', 'ROARevents', '$state', '$stateParams', '$timeout', 'ngDialog', '$ACTIVEROAR', 'Collection', '$templateCache', '$compile', '$rootScope', '$window', '$clipboard',
+  .controller('ROAReventControllerA', ['$scope', 'ROARevent', 'ROARevents', '$state', '$stateParams', '$timeout', 'ngDialog', '$ACTIVEROAR', 'Collection', '$templateCache', '$compile', '$rootScope', '$window', '$clipboard',
     function ($scope, ROARevent, ROARevents, $state, $stateParams, $timeout, ngDialog, $ACTIVEROAR, Collection, $templateCache, $compile, $rootScope, $window, $clipboard) {
       var matterId = $stateParams.matterId
 
@@ -3767,7 +3767,7 @@ app
     //   }
     }
   ])
-  .factory('Popup', function () {
+  .factory('PopupA', function () {
     return function (args) {
       args = angular.extend({
         scope: null,
@@ -3920,7 +3920,7 @@ app
     }
   })
 
-  .controller('ROARbadgeCtrl', ['$scope', '$stateParams', 'ROARevent', 'ROARevents',
+  .controller('ROARbadgeCtrlA', ['$scope', '$stateParams', 'ROARevent', 'ROARevents',
     function ($scope, $stateParams, ROARevent, ROARevents) {
       var matterId = $stateParams.matterId
       var roarevents = ROARevents(matterId)
@@ -3963,7 +3963,7 @@ app
 
     }
   ])
-  .factory('$roarevent', ['OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', '$filter', 'ckstarter', 'ckender','$stateParams','$rootScope',
+  .factory('$roareventA', ['OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', '$filter', 'ckstarter', 'ckender','$stateParams','$rootScope',
     function (OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, $filter, ckstarter, ckender, $stateParams, $rootScope) {
       return function (file) {
         var deferred = $q.defer()
@@ -4084,7 +4084,7 @@ app
         }
       }
     }])
-  .factory('$roarmap', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'filepickerService', '$location', '$ACTIVEROAR', '$dashboards', 'CLAIMDOCS', 'ckstarter', 'ckender', 'ckheader', '$http', '$filter',
+  .factory('$roarmapA', ['$stateParams', 'Matter', 'Collection', 'ROARevent', 'ROARevents', 'Collections', '$timeout', 'OWNERSHIPDOCS', 'ARTDOCS', 'MERITSDOCS', 'DOCNAMES', 'PETDOCCODES', 'NOADOCCODES', 'INTVDOCCODES', 'PTODOCCODES', 'APPDOCCODES', '$q', 'PHD', '$log', 'filepickerService', '$location', '$ACTIVEROAR', '$dashboards', 'CLAIMDOCS', 'ckstarter', 'ckender', 'ckheader', '$http', '$filter',
     function ($stateParams, Matter, Collection, ROARevent, ROARevents, Collections, $timeout, OWNERSHIPDOCS, ARTDOCS, MERITSDOCS, DOCNAMES, PETDOCCODES, NOADOCCODES, INTVDOCCODES, PTODOCCODES, APPDOCCODES, $q, PHD, $log, filepickerService, $location, $ACTIVEROAR, $dashboards, CLAIMDOCS, ckstarter, ckender, ckheader, $http, $filter) {
       return function (files, phd, main) {
         phd.roarmap = {
@@ -4459,7 +4459,7 @@ app
         }
       }
     }
-  ]).controller('PageslideCtrl', ['$scope', function ($scope) {
+  ]).controller('PageslideCtrlA', ['$scope', function ($scope) {
   $scope.checked = false; // This will be binded using the ps-open attribute
 
   $scope.toggle = function () {
@@ -4475,7 +4475,7 @@ app
   $scope.toggle2 = function () {
     $scope.checked2 = !$scope.checked2
   }
-}]).filter('strip', function () {
+}]).filter('stripA', function () {
   return function (input) {
     if (input !== (null || undefined)) {
       var regex = new RegExp(/\D/ig)
@@ -4571,7 +4571,7 @@ app
       })
     }
   }
-}]).directive('patentreport', ['$http', 'ckstarter', 'ckender', function ($http, ckstarter, ckender) {
+}]).directive('patentreportA', ['$http', 'ckstarter', 'ckender', function ($http, ckstarter, ckender) {
   return {
     restrict: 'EA',
     templateUrl: '{widgetsPath}/getphd/src/phd/patentReport.html',
@@ -4585,7 +4585,7 @@ app
     }
   }
 }])
-  .directive('patentCitation', ['$http', 'Collection', '$patentsearch', '$filter', function ($http, Collection, $patentsearch, $filter) {
+  .directive('patentCitationA', ['$http', 'Collection', '$patentsearch', '$filter', function ($http, Collection, $patentsearch, $filter) {
     return {
       restrict: 'EA',
       templateUrl: '{widgetsPath}/getphd/src/phd/citation.html',
@@ -4624,7 +4624,7 @@ app
       }
     }
   }])
-.directive('noteswidget', ['$rootScope','Users','Notes','Note',function($rootScope, Users, Notes, Note){
+.directive('noteswidgetA', ['$rootScope','Users','Notes','Note',function($rootScope, Users, Notes, Note){
   return {
     restrict: 'A',
     replace: true,
@@ -4646,8 +4646,8 @@ app
     }
   }
 }])
-.controller('NotesController',[])
-.controller('DocHeaderController', ["$aside", "toastr", "$uibModal", "$compile", "Collection", "$scope", "$templateCache", "ngDialog", "$ACTIVEROAR", "$window", "$rootScope", "PROJECT", "$stateParams", "$sce", "Fullscreen", "$clipboard", "ROARevents", "$http", function ($aside, toastr, $uibModal, $compile, Collection, $scope, $templateCache, ngDialog, $ACTIVEROAR, $window, $rootScope, PROJECT, $stateParams, $sce, Fullscreen, $clipboard, ROARevents, $http) {
+.controller('NotesControllerA',[])
+.controller('DocHeaderControllerA', ["$aside", "toastr", "$uibModal", "$compile", "Collection", "$scope", "$templateCache", "ngDialog", "$ACTIVEROAR", "$window", "$rootScope", "PROJECT", "$stateParams", "$sce", "Fullscreen", "$clipboard", "ROARevents", "$http", function ($aside, toastr, $uibModal, $compile, Collection, $scope, $templateCache, ngDialog, $ACTIVEROAR, $window, $rootScope, PROJECT, $stateParams, $sce, Fullscreen, $clipboard, ROARevents, $http) {
     var roar = this;
 
 $scope.openpreview = function (draft) {
