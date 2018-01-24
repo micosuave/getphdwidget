@@ -14,7 +14,11 @@
       
 
       <div class="" uib-collapse="!poodle">
-       <div class="card-header"><h4 class="card-title fa fa-2x fa-copy" ng-click="swap = !swap" ><strong style="font-family: 'Helvetica',sans-serif;"> Related Documents </strong><label class="badge" >{{vents.length||ventss.length}}</label></h4></div>
+       <div class="card-header">
+        <h4 class="card-title fa fa-2x fa-copy" ng-click="swap = !swap" >
+          <strong style="font-family: 'Helvetica',sans-serif;"> Related Documents </strong><label class="badge" >{{vents.length||ventss.length}}</label>
+        </h4>
+      </div>
 <!--         <div  ng-repeat="vent in roarevent.roarlist as vents" ffbase="{{vent.$id || vent.$value || vent}}">
           <roar-chip class="list-group-item bs-callout bs-callout-{{item.styleClass}}" id="{{vent.$id || vent.$value || vent}}">
             
@@ -26,9 +30,13 @@
             </div>
         </div> -->
         <div uib-collapse="swap"> 
-         <p  ng-repeat="vent in roarevent.roarlist as ventss" ffbase="{{vent.$id || vent.$value || vent}}"  style="max-width:100%;width:100%" ng-click="getRelatedPage(vent)" ><!--ng-mousedown="classy='bs-calloutbs-callout-reverse bs-callout-{{item.styleClass}}'" ng-mouseup="classy = null" class="{{classy}}"-->
+         <p  ng-repeat="vent in roarevent.roarlist as ventss" ffbase="{{vent.$id || vent.$value || vent}}"  style="max-width:100%;width:100%;overflow-x:hidden;max-height:60px;" class="bs-callout bs-callout-style bs-callout-reverse flex-row"  ng-click="getRelatedPage(vent)" >
+
+          <!--ng-mousedown="classy='bs-calloutbs-callout-reverse bs-callout-{{item.styleClass}}'" ng-mouseup="classy = null" class="{{classy}}"-->
            <!-- <h4>{{item.title}}</h4> class="bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}"-->
-           <a ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-3x fa-chevron-right fa-pull-right" style="opacity: 0.25;" uib-tooltip="view in fframe" ng-click="roarevent.showframe = !roarevent.showframe"></a>
+           <a ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-3x fa-chevron-right fa-pull-right" style="opacity: 0.05;" uib-tooltip="view in fframe" ng-click="roarevent.showframe = !roarevent.showframe"></a>
+
+
           <roar-chip-a  style="min-width:300px" id="{{vent.$id || vent.$value || vent}}"></roar-chip-a>
            
           
@@ -52,33 +60,35 @@
             </span>
       </li>
     </ul> -->
-         <!--  <table-of-contents root="{{roarevent.$id}}" ng-if="roarevent.roarlist" uib-collapse="!poodle"></table-of-contents> -->
+         
         
   </div>
 
   <div class="col-xs-8 col-2">
     <div class="bs-callout bs-callout-reverse bs-callout-{{roarevent.styleClass}}">
       <h4 ng-dblclick="full = !full" ng-click="roarevent.showframe = !roarevent.showframe">{{roarevent.title}}</h4>
+      
       <p ng-bind="roarevent.description"></p>
+      
       <p ng-if="roardate">Dated {{roarevent.date | date }}</p>
-      <cite class="pull-right clearfix">{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}&nbsp;&nbsp;<a pop ng-href="{{roarevent.mediaUrl || roarevent.media || item.mediaUrl || item.media || collection.mediaUrl || collection.media}}" target="fframe" title="{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}" date="{{roarevent.date || item.date || collection.date}}"><i class="fa fa-external-link"></i></a></cite></div>
-    <iframe uib-collapse="!roarevent.showframe"  allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:800px;overflow:scroll;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}">{{roarevent.notes}}</iframe>
-    <div data-ng-transclude uib-collapse="roarevent.showframe"  allowfullscreen style="width:100%;height:600px;overflow:scroll;"></div>
-    <!--<div class="panel-body clearfix" roarevents="{{roarevent.$id}}">
-        <div class="clearfix" style="width:100%;min-height:50px;margin-top:-20px;display:flex;flex-direction:row;align-content:center;">
-            <dir-pagination-controls pagination-id="clipboarder" template-url="/llp_core/bower_components/angular-utils-pagination/dirPagination.tpl.html"
-                class=""></dir-pagination-controls>
-            <div class="input-group" style="max-width: 33%;position:absolute;right:50px;">
-                <a ng-click="pickMulti()" style="margin:5px;" class=" pull-right"><i class="fa fa-plus text-success"></i></a>
-                <input ng-model="query" type="text" placeholder="Search..." style="padding:2.5px;margin:5px;" class="pull-right" />
-            </div>
-        </div>
-        <div dir-paginate="i in roarevents | itemsPerPage:25" pagination-id="clipboarder">
 
-            <roarevent id="{{i.$value}}" style="max-width:20%;width:20%;height: 175px;max-height:175px;float:left;position:relative;"></roarevent>-->
-<!-- <roar-grid config="{id: '{{roarevent.$id}}'}"></roar-grid> -->
+      <cite class="pull-right clearfix"> {{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}} 
+        &nbsp;&nbsp;
+        <a pop target="fframe" ng-href="{{roarevent.mediaUrl || roarevent.media || item.mediaUrl || item.media || collection.mediaUrl || collection.media}}"  title="{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}" date="{{roarevent.date || item.date || collection.date}}">
+          <i class="fa fa-external-link"></i>
+        </a>
+      </cite>
+    
+    </div>
+    
+
+    <iframe uib-collapse="!roarevent.showframe"  allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:600px;overflow:scroll;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
+    
+
+    <div data-ng-transclude uib-collapse="roarevent.showframe"  allowfullscreen style="width:100%;height:600px;overflow:scroll;"></div>
+    
+
 
   </div>
-  <!--<div class="col-xs-4"><img ng-src="{{background}}" class="img img-responsive img-shadow" /></div>-->
-
+  
 </div>

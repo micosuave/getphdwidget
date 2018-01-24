@@ -31,7 +31,7 @@
                         </div>
 
     </div>
-    <button  class="rlabel btn-{{roarevent.styleClass || 'dark btn-glass'}}" ng-href="/files/uploads/{{roarevent.$id}}.html" ng-click="roar.present(roarevent)"  ng-dblclick="roarevent.thumbnail | roarevent.mediaUrl" style="border-width:3px;" dynamic-background background-image="{{roarevent.thumbnail}}" background-size="contain" >
+    <button  class="rlabel btn-{{roarevent.styleClass || 'dark btn-glass'}}" ng-href="/files/uploads/{{roarevent.$id}}.html" ng-click="roar.present(roarevent)"  ng-dblclick="roarevent.thumbnail = roarevent.mediaUrl" style="border-width:3px;" dynamic-background background-image="{{roarevent.thumbnail}}" background-size="contain" >
         <p class="cut-with-dots" style="max-height:10vh">{{roarevent.description}}</p>
     </button>
     
