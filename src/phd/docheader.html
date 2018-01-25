@@ -4,7 +4,7 @@
     <img dynamic-background background="url({{background(roarevent.styleClass)}})" background-position="0 0;" background-repeat="no-repeat" ng-src="{{roarevent.thumbnail || background(roarevent.styleClass)}}" class="img img-responsive img-shadow img-thumbnail" ng-click="poodle = !poodle" />
     <h4>{{roarevent.title}}</h4>
     
-    <p class="">
+    <p class="card-text">
       <!-- <fieldset class="material " uib-collapse="!poodle">
         <input type="text" placeholder="Search..." ng-model="$parent.$$childHead.$$childHead.$$childTail.query">
         <hr>
@@ -13,10 +13,10 @@
       <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag">&nbsp;<a ng-click="getRelated(match)">{{match}}</a>&nbsp;</label></p>
       
 
-      <div class="well" uib-collapse="!poodle">
+      <div class="" uib-collapse="!poodle">
        <div class="card-header">
         <h4 class="card-title fa fa-2x fa-copy" ng-click="swap = !swap" >
-          <strong style="font-family: 'Helvetica',sans-serif;"> &nbsp;&nbsp;&nbsp;&nbsp;Related Documents </strong><label class="badge" >{{vents.length||ventss.length}}</label>
+          <strong style="font-family: 'Helvetica',sans-serif;"> Related Documents </strong><label class="badge" >{{vents.length||ventss.length}}</label>
         </h4>
       </div>
 <!--         <div  ng-repeat="vent in roarevent.roarlist as vents" ffbase="{{vent.$id || vent.$value || vent}}">
@@ -29,12 +29,12 @@
                 </div>
             </div>
         </div> -->
-        <div class="" uib-collapse="swap"> 
+        <div uib-collapse="swap"> 
          <p  ng-repeat="vent in roarevent.roarlist as ventss" ffbase="{{vent.$id || vent.$value || vent}}"  style="max-width:100%;width:100%;overflow-x:hidden;max-height:60px;" class="bs-callout bs-callout-style bs-callout-reverse flex-row"  ng-click="getRelatedPage(vent)" >
 
           <!--ng-mousedown="classy='bs-calloutbs-callout-reverse bs-callout-{{item.styleClass}}'" ng-mouseup="classy = null" class="{{classy}}"-->
            <!-- <h4>{{item.title}}</h4> class="bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}"-->
-           <a  ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-3x fa-chevron-right fa-pull-right" style="opacity: 0.05;" uib-tooltip="view in fframe" ng-click="roarevent.showframe = !roarevent.showframe"></a>
+           <a ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-3x fa-chevron-right fa-pull-right" style="opacity: 0.05;" uib-tooltip="view in fframe" ng-click="roarevent.showframe = !roarevent.showframe"></a>
 
 
           <roar-chip-a  style="min-width:300px" id="{{vent.$id || vent.$value || vent}}"></roar-chip-a>

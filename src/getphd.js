@@ -1092,12 +1092,12 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
             scope: true,
             link: function($scope, $el, $attr, $ctrl) {
                 var popdoc = function() {
-                    var classList = 'issuedocpanel stacker nav-dark btn-glass grad-{{roarevent.styleClass}}';
-                    var divpanel = angular.element('<div/>').attr('class', classList);
+
+                    var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker panel-'+($attr.styleClass||'panelheadblue'));
                     //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
                     var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
                     //var header = $('#docheader').html();
-                    var skope = angular.element('<iframe allowfullscreen fullscreen="{{full}}" />').attr('height', '80vh').attr('src', $attr.href);
+                    var skope = angular.element('<iframe allowfullscreen fullscreen="{{full}}" ng-dblclick="full = !full" name="fframe" />').attr('height', '80vh').attr('src', $attr.href);
                     $scope.roarevent = $scope.roarevent || {};
                     $scope.roarevent.title = $attr.title || $attr.href;
                     
@@ -1110,16 +1110,10 @@ var app = angular.module('adf.widget.getphd', ['adf.provider','llp.extract','llp
                         handle: 'h4'
                     }).resizable();
                     interact(divpanel, {ignoreFrom: '.card',allowFrom:'h4'}).draggable().on('doubletap', function (event) {
-                        event.preventDefault();
-                        //window.open(event.currentTarget,'_blank');
-                        //event.currentTarget.remove();
+                        window.open(event.currentTarget,'_blank');
+                        event.currentTarget.remove();
                         //event.currentTarget.classList.remove('rotate');
-                        var a = event.currentTarget.getAttribute('fullscreen');
-
-                        if (a !== true){ event.currentTarget.setAttribute('fullscreen',true); }
-                        else { event.currentTarget.setAttribute('fullscreen',false); }
-                        
-                        
+                        event.preventDefault();
                     });
                     // interact('.issuedocpanel',{ ignoreFrom: '.card'})
                     //   .draggable({
@@ -1710,9 +1704,4 @@ collection.roarlist.forEach(function(v, i , a){
     },
     link: function($scope, $element, $attr, $ctrl) {}
   }
-}) .filter('slide', function(){
-        return function(input_html){
-          var start = input_html.slice(input_html.indexOf('<!--CUTSLIDEHEAD-->')-1,input_html.lastIndexOf('<!--CUTSLIDETAIL-->')+19);
-          return start
-        }
-      });
+});

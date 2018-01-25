@@ -1,5 +1,5 @@
 app
-      .directive('collectionA', ['Collection','ROARevents','ROARevent', function(Collection, ROARevents, ROARevent) {
+      .directive('collection', ['Collection','ROARevents','ROARevent', function(Collection, ROARevents, ROARevent) {
           return {
               restrict: 'EA',
               replace: false,
