@@ -1,5 +1,5 @@
-app
-  .directive('roarevents', function (ROARevents, ROARevent, Collection, filepickerService, $roarevent, $filter, Collections, toastr, bytesFilter, ckstarter, ckender,$http, $stateParams, $rootScope) {
+var app = angular.module('mini')
+  .directive('roareventsA', function (ROARevents, ROARevent, Collection, filepickerService, $roarevent, $filter, Collections, toastr, bytesFilter, ckstarter, ckender,$http, $stateParams, $rootScope) {
     return {
       restrict: 'A',
       priority: 1,
@@ -654,13 +654,13 @@ app
                 });
   }
 })
-  .directive('roarevt', function ($http, $rootScope, $compile, $controller, $document, $animate) {
+  .directive('roarevtA', function ($http, $rootScope, $compile, $controller, $document, $animate) {
     return {
       restrict: 'E',
       transclude: true,
             priority: 1,
       terminal:true,
-      templateUrl: '/llp_core/modules/roarmap/directive/roarevent/roarevent.html',
+      templateUrl: '{widgetsPath}/getphd/src/roarevent/roarevent.html',
       scope: {
         roarevent: '='
       },
@@ -819,7 +819,7 @@ app
       }
     }
   })
-  .directive('roarEvent', function ($http, Popup, $rootScope, $compile, $controller, $document, $animate, ROARevent, Collection) {
+  .directive('roarEventA', function ($http, Popup, $rootScope, $compile, $controller, $document, $animate, ROARevent, Collection) {
     return {
       restrict: 'EA',
       transclude: true,
@@ -955,7 +955,7 @@ app
       })
     }
   })
-  .directive('pop', ['$compile', '$templateCache', 'ROARevent', function ($compile, $templateCache, ROARevent) {
+  .directive('popA', ['$compile', '$templateCache', 'ROARevent', function ($compile, $templateCache, ROARevent) {
     return {
       restrict: 'AC',
       link: function ($scope, $el, $attr, $ctrl) {
@@ -964,7 +964,7 @@ app
           var newid = uurl.slice(uurl.lastIndexOf('/') + 1, uurl.lastIndexOf('.'))
           var roar = ROARevent(newid)
           $scope.roarevent = roar
-          var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker panel panel-{{roarevent.styleClass}}').css({'margin': '10px'})
+          var divpanel = angular.element('<div/>').attr('class', 'issuedocpanel stacker panel grad-{{roarevent.styleClass}}').css({'margin': '10px'})
           // var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>')
           var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html')
           // var header = $('#docheader').html()
@@ -1116,7 +1116,7 @@ app
       //             }else{
       Collection(roarevent.$id || roarevent).$loaded().then(function (event) {
         if (event.document_type !== 'html') {
-          var divpanel = angular.element('<div/>').attr('id', event.id || event.$id).attr('class', "issuedocpanel panel panel-{{roarevent.styleClass || 'default'}} stacker ").css({
+          var divpanel = angular.element('<div/>').attr('id', event.id || event.$id).attr('class', "issuedocpanel panel grad-{{roarevent.styleClass || 'default'}} stacker ").css({
             'z-index': '10000','width': '45vw','margin': '10px','height': '90vh'
           })
           // var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>')
@@ -1156,7 +1156,7 @@ app
     roar.present = function (roarevent) {
       var ref = Collection(roarevent.$id).$ref()
 
-      var divpanel = angular.element('<div/>').attr('id', roarevent.id || roarevent.$id).attr('class', "issuedocpanel panel panel-{{roarevent.styleClass || 'default'}} stacker").css({
+      var divpanel = angular.element('<div/>').attr('id', roarevent.id || roarevent.$id).attr('class', "issuedocpanel panel grad-{{roarevent.styleClass || 'default'}} stacker").css({
         'z-index': '100000','width': '45vw','margin': '10px','height': '90vh'
       })
       // var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>')
@@ -1388,7 +1388,7 @@ app
       ]
     }
   })
-  .directive('roarBadge', function (Collection, $animate) {
+  .directive('roarBadgeA', function (Collection, $animate) {
     return {
       restrict: 'EA',
       templateUrl: '/llp_core/modules/roarmap/directive/roarevent/roarbadge.html',
@@ -1419,7 +1419,7 @@ app
       }
     }
   })
-  .directive('roarToggles', function () {
+  .directive('roarTogglesA', function () {
     return {
       restrict: 'E',
       templateUrl: '/llp_core/modules/roarmap/directive/roarevent/roartoggles.html',
@@ -1434,7 +1434,7 @@ app
       link: function (scope, element, $attr, fn) {}
     }
   })
-  .directive('rpop', function ($http, Popup, $rootScope, $compile, $controller, $document, $animate, ROARevent, $templateCache) {
+  .directive('rpopA', function ($http, Popup, $rootScope, $compile, $controller, $document, $animate, ROARevent, $templateCache) {
     return {
       restrict: 'AC',
       // templateUrl: 'modules/roarmap/directive/roarevent/roarpopover.html',
@@ -1654,7 +1654,7 @@ app
         }
       }
     };})
-  .directive('roarPopover', function ($http, Popup, $rootScope, $compile, $controller, $document, $animate) {
+  .directive('roarPopoverA', function ($http, Popup, $rootScope, $compile, $controller, $document, $animate) {
     return {
       restrict: 'A',
       // templateUrl: 'modules/roarmap/directive/roarevent/roarpopover.html',
@@ -1822,7 +1822,7 @@ app
       }
     }
   })
-  .directive('toolbar', function () {
+  .directive('toolbarA', function () {
     return {
       restrict: 'E',
       templateUrl: '/llp_core/modules/roarmap/directive/toolbars/toolbarbasic.html',
@@ -2846,7 +2846,7 @@ app
       })
     }
   }
-}]).directive('patentreport', ['$http', 'ckstarter', 'ckender', function ($http, ckstarter, ckender) {
+}]).directive('patentreportA', ['$http', 'ckstarter', 'ckender', function ($http, ckstarter, ckender) {
   return {
     restrict: 'EA',
           priority: 1,
@@ -2862,7 +2862,7 @@ app
     }
   }
 }])
-  .directive('patentCitation', ['$http', 'Collection', '$patentsearch', '$filter', function ($http, Collection, $patentsearch, $filter) {
+  .directive('patentCitationA', ['$http', 'Collection', '$patentsearch', '$filter', function ($http, Collection, $patentsearch, $filter) {
     return {
       restrict: 'EA',
             priority: 1,
@@ -2903,7 +2903,7 @@ app
       }
     }
   }])
-.directive('noteswidget', ['$rootScope','Users','Notes','Note',function($rootScope, Users, Notes, Note){
+.directive('noteswidgetA', ['$rootScope','Users','Notes','Note',function($rootScope, Users, Notes, Note){
   return {
     restrict: 'A',
           priority: 1,
