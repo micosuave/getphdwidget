@@ -1,69 +1,3 @@
-<div class="panel-heading" style="z-index:1;margin:0px;padding:0px;" ng-init="coplapse = false">
-
-  <h4 class="panel-title " >
-
-
-
-    <div id="" uib-dropdown uib-keyboard-nav style="z-index:1000000;">
-      <a uib-dropdown-toggle class="btn btn-xs  vcenter pull-left no-arrow">
-        <label class="fa fa-bars hovergold" style="cursor:pointer;filter:drop-shadow(0 0 2.5px rgba(0,0,0,0.5));color: #fff;"></label>
-
-      </a>
-      <ul class="uib-dropdown-menu panel r-action" style="position:absolute;width:280px;box-shadow: 5px 5px 10px rgba(0,0,0,0.5);">
-
-       
-        <li class="" uib-tooltip="COPY LINK" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
-          <a class="hovergold" style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" clipboard text="roarevent.media"
-            on-copied="alertify.success('copied!');" on-error="alertify.error(err,'uh oh!')" onclick="alertify.success('copied!')"><i class="fa fa-link" style="margin:5px;"></i> COPY LINK</a>
-        </li>
-        <li class="" uib-tooltip="COPY LEXPAD ID" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
-          <a class="hovergold" style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" clipboard text="roarevent.$id"
-            on-copied="alertify.success('copied!');" on-error="alertify.error(err,'uh oh!')" onclick="alertify.success('copied!')"><i class="fa fa-info" style="margin:5px;"></i> COPY LEXPAD ID</a>
-        </li>
-         <li class="" uib-tooltip="COLLAPSE" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
-          <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="collapse widget"
-            ng-show="!isCollapsed" ng-click="isCollapsed = true" onclick="$('.issuedocpanel').addClass('closed')"> <i class="fa fa-minus" style="margin:5px;"></i> COLLAPSE</a>
-
-        </li> 
-        <li class="" uib-tooltip="EXPAND" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
-          <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="expand widget"
-            ng-show="isCollapsed" ng-click="isCollapsed = false" onclick="$('.issuedocpanel').removeClass('closed')"> <i class="fa fa-plus" style="margin:5px;"></i> EXPAND</a>
-
-        </li>
-        <li class="" uib-tooltip="COPY TO CLIPBOARD" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
-          <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="copy to clipboard"
-            ng-click="edit(roarevent.id)"> <i class="fa fa-copy" style="margin:5px;"></i> COPY TO CLIPBOARD</a>
-
-        </li>
-        <li class="" uib-tooltip="FULLSCREEN" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
-          <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="fullscreen widget"
-            ng-click="openFullScreen(roarevent.$id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="margin:5px;"></i> FULLSCREEN</a>
-        </li>
-        <li class="" uib-tooltip="POP OUT" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right"><a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="pop out"
-            ng-click="openprev()"> <i class="fa fa-external-link" style="margin:5px;"></i> POPOUT</a>
-        </li>
-        <li class="divider"></li>
-        <li class="" uib-tooltip="CLOSE" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
-          <a class="hovergold text-danger" style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="remove widget"
-            ng-click="remove()" onclick="$(this).closest('.issuedocpanel').remove()"> <i class="fa fa-close" style="margin:5px;"></i> CLOSE</a>
-        </li>
-
-      </ul>
-    </div>
-   <div class="row vcenter">
-<small class="">&nbsp;&nbsp;|&nbsp;&nbsp;</small>
-    <small ng-bind="roarevent.rid"></small>
-      <small class="">&nbsp;&nbsp;|&nbsp;&nbsp;</small>
-    <small class="" ng-bind="roarevent.title || roarevent.date" style="font-size:18px;"></small>
-    <small>
-  <em class="" style="margin-left:50px;" ng-bind="roarevent.date | date"></em>
-  <span class="fa {{roarevent.icon || 'fa-info'}}" ng-click="roarevent.coplapse = !roarevent.coplapse" style="margin: 5px;"></span> 
-  <span class="fa fa-close" ng-click="remove()" onclick="$(this).closest('.issuedocpanel').remove()" style="margin:10px;"></span>
-</small>
-</div>
-</h4>
-
-</div>
 <div class="card  clearfix img img-hover img-shadow" collection="{{roarevent.$id}}" style="z-index:1;position:absolute;left:99.5%;top:0;min-width:550px" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;">
   <form role="form" name="form" ng-submit="collection.$save()">
     <div class="col-sm-7">
@@ -171,5 +105,3 @@
     </div>
   </form>
 </div>
-
-
