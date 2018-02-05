@@ -29,17 +29,17 @@
                 </div>
             </div>
         </div> -->
-        <div class="" uib-collapse="swap"> 
-         <p  ng-repeat="vent in roarevent.roarlist as ventss" ffbase="{{vent.$id || vent.$value || vent}}"  style="max-width:100%;width:100%;overflow-x:hidden;max-height:60px;" class="bs-callout bs-callout-style bs-callout-reverse flex-row"  ng-click="getRelatedPage(vent)" >
+        <div class="" uib-collapse="swap" roarevents="{{roarevent.$id}}"> 
+         <p  ng-repeat="vent in roarevent.roarlist as ventss" ffbase="{{vent.$id || vent.$value || vent}}"  style="max-width:100%;width:100%;height:50px;padding:0px;" class="bs-callout-{{item.styleClass}} flex-row row"  ng-class="{'bs-callout bs-callout-style bs-callout-reverse': hoverover}" ng-mouseenter="hoverover = true;" ng-mouseleave="hoverover = false" ng-click="getRelatedPage(vent)" >
 
           <!--ng-mousedown="classy='bs-calloutbs-callout-reverse bs-callout-{{item.styleClass}}'" ng-mouseup="classy = null" class="{{classy}}"-->
            <!-- <h4>{{item.title}}</h4> class="bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}"-->
-           <a  ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-3x fa-chevron-right fa-pull-right" style="opacity: 0.05;" uib-tooltip="view in fframe" ng-click="roarevent.showframe = !roarevent.showframe"></a>
-
-
-          <roar-chip-a  style="min-width:300px" id="{{vent.$id || vent.$value || vent}}"></roar-chip-a>
-           
           
+
+
+          <roar-chip  style="min-width:300px;margin: 0px;" id="{{vent.$id || vent.$value || vent}}"></roar-chip>
+           
+           <a  ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-3x fa-chevron-right fa-pull-right showonhover" style="opacity: 0.05;margin-top:10px;" uib-tooltip="view in fframe" ng-click="roarevent.showframe = true"></a>
   
      
     </p>

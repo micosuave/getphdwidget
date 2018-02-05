@@ -1,12 +1,12 @@
-<div class="panel-heading" style="z-index:1;margin:0px;padding:0px;" ng-init="coplapse = false">
+<div class="panel-heading" style="z-index:1;margin:-5px 0px;padding:0px;" ng-init="coplapse = false">
 
-  <h4 class="panel-title " >
+  <h4 class="panel-title " style="z-index:1;margin:0px;padding:0px;">
 
 
 
-    <div id="" uib-dropdown uib-keyboard-nav style="z-index:1000000;">
+    <div id="" uib-dropdown uib-keyboard-nav style="">
       <a uib-dropdown-toggle class="btn btn-xs  vcenter pull-left no-arrow">
-        <label class="fa fa-bars hovergold" style="cursor:pointer;filter:drop-shadow(0 0 2.5px rgba(0,0,0,0.5));color: #fff;"></label>
+        <label class="fa fa-bars hovergold" style="cursor:pointer;filter:drop-shadow(0 0 2.5px rgba(0,0,0,0.5));color:#fff"></label>
 
       </a>
       <ul class="uib-dropdown-menu panel r-action" style="position:absolute;width:280px;box-shadow: 5px 5px 10px rgba(0,0,0,0.5);">
@@ -40,7 +40,7 @@
             ng-click="openFullScreen(roarevent.$id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="margin:5px;"></i> FULLSCREEN</a>
         </li>
         <li class="" uib-tooltip="POP OUT" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right"><a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="pop out"
-            ng-click="openprev()"> <i class="fa fa-external-link" style="margin:5px;"></i> POPOUT</a>
+            ng-click="openpreview()"> <i class="fa fa-external-link" style="margin:5px;"></i> POPOUT</a>
         </li>
         <li class="divider"></li>
         <li class="" uib-tooltip="CLOSE" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
@@ -51,15 +51,15 @@
       </ul>
     </div>
    <div class="row vcenter">
-<small class="">&nbsp;&nbsp;|&nbsp;&nbsp;</small>
-    <small ng-bind="roarevent.rid"></small>
-      <small class="">&nbsp;&nbsp;|&nbsp;&nbsp;</small>
-    <small class="" ng-bind="roarevent.title || roarevent.date" style="font-size:18px;"></small>
-    <small>
-  <em class="" style="margin-left:50px;" ng-bind="roarevent.date | date"></em>
-  <span class="fa {{roarevent.icon || 'fa-info'}}" ng-click="roarevent.coplapse = !roarevent.coplapse" style="margin: 5px;"></span> 
-  <span class="fa fa-close" ng-click="remove()" onclick="$(this).closest('.issuedocpanel').remove()" style="margin:10px;"></span>
-</small>
+<small class="" style="color:#fff;">&nbsp;|&nbsp;&nbsp;{{roarevent.rid||'-'}}&nbsp;&nbsp;|&nbsp;</small>
+    <!-- <small ng-bind="roarevent.rid"></small> -->
+      <!-- <small class="">&nbsp;|&nbsp;</small> -->
+    <small class="" ng-bind="roarevent.title || roarevent.name | limitTo: 50" style="font-size:18px;text-overflow:ellipsis;color:#fff;"></small>
+    
+  <em class="" style="font-size: 12px;" ng-bind="roarevent.date | date"></em>
+  <span class="fa {{roarevent.icon || 'fa-info'}} hovergold" ng-click="roarevent.coplapse = !roarevent.coplapse" style=""></span> 
+  <span class="fa fa-close hovergold pull-right" ng-click="remove()" onclick="$(this).closest('.issuedocpanel').remove()" style=""></span>
+
 </div>
 </h4>
 
