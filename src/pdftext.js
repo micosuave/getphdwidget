@@ -1,4 +1,4 @@
-angular.module('llp.pdf', ['LocalStorageModule'])
+app
     .config(function(localStorageServiceProvider) {
         localStorageServiceProvider.setPrefix('adf.getphd');
     })

@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('llp.parsetsv', [])
+app
   .factory('parseTSV', [function () {
     return function (file, options, verbose) {
       var _file = file
@@ -12,7 +12,7 @@ angular.module('llp.parsetsv', [])
     }
   }])
 
-angular.module('llp.parsetsv').directive('thumbnail', [function () {
+app.directive('thumbnail', [function () {
   return {
     restrict: 'E',
     scope: {document: '@'},

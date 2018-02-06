@@ -1,5 +1,5 @@
 jQuery.event.props.push("dataTransfer");
-angular.module("llp.extract").directive("dropFiles", [function () {
+app.directive("dropFiles", [function () {
         var linkFn = function ($scope, $element, $attrs, ctrl) {
             var extractFiles = function (e) {
                 //debugger;
