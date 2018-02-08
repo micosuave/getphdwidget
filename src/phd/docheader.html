@@ -1,6 +1,6 @@
 <div class="container-fluid card bs two-col-right">
 
-  <div class="col-xs-4 card card-{{roarevent.styleClass}} col-1" style="max-width:33%;max-height: 95vh;overflow: scroll;" >
+  <div class="col-xs-4 card card-{{roarevent.styleClass}} col-1" style="max-width:33%;max-height: 95vh;overflow-y:auto;" >
     <img dynamic-background background="url({{background(roarevent.styleClass)}})" background-position="0 0;" background-repeat="no-repeat" ng-src="{{roarevent.thumbnail || background(roarevent.styleClass)}}" class="img img-responsive img-shadow img-thumbnail" ng-click="poodle = !poodle" />
     <h4>{{roarevent.title}}</h4>
     
@@ -13,10 +13,10 @@
       <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag">&nbsp;<a ng-click="getRelated(match)">{{match}}</a>&nbsp;</label></p>
       
 
-      <div class="well" uib-collapse="!poodle">
+      <div class="well" uib-collapse="!poodle" style="overflow-y:scroll;">
        <div class="card-header">
         <h4 class="card-title fa fa-2x fa-copy" ng-click="swap = !swap" >
-          <strong style="font-family: 'Helvetica',sans-serif;"> &nbsp;&nbsp;&nbsp;&nbsp;Related Documents </strong><label class="badge" >{{vents.length||ventss.length}}</label>
+          <strong style="font-family: 'Helvetica',sans-serif;"> &nbsp;&nbsp;&nbsp;&nbsp;Related Documents </strong><label class="badge" >{{roarevents.length}}</label>
         </h4>
       </div>
 <!--         <div  ng-repeat="vent in roarevent.roarlist as vents" ffbase="{{vent.$id || vent.$value || vent}}">
@@ -82,7 +82,7 @@
     </div>
     
 
-    <iframe uib-collapse="!roarevent.showframe"  allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:600px;overflow:scroll;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
+    <iframe uib-collapse="!roarevent.showframe"  allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:80vh;overflow:scroll;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
     
 
     <div data-ng-transclude uib-collapse="roarevent.showframe"  allowfullscreen style="width:100%;height:600px;overflow:scroll;"></div>

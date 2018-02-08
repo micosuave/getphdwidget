@@ -1090,7 +1090,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
   .directive('pop', ['$compile', '$templateCache', function($compile, $templateCache) {
     return {
       restrict: 'AC',
-      scope: true,
+      scope: {},
       link: function($scope, $el, $attr, $ctrl) {
         var popdoc = function() {
           var classList = 'issuedocpanel stacker nav-dark btn-glass grad-{{roarevent.styleClass}}';
@@ -1099,7 +1099,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
           var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
           //var header = $('#docheader').html();
           var skope = angular.element('<iframe allowfullscreen fullscreen="{{full}}" />').attr('height', '80vh').attr('src', $attr.href);
-          $scope.roarevent = $scope.roarevent || {};
+          $scope.roarevent = angular.copy($scope.$parent.roarevent)|| {};
           $scope.roarevent.title = $attr.title || $attr.href;
 
           $scope.roarevent.date = $attr.date || null;
