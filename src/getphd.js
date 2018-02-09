@@ -1094,7 +1094,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
       link: function($scope, $el, $attr, $ctrl) {
         var popdoc = function(e) {
           var classList = 'issuedocpanel stacker nav-dark btn-glass grad-{{roarevent.styleClass}}';
-          var divpanel = angular.element('<div/>').attr('class', classList).css({'position':'absolute', 'top': e.pageY - 50});
+          var divpanel = angular.element('<div/>').attr('class', classList).css({'position':'absolute', 'top': window.pageYOffset + 100});
           //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
           var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
           //var header = $('#docheader').html();
