@@ -1098,22 +1098,27 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
           //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
           var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
           //var header = $('#docheader').html();
-          var skope = angular.element('<iframe allowfullscreen class="iframecontainer" fullscreen="{{full}}" style="width:100%;height:100%;"/>').attr('height', '80vh').attr('src', $attr.href);
+          var skope = angular.element('<iframe allowfullscreen fullscreen="{{full}}" />').attr('height', '80vh').attr('src', $attr.href);
           $scope.roarevent = angular.copy($scope.$parent.roarevent)|| {};
           $scope.roarevent.title = $attr.title || $attr.href;
 
           $scope.roarevent.date = $attr.date || null;
-          $scope.remove = function(){
-            angular.element(divpanel).remove();
-          }
 
-          $el.parent().append($compile(divpanel.append(header).append(skope))($scope));
+
+          angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
           $(divpanel).draggable({
             stack: '.stacker',
             handle: 'h4'
           }).resizable();
           interact(divpanel, { ignoreFrom: '.card', allowFrom: 'h4' }).draggable().on('doubletap', function(event) {
-            $scope.full = !$scope.full;
+            event.preventDefault();
+            //window.open(event.currentTarget,'_blank');
+            //event.currentTarget.remove();
+            //event.currentTarget.classList.remove('rotate');
+            var a = event.currentTarget.getAttribute('fullscreen');
+
+            if (a !== true) { event.currentTarget.setAttribute('fullscreen', true); } else { event.currentTarget.setAttribute('fullscreen', false); }
+
 
           });
           // interact('.issuedocpanel',{ ignoreFrom: '.card'})
@@ -1709,7 +1714,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
     }
   }).filter('slide', function() {
     return function(input_html) {
-      var start = input_html.toString().slice(input_html.toString().indexOf('<!--CUTSLIDEHEAD-->') - 1, input_html.toString().lastIndexOf('<!--CUTSLIDETAIL-->') + 19);
+      var start = input_html.slice(input_html.indexOf('<!--CUTSLIDEHEAD-->') - 1, input_html.lastIndexOf('<!--CUTSLIDETAIL-->') + 19);
       return start
     }
   }).factory("extract", ["$q", function($q) {
