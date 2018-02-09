@@ -1094,11 +1094,11 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
       link: function($scope, $el, $attr, $ctrl) {
         var popdoc = function(e) {
           var classList = 'issuedocpanel stacker nav-dark btn-glass grad-{{roarevent.styleClass}}';
-          var divpanel = angular.element('<div/>').attr('class', classList).css({'position':'absolute', 'top': window.pageYOffset + 100});
+          var divpanel = angular.element('<div/>').attr('class', classList).css({'position':'absolute', 'top': window.pageYOffset + 50});
           //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
           var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
           //var header = $('#docheader').html();
-          var skope = angular.element('<iframe allowfullscreen fullscreen="full" />').attr('height', '80vh').attr('src', $attr.href);
+          var skope = angular.element('<iframe allowfullscreen uib-collapse="isCollapsed" fullscreen="full" class="panel-body" style="width:100%;height:80vh;z-index:0;" />').attr('height', '80vh').attr('src', $attr.href);
           $scope.roarevent = angular.copy($scope.$parent.roarevent)|| {};
           $scope.roarevent.title = $attr.title || $attr.href;
 
