@@ -85,7 +85,7 @@
         <input type="text" style="width: 100%" ng-model="collection.file.name" placeholder="file name" ng-model-options="{updateOn: 'blur'}">
       </div>
       <div class="form-group">
-        <label for="url" style="color: #006699">URL</label>
+        <label for="url" style="color: #006699" clipboard text="'https://lexlaw.io/files/viewer/web/viewer.html?file='" onsuccess="alertify.success('https://lexlaw.io/files/viewer/web/viewer.html?file=')" ng-click="collection.mediaUrl = 'https://lexlaw.io/files/viewer/web/viewer.html?file='+collection.mediaUrl">URL</label>
         <br>
         <input type="text" style="width: 100%" ng-model="collection.mediaUrl" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
       </div>

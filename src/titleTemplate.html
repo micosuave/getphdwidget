@@ -37,7 +37,7 @@
         </li>
         <li class="" uib-tooltip="FULLSCREEN" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="fullscreen widget"
-            ng-click="openFullScreen(roarevent.$id)" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="margin:5px;"></i> FULLSCREEN</a>
+            ng-click="openFullscreen($(this).closest('.issuedocpanel'))" ng-show="options.maximizable || true"> <i class="fa fa-expand" style="margin:5px;"></i> FULLSCREEN</a>
         </li>
         <li class="" uib-tooltip="POP OUT" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right"><a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="pop out"
             ng-click="openpreview(roarevent)"> <i class="fa fa-external-link" style="margin:5px;"></i> POPOUT</a>
@@ -151,7 +151,7 @@
         <input type="text" style="width: 100%" ng-model="collection.filename" placeholder="file name" ng-model-options="{updateOn: 'blur'}">
       </div>
       <div class="form-group">
-        <label for="url" style="color: #006699">URL</label>
+        <label for="url" style="color: #006699" clipboard text="'https://mozilla.github.io/pdf.js/web/viewer.html?file='" on-success="alertify.success('https://mozilla.github.io/pdf.js/web/viewer.html?file=')" ng-click="collection.mediaUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file='+collection.mediaUrl">URL</label>
         <br>
         <input type="text" style="width: 100%" ng-model="collection.mediaUrl" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
       </div>
