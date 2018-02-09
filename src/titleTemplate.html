@@ -101,7 +101,7 @@
       <div class="form-group">
         <label for="thumbnail" style="color: #006699">Notes</label>
         <br>
-        <textarea rows="15" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}" class="form-control"></textarea>
+        <textarea rows="15" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}" class="form-control" ></textarea>
       </div>
       <div class="form-group">
         <label for="roarlist" style="color: #006699">Linked Docs</label>
@@ -148,7 +148,7 @@
       <div class="form-group">
         <label style="color: #006699">FileName</label>
         <br>
-        <input type="text" style="width: 100%" ng-model="collection.file.name" placeholder="file name" ng-model-options="{updateOn: 'blur'}">
+        <input type="text" style="width: 100%" ng-model="collection.filename" placeholder="file name" ng-model-options="{updateOn: 'blur'}">
       </div>
       <div class="form-group">
         <label for="url" style="color: #006699">URL</label>
@@ -160,7 +160,7 @@
         <br>
         <input type="text" style="width: 100%" ng-model="collection.thumbnail" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
       </div>
-      <div class="form-group well" style="padding:0px;">
+      <div class="form-group" style="padding:0px;">
         <label for="roarlist" style="color: #006699">Linked Docs <i class="badge">{{roare.length}}</i></label>
         <ul ng-scrollbar style="height:300px;overflow-y:scroll;list-style: none;">
           <li ng-repeat="roareventid in collection.roarlist as roare">
