@@ -376,9 +376,9 @@ angular.module('roar',[])
                 var id = de;
 
                 refr.update({
-                  id: id,
+                  id: id
 
-                  timestamp: Firebase.ServerValue.TIMESTAMP
+                  //timestamp: firebase.ServerValue.TIMESTAMP
                 });
                 refr.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
                 refr.child('rows').child('0').child('columns').child('1').child('widgets').child('1').child('config').child('id').set(id);
@@ -476,8 +476,8 @@ angular.module('roar',[])
             refr.set(new Binder(group), function (err) {
               var id = phd.patent.id + group.title;
               refr.update({
-                id: id,
-                timestamp: Firebase.ServerValue.TIMESTAMP
+                id: id
+                //timestamp: Firebase.ServerValue.TIMESTAMP
               });
               refr.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').child('id').set(id);
               //ref.child('roarlist').push(id);
@@ -516,8 +516,8 @@ angular.module('roar',[])
           refr.set(patent, function (err) {
             var id = phd.patent.id;
             refr.update({
-              id: id,
-              timestamp: Firebase.ServerValue.TIMESTAMP
+              id: id
+              //timestamp: Firebase.ServerValue.TIMESTAMP
             });
             refr.child('rows').child('0').child('columns').child('1').child('widgets').child('0').child('config').child('id').set(id);
             var allref = Collection(groupids[0]).$ref();
