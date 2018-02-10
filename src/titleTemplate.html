@@ -22,12 +22,12 @@
         </li>
          <li class="" uib-tooltip="COLLAPSE" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="collapse widget"
-            ng-show="!isCollapsed" ng-click="isCollapsed = true" onclick="$('.issuedocpanel').addClass('closed')"> <i class="fa fa-minus" style="margin:5px;"></i> COLLAPSE</a>
+            ng-show="!isCollapsed" ng-click="isCollapsed = true" onclick="$(this).closest('.issuedocpanel').addClass('closed')"> <i class="fa fa-minus" style="margin:5px;"></i> COLLAPSE</a>
 
         </li> 
         <li class="" uib-tooltip="EXPAND" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
           <a class="hovergold " style="text-shadow:inset 0 0 1px rgba(0,0,0,0.5);" href title="expand widget"
-            ng-show="isCollapsed" ng-click="isCollapsed = false" onclick="$('.issuedocpanel').removeClass('closed')"> <i class="fa fa-plus" style="margin:5px;"></i> EXPAND</a>
+            ng-show="isCollapsed" ng-click="isCollapsed = false" onclick="$(this).closest('.issuedocpanel').removeClass('closed')"> <i class="fa fa-plus" style="margin:5px;"></i> EXPAND</a>
 
         </li>
         <li class="" uib-tooltip="COPY TO CLIPBOARD" tooltip-trigger="mouseenter" tooltip-append-to-body="false" tooltip-placement="right">
@@ -68,7 +68,7 @@
   <form role="form" name="form" ng-submit="collection.$save()">
     <div class="col-sm-7">
       <h6>ID: {{collection.$id}}</h6>
-      <p class="btn" clipboard text="collection.$id" onsuccess="alertify.success('copied ID')" style="padding:0px;">{{'/files/uploads/'+collection.$id+'.html'}}</p>
+      <p class="btn" clipboard text="'/files/uploads/'+collection.$id+'.html'" on-click="alertify.success('/files/uploads/'+{{collection.$id}}+'.html')" style="padding:0px;">{{'/files/uploads/'+collection.$id+'.html'}}</p>
       <div class="form-group col-sm-6" style="padding:0px;">
         <label style="color: #006699">Date</label>
         <br>
@@ -151,7 +151,7 @@
         <input type="text" style="width: 100%" ng-model="collection.filename" placeholder="file name" ng-model-options="{updateOn: 'blur'}">
       </div>
       <div class="form-group">
-        <label for="url" style="color: #006699" clipboard text="'https://mozilla.github.io/pdf.js/web/viewer.html?file='" on-success="alertify.success('https://mozilla.github.io/pdf.js/web/viewer.html?file=')" ng-click="collection.mediaUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file='+collection.mediaUrl">URL</label>
+        <label for="url" style="color: #006699" clipboard text="'https://mozilla.github.io/pdf.js/web/viewer.html?file='" on-click="alertify.success('https://mozilla.github.io/pdf.js/web/viewer.html?file=')" ng-click="collection.mediaUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file='+collection.mediaUrl">URL</label>
         <br>
         <input type="text" style="width: 100%" ng-model="collection.mediaUrl" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
       </div>
