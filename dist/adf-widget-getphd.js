@@ -1728,8 +1728,8 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
     }
   }).filter('slide', function() {
     return function(input_html) {
-      var input = input_html.toString() || '';
-      var start = input.slice(input.indexOf('<!--CUTSLIDEHEAD-->') - 1, input.lastIndexOf('<!--CUTSLIDETAIL-->') + 19);
+      var input = input_html || '';
+      var start = input.slice(input.indexOf('<!--CUTSLIDEHEAD-->') , input.lastIndexOf('<!--CUTSLIDETAIL-->') + 19);
       return start
     }
   }).factory("extract", ["$q", function($q) {
