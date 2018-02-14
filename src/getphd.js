@@ -1194,7 +1194,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
       }
 
     };
-  }]).controller('AppController', ['$scope', 'FileUploader', '$stateParams', '$roar', function($scope, FileUploader, $stateParams, $roar) {
+  }]).controller('AppController', ['$scope', 'FileUploader', '$stateParams', '$roarevent', function($scope, FileUploader, $stateParams, $roarevent) {
     var uploader = $scope.uploader = new FileUploader({
       url: $scope.url || './upload',
       autoUpload: false
@@ -1246,7 +1246,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
       console.info('headers', headers);
       var file = fileItem._file;
       file.url = response[0] || response;
-      $roar(file);
+      $roarevent(file);
     };
     uploader.onCompleteAll = function() {
       console.info('onCompleteAll');
