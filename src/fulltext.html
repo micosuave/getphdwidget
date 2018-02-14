@@ -1,6 +1,8 @@
-<doc-header class="container-fluid card two-col-right" roarid="{{roarevent.id}}"><a href="#" editable-textarea="roarevent.notes" e-rows="15" e-cols="80">
-    <p>{{ roarevent.notes || roarevent.plaintext || roarevent.text || roarevent.description || roarevent.content || 'no notes or text' }}</p>
+<div collection="{{config.id}}">
+<doc-header class="container-fluid card two-col-right" roarid="{{config.id}}"><a href="#" editable-textarea="collection.notes" e-rows="15" e-cols="80">
+    <p>{{ collection.notes || collection.plaintext || collection.text || collection.description || collection.content || 'no notes or text' }}</p>
   </a></doc-header>
-<div matches="matches" getpdftext="{{roarevent.$id}}" pdf-data="{{roarevent.$id}}" roarevent="roarevent" class="card card-block"></div>
+<div matches="matches" getpdftext="{{collection.$id}}" pdf-data="{{collection.$id}}" collection="{{config.id}}" class="card card-block"></div>
+</div>
 
 

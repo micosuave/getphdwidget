@@ -98,7 +98,7 @@
         <label for="roarlist" style="color: #006699">Linked Docs <i class="badge">{{roare.length}}</i></label>
         <ul ng-scrollbar style="height:300px;overflow-y:scroll;list-style: none;">
           <li ng-repeat="roareventid in collection.roarlist as roare" ffbase="{{roareventid}}">
-            <roar-chip id="{{roareventid}}" roarevent="{{item}}"></roar-chip>
+            <roar-chip id="{{roareventid}}" roarevent="item"></roar-chip>
           </li>
         </ul>
       </div>

@@ -37,7 +37,7 @@
           
 
 
-          <roar-chip  style="min-width:300px;margin: 0px;" id="{{vent.$id || vent.$value || vent}}" roarevent="{{item}}"></roar-chip>
+          <roar-chip  style="min-width:300px;margin: 0px;" id="{{vent.$id || vent.$value || vent}}" roarevent="item"></roar-chip>
            
            <a  ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-3x fa-chevron-right fa-pull-right showonhover" style="opacity: 0.05;margin-top:10px;" uib-tooltip="view in fframe" ng-click="roarevent.showframe = true"></a>
   
