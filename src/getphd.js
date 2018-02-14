@@ -1244,9 +1244,9 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
       console.info('response', response)
       console.info('status', status)
       console.info('headers', headers);
-      var file = fileItem._file;
-      file.url = response[0] || response;
-      $roarevent(file);
+      // var file = fileItem._file;
+      // file.url = response[0] || response;
+      // $roarevent(file);
     };
     uploader.onCompleteAll = function() {
       console.info('onCompleteAll');

@@ -2,7 +2,7 @@
   <form role="form" name="form" ng-submit="collection.$save()">
     <div class="col-sm-7">
       <h6>ID: {{collection.$id}}</h6>
-      <p class="btn" clipboard text="collection.$id" onsuccess="alertify.success('copied ID')" style="padding:0px;">{{'/files/uploads/'+collection.$id+'.html'}}</p>
+      <p class="btn" clipboard text="'/files/uploads/'+collection.$id+'.html'" on-click="alertify.success('/files/uploads/'+{{collection.$id}}+'.html')" style="padding:0px;">{{'/files/uploads/'+collection.$id+'.html'}}</p>
       <div class="form-group col-sm-6" style="padding:0px;">
         <label style="color: #006699">Date</label>
         <br>
@@ -35,7 +35,7 @@
       <div class="form-group">
         <label for="thumbnail" style="color: #006699">Notes</label>
         <br>
-        <textarea rows="15" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}" class="form-control"></textarea>
+        <textarea rows="15" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}" class="form-control" ></textarea>
       </div>
       <div class="form-group">
         <label for="roarlist" style="color: #006699">Linked Docs</label>
@@ -82,10 +82,10 @@
       <div class="form-group">
         <label style="color: #006699">FileName</label>
         <br>
-        <input type="text" style="width: 100%" ng-model="collection.file.name" placeholder="file name" ng-model-options="{updateOn: 'blur'}">
+        <input type="text" style="width: 100%" ng-model="collection.filename" placeholder="file name" ng-model-options="{updateOn: 'blur'}">
       </div>
       <div class="form-group">
-        <label for="url" style="color: #006699" clipboard text="'https://lexlaw.io/files/viewer/web/viewer.html?file='" onsuccess="alertify.success('https://lexlaw.io/files/viewer/web/viewer.html?file=')" ng-click="collection.mediaUrl = 'https://lexlaw.io/files/viewer/web/viewer.html?file='+collection.mediaUrl">URL</label>
+        <label for="url" style="color: #006699" clipboard text="'https://mozilla.github.io/pdf.js/web/viewer.html?file='" on-click="alertify.success('https://mozilla.github.io/pdf.js/web/viewer.html?file=')" ng-click="collection.mediaUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file='+collection.mediaUrl">URL</label>
         <br>
         <input type="text" style="width: 100%" ng-model="collection.mediaUrl" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
       </div>
@@ -94,11 +94,11 @@
         <br>
         <input type="text" style="width: 100%" ng-model="collection.thumbnail" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
       </div>
-      <div class="form-group well" style="padding:0px;">
+      <div class="form-group" style="padding:0px;">
         <label for="roarlist" style="color: #006699">Linked Docs <i class="badge">{{roare.length}}</i></label>
         <ul ng-scrollbar style="height:300px;overflow-y:scroll;list-style: none;">
-          <li ng-repeat="roareventid in collection.roarlist as roare">
-            <roar-chip id="{{roareventid}}"></roar-chip>
+          <li ng-repeat="roareventid in collection.roarlist as roare" ffbase="{{roareventid}}">
+            <roar-chip id="{{roareventid}}" roarevent="{{item}}"></roar-chip>
           </li>
         </ul>
       </div>
