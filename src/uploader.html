@@ -5,7 +5,8 @@
 	<p>Queue length: {{ uploader.queue.length }} </p> 
 	<table class="table"> 
 		<thead> 
-			<tr> 
+			<tr style="color:black;"> 
+				<th>Template</th>
 				<th width="50%">Name</th> 
 				<th ng-show="uploader.isHTML5">Size</th> 
 				<th ng-show="uploader.isHTML5">Progress</th> 
@@ -13,9 +14,12 @@
 			</tr> 
 		</thead> 
 		<tbody> 
-			<tr ng-repeat="item in uploader.queue"> 
-				<td uib-popover="{{item.file | json:4}}" popover-trigger="mouseenter" popover-placement="right">
-					<strong>{{ item.file.name }}&nbsp;|&nbsp;{{item.file.mimetype}}</strong>
+			<tr ng-repeat="item in uploader.queue" style="color:black;" class="{{item.styleClass}}"> 
+				<td>
+					<select ng-model="item.styleClass" ng-options="class.value as class.label for class in $root.ROARCLASSES"></select>
+				</td>
+				<td>
+					<strong>{{ item.file.name }}&nbsp;|&nbsp;{{item.file.type}}</strong>
 				</td> 
 				<td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:3 }} MB</td> 
 				<td ng-show="uploader.isHTML5"> 

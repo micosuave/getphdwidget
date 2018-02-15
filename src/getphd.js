@@ -1231,6 +1231,12 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
       console.info('onSuccessItem', fileItem, response, status, headers);
+      alertify.log(response);
+      var file = fileItem._file;
+      file.url = '/files/uploads/'+file.name;
+      file.mimetype = file.type;
+      file.styleClass = fileItem.styleClass;
+      $roarevent(file, $stateParams.tabid || $stateParams.pageid || $stateParams.pId || $stateParams.matterId);
 
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
@@ -1244,9 +1250,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
       console.info('response', response)
       console.info('status', status)
       console.info('headers', headers);
-      // var file = fileItem._file;
-      // file.url = response[0] || response;
-      // $roarevent(file);
+      
     };
     uploader.onCompleteAll = function() {
       console.info('onCompleteAll');
@@ -1285,7 +1289,8 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
       });
     }
   }])
-  .controller('GalleryCarousel', ['', function() {}]).directive('ngThumb', ['$window', function($window) {
+  .controller('GalleryCarousel', ['', function() {}])
+  .directive('ngThumb', ['$window', function($window) {
     var helper = {
       support: !!($window.FileReader && $window.CanvasRenderingContext2D),
       isFile: function(item) {
@@ -2115,4 +2120,17 @@ return deferred.resolve(files);
     }
 
     return extractzip;
-}]);
+}]).directive('metadataViewer', function(Collection){
+    return {
+        restrict: 'E',
+        templateUrl: '{widgetsPath}/getphd/src/metadata.html',
+        scope:{},
+        link: function($scope,$element,$attr,$ctrl){
+            $scope.config = {};
+            $scope.config.id = $attr.id;
+            var coll = Collection($attr.id).$loaded().then(function(collection){
+                $scope.collection = collection;
+            })
+        }
+    }
+})
