@@ -2823,7 +2823,7 @@ angular.module('roar',[])
                 break;
             }
 
-            return 'https://placehold.it/250x150/' + template + '/fff/&text=' + $scope.roarevent.rid;
+            return 'https://placehold.it/400x300/' + template + '/fff/&text=' + $scope.roarevent.rid;
           };
           $scope.background = background;
 
