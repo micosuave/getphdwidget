@@ -1122,17 +1122,19 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
             stack: '.stacker',
             handle: 'h4'
           }).resizable();
-          interact(divpanel, { ignoreFrom: '.card', allowFrom: 'h4' }).draggable().on('doubletap', function(event) {
-            event.preventDefault();
-            //window.open(event.currentTarget,'_blank');
-            //event.currentTarget.remove();
-            //event.currentTarget.classList.remove('rotate');
-            var a = event.currentTarget.getAttribute('fullscreen');
+           interact(divpanel, { allowFrom: 'h4' }).draggable();
+            interact('.issuedocpanel', {allowFrom: 'h4'}).draggable();
+          //.on('doubletap', function(event) {
+          //   event.preventDefault();
+          //   //window.open(event.currentTarget,'_blank');
+          //   //event.currentTarget.remove();
+          //   //event.currentTarget.classList.remove('rotate');
+          //   var a = event.currentTarget.getAttribute('fullscreen');
 
-            if (a !== true) { event.currentTarget.setAttribute('fullscreen', true); } else { event.currentTarget.setAttribute('fullscreen', false); }
+          //   if (a !== true) { event.currentTarget.setAttribute('fullscreen', true); } else { event.currentTarget.setAttribute('fullscreen', false); }
 
 
-          });
+          // });
           // interact('.issuedocpanel',{ ignoreFrom: '.card'})
           //   .draggable({
           //     onmove: window.dragMoveListener
