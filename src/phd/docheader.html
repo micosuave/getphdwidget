@@ -1,8 +1,8 @@
 <div class="container-fluid card bs two-col-right">
 
-  <div class="col-xs-4 card card-{{roarevent.styleClass}} col-1" style="max-width:33%;max-height: 95vh;overflow-y:auto;" >
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 card card-{{roarevent.styleClass}} col-1" style="overflow-y:auto;" >
     <img dynamic-background background="url({{background(roarevent.styleClass)}})" background-position="0 0;" background-repeat="no-repeat" ng-src="{{roarevent.thumbnail || background(roarevent.styleClass)}}" class="img img-responsive img-shadow img-thumbnail" ng-click="poodle = !poodle" />
-    <h4>{{roarevent.title}}</h4>
+    <h4 ng-click="roarevent.showframe = !roarevent.showframe">{{roarevent.title}}</h4>
     
     <p class="">
       <!-- <fieldset class="material " uib-collapse="!poodle">
@@ -12,6 +12,11 @@
       </fieldset> -->
       <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag">&nbsp;<a ng-click="getRelated(match)">{{match}}</a>&nbsp;</label></p>
       
+<iframe class="hidden-sm-up" uib-collapse="!roarevent.showframe"  allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:80vh;min-height:80vh;overflow:scroll;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
+    
+
+    <div class="hidden-sm-up" data-ng-transclude uib-collapse="roarevent.showframe"  allowfullscreen style="width:100%;height:600px;overflow:auto;"></div>   
+
 
       <div class="well" uib-collapse="!poodle" style="overflow-y:scroll;">
        <div class="card-header">
@@ -60,11 +65,11 @@
             </span>
       </li>
     </ul> -->
-         
+          
         
   </div>
 
-  <div class="col-xs-8 col-2">
+  <div class="col-md-8 col-lg-9 hidden-sm-down col-2">
     <div class="bs-callout bs-callout-reverse bs-callout-{{roarevent.styleClass}}">
       <h4 ng-dblclick="full = !full" ng-click="roarevent.showframe = !roarevent.showframe">{{roarevent.title}}</h4>
       
@@ -85,7 +90,7 @@
     <iframe uib-collapse="!roarevent.showframe"  allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:80vh;min-height:80vh;overflow:scroll;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
     
 
-    <div data-ng-transclude uib-collapse="roarevent.showframe"  allowfullscreen style="width:100%;height:600px;overflow:scroll;"></div>
+    <div data-ng-transclude uib-collapse="roarevent.showframe"  allowfullscreen style="width:100%;height:600px;overflow:auto;"></div>
     
 
 
