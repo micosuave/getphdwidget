@@ -1,107 +1,113 @@
-
 <div class="card  clearfix img img-hover img-shadow" collection="{{config.id}}" style="" style="height:auto;transition:all 1s ease;">
   <form role="form" name="form" ng-submit="collection.$save()">
-    <div class="col-sm-7">
-      <h6>ID: {{collection.$id}}</h6>
-      <p class="btn" clipboard text="'/files/uploads/'+collection.$id+'.html'" on-click="alertify.success('/files/uploads/'+{{collection.$id}}+'.html')" style="padding:0px;">{{'/files/uploads/'+collection.$id+'.html'}}</p>
-      <div class="form-group col-sm-6" style="padding:0px;">
-        <label style="color: #006699">Date</label>
-        <br>
-        <input type="text" ng-model="collection.date" placeholder="YYYY-MM-DD" ng-pattern="dddd-dd-dd" ng-model-options="{updateOn: 'blur'}">
+    <div class="container">
+      <div class="col-sm-7">
+        <div class="form-group">
+          <h6>ID: {{collection.$id}}</h6>
+          <p class="btn" clipboard text="'/files/uploads/'+collection.$id+'.html'" on-click="alertify.success('/files/uploads/'+{{collection.$id}}+'.html')" style="padding:0px;">{{'/files/uploads/'+collection.$id+'.html'}}</p>
+        </div>
+        <div class="form-group" style="height:40px;">
+          <div class="form-group col-sm-6" style="padding:0px;">
+            <label style="color: #006699">Date</label>
+            <br>
+            <input type="text" ng-model="collection.date" placeholder="YYYY-MM-DD" ng-pattern="dddd-dd-dd" ng-model-options="{updateOn: 'blur'}">
+          </div>
+          <div class="form-group col-sm-6 ">
+            <label style="color: #006699">ID#</label>
+            <br>
+            <input type="text" ng-model="collection.rid" placeholder="#" ng-model-options="{updateOn: 'blur'}" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dashboardTitle" style="color: #006699">Title</label>
+          <input type="text" style="width: 100%" id="dashboardTitle" ng-model="collection.title" required>
+        </div>
+        <div class="form-group">
+          <label for="description" style="color: #006699">Description</label>
+          <br>
+          <textarea type="text" rows="5" class="form-control" id="description" ng-model="collection.description" ng-model-options="{updateOn: 'blur'}"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="long_cite" style="color: #006699">Long Citation</label>
+          <br>
+          <input type="text" style="width: 100%" ng-model="collection.citation" placeholder="Long Citation" ng-model-options="{updateOn: 'blur'}">
+        </div>
+        <div class="form-group">
+          <label for="short_cite" style="color: #006699">Short Citation</label>
+          <br>
+          <input type="text" style="width: 100%" ng-model="collection.short_cite" placeholder="Short Citation" ng-model-options="{updateOn: 'blur'}">
+        </div>
+        <div class="form-group">
+          <label for="thumbnail" style="color: #006699">Notes</label>
+          <br>
+          <textarea rows="15" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="roarlist" style="color: #006699">Linked Docs</label>
+          <br>
+          <div smartpanel="{{collection.$id}}"></div>
+        </div>
       </div>
-      <div class="form-group col-sm-6 ">
-        <label style="color: #006699">ID#</label>
-        <br>
-        <input type="text" ng-model="collection.rid" placeholder="#" ng-model-options="{updateOn: 'blur'}" />
-      </div>
-      <div class="form-group">
-        <label for="dashboardTitle" style="color: #006699">Title</label>
-        <input type="text" style="width: 100%" id="dashboardTitle" ng-model="collection.title" required>
-      </div>
-      <div class="form-group">
-        <label for="description" style="color: #006699">Description</label>
-        <br>
-        <textarea type="text" rows="5" class="form-control" id="description" ng-model="collection.description" ng-model-options="{updateOn: 'blur'}"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="long_cite" style="color: #006699">Long Citation</label>
-        <br>
-        <input type="text" style="width: 100%" ng-model="collection.citation" placeholder="Long Citation" ng-model-options="{updateOn: 'blur'}">
-      </div>
-      <div class="form-group">
-        <label for="short_cite" style="color: #006699">Short Citation</label>
-        <br>
-        <input type="text" style="width: 100%" ng-model="collection.short_cite" placeholder="Short Citation" ng-model-options="{updateOn: 'blur'}">
-      </div>
-      <div class="form-group">
-        <label for="thumbnail" style="color: #006699">Notes</label>
-        <br>
-        <textarea rows="15" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}" class="form-control" ></textarea>
-      </div>
-      <div class="form-group">
-        <label for="roarlist" style="color: #006699">Linked Docs</label>
-        <br>
-        <div smartpanel="{{collection.$id}}"></div>
-      </div>
-    </div>
-    <div class="col-sm-5">
-      <roar-event id="{{collection.$id}}" style="max-height:175px;">
-        <uib-rating ng-model="collection.rate" max="5" class=""></uib-rating>
-      </roar-event>
-      <input type="submit" class="btn btn-glass btn-primary btn-md pull-right " value="SAVE">
-      <div class="form-group">
-        <label style="color: #006699">Icon</label>
-        <br>
-        <select name="icon" ng-model="collection.icon" class="" ng-options="icon.value as icon.label for icon in $root.ICONS"></select>
-      </div>
-      
-      <div class="form-group">
-        <label style="color: #006699">Style</label>
-        <br>
-        <select ng-model="collection.styleClass" ng-options="class.value as class.label for class in $root.ROARCLASSES"></select>
-      </div>
-      <div class="form-group">
-        <label for="sortOrder" style="color:#006699">Sort Order</label>
-        <br>
-        <input type="number" style="width:100%;" placeholder="#" id="sortOrder" ng-model="collection.sortOrder">
-      </div>
-      <div class="form-group">
-        <label style="color: #006699">Document Code</label>
-        <br>
-        <input style="width: 100%" ng-model="collection.doccode" uib-typeahead="code.code as code.label for code in DOCNAMES | filter:$viewValue | limitTo:8" typeahead-wait-ms="100" />
-      </div>
-      <div class="form-group">
-        <label style="color: #006699">Tags</label>
-        <br>
-        <input style="width: 100%" ng-model="collection.matches" ng-list="," />
-      </div>
-      <div class="form-group">
-        <label style="color: #006699">Name</label>
-        <br>
-        <input type="text" style="width: 100%" ng-model="collection.name" placeholder="name" ng-model-options="{updateOn: 'blur'}">
-      </div>
-      <div class="form-group">
-        <label style="color: #006699">FileName</label>
-        <br>
-        <input type="text" style="width: 100%" ng-model="collection.filename" placeholder="file name" ng-model-options="{updateOn: 'blur'}">
-      </div>
-      <div class="form-group">
-        <label for="url" style="color: #006699" clipboard text="'https://mozilla.github.io/pdf.js/web/viewer.html?file='" on-click="alertify.success('https://mozilla.github.io/pdf.js/web/viewer.html?file=')" ng-click="collection.mediaUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file='+collection.mediaUrl">URL</label>
-        <br>
-        <input type="text" style="width: 100%" ng-model="collection.mediaUrl" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
-      </div>
-      <div class="form-group">
-        <label for="thumbnail" style="color: #006699">Thumbnail</label>
-        <br>
-        <input type="text" style="width: 100%" ng-model="collection.thumbnail" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
-      </div>
-      <div class="form-group" style="padding:0px;">
-        <label for="roarlist" style="color: #006699">Linked Docs <i class="badge">{{roare.length}}</i></label>
-        <ul ng-scrollbar style="height:300px;overflow-y:scroll;list-style: none;">
-          <li ng-repeat="roareventid in collection.roarlist as roare" ffbase="{{roareventid}}">
-            <roar-chip id="{{roareventid}}" roarevent="item"></roar-chip>
-          </li>
-        </ul>
+      <div class="col-sm-5">
+        <div class="form-group" style="height:175px;">
+          <roar-event id="{{collection.$id}}" style="max-height:175px;">
+            <uib-rating ng-model="collection.rate" max="5" class=""></uib-rating>
+          </roar-event>
+        </div>
+        <div class="form-group">
+          <label style="color: #006699">Icon</label>
+          <br>
+          <select name="icon" ng-model="collection.icon" class="" ng-options="icon.value as icon.label for icon in $root.ICONS"></select>
+          <input type="submit" class="btn btn-glass btn-primary btn-md pull-right " value="SAVE">
+        </div>
+        <div class="form-group">
+          <label style="color: #006699">Style</label>
+          <br>
+          <select ng-model="collection.styleClass" ng-options="class.value as class.label for class in $root.ROARCLASSES"></select>
+        </div>
+        <div class="form-group">
+          <label for="sortOrder" style="color:#006699">Sort Order</label>
+          <br>
+          <input type="number" style="width:100%;" placeholder="#" id="sortOrder" ng-model="collection.sortOrder">
+        </div>
+        <div class="form-group">
+          <label style="color: #006699">Document Code</label>
+          <br>
+          <input style="width: 100%" ng-model="collection.doccode" uib-typeahead="code.code as code.label for code in DOCNAMES | filter:$viewValue | limitTo:8" typeahead-wait-ms="100" />
+        </div>
+        <div class="form-group">
+          <label style="color: #006699">Tags</label>
+          <br>
+          <input style="width: 100%" ng-model="collection.matches" ng-list="," />
+        </div>
+        <div class="form-group">
+          <label style="color: #006699">Name</label>
+          <br>
+          <input type="text" style="width: 100%" ng-model="collection.name" placeholder="name" ng-model-options="{updateOn: 'blur'}">
+        </div>
+        <div class="form-group">
+          <label style="color: #006699">FileName</label>
+          <br>
+          <input type="text" style="width: 100%" ng-model="collection.filename" placeholder="file name" ng-model-options="{updateOn: 'blur'}">
+        </div>
+        <div class="form-group">
+          <label for="url" style="color: #006699" clipboard text="'https://mozilla.github.io/pdf.js/web/viewer.html?file='" on-click="alertify.success('https://mozilla.github.io/pdf.js/web/viewer.html?file=')" ng-click="collection.mediaUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file='+collection.mediaUrl">URL</label>
+          <br>
+          <input type="text" style="width: 100%" ng-model="collection.mediaUrl" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
+        </div>
+        <div class="form-group">
+          <label for="thumbnail" style="color: #006699">Thumbnail</label>
+          <br>
+          <input type="text" style="width: 100%" ng-model="collection.thumbnail" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
+        </div>
+        <div class="form-group" style="padding:0px;">
+          <label for="roarlist" style="color: #006699">Linked Docs <i class="badge">{{roare.length}}</i></label>
+          <ul ng-scrollbar style="height:300px;overflow-y:scroll;list-style: none;">
+            <li ng-repeat="roareventid in collection.roarlist as roare" ffbase="{{roareventid}}">
+              <roar-chip id="{{roareventid}}" roarevent="item"></roar-chip>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </form>

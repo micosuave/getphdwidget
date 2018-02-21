@@ -1,58 +1,35 @@
 <div class="container-fluid card bs two-col-right">
-
-  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 card card-{{roarevent.styleClass}} col-1" style="overflow-y:auto;" >
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 card card-{{roarevent.styleClass}} col-1" style="overflow-y:auto;">
     <img dynamic-background background="url({{background(roarevent.styleClass)}})" background-position="0 0;" background-repeat="no-repeat" ng-src="{{roarevent.thumbnail || background(roarevent.styleClass)}}" class="img img-responsive img-shadow img-thumbnail" ng-click="poodle = !poodle" />
     <h4 ng-click="roarevent.showframe = !roarevent.showframe">{{roarevent.title}}</h4>
-    
     <p class="">
       <!-- <fieldset class="material " uib-collapse="!poodle">
         <input type="text" placeholder="Search..." ng-model="$parent.$$childHead.$$childHead.$$childTail.query">
         <hr>
         <label>Search this document</label>
       </fieldset> -->
-      <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag">&nbsp;<a ng-click="getRelated(match)">{{match}}</a>&nbsp;</label></p>
-      
-<iframe class="hidden-sm-up" uib-collapse="!roarevent.showframe"  allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:80vh;min-height:80vh;overflow:scroll;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
-    
-
-    <div class="hidden-sm-up" data-ng-transclude uib-collapse="roarevent.showframe"  allowfullscreen style="width:100%;height:600px;overflow:auto;"></div>   
-
-
-      <div class="well" uib-collapse="!poodle" style="overflow-y:scroll;">
-       <div class="card-header">
-        <h4 class="card-title fa fa-2x fa-copy" ng-click="swap = !swap" >
+      <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag">&nbsp;<a ng-click="getRelated(match)">{{match}}</a>&nbsp;</label>
+    </p>
+    <iframe class="hidden-md-up" uib-collapse="!roarevent.showframe" allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:80vh;min-height:80vh;overflow:scroll;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
+    <div class="hidden-md-up" data-ng-transclude uib-collapse="roarevent.showframe" allowfullscreen style="width:100%;height:80vh;overflow-y:auto;"></div>
+    <div class="well" uib-collapse="!poodle" style="overflow-y:scroll;">
+      <div class="card-header">
+        <h4 class="card-title fa fa-2x fa-copy" ng-click="swap = !swap">
           <strong style="font-family: 'Helvetica',sans-serif;"> &nbsp;&nbsp;&nbsp;&nbsp;Related Documents </strong><label class="badge" >{{roarevents.length}}</label>
         </h4>
       </div>
-<!--         <div  ng-repeat="vent in roarevent.roarlist as vents" ffbase="{{vent.$id || vent.$value || vent}}">
-          <roar-chip class="list-group-item bs-callout bs-callout-{{item.styleClass}}" id="{{vent.$id || vent.$value || vent}}">
-            
-          </roar-chip>
-          <div class="well list-group">
-                <div ng-repeat="tent in item.roarlist">
-                  <roar-chip class="list-group-item" id="{{tent.$id || tent.$value || tent}}"></roar-chip>
-                </div>
-            </div>
-        </div> -->
-        <div class="" uib-collapse="swap" roarevents="{{roarevent.$id}}"> 
-         <p  ng-repeat="vent in roarevent.roarlist as ventss" ffbase="{{vent.$id || vent.$value || vent}}"  style="max-width:100%;width:100%;height:50px;padding:0px;" class="bs-callout-{{item.styleClass}} flex-row row"  ng-class="{'bs-callout bs-callout-style bs-callout-reverse': hoverover}" ng-mouseenter="hoverover = true;" ng-mouseleave="hoverover = false" ng-click="getRelatedPage(vent)" >
-
+      <div class="" uib-collapse="swap" roarevents="{{roarevent.$id}}">
+        <p ng-repeat="vent in roarevent.roarlist as ventss" ffbase="{{vent.$id || vent.$value || vent}}" style="max-width:100%;width:100%;height:50px;padding:0px;" class="bs-callout-{{item.styleClass}} flex-row row" ng-class="{'bs-callout bs-callout-style bs-callout-reverse': hoverover}" ng-mouseenter="hoverover = true;" ng-mouseleave="hoverover = false" ng-click="getRelatedPage(vent)">
           <!--ng-mousedown="classy='bs-calloutbs-callout-reverse bs-callout-{{item.styleClass}}'" ng-mouseup="classy = null" class="{{classy}}"-->
-           <!-- <h4>{{item.title}}</h4> class="bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}"-->
-          
-
-
-          <roar-chip  style="min-width:300px;margin: 0px;" id="{{vent.$id || vent.$value || vent}}" roarevent="item"></roar-chip>
-           
-           <a  ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-3x fa-chevron-right fa-pull-right showonhover" style="opacity: 0.05;margin-top:10px;" uib-tooltip="view in fframe" ng-click="roarevent.showframe = true"></a>
-  
-     
-    </p>
-  </div>
-        <div uib-collapse="!swap">
-          <div ng-repeat="vent in roarevent.roarlist as vents" smartpanel="{{vent.$id || vent.$value || vent}}"></div>
-          </div>
+          <!-- <h4>{{item.title}}</h4> class="bs-callout bs-callout-reverse bs-callout-{{item.styleClass}}"-->
+          <roar-chip style="margin: 0px;" id="{{vent.$id || vent.$value || vent}}" roarevent="item"></roar-chip>
+          <a ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-3x fa-chevron-right fa-pull-right showonhover" style="opacity: 0.05;margin-top:10px;" uib-tooltip="view in fframe" ng-click="roarevent.showframe = true"></a>
+        </p>
       </div>
+      <div uib-collapse="!swap">
+        <div ng-repeat="vent in roarevent.roarlist as vents" smartpanel="{{vent.$id || vent.$value || vent}}"></div>
+      </div>
+    </div>
     <!-- <ul ng-if="annotationsAsFlatList($parent.$$childHead.$$childHead.$$childTail.roarevent.pages)">
       <li class="card img-shadow" ng-repeat="a in annotationsAsFlatList($parent.$$childHead.$$childHead.$$childTail.roarevent.pages) track by $index"
         style="border: 2.5px solid {{a.type}};">
@@ -65,35 +42,19 @@
             </span>
       </li>
     </ul> -->
-          
-        
   </div>
-
   <div class="col-md-8 col-lg-9 hidden-sm-down col-2">
     <div class="bs-callout bs-callout-reverse bs-callout-{{roarevent.styleClass}}">
       <h4 ng-dblclick="full = !full" ng-click="roarevent.showframe = !roarevent.showframe">{{roarevent.title}}</h4>
-      
       <p ng-bind="roarevent.description"></p>
-      
-      <p ng-if="roardate">Dated {{roarevent.date | date }}</p>
-
-      <cite class="pull-right clearfix"> {{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}} 
-        &nbsp;&nbsp;
-        <a pop target="fframe" ng-href="{{roarevent.mediaUrl || roarevent.media || item.mediaUrl || item.media || collection.mediaUrl || collection.media}}"  title="{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}" date="{{roarevent.date || item.date || collection.date}}">
+      <p>{{roarevent.date | date }}</p>
+      <cite class="pull-right clearfix"> {{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}} &nbsp;&nbsp;
+        <a pop target="fframe" ng-href="{{roarevent.mediaUrl || roarevent.media || item.mediaUrl || item.media || collection.mediaUrl || collection.media}}" title="{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}" date="{{roarevent.date || item.date || collection.date}}">
           <i class="fa fa-external-link"></i>
         </a>
       </cite>
-    
     </div>
-    
-
-    <iframe uib-collapse="!roarevent.showframe"  allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:80vh;min-height:80vh;overflow:scroll;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
-    
-
-    <div data-ng-transclude uib-collapse="roarevent.showframe"  allowfullscreen style="width:100%;height:600px;overflow:auto;"></div>
-    
-
-
+    <iframe uib-collapse="!roarevent.showframe" allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:80vh;min-height:80vh;overflow:auto;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
+    <div data-ng-transclude uib-collapse="roarevent.showframe" allowfullscreen style="width:100%;height:80vh;overflow-y:auto;"></div>
   </div>
-  
 </div>
