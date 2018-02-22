@@ -14,7 +14,7 @@
       <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag">&nbsp;<a ng-click="getRelated(match)">{{match}}</a>&nbsp;</label>
     </p>
     
-    <iframe class="hidden-md-up" uib-collapse="!roarevent.showframe" allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:80vh;min-height:80vh;overflow:scroll;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
+    <iframe class="hidden-md-up" ng-if="roarevent.showframe" uib-collapse="!roarevent.showframe" allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:80vh;min-height:80vh;overflow:scroll;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
     
     <div class="hidden-md-up" data-ng-transclude uib-collapse="roarevent.showframe" allowfullscreen style="width:100%;height:80vh;overflow-y:auto;"></div>
     
@@ -60,7 +60,7 @@
         </a>
       </cite>
     </div>
-    <iframe uib-collapse="!roarevent.showframe" allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:80vh;min-height:80vh;overflow:auto;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
+    <iframe uib-collapse="!roarevent.showframe" ng-if="roarevent.showframe" allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:80vh;min-height:80vh;overflow:auto;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
     <div data-ng-transclude uib-collapse="roarevent.showframe" allowfullscreen style="width:100%;height:80vh;overflow-y:auto;"></div>
   </div>
 </div>
