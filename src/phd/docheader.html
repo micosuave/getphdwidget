@@ -1,5 +1,5 @@
 <div class="container-fluid card bs two-col-right">
-  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 card card-{{roarevent.styleClass}} col-1" style="overflow-y:auto;">
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 card card-{{roarevent.styleClass}} col-1" style="overflow-y:auto;height:100%;">
     
     <img dynamic-background background="url({{background(roarevent.styleClass)}})" background-position="0 0;" background-repeat="no-repeat" ng-src="{{roarevent.thumbnail || background(roarevent.styleClass)}}" class="img img-responsive img-shadow img-thumbnail" style="width:100%;height:auto;margin:auto;" ng-click="poodle = !poodle" />
     
@@ -18,7 +18,7 @@
     
     <div class="hidden-md-up" data-ng-transclude uib-collapse="roarevent.showframe" allowfullscreen style="width:100%;height:80vh;overflow-y:auto;"></div>
     
-    <div class="well" uib-collapse="!poodle" style="overflow-y:scroll;">
+    <div class="well" ng-if="roarevent.roarlist" uib-collapse="!poodle" style="overflow-y:scroll;">
       <div class="card-header">
         <h4 class="card-title fa fa-2x fa-copy" ng-click="swap = !swap">
           <strong style="font-family: 'Helvetica',sans-serif;"> &nbsp;&nbsp;&nbsp;&nbsp;Related Documents </strong><label class="badge" >{{roarevents.length}}</label>
