@@ -1093,13 +1093,13 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
       scope: {},
       link: function($scope, $el, $attr, $ctrl) {
         var popdoc = function(e) {
-          var classList = 'issuedocpanel stacker nav-dark btn-glass grad-{{roarevent.styleClass}}';
+          var classList = 'issuedocpanel panel panel-{{roarevent.styleClass || \'default\'}} stacker';
           var divpanel = angular.element('<div/>').attr('class', classList).css({'position':'absolute', 'top': window.pageYOffset + 50});
           //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
           var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
           //var header = $('#docheader').html();
           var skope = angular.element('<iframe allowfullscreen uib-collapse="isCollapsed" fullscreen="full" class="panel-body" style="width:100%;height:80vh;z-index:0;" />').attr('height', '80vh').attr('src', $attr.href);
-          $scope.roarevent = angular.copy($scope.$parent.roarevent)|| {};
+          $scope.roarevent = angular.copy($scope.$parent.roarevent||$scope.$parent.collection)|| {};
           $scope.roarevent.title = $attr.title || $attr.href;
 
           $scope.roarevent.date = $attr.date || null;
@@ -1122,8 +1122,8 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
             stack: '.stacker',
             handle: 'h4'
           }).resizable();
-           interact(divpanel, { allowFrom: 'h4' }).draggable();
-            interact('.issuedocpanel', {allowFrom: 'h4'}).draggable();
+           interact(divpanel).draggable();
+            interact('.issuedocpanel').draggable();
           //.on('doubletap', function(event) {
           //   event.preventDefault();
           //   //window.open(event.currentTarget,'_blank');
