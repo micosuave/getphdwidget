@@ -1,4 +1,4 @@
-<div class="card  clearfix img img-hover img-shadow" collection="{{roarevent.$id}}" style="z-index:1;position:absolute;left:99.5%;top:0;min-width:550px" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}" style="height:auto;transition:all 1s ease;">
+<div class="card  clearfix img img-hover img-shadow" collection="{{roarevent.$id}}" style="z-index:1;position:absolute;left:99.5%;top:0;min-width:550px;height: 90vh;overflow-y: auto;transition: all 1s ease-in-out;" ng-class="{'collapse':!roarevent.coplapse, 'collapse in':roarevent.coplapse}">
   <form role="form" name="form" ng-submit="collection.$save()">
     <div class="container">
       <div class="col-sm-7">
@@ -105,6 +105,46 @@
           <ul ng-scrollbar style="height:300px;overflow-y:scroll;list-style: none;">
             <li ng-repeat="roareventid in collection.roarlist as roare" ffbase="{{roareventid}}">
               <roar-chip id="{{roareventid}}" roarevent="item"></roar-chip>
+            </li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <label for="links" style="color:var(--applicantblue)">{{links.length}} Links<button class="btn btn-success btn-xs fa fa-plus" ng-click="collection.links.push({title: 'NewLink', url: '//', target:'_blank'})"></button></label>
+          <ul>
+            <li ng-repeat="link in collection.links track by $index as links" >
+              <input type="text" ng-model="link.title" placeholder="title">
+              <input type="text" ng-model="link.url" placeholder="URL">
+              <select ng-model="link.target" placeholder="target">
+                <option label="" value=""></option>
+                <option label="_blank" value="_blank"></option>
+                <option label="_self" value="_self"></option>
+                <option label="_parent" value="_parent"></option>
+                <option label="_top" value="_top"></option>
+                <option label="fframe" value="fframe" selected></option>
+                <option label="pop" value="pop"></option>
+              </select>
+            </li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <label for="menus" style="color:var(--applicantblue)">{{menus.length}} Menus <button class="btn btn-success btn-xs fa fa-plus" ng-click="collection.menus.push({title: 'NewMenu', icon: 'fa-circle', items: ['$ID']})"></button></label>
+          <ul ng-repeat="menu in collection.menus">
+            <label editable-text="menu.title">{{menu.title}}</label>
+            <select ng-model="menu.icon" ng-options="icon.value as icon.label for icon in ICONS"></select>
+            <li ng-repeat="link in menu.items track by $index as mlinks" >
+              <input type="text" ng-model="link.$value" placeholder="ID OPTIONAL" >
+              <button class="btn btn-xs text-success fa fa-circle-plus" ng-click="menu.items.push('ROARID')"></button> 
+              <!-- <input type="text" ng-model="link.title" placeholder="title">
+              <input type="text" ng-model="link.url" placeholder="URL">
+              <select ng-model="link.target" placeholder="target">
+                <option label="" value=""></option>
+                <option label="_blank" value="_blank"></option>
+                <option label="_self" value="_self"></option>
+                <option label="_parent" value="_parent"></option>
+                <option label="_top" value="_top"></option>
+                <option label="fframe" value="fframe" selected></option>
+                <option label="pop" value="pop"></option>
+              </select> -->
             </li>
           </ul>
         </div>
