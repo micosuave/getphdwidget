@@ -1181,6 +1181,101 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
       }
     };
   }])
+.directive('target', ['$compile', '$templateCache','Fullscreen','$window', function($compile, $templateCache, Fullscreen, $window) {
+    return {
+      restrict: 'AC',
+      scope: {},
+      link: function($scope, $el, $attr, $ctrl) {
+        
+        var popdoc = function(e) {
+          var classList = 'issuedocpanel panel panel-{{roarevent.styleClass || \'default\'}} stacker';
+          var divpanel = angular.element('<div/>').attr('class', classList).css({'position':'absolute', 'top': window.pageYOffset + 50});
+          //var header = angular.element('<h4 class="splash">' + event.rid + ' - ' + event.name + '<span class="fa fa-close btn btn-xs btn-danger" style="float: right;" onclick="$(this).parent().parent().remove()"></span></h4><h6>' + event.media + '</h6>');
+          var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
+          //var header = $('#docheader').html();
+          var skope = angular.element('<iframe allowfullscreen uib-collapse="isCollapsed" fullscreen="full" class="panel-body" style="width:100%;height:80vh;z-index:0;" />').attr('height', '80vh').attr('src', $attr.href);
+          $scope.roarevent = angular.copy($scope.$parent.roarevent||$scope.$parent.collection)|| {};
+          $scope.roarevent.title = $attr.title || $attr.href;
+
+          $scope.roarevent.date = $attr.date || null;
+          $scope.remove = function(){
+            return angular.element(divpanel).remove();
+          };
+          $scope.openFullscreen = function(el){
+            if (Fullscreen.isEnabled()){
+                return $scope.full = false;
+            }else{
+            return $scope.full = true;
+            }
+          };
+          $scope.openpreview = function(roarevent){
+            $window.open(skope.attr('src'))
+          };
+
+          angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
+          $(divpanel).draggable({
+            stack: '.stacker',
+            handle: 'h4'
+          }).resizable();
+           interact(divpanel).draggable();
+            interact('.issuedocpanel').draggable();
+          //.on('doubletap', function(event) {
+          //   event.preventDefault();
+          //   //window.open(event.currentTarget,'_blank');
+          //   //event.currentTarget.remove();
+          //   //event.currentTarget.classList.remove('rotate');
+          //   var a = event.currentTarget.getAttribute('fullscreen');
+
+          //   if (a !== true) { event.currentTarget.setAttribute('fullscreen', true); } else { event.currentTarget.setAttribute('fullscreen', false); }
+
+
+          // });
+          // interact('.issuedocpanel',{ ignoreFrom: '.card'})
+          //   .draggable({
+          //     onmove: window.dragMoveListener
+          // })
+          //   .resizable({
+          //     preserveAspectRatio: false,
+          //     edges: { left: true, right: true, bottom: true, top: false }
+          // })
+          //   .on('resizemove', function (event) {
+          //     var target = event.target,
+          //         x = (parseFloat(target.getAttribute('data-x')) || 0),
+          //         y = (parseFloat(target.getAttribute('data-y')) || 0);
+
+          // // update the element's style
+          //     target.style.width  = event.rect.width + 'px';
+          //     target.style.height = event.rect.height + 'px';
+
+          //     // translate when resizing from top or left edges
+          //     x += event.deltaRect.left;
+          //     y += event.deltaRect.top;
+
+          //     target.style.webkitTransform = target.style.transform =
+          //         'translate(' + x + 'px,' + y + 'px)';
+
+          //     target.setAttribute('data-x', x);
+          //     target.setAttribute('data-y', y);
+          //     //target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
+          // }).on('doubletap', function (event) {
+          //     event.currentTarget.remove();
+          //     //event.currentTarget.classList.remove('rotate');
+          //     event.preventDefault();
+          // });
+          // $('img').on('dblclick', function(e) {
+          //     $('.issuedocpanel').remove();
+          //     $scope.$destroy();
+          // });
+
+        };
+        $el.on('click', function(e) {
+          
+          e.preventDefault();
+          popdoc(e);
+        });
+      }
+    };
+  }])
   .directive('uploadQ', ['FileUploader', function(FileUploader) {
     return {
       restrict: 'EA',

@@ -40,7 +40,7 @@
         <div class="form-group">
           <label for="thumbnail" style="color: #006699">Notes</label>
           <br>
-          <textarea rows="15" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext notes" ng-model-options="{updateOn: 'default blur'}" class="form-control"></textarea>
+          <textarea rows="15" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext/markdown notes" ng-model-options="{updateOn: 'default blur'}" class="form-control"></textarea>
         </div>
         <div class="form-group">
           <label for="roarlist" style="color: #006699">Linked Docs</label>
@@ -48,16 +48,18 @@
           <div smartpanel="{{collection.$id}}"></div>
         </div>
       <div class="form-group">
-          <label for="menus" style="color:var(--applicantblue)">{{menus.length}} Menus <button class="btn btn-success btn-xs fa fa-plus" ng-click="collection.menus.push({title: 'NewMenu', icon: 'fa-circle', items: {0:'$ID'}})"></button></label>
+          <label for="menus" style="color:var(--applicantblue)">{{collection.menus.length}} Menus <button class="btn btn-success btn-xs  text-success fa fa-plus" ng-click="collection.menus[(collection.menus.length||0)]={'title': 'NewMenu', 'icon': 'fa-circle', 'items': {'0':'ID'}}"></button></label>
           <ul ng-repeat="menu in collection.menus">
-            <label editable-text="menu.title">{{menu.title}}</label>
-            <select ng-model="menu.icon" ng-options="icon.value as icon.label for icon in ICONS"></select>
+            <label editable-text="menu.title" class="fa {{menu-icon}}">{{menu.title}}</label>
+            <select ng-model="menu.icon" ng-options="icon.value as icon.label for icon in $root.ICONS"></select>
             <li ng-repeat="link in menu.items track by $index" >
-              <input type="text" ng-model="link.$value" placeholder="ID OPTIONAL" >
-              <button class="btn btn-xs text-success fa fa-circle-plus" ng-click="menu.items.push('ROARID')"></button> 
-              <!-- <input type="text" ng-model="link.title" placeholder="title">
-              <input type="text" ng-model="link.url" placeholder="URL">
-              <select ng-model="link.target" placeholder="target">
+              <input type="text" ng-model="link" ng-if="!poodle" ng-model-options="{updateOn: 'blur'}" placeholder="LINK_ID_#" >
+              <button class="btn btn-xs text-success fa fa-plus" ng-click="menu.items.push({title:'NewLink',url:'//',target:'_self'})"></button> 
+              <span ffbase="{{link}}" class="text-{{item.styleClass}}">{{item.title}}</span>
+              <button class="btn btn-xs text-info fa fa-chevron-right" ng-click="poodle = !poodle, link = {'title':'NewLink','url':'//','target':'_self'}"></button>
+              <input type="text" ng-if="link.title || poodle" ng-model="link.title" placeholder="title">
+              <input type="text" ng-if="link.url || poodle" ng-model="link.url" placeholder="URL">
+              <select ng-if="link.target || poodle" ng-model="link.target" placeholder="target">
                 <option label="" value=""></option>
                 <option label="_blank" value="_blank"></option>
                 <option label="_self" value="_self"></option>
@@ -65,7 +67,8 @@
                 <option label="_top" value="_top"></option>
                 <option label="fframe" value="fframe" selected></option>
                 <option label="pop" value="pop"></option>
-              </select> -->
+              </select>
+            </li>
             </li>
           </ul>
         </div>
@@ -131,7 +134,7 @@
           </ul>
         </div>
         <div class="form-group">
-          <label for="links" style="color:var(--applicantblue)">{{links.length}} Links<button class="btn btn-success btn-xs fa fa-plus" ng-click="collection.links.push({title: 'NewLink', url: '//', target:'_blank'})"></button></label>
+          <label for="links" style="color:var(--applicantblue)">{{collection.links.length}} Links<button class="btn btn-success btn-xs fa fa-plus" ng-click="collection.links[(collection.links.length || 0)]={'title': 'NewLink', 'url': '//', 'target':'_blank'}"></button></label>
           <ul>
             <li ng-repeat="link in collection.links track by $index" >
               <input type="text" ng-model="link.title" placeholder="title">
