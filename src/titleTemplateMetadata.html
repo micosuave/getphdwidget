@@ -109,9 +109,9 @@
           </ul>
         </div>
         <div class="form-group">
-          <label for="links" style="color:var(--applicantblue)">{{links.length}} Links<button class="btn btn-success btn-xs fa fa-plus" ng-click="collection.links.push({title: 'NewLink', url: '//', target:'_blank'})"></button></label>
+          <label for="links" style="color:var(--applicantblue)">{{collection.links.length}} Links<button class="btn btn-success btn-xs fa fa-plus" ng-click="collection.links.push({title: 'NewLink', url: '//', target:'_blank'})"></button></label>
           <ul>
-            <li ng-repeat="link in collection.links track by $index as links" >
+            <li ng-repeat="link in collection.links track by $index" >
               <input type="text" ng-model="link.title" placeholder="title">
               <input type="text" ng-model="link.url" placeholder="URL">
               <select ng-model="link.target" placeholder="target">
@@ -131,7 +131,7 @@
           <ul ng-repeat="menu in collection.menus">
             <label editable-text="menu.title">{{menu.title}}</label>
             <select ng-model="menu.icon" ng-options="icon.value as icon.label for icon in ICONS"></select>
-            <li ng-repeat="link in menu.items track by $index as mlinks" >
+            <li ng-repeat="link in menu.items track by $index" >
               <input type="text" ng-model="link.$value" placeholder="ID OPTIONAL" >
               <button class="btn btn-xs text-success fa fa-circle-plus" ng-click="menu.items.push('ROARID')"></button> 
               <!-- <input type="text" ng-model="link.title" placeholder="title">
