@@ -4,7 +4,7 @@
       <div class="col-sm-7">
         <div class="form-group">
           <h6>ID: {{collection.$id}}</h6>
-          <p class="btn" clipboard text="'/files/uploads/'+collection.$id+'.html'" on-click="alertify.success('/files/uploads/'+{{collection.$id}}+'.html')" style="padding:0px;">{{'/files/uploads/'+collection.$id+'.html'}}</p>
+          <p class="btn" clipboard text="'/files/uploads/'+collection.$id+'.html'" on-click="alertify.success('/files/uploads/'+{{collection.$id}}+'.html')" style="padding:0px;">'{{'/files/uploads/'+collection.$id+'.html'}}</p>
         </div>
         <div class="form-group" style="height:40px;">
           <div class="form-group col-sm-6" style="padding:0px;">
@@ -12,6 +12,7 @@
             <br>
             <input type="text" ng-model="collection.date" placeholder="YYYY-MM-DD" ng-pattern="dddd-dd-dd" ng-model-options="{updateOn: 'blur'}">
           </div>
+      
           <div class="form-group col-sm-6 ">
             <label style="color: #006699">ID#</label>
             <br>
@@ -49,15 +50,17 @@
         </div>
       <div class="form-group">
           <label for="menus" style="color:var(--applicantblue)">{{collection.menus.length}} Menus <button class="btn btn-success btn-xs  text-success fa fa-plus" ng-click="collection.menus[(collection.menus.length||0)]={'title': 'NewMenu', 'icon': 'fa-circle', 'items': {'0':'ID'}}"></button></label>
-          <ul ng-repeat="menu in collection.menus">
-            <label editable-text="menu.title" class="fa {{menu-icon}}" onaftersave="collection.$save()">
+          <ul ng-repeat="menu in collection.menus" >
+            <label   class="fa {{menu-icon}}" >
               <i class="fa {{menu.icon}}"></i>&nbsp;&nbps;{{menu.title}}</label>
+              <input type="text" ng-model="menu.title" placeholder="Title">
+              <button class="fa fa-plus text-success" ng-click="menu.items[menu.items.length || 0]='7654321'}"></button>
             <select ng-model="menu.icon" ng-options="icon.value as icon.label for icon in $root.ICONS"></select>
             <li ng-repeat="link in menu.items track by $index" >
-              <input type="text" ng-model="link" ng-if="!poodle" ng-model-options="{updateOn: 'blur'}" placeholder="LINK_ID_#" >
+              <input type="text" ng-model="link" ng-if="!poodle" ng-model-options="{updateOn: 'default blur'}" placeholder="LINK_ID_#" >
               <button class="btn btn-xs text-success fa fa-plus" ng-click="menu.items.push({title:'NewLink',url:'//',target:'_self'})"></button> 
               <span ffbase="{{link}}" class="badge badge fa {{item.icon}}">{{item.title}}</span>
-              <button class="btn btn-xs text-info fa fa-chevron-right" ng-click="poodle = !poodle, link = {'title':'NewLink','url':'//','target':'_self'};menu.items[$index]=link;" >{{link.title}}</button>
+              <button class="btn btn-xs text-info fa fa-chevron-right" ng-click="poodle = !poodle; link = {'title':'NewLink','url':'//','target':'_self'};menu.items[$index]=link;" ></button>
               <input type="text" ng-if="link.title || poodle" ng-model="link.title" placeholder="title">
               <input type="text" ng-if="link.url || poodle" ng-model="link.url" placeholder="URL">
               <select ng-if="link.target || poodle" ng-model="link.target" placeholder="target">

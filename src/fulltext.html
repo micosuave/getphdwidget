@@ -3,6 +3,10 @@
     <p>{{ collection.notes || collection.plaintext || collection.text || collection.description || collection.content || 'no notes or text' }}</p>
   </a></doc-header>
 <div matches="matches" getpdftext="{{collection.$id}}" pdf-data="{{collection.$id}}" collection="{{config.id}}" class="card card-block"></div>
+<div ng-annotate-text="collection.content"></div>
+<div markdown-to-html="collection.notes"></div>
+<textarea ng-model="collection.notes" ck-inline="ckdefault" ng-change="collection.$save()"></textarea>
+
 </div>
 
 
