@@ -1088,10 +1088,10 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
       }
     };
   }])
-  .directive('pop', ['$compile', '$templateCache','Fullscreen','$window', function($compile, $templateCache, Fullscreen, $window) {
+  .directive('pop', ['$compile', '$templateCache','Fullscreen','$window','$rootScope', function($compile, $templateCache, Fullscreen, $window, $rootScope) {
     return {
       restrict: 'AC',
-      scope: {},
+      scope: false,
       link: function($scope, $el, $attr, $ctrl) {
         var popdoc = function(e) {
           var classList = 'issuedocpanel panel panel-{{roarevent.styleClass || \'default\'}} stacker';
@@ -1100,25 +1100,26 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
           var header = $templateCache.get('{widgetsPath}/getphd/src/titleTemplate.html');
           //var header = $('#docheader').html();
           var skope = angular.element('<iframe allowfullscreen uib-collapse="isCollapsed" fullscreen="full" class="panel-body" style="width:100%;height:80vh;z-index:0;" />').attr('height', '80vh').attr('src', $attr.href);
-          $scope.roarevent = angular.copy($scope.$parent.roarevent||$scope.$parent.collection)|| {};
-          $scope.roarevent.title = $attr.title || $attr.href;
+          var scope = $rootScope.$new();
+          scope.roarevent = angular.copy($scope.$parent.roarevent||$scope.$parent.collection)|| {};
+          scope.roarevent.title = $attr.title || $attr.href;
 
-          $scope.roarevent.date = $attr.date || null;
-          $scope.remove = function(){
+          scope.roarevent.date = $attr.date || null;
+          scope.remove = function(){
             return angular.element(divpanel).remove();
           };
-          $scope.openFullscreen = function(el){
+          scope.openFullscreen = function(el){
             if (Fullscreen.isEnabled()){
-                return $scope.full = false;
+                return scope.full = false;
             }else{
-            return $scope.full = true;
+            return scope.full = true;
             }
           };
-          $scope.openpreview = function(roarevent){
+          scope.openpreview = function(roarevent){
             $window.open(skope.attr('src'))
           };
 
-          angular.element('body').append($compile(divpanel.append(header).append(skope))($scope));
+          angular.element('body').append($compile(divpanel.append(header).append(skope))(scope));
           $(divpanel).draggable({
             stack: '.stacker',
             handle: 'h4'
@@ -1184,8 +1185,10 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
   }])
 .directive('target', ['$compile', '$templateCache','Fullscreen','$window', function($compile, $templateCache, Fullscreen, $window) {
     return {
-      restrict: 'AC',
-      scope: {},
+      restrict: 'A',
+      scope: {
+        target: '@'
+      },
       link: function($scope, $el, $attr, $ctrl) {
         
         var popdoc = function(e) {
@@ -1269,10 +1272,14 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
           // });
 
         };
+        
         $el.on('click', function(e) {
-          
+            if ($scope.target !== 'pop'){
+
+            }else{   
           e.preventDefault();
           popdoc(e);
+      }
         });
       }
     };
