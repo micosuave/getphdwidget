@@ -1272,12 +1272,10 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
         };
         
         $el.on('click', function(e) {
-            if ($scope.target !== 'pop'){
-
-            }else{   
-          e.preventDefault();
           popdoc(e);
-      }
+          e.preventDefault()
+
+       
         });
       }
     };
