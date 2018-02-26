@@ -1188,6 +1188,9 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
       scope: false,
       link: function($scope, $el, $attr, $ctrl) {
         
+
+
+
         var popdoc = function(e) {
           var classList = 'issuedocpanel panel panel-{{roarevent.styleClass || \'default\'}} stacker';
           var divpanel = angular.element('<div/>').attr('class', classList).css({'position':'absolute', 'top': window.pageYOffset + 50});
@@ -1272,9 +1275,24 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
         };
         
         $el.on('click', function(e) {
-          popdoc(e);
-          e.preventDefault()
-
+          e.preventDefault();
+          switch ($attr.target) {
+          case 'pop':
+            
+            popdoc(e)
+            break;
+          case '_blank':
+            window.open($attr.href, '_blank', false)
+          case '_parent':
+          case '_top':
+          case '_self':
+            $window.iFrameElement.setAttribute('src', $attr.href);
+            break;
+          case 'fframe':
+            $('#fframe').attr('src',$attr.href);
+          default:
+            $('#'+$attr.target).attr('src', $attr.href);
+        }
        
         });
       }
