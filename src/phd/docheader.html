@@ -64,7 +64,7 @@
   </div>
   <div class="col-md-8 col-lg-9 hidden-sm-down col-2">
     <div class="bs-callout bs-callout-reverse bs-callout-{{roarevent.styleClass}}">
-      <h4 ng-dblclick="full = !full" ng-click="roarevent.showframe = !roarevent.showframe">{{roarevent.title}}</h4>
+      <h3 ng-dblclick="full = !full" ng-click="roarevent.showframe = !roarevent.showframe"><strong>{{roarevent.title}}</strong></h3>
       <p ng-bind="roarevent.description"></p>
       <p>{{roarevent.date | date }}</p>
       <cite class="pull-right clearfix"> {{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}} &nbsp;&nbsp;
