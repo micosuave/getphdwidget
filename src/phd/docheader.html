@@ -1,8 +1,13 @@
 <div class="container-fluid card bs two-col-right">
   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 card card-{{roarevent.styleClass}} col-1" style="overflow-y:auto;height:100%;">
     
-    <img dynamic-background background="url({{background(roarevent.styleClass)}})" background-position="0 0;" background-repeat="no-repeat" ng-src="{{roarevent.thumbnail || background(roarevent.styleClass)}}" class="img img-responsive img-shadow img-thumbnail" style="max-width:100%;height:auto;margin:auto;" ng-click="poodle = !poodle" />
-    
+    <img dynamic-background background="url({{background(roarevent.styleClass)}})" background-position="0 0;" background-repeat="no-repeat" ng-src="{{roarevent.thumbnail || background(roarevent.styleClass)}}" class="img img-responsive img-shadow img-thumbnail" style="width:100%;max-width:100%;height:auto;margin:auto;" ng-click="poodle = !poodle" />
+    <div class="shelf">
+                        <div class="bookend_left"></div>
+                        <div class="bookend_right"></div>
+                        <div class="reflection"></div>
+                    </div>
+    <hr>
     <h4 class="hidden-md-up" ng-click="roarevent.showframe = !roarevent.showframe">{{roarevent.title}}</h4>
     
     <p class="">
@@ -20,7 +25,7 @@
     
    
     
-    <div class="well" ng-if="roarevent.roarlist" uib-collapse="!poodle" roarevents="{{roarevent.$id}}">
+    <div ng-if="roarevent.roarlist" uib-collapse="!poodle" roarevents="{{roarevent.$id}}">
       <!-- <div class="card-header">
         <h4 class="card-title fa fa-2x fa-copy" ng-click="swap = !swap">
           <strong style="font-family: 'Helvetica',sans-serif;"> &nbsp;&nbsp;&nbsp;&nbsp;Related Documents </strong><label class="badge" >{{roarevents.length}}</label>
@@ -63,12 +68,12 @@
       <p ng-bind="roarevent.description"></p>
       <p>{{roarevent.date | date }}</p>
       <cite class="pull-right clearfix"> {{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}} &nbsp;&nbsp;
-        <a pop target="fframe" ng-href="{{roarevent.mediaUrl || roarevent.media || item.mediaUrl || item.media || collection.mediaUrl || collection.media}}" title="{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}" date="{{roarevent.date || item.date || collection.date}}">
+        <a pop ng-href="{{roarevent.mediaUrl || roarevent.media || item.mediaUrl || item.media || collection.mediaUrl || collection.media}}" title="{{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}}" date="{{roarevent.date || item.date || collection.date}}">
           <i class="fa fa-external-link"></i>
         </a>
       </cite>
     </div>
     <iframe uib-collapse="!roarevent.showframe" ng-if="roarevent.showframe" allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:80vh;min-height:80vh;overflow:auto;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
-    <div data-ng-transclude uib-collapse="roarevent.showframe" allowfullscreen style="width:100%;height:80vh;overflow-y:auto;"></div>
+    <div data-ng-transclude uib-collapse="roarevent.showframe" allowfullscreen style="width:100%;height:80vh;padding: 10px; overflow-y:auto;"></div>
   </div>
 </div>
