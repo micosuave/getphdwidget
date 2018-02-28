@@ -41,7 +41,7 @@
         <div class="form-group">
           <label for="thumbnail" style="color: #006699">Notes</label>
           <br>
-          <textarea rows="15" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext/markdown notes" ng-model-options="{updateOn: 'default blur'}" class="form-control"></textarea>
+          <textarea rows="15" type="text" style="width: 100%" ng-model="collection.notes" placeholder="Enter plaintext/markdown notes" ng-model-options="{updateOn: 'default blur'}" highlight="format" highlight-onchange="list($markers)" class="form-control"></textarea>
         </div>
         <div class="form-group">
           <label for="roarlist" style="color: #006699">Linked Docs</label>

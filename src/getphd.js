@@ -1100,7 +1100,8 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
           //var header = $('#docheader').html();
           var skope = angular.element('<iframe allowfullscreen uib-collapse="isCollapsed" fullscreen="full" class="panel-body" style="width:100%;height:80vh;z-index:0;" />').attr('height', '80vh').attr('src', $attr.href);
           var scope = $rootScope.$new();
-          scope.roarevent = angular.copy($scope.$parent.roarevent||$scope.$parent.collection)|| {};
+          scope.roarevent = angular.copy($scope.$parent ? ($scope.$parent.roarevent||$scope.$parent.collection) : {});
+          
           scope.roarevent.title = $attr.title || $attr.href;
 
           scope.roarevent.date = $attr.date || null;
