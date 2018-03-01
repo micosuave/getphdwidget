@@ -1102,7 +1102,7 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
           var scope = $rootScope.$new();
           scope.roarevent = angular.copy($scope.$parent ? ($scope.$parent.roarevent||$scope.$parent.collection) : {});
           
-          scope.roarevent.title = $attr.title || $attr.href;
+          scope.roarevent ? scope.roarevent.title = $attr.title || $attr.href : scope.roarevent = {'title': $attr.title || $attr.href}
 
           scope.roarevent.date = $attr.date || null;
           scope.remove = function(){
