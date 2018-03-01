@@ -121,6 +121,10 @@
           <input type="text" style="width: 100%" ng-model="collection.filename" placeholder="file name" ng-model-options="{updateOn: 'blur'}">
         </div>
         <div class="form-group">
+          <label style="color:#006699">WebSource Original URL</label>
+          <br>
+          <input type="text" style="width: 100%" ng-model="collection.originalUrl" placeholder="/path/to/url" ng-model-options="{updateOn: 'blur'}" ng-readonly="collection.originalUrl !== (''||null)">
+        <div class="form-group">
           <label for="url" style="color: #006699" clipboard text="'https://mozilla.github.io/pdf.js/web/viewer.html?file='" on-click="alertify.success('https://mozilla.github.io/pdf.js/web/viewer.html?file=')" ng-click="collection.mediaUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file='+collection.mediaUrl">URL</label>
           <br>
           <input type="text" style="width: 100%" ng-model="collection.mediaUrl" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}">
