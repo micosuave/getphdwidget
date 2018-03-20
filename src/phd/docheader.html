@@ -1,30 +1,24 @@
 <div class="container-fluid card bs two-col-right">
-  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 card card-{{roarevent.styleClass}} col-1" style="overflow-y:auto;height:100%;">
-    
+  <div class="col-xs-12 col-sm-10 col-md-3 col-lg-4 card card-{{roarevent.styleClass}} col-1" style="overflow-y:scroll;height:99vh;">
     <img dynamic-background background="url({{background(roarevent.styleClass)}})" background-position="0 0;" background-repeat="no-repeat" ng-src="{{roarevent.thumbnail || background(roarevent.styleClass)}}" class="img img-responsive img-shadow img-thumbnail" style="width:100%;max-width:100%;height:auto;margin:auto;" ng-click="poodle = !poodle" />
     <div class="shelf">
-                        <div class="bookend_left"></div>
-                        <div class="bookend_right"></div>
-                        <div class="reflection"></div>
-                    </div>
+      <div class="bookend_left"></div>
+      <div class="bookend_right"></div>
+      <div class="reflection"></div>
+    </div>
     <hr>
     <h4 class="hidden-md-up" ng-click="roarevent.showframe = !roarevent.showframe">{{roarevent.title}}</h4>
-    
     <p class="">
       <!-- <fieldset class="material " uib-collapse="!poodle">
         <input type="text" placeholder="Search..." ng-model="$parent.$$childHead.$$childHead.$$childTail.query">
         <hr>
         <label>Search this document</label>
       </fieldset> -->
-      <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag">&nbsp;<a ng-click="getRelated(match)">{{match}}</a>&nbsp;</label>
+      <label ng-repeat="match in roarevent.matches track by $index | groupBy: match" class="fa fa-tag">&nbsp;
+        <a ng-click="getRelated(match)">{{match}}</a>&nbsp;</label>
     </p>
-    
-     <div class="hidden-md-up" data-ng-transclude uib-collapse="roarevent.showframe" allowfullscreen style="width:100%;height:80vh;overflow-y:auto;"></div>
-
+    <div class="hidden-md-up" data-ng-transclude uib-collapse="roarevent.showframe" allowfullscreen style="width:100%;height:80vh;overflow-y:auto;"></div>
     <iframe class="hidden-md-up" ng-if="roarevent.showframe" uib-collapse="!roarevent.showframe" allowfullscreen name="fframe" fullscreen="{{full}}" style="width:100%;height:80vh;min-height:80vh;overflow:scroll;padding:5px;" ng-src="{{roarevent.mediaUrl || roarevent.media || '/llp_core/img/lll3.svg'}}"></iframe>
-    
-   
-    
     <div ng-if="roarevent.roarlist" uib-collapse="!poodle" roarevents="{{roarevent.$id}}">
       <!-- <div class="card-header">
         <h4 class="card-title fa fa-2x fa-copy" ng-click="swap = !swap">
@@ -32,11 +26,9 @@
         </h4>
       </div> -->
       <p ng-repeat="vent in roarevents | orderBy:['sortOrder','date','rid']: maybe" ffbase="{{vent.$id || vent.$value || vent}}" style="max-width:100%;width:100%;height:50px;padding:0px;" class="bs-callout-{{item.styleClass}} flex-row row" ng-class="{'bs-callout bs-callout-style bs-callout-reverse': hoverover}" ng-mouseenter="hoverover = true;" ng-mouseleave="hoverover = false" ng-click="getRelatedPage(vent)">
-         
-          <roar-chip style="margin: 0px;" id="{{vent.$id || vent.$value || vent}}" roarevent="item"></roar-chip>
-          <a ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-3x fa-chevron-right fa-pull-right showonhover" style="opacity: 0.05;margin-top:10px;" uib-tooltip="view in fframe" ng-click="roarevent.showframe = true"></a>
-        </p>
-
+        <roar-chip style="margin: 0px;" id="{{vent.$id || vent.$value || vent}}" roarevent="item"></roar-chip>
+        <a ng-href="{{item.mediaUrl || item.media || '/files/uploads/'+item.$id+'.html'}}" target="fframe" title="{{item.filename || item.file.name || item.name || item.$id}}" date="{{item.date}}" class="fa fa-3x fa-chevron-right fa-pull-right showonhover" style="opacity: 0.05;margin-top:10px;" uib-tooltip="view in fframe" ng-click="roarevent.showframe = true"></a>
+      </p>
       <!-- <div class="" uib-collapse="swap" roarevents="{{roarevent.$id}}">
         <p ng-repeat="vent in roarevent.roarlist as ventss" ffbase="{{vent.$id || vent.$value || vent}}" style="max-width:100%;width:100%;height:50px;padding:0px;" class="bs-callout-{{item.styleClass}} flex-row row" ng-class="{'bs-callout bs-callout-style bs-callout-reverse': hoverover}" ng-mouseenter="hoverover = true;" ng-mouseleave="hoverover = false" ng-click="getRelatedPage(vent)">
           <ng-mousedown="classy='bs-calloutbs-callout-reverse bs-callout-{{item.styleClass}}'" ng-mouseup="classy = null" class="{{classy}}"
@@ -62,9 +54,11 @@
       </li>
     </ul> -->
   </div>
-  <div class="col-md-8 col-lg-9 hidden-sm-down col-2">
+  <div class="col-md-9 col-lg-8 hidden-sm-down col-2">
     <div class="bs-callout bs-callout-reverse bs-callout-{{roarevent.styleClass}}">
-      <h3 ng-dblclick="full = !full" ng-click="roarevent.showframe = !roarevent.showframe"><strong>{{roarevent.title}}</strong></h3>
+      <h3 ng-dblclick="full = !full" ng-click="roarevent.showframe = !roarevent.showframe">
+        <strong>{{roarevent.title}}</strong>
+      </h3>
       <p ng-bind="roarevent.description"></p>
       <p>{{roarevent.date | date }}</p>
       <cite class="pull-right clearfix"> {{roarevent.filename || roarevent.file.name || roarevent.name || roarevent.$id}} &nbsp;&nbsp;
