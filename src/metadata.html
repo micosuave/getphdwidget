@@ -12,7 +12,7 @@
             <br>
             <input type="text" ng-model="collection.date" placeholder="YYYY-MM-DD" ng-pattern="dddd-dd-dd" ng-model-options="{updateOn: 'blur'}">
           </div>
-      
+
           <div class="form-group col-sm-6 ">
             <label style="color: #006699">ID#</label>
             <br>
@@ -21,7 +21,9 @@
         </div>
         <div class="form-group">
           <label for="dashboardTitle" style="color: #006699">Title</label>
-          <input type="text" style="width: 100%" id="dashboardTitle" ng-model="collection.title" required>
+          <input type="text" style="width: 100%" id="dashboardTitle" ng-model="collection.title" placeholder="Title" required>
+<input type="text" style="width: 100%" id="dashboardTitle2" ng-model="collection.title2" placeholder="Line 2" required>
+
         </div>
         <div class="form-group">
           <label for="description" style="color: #006699">Description</label>
@@ -58,7 +60,7 @@
             <select ng-model="menu.icon" ng-options="icon.value as icon.label for icon in $root.ICONS"></select>
             <li ng-repeat="link in menu.items track by $index" >
               <input type="text" ng-model="link" ng-if="!poodle" ng-model-options="{updateOn: 'default blur'}" placeholder="LINK_ID_#" >
-              <button class="btn btn-xs text-success fa fa-plus" ng-click="menu.items.push({title:'NewLink',url:'//',target:'_self'})"></button> 
+              <button class="btn btn-xs text-success fa fa-plus" ng-click="menu.items.push({title:'NewLink',url:'//',target:'_self'})"></button>
               <span ffbase="{{link}}" class="badge badge fa {{item.icon}}">{{item.title}}</span>
               <button class="btn btn-xs text-info fa fa-chevron-right" ng-click="poodle = !poodle; link = {'title':'NewLink','url':'//','target':'_self'};menu.items[$index]=link;" ></button>
               <input type="text" ng-if="link.title || poodle" ng-model="link.title" placeholder="title">
@@ -166,7 +168,7 @@
             </li>
           </ul>
         </div>
-        
+
       </div>
     </div>
   </form>
