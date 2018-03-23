@@ -21,8 +21,7 @@
         <div class="form-group">
           <label for="dashboardTitle" style="color: #006699">Title</label>
           <input type="text" style="width: 100%" id="dashboardTitle" ng-model="collection.title" placeholder="Title" required>
-<input type="text" style="width: 100%" id="dashboardTitle2" ng-model="collection.title2" placeholder="Line 2" required>
-
+          <input type="text" style="width: 100%" id="dashboardTitle2" ng-model="collection.title2" placeholder="Line 2" required>
         </div>
         <div class="form-group">
           <label for="description" style="color: #006699">Description</label>
@@ -92,7 +91,7 @@
           <br>
           <input type="text" style="width: 100%" ng-model="collection.filename" placeholder="file name" ng-model-options="{updateOn: 'blur'}">
         </div>
-       <div class="form-group">
+        <div class="form-group">
           <label style="color:#006699">WebSource/Original URL</label>
           <br>
           <input type="text" style="width: 100%" ng-model="collection.originalUrl" placeholder="/path/to/url" ng-model-options="{updateOn: 'blur'}" ng-readonly="collection.originalUrl !== (''||null)">
@@ -112,8 +111,15 @@
           <br>
           <input type="text" style="width: 100%" ng-model="collection.background" placeholder="Path to URL" ng-model-options="{updateOn: 'blur'}" id="background">
         </div>
+        <div class="form-group">
+          <label for="footer" style="color: #006699">Footer</label>
+          <br>
+          <input type="text" style="width: 100%" ng-model="collection.footer" placeholder="footer" ng-model-options="{updateOn: 'blur'}" id="footer">
+        </div>
         <div class="form-group" style="padding:0px;">
-          <label for="roarlist" style="color: #006699">Linked Docs <i class="badge">{{roare.length}}</i></label>
+          <label for="roarlist" style="color: #006699">Linked Docs
+            <i class="badge">{{roare.length}}</i>
+          </label>
           <ul ng-scrollbar style="height:300px;overflow-y:scroll;list-style: none;">
             <li ng-repeat="roareventid in collection.roarlist as roare" ffbase="{{roareventid}}">
               <roar-chip id="{{roareventid}}" roarevent="item"></roar-chip>
@@ -121,9 +127,11 @@
           </ul>
         </div>
         <div class="form-group">
-          <label for="links" style="color:var(--applicantblue)">{{collection.links.length}} Links<button class="btn btn-success btn-xs fa fa-plus" ng-click="collection.links.push({title: 'NewLink', url: '//', target:'_blank'})"></button></label>
+          <label for="links" style="color:var(--applicantblue)">{{collection.links.length}} Links
+            <button class="btn btn-success btn-xs fa fa-plus" ng-click="collection.links.push({title: 'NewLink', url: '//', target:'_blank'})"></button>
+          </label>
           <ul>
-            <li ng-repeat="link in collection.links track by $index" >
+            <li ng-repeat="link in collection.links track by $index">
               <input type="text" ng-model="link.title" placeholder="title">
               <input type="text" ng-model="link.url" placeholder="URL">
               <select ng-model="link.target" placeholder="target">
@@ -139,12 +147,14 @@
           </ul>
         </div>
         <div class="form-group">
-          <label for="menus" style="color:var(--applicantblue)">{{menus.length}} Menus <button class="btn btn-success btn-xs fa fa-plus" ng-click="collection.menus.push({title: 'NewMenu', icon: 'fa-circle', items: ['$ID']})"></button></label>
+          <label for="menus" style="color:var(--applicantblue)">{{menus.length}} Menus
+            <button class="btn btn-success btn-xs fa fa-plus" ng-click="collection.menus.push({title: 'NewMenu', icon: 'fa-circle', items: ['$ID']})"></button>
+          </label>
           <ul ng-repeat="menu in collection.menus">
             <label editable-text="menu.title">{{menu.title}}</label>
             <select ng-model="menu.icon" ng-options="icon.value as icon.label for icon in ICONS"></select>
-            <li ng-repeat="link in menu.items track by $index" >
-              <input type="text" ng-model="link.$value" placeholder="ID OPTIONAL" >
+            <li ng-repeat="link in menu.items track by $index">
+              <input type="text" ng-model="link.$value" placeholder="ID OPTIONAL">
               <button class="btn btn-xs text-success fa fa-circle-plus" ng-click="menu.items.push('ROARID')"></button>
               <!-- <input type="text" ng-model="link.title" placeholder="title">
               <input type="text" ng-model="link.url" placeholder="URL">
