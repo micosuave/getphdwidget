@@ -681,17 +681,21 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
                 // main.progress = 0;
                 // main.progresstwo = 0;
                 // main.extractedfiles = 0;
-                $interval(function() {
+                $timeout(function() {
                     $rootScope.$broadcast('BUILDTABS');
-                }, 5000);
+                }, 120000);
                 config.appnum = appnum;
 
                 $http.get('/getphd/' + appnum + '/' + config.PNUM + '/' + config.IPAYEAR + '/' + config.IPANUM + '/' + config.id + '/' + sour).then(function(resp) {
                     $scope.phd = resp.data;
+                    $rootScope.$broadcast('BUILDTABS');
+                     $timeout(function() {
+                        $rootScope.$broadcast('BUILDTABS');
+                    }, 120000);
                 });
                 var fref = Collection(config.id).$ref();
                 fref.child('rows').child('0').child('columns').child('0').child('widgets').child('0').child('config').set(config);
-
+                $rootScope.$broadcast('BUILDTABS');
             };
 
             main.format = function(ref) {
@@ -941,17 +945,17 @@ var app = angular.module('adf.widget.getphd', ['adf.provider',
         };
     }])
     .factory('$patentsearch', ['$q', 'filepickerService', '$http', '$document', 'ckstarter', 'ckender', '$compile', '$templateCache', '$rootScope', function($q, filepickerService, $http, $document, ckstarter, ckender, $compile, $templateCache, $rootScope) {
-
+        var that = this;
         return function(phdobj, config) {
             var deferred = $q.defer();
             if (config.PNUM && config.PNUM > 0) {
-                searchforpatent(phdobj, config.PNUM);
+                that.searchforpatent(phdobj, config.PNUM);
             } else if (config.IPANUM) {
-                searchforpatent(phdobj, config.IPAYEAR + config.IPANUM);
+                that.searchforpatent(phdobj, config.IPAYEAR + config.IPANUM);
             }
             return deferred.promise;
 
-            function searchforpatent(phdobj, pnum) {
+           that.searchforpatent = function (phdobj, pnum) {
                 var patentnumber = pnum || angular.copy(phdobj.application['Patent Number']).replace(',', '').replace(',', '');
                 //var applicationnumber = phdobj['Appliction Number'];
                 var pdfstorageuri = 'https://patentimages.storage.googleapis.com/pdfs/US' + patentnumber + '.pdf';
