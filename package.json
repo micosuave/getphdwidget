@@ -9,7 +9,7 @@
   ],
   "description": "import a patent prosecution history",
   "dependencies": {
-    "papaparse": "^4.1.2"
+    "papaparse": "^5.3.0"
   },
   "devDependencies": {
     "gulp": "^3.8.11",
